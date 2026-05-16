@@ -2,9 +2,18 @@
 # Initialize the project's R environment via renv and lock the core package stack.
 # Run once after R is installed on the system. Idempotent: safe to re-run.
 
+# Ensure we have a user-writable library before any install.
+# Default WSL R installs make /usr/local/lib/R/site-library root-only.
+user_lib <- Sys.getenv("R_LIBS_USER", unset = "~/R/library")
+user_lib <- path.expand(user_lib)
+if (!dir.exists(user_lib)) {
+  dir.create(user_lib, recursive = TRUE, showWarnings = FALSE)
+}
+.libPaths(c(user_lib, .libPaths()))
+
 # Bootstrap renv if not yet installed
 if (!requireNamespace("renv", quietly = TRUE)) {
-  install.packages("renv", repos = "https://cloud.r-project.org")
+  install.packages("renv", repos = "https://cloud.r-project.org", lib = user_lib)
 }
 
 # Initialize renv if no lockfile exists yet
@@ -59,8 +68,10 @@ core_packages <- c(
 cat("Installing core packages via renv...\n")
 renv::install(core_packages)
 
-# Snapshot to lock the environment
-renv::snapshot(prompt = FALSE)
+# Snapshot to lock the environment.
+# type = "all" snapshots every package in the project library, not just those
+# explicitly library()-d in scripts (which is the default "implicit" behavior).
+renv::snapshot(type = "all", prompt = FALSE)
 
 cat("\nSetup complete. Verify with:\n")
 cat("  library(fixest); library(lme4); library(tidyverse)\n")
