@@ -1,0 +1,46 @@
+# Raw data — large, immutable, fetched per `data/catalog.md`
+data/raw/
+data/raw/**
+
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj.user
+.Rapp.history
+
+# renv: keep lockfile + activate script, ignore library
+renv/library/
+renv/local/
+renv/cellar/
+renv/lock/
+renv/python/
+renv/staging/
+
+# Output logs (transient run output; figures and tables ARE committed)
+output/logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Quarto
+/.quarto/
+*.aux
+*.log
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+
+# Secrets
+.env
+.env.local
+*.pem
