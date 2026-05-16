@@ -8,7 +8,7 @@ set -euo pipefail
 SRC="$HOME/AID"
 DST="/mnt/c/Users/szura/Desktop/AID/mirror"
 
-mkdir -p "$DST"
+mkdir -p "$DST" "$DST/output/tables" "$DST/output/figures" "$DST/drafts" "$DST/docs/session_log"
 
 # Outputs (tables, figures) — committed, useful to see
 rsync -a --delete "$SRC/output/tables/"  "$DST/output/tables/"
@@ -19,7 +19,6 @@ rsync -a --delete --exclude '.quarto' --exclude '_files' \
   "$SRC/drafts/" "$DST/drafts/"
 
 # Current session log + plan + brief (for quick reference on Windows)
-mkdir -p "$DST/docs/session_log"
 rsync -a "$SRC/docs/plan.md"     "$DST/docs/plan.md"
 rsync -a "$SRC/docs/brief.md"    "$DST/docs/brief.md"
 rsync -a --copy-links "$SRC/docs/session_log/CURRENT.md" "$DST/docs/session_log/CURRENT.md" 2>/dev/null || true
