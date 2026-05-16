@@ -30,15 +30,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 0 — Infrastructure
-- **Last session:** 2026-05-16 — bootstrap (session 00)
+- **Phase:** 0 — Infrastructure (complete)
+- **Last session:** 2026-05-17 — bootstrap (session 00) closed
+- **Toolchain state:** R 4.3.3 on WSL Ubuntu 24.04; 188 packages locked in `renv.lock`; cmake + libuv1-dev installed as transitive build deps; `gh` repo `shotazurabishvili/AID` (private) pushed
 - **Next concrete action:**
-  1. *(One-time, blocking)* Run `sudo apt update && sudo apt install -y r-base r-base-dev libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev pandoc` — Claude Code can't enter the sudo password, so the user runs this once.
-  2. *(Then)* Initialize renv and lock the core R stack — see `R/00_setup.R`. Run: `Rscript R/00_setup.R`.
-  3. *(Then)* Verify with the checks in the plan's "Verification" section.
-  4. *(Phase 1, session 01)* Ingest OECD DAC CRS (ODA to education) — see `docs/plan.md § Phase 1` and the brief's Data Stack table.
+  *(Phase 1, session 01)* Ingest the cheapest data source first — **WDI** via the R `WDI` package — to validate the ingestion pattern end-to-end before tackling the awkward sources (OECD CRS, AidData). Write `R/10_ingest_wdi.R` that pulls the brief's WDI indicators (GDP per capita, GNI, population) for ISO3 × year, caches raw extract to `data/raw/wdi/`, normalizes country codes via `countrycode`, writes interim parquet to `data/interim/wdi.parquet`, and updates `data/catalog.md` with access date + row count.
 - **Open decisions:** None pending.
-- **Blocked on:** R install (sudo prompt for the user).
+- **Blocked on:** Nothing.
 
 ---
 
