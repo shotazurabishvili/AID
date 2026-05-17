@@ -20,7 +20,7 @@
 - [ ] ODA: commitment vs disbursement — choose and justify → **[ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md)** (Phase 5)
 - [ ] HLO: cite Altinok et al. harmonization methodology and its critics → **[ADR-0004](decisions/0004-hlo-measure.md)** (Phase 1 Session 04). Sandefur (2018) critique engaged in §3.4.
 - [ ] UNESCO enrollment: flag self-reporting incentive bias → Phase 3 EDA notes; §3.6 in `methodology.md`
-- [ ] WGI: cite Langbein & Knack aggregation critique — *Phase 1 Session 02 uses native source-of-sources bundle precisely to enable this*
+- [x] WGI: cite Langbein & Knack aggregation critique — *Phase 1 Session 02 done: native bundle ingested with `n_sources` retained; per-source values deferred to Phase 5 per ADR-0009. Evidence: `data/interim/wgi.parquet`, `docs/lit/langbein-knack-2010.md`*
 - [ ] Private expenditure: document missing data rate, especially SSA → **[ADR-0006](decisions/0006-uis-missingness-strategy.md)** (Phase 1 Session 03 + Phase 2)
 - [ ] Missingness strategy: test MCAR, choose MI or listwise deletion, run sensitivity analysis both ways → **[ADR-0006](decisions/0006-uis-missingness-strategy.md)** (Phase 2)
 

@@ -30,11 +30,20 @@ ISO3_OVERRIDES <- c(
   "Czechia" = "CZE", "Czech Republic" = "CZE",
   # Côte d'Ivoire (encoding variants)
   "Côte d'Ivoire" = "CIV", "Cote d'Ivoire" = "CIV", "Ivory Coast" = "CIV",
+  # WGI native bundle uses some non-standard codes — explicit overrides
+  "ADO" = "AND",   # Andorra (WGI uses ADO, ISO is AND)
+  "ROM" = "ROU",   # Romania (WGI uses ROM, ISO is ROU)
+  "TMP" = "TLS",   # Timor-Leste (WGI uses TMP, ISO is TLS)
+  "ZAR" = "COD",   # DR Congo (WGI uses ZAR, ISO is COD)
+  "KSV" = "XKX",   # Kosovo — WGI variant code
   # Common non-country aggregates → NA so they get filtered downstream
   "World" = NA_character_, "WLD" = NA_character_,
   "European Union" = NA_character_, "EUU" = NA_character_, "EU" = NA_character_,
   "OECD members" = NA_character_, "OED" = NA_character_,
-  "Arab World" = NA_character_, "ARB" = NA_character_
+  "Arab World" = NA_character_, "ARB" = NA_character_,
+  # Dissolved or non-sovereign territories — correctly NA
+  "ANT" = NA_character_,   # Netherlands Antilles, dissolved 2010
+  "CHI" = NA_character_    # Channel Islands (WDI grouping; not a sovereign state)
 )
 
 #' Normalize a vector of country names/codes to ISO3.
