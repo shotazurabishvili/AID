@@ -391,13 +391,91 @@ ucdp:
   url: https://ucdp.uu.se/downloads/
   auth_required: no
   methodology_cite: Pettersson, Davies et al. (annual UCDP release)
-  notes: Country-year version (not GED); pin version in catalog at access time
+  notes: 'Country-year panel aggregated from ACD (binary in_conflict, intensity_max,
+    n_conflicts, internal_armed, internationalized) + BRD (summed bd_best/low/high).
+    gwno_loc multi-country conflicts expanded via strsplit('', *'') + countrycode(origin=''gwn'').
+    Panel filled with 0s for country-years with no conflict observation (NA-as-zero
+    for in_conflict / n_conflicts / bd_*; intensity_max remains NA when no conflict).
+    BRD 25-deaths threshold: low-intensity violence below 25 battle deaths/conflict-year
+    is excluded by UCDP construction (documented behavior, not a bug). Cited as Pettersson,
+    Davies et al. Feeds Model 2 (Phase 5) as a time-varying confounder.'
+  access_date: '2026-05-17'
+  version: UCDP v25.1 (ACD + BRD-conf, last-modified 2025-06; fetched 2026-05-17)
+  n_rows: 7470
+  n_countries: 249
+  year_range:
+  - 1995.0
+  - 2024.0
+  missing_pct: 10.96
+  raw_files:
+  - name: ucdp-prio-acd-251-csv.zip
+    sha256: b49f7e80510d8a5779a52d872aef5b26456b3f5cbdd3ec32031339488e81813f
+  - name: ucdp-brd-conf-251-csv.zip
+    sha256: 1fd7dfbb182c13b88249a8cd3d2d3dce62e38631381d374dfa04958ba3a96bc4
+  variables:
+  - code: iso3
+    name: iso3
+  - code: year
+    name: year
+  - code: in_conflict
+    name: in_conflict
+  - code: intensity_max
+    name: intensity_max
+  - code: n_conflicts
+    name: n_conflicts
+  - code: internal_armed
+    name: internal_armed
+  - code: internationalized
+    name: internationalized
+  - code: bd_best
+    name: bd_best
+  - code: bd_low
+    name: bd_low
+  - code: bd_high
+    name: bd_high
+  last_updated: '2026-05-17'
 covid_closures:
   name: UNESCO COVID-19 School Closures
-  url: https://covid19.uis.unesco.org/global-monitoring-school-closures-covid19/country-dashboard/
+  url: https://data.humdata.org/dataset/global-school-closures-covid19
   auth_required: no
   methodology_cite: UNESCO COVID-19 Monitoring of School Closures
-  notes: Total/partial closure days 2020-2022 by country
+  notes: 'Country-year panel derived from UNESCO daily status time-series (transparent
+    operationalization; UNESCO''s pre-aggregated duration xlsx retained for cross-validation
+    only). Days per status category counted per (iso3, year): days_closed (Status=''Closed
+    due to COVID-19''), days_partial (Partially open), days_open (Fully open), days_break
+    (Academic break). Scope: 2020-2022 active monitoring window. Cited as UNESCO Global
+    Monitoring of School Closures. Feeds Model 2 (Phase 5) as a time-varying confounder.'
+  access_date: '2026-05-17'
+  version: UNESCO daily status CSV (Feb 2020 - Mar 2022); fetched 2026-05-17
+  n_rows: 630
+  n_countries: 210
+  year_range:
+  - 2020.0
+  - 2022.0
+  missing_pct: 1.9
+  raw_files:
+  - name: covid_impact_education.csv
+    sha256: 9e36dfac9e249958478c7d0deb4ab31cca1da7deb48c5080b9dce5a822054d9c
+  - name: duration-of-school-closures-31-march-22.xlsx
+    sha256: 5e9238d9a9874b9916933c48930697f11fbbbd3a31ff37b8fee17961eb9514d0
+  variables:
+  - code: iso3
+    name: iso3
+  - code: year
+    name: year
+  - code: days_closed
+    name: days_closed
+  - code: days_partial
+    name: days_partial
+  - code: days_open
+    name: days_open
+  - code: days_break
+    name: days_break
+  - code: first_closure_date
+    name: first_closure_date
+  - code: last_closure_date
+    name: last_closure_date
+  last_updated: '2026-05-17'
 ai_readiness:
   name: Oxford Insights AI Readiness Index
   url: https://oxfordinsights.com/ai-readiness/

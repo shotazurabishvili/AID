@@ -2,7 +2,7 @@
 
 > *Canonical reference for every variable in the project's interim parquets. Updated as ingestion scripts complete. The machine-readable version is `data/catalog.yml::variables[]` per source; this file is the human-facing rendering.*
 >
-> *Last updated: 2026-05-17 (Session 06 close — AidData GCDF v3.0 added; 7/11 sources documented; AidData Core deferred)*
+> *Last updated: 2026-05-17 (Session 07 close — UCDP + UNESCO COVID closures added; 9/11 sources documented; AidData Core deferred)*
 
 ---
 
@@ -233,9 +233,56 @@ China systematically concentrates education aid in SSA more than elsewhere. **He
 
 ---
 
+## UCDP/PRIO Armed Conflict v25.1 (`data/interim/ucdp.parquet`)
+
+10 columns; **7,470 rows** (country-year panel, balanced); 249 countries; years 1995–2024. Aggregated from UCDP/PRIO ACD v25.1 (`ucdp-prio-acd-251-csv.zip`, 44 KB; 2,752 conflict-year rows × 28 cols, 1946-2024) + UCDP BRD v25.1 conflict-level (`ucdp-brd-conf-251-csv.zip`, 38 KB; 1,586 rows × 25 cols, 1989-2024). Citation: Pettersson, Davies et al. (annual UCDP release). Feeds Model 2 (Phase 5) as time-varying confounder per methodology §3.7.
+
+**Aggregation method:** multi-country conflicts have comma-space-separated Gleditsch-Ward codes in `gwno_loc` (verified — e.g., `"651, 666"` = Egypt+Yemen). Expanded via `strsplit(gwno_loc, ", *")` and converted to ISO3 via `countrycode(origin="gwn")` with manual overrides for GW 678 ("Yemen (North Yemen)" → YEM, captures post-unification state) and GW 345 ("Serbia (Yugoslavia)" → SRB, captures the Kosovo war 1998-1999). Panel filled with 0s for country-years with no conflict observation (NA-as-zero for `in_conflict` / `n_conflicts` / `bd_*`; `intensity_max` stays NA when no conflict).
+
+**BRD 25-deaths threshold:** UCDP-BRD only records conflicts with ≥25 battle deaths/year. Low-intensity violence below this is excluded by upstream design; this is a documented feature, not a missingness issue.
+
+| Variable | Definition | Type | Notes |
+|---|---|---|---|
+| `iso3` | ISO 3166-1 alpha-3 (from `countrycode("gwn", "iso3c")` + overrides) | code | 0% missing in panel |
+| `year` | Calendar year | integer | 1995–2024 |
+| `in_conflict` | 1 if any ACD conflict active in (iso3, year), else 0 | int (0/1) | 0% missing (filled with 0); 12.3% of cells == 1 |
+| `intensity_max` | Max `intensity_level` (1=minor / 2=war) across active conflicts | int | NA when no active conflict in cell |
+| `n_conflicts` | Count of distinct `conflict_id` active in cell | int | 0 when no active conflict |
+| `internal_armed` | 1 if any `type_of_conflict == 3` (intrastate) in cell | int (0/1) | — |
+| `internationalized` | 1 if any `type_of_conflict == 4` (internationalized intrastate) | int (0/1) | — |
+| `bd_best` | Sum of BRD `bd_best` across active conflicts in (iso3, year) | numeric | 0 when no BRD row above threshold |
+| `bd_low` | Sum of BRD `bd_low` (lower-bound estimate) | numeric | — |
+| `bd_high` | Sum of BRD `bd_high` (upper-bound estimate) | numeric | — |
+
+**SSA conflict prevalence:** 25.3% of SSA country-years had active conflict 1995-2024, vs 9.2% of non-SSA — gap **+16.1 pp**. This is the well-established SSA over-representation in armed-conflict literature; documented for Phase-5 reading.
+
+---
+
+## UNESCO COVID-19 School Closures (`data/interim/covid_closures.parquet`)
+
+8 columns; **630 rows** (country-year totals); 210 countries; years 2020–2022. Derived from the UNESCO daily Status time-series on HDX (`covid_impact_education.csv`, 169,051 rows; Feb 2020 – Mar 2022). Citation: UNESCO Institute for Statistics — Global Monitoring of School Closures. Feeds Model 2 (Phase 5) as time-varying confounder per methodology §3.7.
+
+**Derivation method:** count days per Status category per (iso3, year). Date parsed via `lubridate::dmy()` (European DD/MM/YYYY format). Status takes exactly 4 values in the source CSV: "Closed due to COVID-19", "Partially open", "Fully open", "Academic break". Mapped to four count columns. **Transparent operationalization** — counts derived from daily data, not relying on UNESCO's pre-aggregation method.
+
+**Cross-validation against UNESCO pre-aggregated xlsx** (`duration-of-school-closures-31-march-22.xlsx`, weeks rounded ×7): median |diff| = **2 days**, max |diff| = **33 days** for days_closed (210 countries compared). Tiny disagreements are UNESCO's week-rounding noise.
+
+| Variable | Definition | Type | Notes |
+|---|---|---|---|
+| `iso3` | ISO 3166-1 alpha-3 (from CSV's `ISO` column, round-trip validated) | code | 0% missing in panel |
+| `year` | Calendar year (2020, 2021, or 2022) | integer | — |
+| `days_closed` | Days where Status == "Closed due to COVID-19" | int | 0% missing (filled at 0); max in 2020 = 295 days |
+| `days_partial` | Days where Status == "Partially open" | int | — |
+| `days_open` | Days where Status == "Fully open" | int | — |
+| `days_break` | Days where Status == "Academic break" | int | — |
+| `first_closure_date` | First date in country's record where Status == "Closed due to COVID-19" | Date | NA for countries with no full closure |
+| `last_closure_date` | Last such date | Date | — |
+
+Median country had 116 days fully closed across 2020-2022 (max 556 days). Scope: 2020–2022 active monitoring window; outside that window UNESCO did not monitor, so it counts as zero closure days for the panel.
+
+---
+
 ## Pending sources (to be populated)
 - **AidData Core v3.1** — *DEFERRED* (Session 06 author decision): 1947–2013 only; ~4-year overlap with HLO window (2010+) is marginal. Possible §6 historical-context ingest later if needed.
-- **UCDP/PRIO + UNESCO COVID** (Session 07) — confounders
 - **AI Readiness** (Session 08) — cross-sectional
 
 ---

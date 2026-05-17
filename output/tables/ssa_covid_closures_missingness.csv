@@ -1,0 +1,5 @@
+indicator,ssa_missing_pct,non_ssa_missing_pct,gap_pct,n_ssa,n_non_ssa
+days_closed,0,0,0,144,486
+days_partial,0,0,0,144,486
+days_open,0,0,0,144,486
+days_break,0,0,0,144,486

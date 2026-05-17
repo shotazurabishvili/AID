@@ -10,7 +10,7 @@
 *(From brief § Self-Review Protocol — Statistical Layer)*
 
 - [ ] Verify all causal language is precise (association vs causation) — *manuscript-wide audit in Pass 2 (Phase 12)*
-- [ ] Identify time-varying confounders (conflict, COVID, political transitions) — *partially addressed: UCDP + UNESCO COVID ingested Phase 1 Session 07; political transitions via WGI*
+- [x] Identify time-varying confounders (conflict, COVID, political transitions) — *Phase 1 Session 07 done: UCDP/PRIO ACD + BRD v25.1 aggregated to country-year panel (data/interim/ucdp.parquet, 7470 × 10 × 1995-2024, 12.3% of cells with active conflict, SSA prevalence gap +16.1 pp); UNESCO COVID closures derived from daily HDX status CSV (data/interim/covid_closures.parquet, 630 × 8 × 2020-2022, cross-validated against UNESCO pre-aggregated at median |diff| = 2 days). Political transitions captured via WGI (Session 02).*
 - [ ] Test for reverse causality: Granger causality test on panel — *Phase 5*
 - [~] Characterize selection bias from missing-data countries explicitly — *Phase 1 Session 03 partial: UIS SSA pattern documented at `output/tables/ssa_uis_missingness.csv`. Full version (combined panel) is Phase 1 Session 09 audit + ADR-0006*
 
@@ -65,7 +65,7 @@
 
 ## Reproducibility Obligations
 
-- [ ] All raw data hashed (SHA-256) at fetch time → recorded in `data/catalog.yml::raw_files[]` — **partial** (WDI, HCI, WGI, UIS, HLO primary, HLO AAP-2018, OECD CRS, AidData GCDF done; 4 sources pending: AidData Core (deferred), UCDP, COVID closures, AI readiness)
+- [ ] All raw data hashed (SHA-256) at fetch time → recorded in `data/catalog.yml::raw_files[]` — **partial** (WDI, HCI, WGI, UIS, HLO primary, HLO AAP-2018, OECD CRS, AidData GCDF, UCDP, COVID closures done; 2 sources pending: AidData Core (deferred), AI readiness)
 - [ ] All code committed to GitHub before each phase close — **on track**
 - [ ] OSF or Harvard Dataverse deposit live before submission — Phase 14
 - [ ] `renv.lock` pins full package environment — **complete (188 packages)**
