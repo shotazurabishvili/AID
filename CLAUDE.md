@@ -37,13 +37,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 1 — Data Ingestion & Audit (4 of 11 sources complete)
-- **Last session:** 2026-05-17 — Session 03 (UNESCO UIS, with SSA missingness pattern characterized)
-- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis` → `data/interim/{wdi,hci,wgi,uis}.parquet`
-- **Sources pending:** hlo, oecd_crs, aiddata_core, aiddata_gcdf, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** 0001 Accepted; 0002–0009 stubbed Pending. ADR-0006 has empirical "Data observed" paragraph appended (Session 03 finding: private exp 91.8% missing in SSA).
+- **Phase:** 1 — Data Ingestion & Audit (5 of 11 sources complete)
+- **Last session:** 2026-05-17 — Session 04 (HLO ingested; ADR-0004 Accepted; methodology §3.4 expanded with empirical Sandefur engagement)
+- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018` robustness) → `data/interim/{wdi,hci,wgi,uis,hlo,hlo_aap2018}.parquet`
+- **Sources pending:** oecd_crs, aiddata_core, aiddata_gcdf, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
+- **ADRs:** 0001, 0004 Accepted; 0002, 0003, 0005–0009 Pending. ADR-0004 carries empirical "Data observed" block (Session 04 finding: `hlo_score` SSA gap −3.2 pp; `hlo_aap` SSA gap +8.75 pp). ADR-0006 carries empirical "Data observed" block (Session 03 finding: private exp 91.8% missing in SSA).
 - **Next concrete action:**
-  *(Phase 1, Session 04)* Ingest **HLO — the headline outcome variable**. Primary: WB `HD.HCI.HLOS` via the WDI R package. Sensitivity: Altinok-Angrist-Patrinos (2018) dataset (separate download). Lock [ADR-0004](docs/decisions/0004-hlo-measure.md) at end of session (Status: Pending → Accepted) with the specific release version pinned. Update `docs/lit/altinok-angrist-patrinos-2018.md` and `docs/lit/sandefur-2018.md` with the engagement.
+  *(Phase 1, Session 05)* Ingest **OECD DAC CRS** (Creditor Reporting System) — the awkward source per `docs/plan.md § Phase 1 — Data ingestion order`. Bulk extract from `data-explorer.oecd.org`; filter to sector codes 110/111/112/113/114 (education); **retain project description text** for [ADR-0007](docs/decisions/0007-oecd-crs-intervention-typology.md) (intervention-typology coding, Phase 7 lock). Touches [ADR-0005](docs/decisions/0005-oda-commitment-vs-disbursement.md) (commitment vs disbursement, Phase 5 lock) and [ADR-0008](docs/decisions/0008-china-aid-inclusion.md) (China inclusion, Phase 5 lock); both stay Pending after Session 05.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

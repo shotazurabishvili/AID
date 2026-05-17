@@ -1,0 +1,3 @@
+indicator,ssa_missing_pct,non_ssa_missing_pct,gap_pct,n_ssa,n_non_ssa
+hlo_score,74.39,77.59,-3.2,574,2008
+hlo_aap,87.98,79.23,8.75,574,2008
