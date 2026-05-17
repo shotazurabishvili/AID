@@ -21,6 +21,9 @@ renv/staging/
 # Output logs (transient run output; figures and tables ARE committed)
 output/logs/
 
+# Python venv used as a one-off tool (Deflate64 zip extraction for OECD CRS)
+.venv-tools/
+
 # OS
 .DS_Store
 Thumbs.db

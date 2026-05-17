@@ -2,7 +2,7 @@
 
 > *Canonical reference for every variable in the project's interim parquets. Updated as ingestion scripts complete. The machine-readable version is `data/catalog.yml::variables[]` per source; this file is the human-facing rendering.*
 >
-> *Last updated: 2026-05-17 (Session 04 close — HLO added; 5/11 sources documented)*
+> *Last updated: 2026-05-17 (Session 05 close — OECD CRS added; 6/11 sources documented)*
 
 ---
 
@@ -147,8 +147,49 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 
 ---
 
+## OECD CRS — DAC Creditor Reporting System (`data/interim/oecd_crs.parquet`)
+
+38 columns; **537,586 rows** (project-level); 172 recipient countries × 125 donor identities; years 1995–2024. Bulk parquet release **CRS-Parquet-v20260408** fetched via dynamic SDMX file-ID discovery (see `R/10_ingest_oecd_crs.R` header for the SDMX endpoint + marker regex). Schema is the legacy **CRS dotStat format**: commitments and disbursements are SEPARATE wide columns (NOT long-format rows on a measure dimension).
+
+**Sector filter at ingest:** `sector_code %in% c(110, 111, 112, 113, 114)` (education sector group). 5-digit `purpose_code` retained for Phase-7 typology granularity. 10.6% of pre-filter rows were on regional/unspecified aggregates (logged in `output/logs/iso3_unresolved_oecd_crs.csv`) and dropped from the country panel.
+
+**Resolution note:** project-level rows. Aggregation to ISO3 × year (sum across donors per recipient; 3-year MA per ADR-0005) happens in `R/30_merge_panel.R` at Phase 2. Do not aggregate in ingest.
+
+| Variable | Definition | Type | Notes |
+|---|---|---|---|
+| `iso3` | ISO 3166-1 alpha-3 (normalized from `recipient_name` via `country.name`) | code | 0% missing in cleaned panel |
+| `year` | Calendar year of obligation/flow | integer | 1995–2024 |
+| `donor_code`, `donor_name` | DAC member numeric code + label | numeric/char | 125 donor identities incl. multilateral channels |
+| `agency_code`, `agency_name` | Implementing donor agency (sub-donor) | numeric/char | — |
+| `crs_id`, `project_number` | Project-level identifiers | char | uniqueness within (donor, year) |
+| `recipient_code`, `recipient_name` | OECD area code + label | numeric/char | OECD uses ITS OWN code system (Nigeria=261, not ISO numeric 566) — that's why iso3 is derived from `recipient_name` |
+| `region_name`, `incomegroup_name` | OECD region + WB income-group labels | char | for descriptives |
+| `sector_code`, `sector_name` | 3-digit sector group (110-114 = education) | int32/char | filter applied at ingest |
+| `purpose_code`, `purpose_name` | 5-digit purpose code (11110, 11220, …) | int32/char | finer typology for ADR-0007 |
+| `flow_code`, `flow_name` | Flow type (ODA grants, ODA loans, OOF, etc.) | int/char | — |
+| `bi_multi` | Bilateral vs multilateral indicator | int | — |
+| `category`, `finance_t`, `aid_t` | OECD category / finance type / aid type | int | grant/loan distinction; modality |
+| `channel_code`, `channel_name`, `parent_channel_code` | Implementing channel | int/char | — |
+| `usd_commitment`, `usd_commitment_defl` | Commitment, current and constant USD millions | numeric | **ADR-0005 candidate column** |
+| `usd_disbursement`, `usd_disbursement_defl` | Disbursement, current and constant USD millions | numeric | **ADR-0005 candidate column** (working-preference primary) |
+| `usd_received`, `usd_received_defl` | Received, current and constant USD | numeric | special cases |
+| `usd_grant_equiv`, `usd_grant_equiv_defl` | Grant equivalent (post-2018 ODA methodology) | numeric | only populated 2015+; 68% missing in the panel |
+| `currency_code` | Currency the donor reported in | char | — |
+| `project_title` | Title text | char | **ADR-0007 typology source** |
+| `short_description` | Short project description | char | **ADR-0007 typology source** |
+| `long_description` | Long project description | char | **ADR-0007 typology source** |
+| `keywords` | Keyword tags | char | **ADR-0007 typology source** |
+
+**SSA missingness contrast** on (iso3, year) availability of *any* observation per measure (`output/tables/ssa_oecd_crs_missingness.csv`):
+- `has_commitment`:   SSA 0.00% missing vs Rest 1.27% — gap **−1.27 pp** (SSA modestly better)
+- `has_disbursement`: SSA 1.62% missing vs Rest 2.73% — gap **−1.11 pp** (SSA modestly better)
+- `has_grant_equiv`:  SSA 66.6% missing vs Rest 68.5% — gap **−1.85 pp** (both groups sparse — measure only exists 2015+)
+
+Excellent SSA coverage parity for the headline commitment and disbursement measures.
+
+---
+
 ## Pending sources (to be populated)
-- **OECD CRS** (Session 05) — DAC Creditor Reporting System (incl. project descriptions)
 - **AidDataCore + GCDF v3.0** (Session 06) — DAC + non-DAC + Chinese aid
 - **UCDP/PRIO + UNESCO COVID** (Session 07) — confounders
 - **AI Readiness** (Session 08) — cross-sectional

@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-17 (Session 04 close — HLO ingested; ADR-0004 Accepted; 5/11 required sources complete)*
+> *Last updated: 2026-05-17 (Session 05 close — OECD DAC CRS ingested; 6/11 required sources complete)*
 
 ---
 
@@ -56,6 +56,8 @@ The two measures diverge sharply on SSA representation. The primary HCI measure 
 **Locked decision:** [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md) — Pending (Phase 5).
 
 Primary: OECD DAC CRS disbursements to education (sector codes 110/111/112/113/114), 3-year lagged moving average. Robustness: commitments, alternative lag structures, and (per ADR-0008) Chinese development finance from AidData GCDF v3.0.
+
+**Ingest done (Phase 1 Session 05).** Bulk parquet (~1 GB, release CRS-Parquet-v20260408) fetched via dynamic SDMX file-ID discovery (`sdmx.oecd.org/.../DSD_CRS@DF_CRS/1.6` → IDFile GUID). Stored at project-level resolution in `data/interim/oecd_crs.parquet` — **537,586 rows × 38 columns, 172 recipient countries × 125 donor identities, 1995–2024**. Commitments and disbursements are SEPARATE wide columns (legacy CRS dotStat format), not long-format rows, with paired `_defl` constant-USD variants — so the ADR-0005 question becomes a *column choice* at Phase 5, not a *row filter*. Grant-equivalent measure (`usd_grant_equiv`) is the post-2018 ODA methodology and only populates 2015+. Project description text (`project_title`, `short_description`, `long_description`, `keywords`) and the 5-digit `purpose_code` are retained for ADR-0007 typology coding (Phase 7). Country-year aggregation (sum across donors per recipient × year) and 3-year MA happen in `R/30_merge_panel.R` at Phase 2 — ingest preserves source-native resolution. **SSA coverage parity is excellent** on commitments and disbursements (gap −1.3 / −1.1 pp respectively); see `output/tables/ssa_oecd_crs_missingness.csv`.
 
 ## 3.6 Controls — macro and sector
 
