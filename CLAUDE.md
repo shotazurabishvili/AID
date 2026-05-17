@@ -37,13 +37,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 1 — Data Ingestion & Audit (6 of 11 sources complete)
-- **Last session:** 2026-05-17 — Session 05 (OECD DAC CRS ingested; 537,586 project-level rows × 172 countries × 125 donors × 1995–2024; ADRs 0005/0007/0008 preserved as Pending)
-- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs` → `data/interim/{wdi,hci,wgi,uis,hlo,hlo_aap2018,oecd_crs}.parquet`
-- **Sources pending:** aiddata_core, aiddata_gcdf, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** 0001, 0004 Accepted; 0002, 0003, 0005–0009 Pending. ADR-0004 carries empirical "Data observed" block (Session 04: `hlo_score` SSA gap −3.2 pp; `hlo_aap` SSA gap +8.75 pp). ADR-0006 carries empirical "Data observed" block (Session 03: private exp 91.8% missing in SSA).
+- **Phase:** 1 — Data Ingestion & Audit (7 of 11 sources complete)
+- **Last session:** 2026-05-17 — Session 06 (AidData GCDF v3.0 ingested; 2,654 project-level rows × 138 countries × 2000–2021; ADR-0008 preserved as Pending with Data Observed; AidData Core deferred per author)
+- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf` → `data/interim/{wdi,hci,wgi,uis,hlo,hlo_aap2018,oecd_crs,aiddata_gcdf}.parquet`
+- **Sources pending:** aiddata_core (deferred), ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
+- **ADRs:** 0001, 0004 Accepted; 0002, 0003, 0005–0009 Pending. ADR-0004 carries empirical "Data observed" block (Session 04: `hlo_score` SSA gap −3.2 pp; `hlo_aap` SSA gap +8.75 pp). ADR-0006 carries empirical "Data observed" block (Session 03: private exp 91.8% missing in SSA). ADR-0008 carries empirical "Data observed" block (Session 06: GCDF SSA coverage +13.1 pp gap; 60.4% of all Chinese education aid bound for SSA; 47 of 48 SSA countries reached).
 - **Next concrete action:**
-  *(Phase 1, Session 06)* Ingest **AidData Core Research Release** + **AidData GCDF v3.0** (Chinese aid). AidData Core covers DAC + non-DAC project-level flows ~2000–2014; GCDF v3.0 is China-specific aid (TUFF methodology, Custer et al.). Both feed [ADR-0008](docs/decisions/0008-china-aid-inclusion.md) (Phase 5 lock) — GCDF is the principal robustness for the China non-DAC blind spot in OECD CRS. Download URL for GCDF is `https://docs.aiddata.org/ad4/datasets/AidDatas_Global_Chinese_Development_Finance_Dataset_Version_3_0.zip` (known from `oda_reader` source).
+  *(Phase 1, Session 07)* Ingest **UCDP/PRIO Armed Conflict Dataset (country-year)** + **UNESCO COVID-19 School Closures**. Both are confounders for Model 2 per [methodology §3.7](docs/methodology.md). UCDP from `https://ucdp.uu.se/downloads/` (binary in-conflict indicator + battle-related deaths intensity). COVID closures from `https://covid19.uis.unesco.org/global-monitoring-school-closures-covid19/` (total + partial closure days per country, 2020–2022). Both sources are smaller than CRS/GCDF; ~45 min expected.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

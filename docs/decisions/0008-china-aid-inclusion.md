@@ -25,6 +25,31 @@ To be locked in Phase 5. Working preference: **Option 2** — OECD CRS as primar
 - The robustness check tells the China story without contaminating the primary.
 - Avoids TUFF/CRS methodology conflation in the headline coefficient.
 
+### Data observed (Phase 1 Session 06)
+
+Empirical GCDF v3.0 coverage of education aid from `data/interim/aiddata_gcdf.parquet` (2,654 project-level rows × 30 columns × 138 countries × 2000–2021, filtered to `Sector Name = EDUCATION` + `Recommended For Aggregates = Yes`):
+
+| Metric | Value |
+|---|---|
+| Total Chinese education projects (post-filter) | 2,654 |
+| Total commitment, constant USD 2021 | **$9.29 B** (60.4% of which is SSA-bound) |
+| Recipient countries reached | 138 |
+| SSA countries with Chinese education projects | **47 of 48** in SSA universe |
+| SSA project count | 1,131 |
+| SSA total commitment | **$5.61 B constant USD 2021** |
+
+**SSA coverage contrast** on (iso3, year) project-presence (`output/tables/ssa_aiddata_gcdf_coverage.csv`):
+- SSA: **45.8%** of country-year cells have ≥1 Chinese education project
+- Rest of world: **32.7%**
+- Gap: **+13.1 pp** — China systematically concentrates education aid in SSA more than elsewhere
+
+**Substantive implications for Phase 5 (with/without-China Model 2):**
+- The non-DAC blind spot is structurally largest in SSA. Dropping GCDF from the primary spec (Option 2) means the OECD-CRS-only Model 2 systematically under-counts education aid received by 47 SSA countries.
+- The robustness check (Model 2 + GCDF flows added) becomes the substantively interesting comparison — not a courtesy sensitivity. If the within-country ODA coefficient changes sign or magnitude when GCDF is added, the OECD-only headline is biased; if it doesn't, the OECD-only result is robust to the non-DAC blind spot.
+- §6 Discussion cites these numbers, not generalities. "China funds education in 47 of 48 SSA countries with $5.61 B in commitments over 2000–2021" is the empirical face of the structural measurement-failure argument.
+
+AidData Core Research Release v3.1 is **not** ingested this session (frozen at 2016 release ending 2013; ~4-year overlap with HLO window 2010+ is marginal). The `aiddata_core` catalog stub remains as a Pending note for possible §6 historical-context use later.
+
 ## Consequences
 
 - Robustness Table will include an "with-China" and "without-China" column.

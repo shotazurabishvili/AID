@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-17 (Session 05 close — OECD DAC CRS ingested; 6/11 required sources complete)*
+> *Last updated: 2026-05-17 (Session 06 close — AidData GCDF v3.0 ingested; 7/11 required sources complete; AidData Core deferred)*
 
 ---
 
@@ -137,7 +137,9 @@ Phase 1 Session 05 ingests CRS *with description text retained*. Phase 7 impleme
 
 **Locked decision:** [ADR-0008](decisions/0008-china-aid-inclusion.md) — Pending (Phase 5).
 
-Phase 1 Session 06 ingests AidData Core + AidData GCDF v3.0. Phase 5 primary uses OECD CRS only; GCDF as headline robustness. The non-DAC blind spot is itself a discussion point in §6.
+**Ingest done (Phase 1 Session 06).** AidData GCDF v3.0 (China-only, 2000–2021, TUFF methodology) is on disk at `data/interim/aiddata_gcdf.parquet` — **2,654 project-level rows × 30 columns × 138 recipient countries**. Filtered to `Sector Name = "EDUCATION"` and `Recommended For Aggregates = "Yes"` at ingest (per the GCDF 3.0 codebook; the recommended-aggregates filter avoids umbrella double-counting). Year filter on `Commitment Year` in 1995–2024 (effective 2000–2021). Phase 5 primary uses OECD CRS only; GCDF as headline robustness for the with-vs-without-China sensitivity. AidData Core Research Release v3.1 is **not** ingested — frozen 2016 release ending 2013 gives only marginal overlap with the HLO-usable 2010+ window (author decision Session 06).
+
+**Empirical SSA headline** (the non-DAC blind spot, quantified): China funds education projects in **47 of 48** SSA countries; **1,131 projects** worth **$5.61 B constant USD 2021**. That is **60.4% of all Chinese education aid** ($9.29 B total) over the period. SSA coverage of China's education portfolio is **45.8%** of country-year cells vs **32.7%** for the rest of the world — a **+13.1 pp gap**. China systematically concentrates education aid in SSA more than elsewhere. This is the structural non-DAC blind spot in OECD CRS made concrete; §6 Discussion cites these numbers, not generalities. SSA-coverage contrast at `output/tables/ssa_aiddata_gcdf_coverage.csv`.
 
 ## 3.12 Robustness checks (cumulative list)
 
