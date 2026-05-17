@@ -2,7 +2,7 @@
 
 > *Canonical reference for every variable in the project's interim parquets. Updated as ingestion scripts complete. The machine-readable version is `data/catalog.yml::variables[]` per source; this file is the human-facing rendering.*
 >
-> *Last updated: 2026-05-17 (Session 05 close — OECD CRS added; 6/11 sources documented)*
+> *Last updated: 2026-05-17 (Session 06 close — AidData GCDF v3.0 added; 7/11 sources documented; AidData Core deferred)*
 
 ---
 
@@ -189,8 +189,52 @@ Excellent SSA coverage parity for the headline commitment and disbursement measu
 
 ---
 
+## AidData GCDF v3.0 — Chinese development finance (`data/interim/aiddata_gcdf.parquet`)
+
+30 columns; **2,654 rows** (project-level, education sector only); 138 recipient countries; years 2000–2021. Source: AidData Global Chinese Development Finance Dataset v3.0, TUFF methodology (Custer, Strange, Dreher, Tierney et al.). Bulk release xlsx dated 2024-06-17 (per zip mtime); fetched from `https://docs.aiddata.org/ad4/datasets/AidDatas_Global_Chinese_Development_Finance_Dataset_Version_3_0.zip`. Feeds [ADR-0008](decisions/0008-china-aid-inclusion.md) (Pending → Phase 5 lock).
+
+**Filters at ingest:**
+- `Sector Name == "EDUCATION"` (1 of 24 sector values in GCDF — note: GCDF uses string-named sectors, NOT CRS purpose codes)
+- `Recommended For Aggregates == "Yes"` (per GCDF 3.0 codebook; avoids umbrella project double-counting)
+- `Commitment Year` in `1995:2024`
+
+5 rows on regional aggregates ("Africa, regional", "Asia, regional", etc.) logged to `output/logs/iso3_unresolved_aiddata_gcdf.csv` and dropped.
+
+**Resolution note:** project-level rows. Aggregation to (iso3, year) sum-of-amounts happens in `R/30_merge_panel.R` at Phase 2. GCDF and OECD CRS interim parquets are NOT directly stackable on sector dimension (different taxonomies); they're stacked on (iso3, year) value totals.
+
+| Variable | Definition | Type | Notes |
+|---|---|---|---|
+| `iso3` | ISO 3166-1 alpha-3 (round-trip-validated from `Recipient ISO-3`; falls back to name-based for regionals) | code | 0% missing in cleaned panel |
+| `year` | `Commitment Year` cast to integer | integer | 2000–2021 |
+| `AidData Record ID` | Project identifier | char | uniqueness within (year, recipient) |
+| `Recommended For Aggregates` | Always "Yes" in cleaned panel (codebook filter applied) | char | — |
+| `Recipient`, `Recipient ISO-3`, `Recipient Region` | Recipient identity + AidData region label | char | — |
+| `Commitment Year`, `Implementation Start Year`, `Completion Year` | Year columns (Commitment is primary; others retained for Phase 5 timing analyses) | int/numeric | — |
+| `Status` | Project status (Completion / Implementation / etc.) | char | — |
+| `Intent` | Project intent classification | char | — |
+| `Sector Code`, `Sector Name` | GCDF sector taxonomy (24 string-named sectors; we keep only EDUCATION) | int/char | — |
+| `Infrastructure`, `COVID` | GCDF flags (Yes/No) | char | — |
+| `Flow Type`, `Flow Type Simplified`, `Flow Class` | Concessional vs non-concessional classifications | char | — |
+| `OECD ODA Concessionality Threshold` | Whether project meets OECD ODA concessionality criteria | char | direct bridge to OECD's ODA definition |
+| `Funding Agencies`, `Funding Agencies Type` | Chinese financiers (e.g., China Development Bank, MOFCOM) | char | analytically loaded for ADR-0008 sub-question |
+| `Direct Receiving Agencies`, `Direct Receiving Agencies Type` | Recipient-side agencies | char | — |
+| `Amount (Constant USD 2021)` | **Primary value column** — total commitment in constant USD 2021 | numeric | for Phase-2 panel construction |
+| `Amount (Original Currency)`, `Original Currency` | Commitment in original currency | numeric/char | — |
+| `Amount (Nominal USD)` | Commitment in current USD | numeric | — |
+| `Title`, `Description` | Project title + free-text description | char | could supplement ADR-0007 typology coding |
+
+**SSA-coverage contrast** on (iso3, year) presence of any Chinese education project (`output/tables/ssa_aiddata_gcdf_coverage.csv`) — **NOT missingness**: GCDF only contains Chinese-funded projects, so absence ≠ missing data, it means "China didn't fund there".
+
+| Indicator | SSA coverage % | Non-SSA coverage % | Gap |
+|---|---|---|---|
+| `has_china_edu_project` | **45.8%** | 32.7% | **+13.1 pp** |
+
+China systematically concentrates education aid in SSA more than elsewhere. **Headline volume**: 1,131 SSA education projects across 47 of 48 SSA countries, worth $5.61 B constant USD 2021. Empirical hook for ADR-0008 Data Observed; will inform §6 Discussion paragraph on the non-DAC blind spot.
+
+---
+
 ## Pending sources (to be populated)
-- **AidDataCore + GCDF v3.0** (Session 06) — DAC + non-DAC + Chinese aid
+- **AidData Core v3.1** — *DEFERRED* (Session 06 author decision): 1947–2013 only; ~4-year overlap with HLO window (2010+) is marginal. Possible §6 historical-context ingest later if needed.
 - **UCDP/PRIO + UNESCO COVID** (Session 07) — confounders
 - **AI Readiness** (Session 08) — cross-sectional
 

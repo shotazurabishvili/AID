@@ -1,0 +1,2 @@
+indicator,ssa_coverage_pct,non_ssa_coverage_pct,gap_pp,n_ssa,n_non_ssa
+has_china_edu_project,45.85,32.73,13.12,506,776

@@ -270,7 +270,86 @@ aiddata_gcdf:
   url: https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0
   auth_required: no
   methodology_cite: AidData TUFF methodology; Custer et al.
-  notes: China-specific aid; complements OECD CRS (China is not DAC member)
+  notes: 'Chinese development finance only (TUFF methodology). Filtered to Sector
+    Name = EDUCATION + Recommended For Aggregates = Yes (per AidData codebook; avoids
+    umbrella double-counting). Year filter on Commitment Year in 1995-2024. Project-level
+    resolution preserved; country-year aggregation at Phase 2. SSA headline: 1131
+    projects across 47 countries; $5.61 B constant-USD. SSA-coverage contrast at output/tables/ssa_aiddata_gcdf_coverage.csv
+    (coverage, NOT missingness). Feeds ADR-0008 (Phase 5 lock). AidData Core v3.1
+    deferred per Session-06 author decision.'
+  access_date: '2026-05-17'
+  version: GCDF v3.0 (xlsx release 2024-06-17; fetched 2026-05-17)
+  n_rows: 2654
+  n_countries: 138
+  year_range:
+  - 2000
+  - 2021
+  missing_pct: 57.77
+  raw_files:
+  - name: gcdf_bulk.zip
+    sha256: 290da2887a6984beaa6d269d2171798951e0644cae579497dafb8bd78646e097
+  - name: AidDatasGlobalChineseDevelopmentFinanceDataset_v3.0.xlsx
+    sha256: 52239cc315e65041864fa08c3b95109d821fa3d6c2cfe1aea0198f6ccefd4c38
+  variables:
+  - code: AidData Record ID
+    name: AidData Record ID
+  - code: Recommended For Aggregates
+    name: Recommended For Aggregates
+  - code: Recipient
+    name: Recipient
+  - code: Recipient ISO-3
+    name: Recipient ISO-3
+  - code: Recipient Region
+    name: Recipient Region
+  - code: Commitment Year
+    name: Commitment Year
+  - code: Implementation Start Year
+    name: Implementation Start Year
+  - code: Completion Year
+    name: Completion Year
+  - code: Status
+    name: Status
+  - code: Intent
+    name: Intent
+  - code: Sector Code
+    name: Sector Code
+  - code: Sector Name
+    name: Sector Name
+  - code: Infrastructure
+    name: Infrastructure
+  - code: COVID
+    name: COVID
+  - code: Flow Type
+    name: Flow Type
+  - code: Flow Type Simplified
+    name: Flow Type Simplified
+  - code: Flow Class
+    name: Flow Class
+  - code: OECD ODA Concessionality Threshold
+    name: OECD ODA Concessionality Threshold
+  - code: Funding Agencies
+    name: Funding Agencies
+  - code: Funding Agencies Type
+    name: Funding Agencies Type
+  - code: Direct Receiving Agencies
+    name: Direct Receiving Agencies
+  - code: Direct Receiving Agencies Type
+    name: Direct Receiving Agencies Type
+  - code: Amount (Constant USD 2021)
+    name: Amount (Constant USD 2021)
+  - code: Amount (Original Currency)
+    name: Amount (Original Currency)
+  - code: Amount (Nominal USD)
+    name: Amount (Nominal USD)
+  - code: Original Currency
+    name: Original Currency
+  - code: Title
+    name: Title
+  - code: Description
+    name: Description
+  - code: iso3
+    name: iso3
+  last_updated: '2026-05-17'
 uis:
   name: UNESCO Institute for Statistics
   url: https://uis.unesco.org/
