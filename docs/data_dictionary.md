@@ -89,9 +89,35 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 
 ---
 
-## Pending sources (to be populated)
+## UIS — UNESCO Institute for Statistics (`data/interim/uis.parquet`)
 
-- **UIS** (Session 03) — UNESCO Institute for Statistics
+7 variables; 7059 rows; 220 countries; years 1970–2025. From UIS SDG bulk (Feb 2026 release). Scope is *minimal*: private expenditure share + out-of-school rates only, since WDI already covers enrollment / PTR / public expenditure / completion. Adding other UIS indicators requires an ADR.
+
+**Code-substitution notes (planned → actual):**
+- `XGDP.FSHH.FFNTP` → `XGDP.FSHH.FFNTR` (only "Initial" variant available)
+- `XGDP.FSGOV.FFNTP` → `XGDP.FSGOV` (use UIS simple total; cleanest WDI cross-check)
+- `ROFST.<lvl>` → `ROFST.<lvl>.CP` (UIS uses `.CP` for cumulative percentage)
+
+| Variable | Source code | Definition | Units | Transform | Missing % |
+|---|---|---|---|---|---|
+| `iso3` | — | ISO 3166-1 alpha-3 (`COUNTRY_ID` in UIS data) | code | normalize_iso3 | 0% |
+| `year` | — | Calendar year | integer | as.integer | 0% |
+| `priv_exp_pct_gdp` | XGDP.FSHH.FFNTR | Initial private (household) expenditure on education as % of GDP | % | none | **83.0%** (91.8% in SSA) |
+| `gov_exp_pct_gdp_uis` | XGDP.FSGOV | Government expenditure on education as % of GDP (UIS) — cross-check vs WDI `edu_exp_pct_gdp`, NOT for model use | % | none | 26.9% |
+| `oos_rate_primary` | ROFST.1.CP | Out-of-school rate, primary, both sexes | % | none | 33.5% |
+| `oos_rate_primary_f` | ROFST.1.F.CP | OOS rate, primary, female | % | none | 48.4% |
+| `oos_rate_primary_m` | ROFST.1.M.CP | OOS rate, primary, male | % | none | 48.5% |
+| `oos_rate_lower_sec` | ROFST.2.CP | OOS rate, lower secondary, both sexes | % | none | 53.9% |
+| `oos_rate_upper_sec` | ROFST.3.CP | OOS rate, upper secondary, both sexes | % | none | 54.8% |
+
+**SSA-specific missingness pattern** (`output/tables/ssa_uis_missingness.csv`):
+- Private expenditure: **91.8% missing in SSA vs 80.3% rest of world** (+11.6pp gap) — variable is effectively unusable for SSA-inclusive models; informs [ADR-0006](decisions/0006-uis-missingness-strategy.md)
+- Lower / upper secondary OOS: SSA worse by +10.9 / +13.3 pp
+- Primary OOS rates: surprisingly SSA has **slightly better** coverage than rest of world (likely reflects UN priority focus on universal primary)
+
+---
+
+## Pending sources (to be populated)
 - **HLO** (Session 04) — Harmonized Learning Outcomes
 - **OECD CRS** (Session 05) — DAC Creditor Reporting System (incl. project descriptions)
 - **AidDataCore + GCDF v3.0** (Session 06) — DAC + non-DAC + Chinese aid

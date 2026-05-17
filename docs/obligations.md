@@ -12,7 +12,7 @@
 - [ ] Verify all causal language is precise (association vs causation) — *manuscript-wide audit in Pass 2 (Phase 12)*
 - [ ] Identify time-varying confounders (conflict, COVID, political transitions) — *partially addressed: UCDP + UNESCO COVID ingested Phase 1 Session 07; political transitions via WGI*
 - [ ] Test for reverse causality: Granger causality test on panel — *Phase 5*
-- [ ] Characterize selection bias from missing-data countries explicitly — *Phase 1 Session 09 (combined coverage matrix) + ADR-0006*
+- [~] Characterize selection bias from missing-data countries explicitly — *Phase 1 Session 03 partial: UIS SSA pattern documented at `output/tables/ssa_uis_missingness.csv`. Full version (combined panel) is Phase 1 Session 09 audit + ADR-0006*
 
 ## Data Integrity Checks
 *(From brief § Self-Review Protocol — Statistical Layer)*
@@ -21,7 +21,7 @@
 - [ ] HLO: cite Altinok et al. harmonization methodology and its critics → **[ADR-0004](decisions/0004-hlo-measure.md)** (Phase 1 Session 04). Sandefur (2018) critique engaged in §3.4.
 - [ ] UNESCO enrollment: flag self-reporting incentive bias → Phase 3 EDA notes; §3.6 in `methodology.md`
 - [x] WGI: cite Langbein & Knack aggregation critique — *Phase 1 Session 02 done: native bundle ingested with `n_sources` retained; per-source values deferred to Phase 5 per ADR-0009. Evidence: `data/interim/wgi.parquet`, `docs/lit/langbein-knack-2010.md`*
-- [ ] Private expenditure: document missing data rate, especially SSA → **[ADR-0006](decisions/0006-uis-missingness-strategy.md)** (Phase 1 Session 03 + Phase 2)
+- [x] Private expenditure: document missing data rate, especially SSA → done Phase 1 Session 03: 91.8% SSA missing vs 80.3% non-SSA (+11.6pp). Evidence: `output/tables/ssa_uis_missingness.csv`, `docs/decisions/0006-uis-missingness-strategy.md::Data observed`
 - [ ] Missingness strategy: test MCAR, choose MI or listwise deletion, run sensitivity analysis both ways → **[ADR-0006](decisions/0006-uis-missingness-strategy.md)** (Phase 2)
 
 ## Model Diagnostics Checklist

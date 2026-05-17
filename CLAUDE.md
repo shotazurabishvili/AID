@@ -37,14 +37,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 1 — Data Ingestion & Audit (3 of 11 sources complete)
-- **Last session:** 2026-05-17 — Session 02 (WGI native bundle)
-- **Sources ingested:** `wdi`, `hci`, `wgi` → `data/interim/{wdi,hci,wgi}.parquet`
-- **Sources pending:** hlo, oecd_crs, aiddata_core, aiddata_gcdf, uis, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
-- **Helper library status:** complete and tested (`R/lib/{iso3,io,catalog,coverage}.R`); iso3 override table extended with WGI variants (ADO/ROM/TMP/ZAR/KSV)
-- **ADRs:** 0001 Accepted; 0002–0009 stubbed Pending
+- **Phase:** 1 — Data Ingestion & Audit (4 of 11 sources complete)
+- **Last session:** 2026-05-17 — Session 03 (UNESCO UIS, with SSA missingness pattern characterized)
+- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis` → `data/interim/{wdi,hci,wgi,uis}.parquet`
+- **Sources pending:** hlo, oecd_crs, aiddata_core, aiddata_gcdf, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
+- **ADRs:** 0001 Accepted; 0002–0009 stubbed Pending. ADR-0006 has empirical "Data observed" paragraph appended (Session 03 finding: private exp 91.8% missing in SSA).
 - **Next concrete action:**
-  *(Phase 1, Session 03)* Ingest **UNESCO UIS** — private education expenditure share + detailed out-of-school rates. Source has API + bulk CSV options; use whichever is more reliable. Run `R/lib/coverage.R::ssa_missingness_pattern()` to characterize the SSA missingness pattern (not just the rate). Result feeds [ADR-0006](docs/decisions/0006-uis-missingness-strategy.md) which locks in Phase 2.
+  *(Phase 1, Session 04)* Ingest **HLO — the headline outcome variable**. Primary: WB `HD.HCI.HLOS` via the WDI R package. Sensitivity: Altinok-Angrist-Patrinos (2018) dataset (separate download). Lock [ADR-0004](docs/decisions/0004-hlo-measure.md) at end of session (Status: Pending → Accepted) with the specific release version pinned. Update `docs/lit/altinok-angrist-patrinos-2018.md` and `docs/lit/sandefur-2018.md` with the engagement.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 
