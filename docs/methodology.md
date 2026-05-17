@@ -1,0 +1,134 @@
+# Methodology — Working Narrative
+
+> *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
+>
+> *Last updated: 2026-05-17 (Session 01 close — WDI + HCI ingested; helper library complete)*
+
+---
+
+## 3.1 Conceptual framework
+
+The paper tests whether Official Development Assistance to education predicts learning outcomes across countries, and which structural variables actually drive learning. The conceptual model has three layers:
+
+- **Inputs (donor side):** ODA flows by sector, recipient, year.
+- **Mediators (country side):** education expenditure, pupil-teacher ratio, governance quality, conflict, COVID-era schooling disruption.
+- **Outcomes:** harmonized learning outcomes (HLO), distinct from enrollment.
+
+The central claim — *"ODA to education predicts enrollment but not learning"* — is operationalized as a contrast between two model specifications: cross-sectional OLS (Model 1) that may show a naive association, and within-country fixed-effects panel (Model 2) that may not.
+
+The argument is *falsifiable*: if the within-country coefficient on ODA is positive, significant, and meaningful in magnitude, the thesis fails.
+
+## 3.2 Sample — country universe
+
+**Locked decision:** [ADR-0002](decisions/0002-country-universe.md) — Pending (Phase 1 Session 09).
+
+Working rule: countries that are **ODA-eligible per WB classification at any point in 2000–2022 ∩ have ≥1 HLO observation**. Expected N ≈ 100–120.
+
+## 3.3 Period — year range
+
+**Locked decision:** [ADR-0003](decisions/0003-year-range.md) — Pending (Phase 1 Session 09).
+
+Working rule: 2000–2022 primary; 2005–2020 robustness. COVID years (2020–2022) included with closure-day controls.
+
+## 3.4 Outcome variable — learning
+
+**Locked decision:** [ADR-0004](decisions/0004-hlo-measure.md) — Pending (Phase 1 Session 04).
+
+Primary: World Bank `HD.HCI.HLOS` (Harmonized Test Scores, current release). Secondary/robustness: Altinok-Angrist-Patrinos (2018) dataset. Sandefur (2018) critique is engaged in this section of the manuscript: harmonization noise is largely absorbed by country fixed effects in Model 2.
+
+## 3.5 Treatment variable — ODA to education
+
+**Locked decision:** [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md) — Pending (Phase 5).
+
+Primary: OECD DAC CRS disbursements to education (sector codes 110/111/112/113/114), 3-year lagged moving average. Robustness: commitments, alternative lag structures, and (per ADR-0008) Chinese development finance from AidData GCDF v3.0.
+
+## 3.6 Controls — macro and sector
+
+**Currently ingested (Session 01):**
+
+- *Macro:* GDP per capita (current USD), GDP per capita PPP, GNI per capita, total population (WDI).
+- *Education sector (formerly EdStats, now WDI):* pupil-teacher ratio (primary), education expenditure (% GDP, % gov budget), primary completion rate, lower secondary completion rate, gross/net primary enrollment, gross secondary enrollment, out-of-school primary count.
+
+**Pending ingestion:**
+
+- *Governance:* WGI political stability, rule of law, voice & accountability — fetched from the native source-of-sources bundle to support engagement with the Langbein & Knack (2010) aggregation critique (Session 02).
+- *Schooling structure:* UIS private expenditure share, out-of-school rates (Session 03). Missingness for SSA addressed in [ADR-0006](decisions/0006-uis-missingness-strategy.md).
+
+## 3.7 Confounders — conflict and COVID
+
+The brief's self-review identifies conflict and COVID-era disruption as time-varying confounders that must be controlled for in Model 2. Two additional sources are ingested in Phase 1 Session 07:
+
+- **UCDP/PRIO Armed Conflict Dataset (country-year)** — binary in-conflict indicator + battle-related deaths intensity. Cited as Pettersson, Davies et al.
+- **UNESCO COVID-19 School Closures** — total + partial closure days per country, 2020–2022. Controls for differential school closure exposure across countries during the pandemic.
+
+## 3.8 Empirical strategy — five models
+
+The brief specifies five models, each pre-registered in the research design before any ingestion. All five are below in compact form; full specifications live in `docs/brief.md § Statistical Architecture`.
+
+### Model 1 — OLS baseline (cross-sectional)
+
+$$Learning_i = \beta_0 + \beta_1 ODA_i + \beta_2 GDPpc_i + \beta_3 PTR_i + \varepsilon_i$$
+
+Purpose: establish the naive cross-sectional association that the rest of the paper challenges.
+
+### Model 2 — Fixed Effects panel (PRIMARY)
+
+$$Learning_{it} = \beta_1 ODA_{it} + \beta_2 Expenditure_{it} + \beta_3 Stability_{it} + \alpha_i + \lambda_t + \varepsilon_{it}$$
+
+Country fixed effects ($\alpha_i$) and year fixed effects ($\lambda_t$). The contrast between $\beta_1$ here and in Model 1 is the headline finding. Cluster-robust standard errors at country level. Required diagnostics: Hausman, Wooldridge, Breusch-Pagan, VIF (see [obligations](obligations.md)).
+
+### Model 3 — Three-level hierarchical linear model
+
+Students nested in schools nested in countries. ICC reported at each level. 30/30 rule checked before estimation. Random intercepts default; random slopes justified per ADR (TBD).
+
+### Model 4 — One-way ANOVA on intervention typology
+
+Compares mean 5-year learning gains across four mutually exclusive aid types: infrastructure / teacher training / curriculum-materials / budget support. Coding from CRS project descriptions per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md). Levene's test → Welch's if needed. Tukey HSD post-hoc; η² and Cohen's d for all pairs.
+
+### Model 5 — Counterfactual simulation
+
+Redirect $1B from input-based to outcome-based aid; use effect sizes from Model 4 to project learning gains. Report best/worst/expected case across CI bounds.
+
+## 3.9 Missing data strategy
+
+**Locked decision:** [ADR-0006](decisions/0006-uis-missingness-strategy.md) — Pending (Phase 2).
+
+Working plan:
+1. Phase 1 Session 03 documents the SSA missingness pattern for UIS variables via `R/lib/coverage.R::ssa_missingness_pattern()`.
+2. Phase 2 runs the Little MCAR test on the merged panel.
+3. Primary specification likely uses WDI controls only (UIS dropped); UIS-augmented spec runs on the listwise-complete subset as robustness. Multiple imputation as third sensitivity if the panel-size loss is severe.
+
+## 3.10 Intervention typology coding
+
+**Locked decision:** [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) — Pending (Phase 7).
+
+Phase 1 Session 05 ingests CRS *with description text retained*. Phase 7 implements rule-based keyword classification as primary, LLM-assisted classification as robustness comparator.
+
+## 3.11 Chinese aid inclusion
+
+**Locked decision:** [ADR-0008](decisions/0008-china-aid-inclusion.md) — Pending (Phase 5).
+
+Phase 1 Session 06 ingests AidData Core + AidData GCDF v3.0. Phase 5 primary uses OECD CRS only; GCDF as headline robustness. The non-DAC blind spot is itself a discussion point in §6.
+
+## 3.12 Robustness checks (cumulative list)
+
+As decisions accumulate, this list is the running register of robustness specifications the paper commits to running:
+
+- [ ] HLO measure: WB current vs AAP-2018
+- [ ] ODA: disbursement vs commitment; 1-year vs 3-year MA
+- [ ] Sample: 2000–2022 vs 2005–2020
+- [ ] Sample: with vs without China-affected recipients
+- [ ] UIS missingness: listwise vs MI vs UIS-dropped
+- [ ] ANOVA coding: rule-based vs LLM-assisted (agreement rate ≥ 85%)
+- [ ] Country FE structure: country FE alone vs country × decade FE
+- [ ] Lag structure: contemporaneous ODA vs 3-year MA
+
+## 3.13 Positionality
+
+See `docs/positionality.md` for the working draft. Final placement in the manuscript: end of §3 (Methodology). Position framed as a methodological asset — practitioner observation of incentive structures not captured in administrative datasets, used to ground qualitative interpretation in §6 Discussion.
+
+---
+
+## Methodology obligations (cross-reference)
+
+The full list of diagnostics and tests we have committed to running is in [`obligations.md`](obligations.md). Each item there links back to the relevant ADR or methodology section above.
