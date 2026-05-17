@@ -30,11 +30,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 0 — Infrastructure (complete)
-- **Last session:** 2026-05-17 — bootstrap (session 00) closed
-- **Toolchain state:** R 4.3.3 on WSL Ubuntu 24.04; 188 packages locked in `renv.lock`; cmake + libuv1-dev installed as transitive build deps; `gh` repo `shotazurabishvili/AID` (private) pushed
+- **Phase:** 1 — Data Ingestion & Audit (2 of 11 sources complete)
+- **Last session:** 2026-05-17 — Session 01 (WDI + HCI + helper library)
+- **Sources ingested:** `wdi`, `hci` → `data/interim/{wdi,hci}.parquet`
+- **Sources pending:** wgi, hlo, oecd_crs, aiddata_core, aiddata_gcdf, uis, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
+- **Helper library status:** complete and tested (`R/lib/{iso3,io,catalog,coverage}.R`)
 - **Next concrete action:**
-  *(Phase 1, session 01)* Ingest the cheapest data source first — **WDI** via the R `WDI` package — to validate the ingestion pattern end-to-end before tackling the awkward sources (OECD CRS, AidData). Write `R/10_ingest_wdi.R` that pulls the brief's WDI indicators (GDP per capita, GNI, population) for ISO3 × year, caches raw extract to `data/raw/wdi/`, normalizes country codes via `countrycode`, writes interim parquet to `data/interim/wdi.parquet`, and updates `data/catalog.md` with access date + row count.
+  *(Phase 1, Session 02)* Ingest **WGI from the native bundle** at https://info.worldbank.org/governance/wgi/ — NOT via the `WDI` R package. We need the source-of-sources detail (variance + number of sources per indicator) to engage the Langbein & Knack (2010) aggregation critique. Write `R/10_ingest_wgi.R` that downloads the official Excel/CSV bundle, normalizes ISO3 + year, retains both aggregate WGI scores and per-source detail, writes `data/interim/wgi.parquet`, and updates the catalog.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 
