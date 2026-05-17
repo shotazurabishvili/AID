@@ -50,6 +50,55 @@ wgi:
   methodology_cite: Kaufmann, Kraay & Mastruzzi (2010); engage Langbein & Knack (2010)
   notes: Native source bundle (not via WDI API) — need underlying source-of-sources
     data
+  access_date: '2026-05-17'
+  version: Native bundle, fetched 2026-05-17
+  n_rows: 5112
+  n_countries: 213
+  year_range:
+  - 1996
+  - 2022
+  missing_pct: 3.35
+  raw_files:
+  - name: wgidataset.xlsx
+    sha256: 28f7bc1540df6c5a79bd9769fb8b2413d07a3765f3ef74d8879728b0cd154860
+  variables:
+  - code: va_est
+    name: Voice and Accountability — estimate
+  - code: va_se
+    name: Voice and Accountability — standard error
+  - code: va_n_src
+    name: Voice and Accountability — number of underlying sources
+  - code: pv_est
+    name: Political Stability and Absence of Violence — estimate
+  - code: pv_se
+    name: Political Stability and Absence of Violence — standard error
+  - code: pv_n_src
+    name: Political Stability and Absence of Violence — n sources
+  - code: ge_est
+    name: Government Effectiveness — estimate
+  - code: ge_se
+    name: Government Effectiveness — standard error
+  - code: ge_n_src
+    name: Government Effectiveness — n sources
+  - code: rq_est
+    name: Regulatory Quality — estimate
+  - code: rq_se
+    name: Regulatory Quality — standard error
+  - code: rq_n_src
+    name: Regulatory Quality — n sources
+  - code: rl_est
+    name: Rule of Law — estimate
+  - code: rl_se
+    name: Rule of Law — standard error
+  - code: rl_n_src
+    name: Rule of Law — n sources
+  - code: cc_est
+    name: Control of Corruption — estimate
+  - code: cc_se
+    name: Control of Corruption — standard error
+  - code: cc_n_src
+    name: Control of Corruption — n sources
+  last_updated: '2026-05-17'
 hci:
   name: Human Capital Index
   url: https://www.worldbank.org/en/publication/human-capital

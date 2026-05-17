@@ -37,13 +37,14 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 1 — Data Ingestion & Audit (2 of 11 sources complete)
-- **Last session:** 2026-05-17 — Session 01 (WDI + HCI + helper library)
-- **Sources ingested:** `wdi`, `hci` → `data/interim/{wdi,hci}.parquet`
-- **Sources pending:** wgi, hlo, oecd_crs, aiddata_core, aiddata_gcdf, uis, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
-- **Helper library status:** complete and tested (`R/lib/{iso3,io,catalog,coverage}.R`)
+- **Phase:** 1 — Data Ingestion & Audit (3 of 11 sources complete)
+- **Last session:** 2026-05-17 — Session 02 (WGI native bundle)
+- **Sources ingested:** `wdi`, `hci`, `wgi` → `data/interim/{wdi,hci,wgi}.parquet`
+- **Sources pending:** hlo, oecd_crs, aiddata_core, aiddata_gcdf, uis, ucdp, covid_closures, ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
+- **Helper library status:** complete and tested (`R/lib/{iso3,io,catalog,coverage}.R`); iso3 override table extended with WGI variants (ADO/ROM/TMP/ZAR/KSV)
+- **ADRs:** 0001 Accepted; 0002–0009 stubbed Pending
 - **Next concrete action:**
-  *(Phase 1, Session 02)* Ingest **WGI from the native bundle** at https://info.worldbank.org/governance/wgi/ — NOT via the `WDI` R package. We need the source-of-sources detail (variance + number of sources per indicator) to engage the Langbein & Knack (2010) aggregation critique. Write `R/10_ingest_wgi.R` that downloads the official Excel/CSV bundle, normalizes ISO3 + year, retains both aggregate WGI scores and per-source detail, writes `data/interim/wgi.parquet`, and updates the catalog.
+  *(Phase 1, Session 03)* Ingest **UNESCO UIS** — private education expenditure share + detailed out-of-school rates. Source has API + bulk CSV options; use whichever is more reliable. Run `R/lib/coverage.R::ssa_missingness_pattern()` to characterize the SSA missingness pattern (not just the rate). Result feeds [ADR-0006](docs/decisions/0006-uis-missingness-strategy.md) which locks in Phase 2.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

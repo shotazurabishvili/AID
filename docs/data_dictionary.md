@@ -56,9 +56,41 @@
 
 ---
 
+## WGI — Worldwide Governance Indicators (`data/interim/wgi.parquet`)
+
+18 variables; 5112 rows; 213 countries; years 1996–2022. Biennial 1996–2002 (gaps in 1997, 1999, 2001), annual since 2002.
+
+Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engagement in `methodology.md § 3.6`). For each of six dimensions, three metrics are retained: estimate, standard error, number of underlying sources. Percentile-rank columns dropped (collinear with estimate).
+
+| Variable | Source code | Definition | Units | Transform | Missing % |
+|---|---|---|---|---|---|
+| `iso3` | — | ISO 3166-1 alpha-3 (normalized; WGI codes ROM/ZAR/TMP/ADO/KSV remapped) | code | iso3 normalization + overrides | 0% |
+| `year` | — | Calendar year | integer | as.integer | 0% |
+| `va_est` | VA Estimate | Voice and Accountability — estimate | ~−2.5 to 2.5 | none | 2.9% |
+| `va_se` | VA StdErr | VA — standard error | numeric | none | 2.9% |
+| `va_n_src` | VA NumSrc | VA — number of underlying sources | count | none | 2.9% |
+| `pv_est` | PV Estimate | Political Stability & Absence of Violence/Terrorism — estimate | ~−2.5 to 2.5 | none | 2.9% |
+| `pv_se` | PV StdErr | PV — standard error | numeric | none | 2.9% |
+| `pv_n_src` | PV NumSrc | PV — n sources | count | none | 2.9% |
+| `ge_est` | GE Estimate | Government Effectiveness — estimate | ~−2.5 to 2.5 | none | 4.1% |
+| `ge_se` | GE StdErr | GE — standard error | numeric | none | 4.1% |
+| `ge_n_src` | GE NumSrc | GE — n sources | count | none | 4.1% |
+| `rq_est` | RQ Estimate | Regulatory Quality — estimate | ~−2.5 to 2.5 | none | 4.1% |
+| `rq_se` | RQ StdErr | RQ — standard error | numeric | none | 4.1% |
+| `rq_n_src` | RQ NumSrc | RQ — n sources | count | none | 4.1% |
+| `rl_est` | RL Estimate | Rule of Law — estimate | ~−2.5 to 2.5 | none | 2.0% |
+| `rl_se` | RL StdErr | RL — standard error | numeric | none | 2.0% |
+| `rl_n_src` | RL NumSrc | RL — n sources | count | none | 2.0% |
+| `cc_est` | CC Estimate | Control of Corruption — estimate | ~−2.5 to 2.5 | none | 3.8% |
+| `cc_se` | CC StdErr | CC — standard error | numeric | none | 3.8% |
+| `cc_n_src` | CC NumSrc | CC — n sources | count | none | 3.8% |
+
+**Scope note:** WGI also publishes per-source detail (one file per source organization: EIU, BTI, V-Dem, Freedom House, etc.). Phase 1 ingests only the aggregates. Per-source values are a Phase-5 dependency tied to [ADR-0009](decisions/0009-wgi-operationalization.md): if the Phase-5 decision selects a reconstructed-from-sources approach, that ingestion runs then.
+
+---
+
 ## Pending sources (to be populated)
 
-- **WGI** (Session 02) — Worldwide Governance Indicators
 - **UIS** (Session 03) — UNESCO Institute for Statistics
 - **HLO** (Session 04) — Harmonized Learning Outcomes
 - **OECD CRS** (Session 05) — DAC Creditor Reporting System (incl. project descriptions)

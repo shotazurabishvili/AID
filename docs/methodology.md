@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-17 (Session 01 close — WDI + HCI ingested; helper library complete)*
+> *Last updated: 2026-05-17 (Session 02 close — WGI native bundle ingested; 3/11 required sources complete)*
 
 ---
 
@@ -49,9 +49,14 @@ Primary: OECD DAC CRS disbursements to education (sector codes 110/111/112/113/1
 - *Macro:* GDP per capita (current USD), GDP per capita PPP, GNI per capita, total population (WDI).
 - *Education sector (formerly EdStats, now WDI):* pupil-teacher ratio (primary), education expenditure (% GDP, % gov budget), primary completion rate, lower secondary completion rate, gross/net primary enrollment, gross secondary enrollment, out-of-school primary count.
 
+**Governance (ingested Phase 1 Session 02 via native WGI bundle):**
+
+WGI aggregates for all six dimensions — Voice & Accountability, Political Stability, Government Effectiveness, Regulatory Quality, Rule of Law, Control of Corruption — fetched from the native multi-sheet Excel bundle at info.worldbank.org/governance/wgi/, **not** via the WDI R package. The native bundle retains the `n_sources` count per country-year, which is the minimum information needed to acknowledge the Langbein & Knack (2010) aggregation critique in this section of the manuscript.
+
+Operationalization in models (composite vs PCA-collapsed vs reconstructed-from-sources) is deferred to [ADR-0009](decisions/0009-wgi-operationalization.md), to be locked in Phase 5 after VIF is observed.
+
 **Pending ingestion:**
 
-- *Governance:* WGI political stability, rule of law, voice & accountability — fetched from the native source-of-sources bundle to support engagement with the Langbein & Knack (2010) aggregation critique (Session 02).
 - *Schooling structure:* UIS private expenditure share, out-of-school rates (Session 03). Missingness for SSA addressed in [ADR-0006](decisions/0006-uis-missingness-strategy.md).
 
 ## 3.7 Confounders — conflict and COVID

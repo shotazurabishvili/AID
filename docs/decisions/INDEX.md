@@ -14,6 +14,7 @@ Auto-maintainable index of all Architecture Decision Records.
 | [0006](0006-uis-missingness-strategy.md) | UIS missingness strategy | Pending | — | 2 (Panel construction) | Listwise vs MI vs drop-UIS-controls for SSA-sparse variables |
 | [0007](0007-oecd-crs-intervention-typology.md) | OECD CRS intervention typology coding | Pending | — | 7 (Model 4 ANOVA) | Rule-based keyword vs LLM-assisted classification |
 | [0008](0008-china-aid-inclusion.md) | Chinese aid inclusion in primary ODA | Pending | — | 5 (Model 2) | OECD CRS primary; GCDF robustness |
+| [0009](0009-wgi-operationalization.md) | WGI operationalization in models | Pending | — | 5 (Model 2) | All-six aggregates with VIF audit + PCA-collapsed robustness, vs single composite vs reconstructed-from-sources |
 
 ---
 
