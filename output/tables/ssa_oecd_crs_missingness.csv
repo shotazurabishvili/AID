@@ -1,0 +1,4 @@
+indicator,ssa_missing_pct,non_ssa_missing_pct,gap_pct,n_ssa,n_non_ssa
+has_commitment,0,1.27,-1.27,1417,3003
+has_disbursement,1.62,2.73,-1.11,1417,3003
+has_grant_equiv,66.62,68.46,-1.85,1417,3003

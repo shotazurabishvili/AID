@@ -65,7 +65,7 @@
 
 ## Reproducibility Obligations
 
-- [ ] All raw data hashed (SHA-256) at fetch time → recorded in `data/catalog.yml::raw_files[]` — **partial** (WDI, HCI, WGI, UIS, HLO primary, HLO AAP-2018 done; 6 sources pending: OECD CRS, AidData Core, AidData GCDF, UCDP, COVID closures, AI readiness)
+- [ ] All raw data hashed (SHA-256) at fetch time → recorded in `data/catalog.yml::raw_files[]` — **partial** (WDI, HCI, WGI, UIS, HLO primary, HLO AAP-2018, OECD CRS done; 5 sources pending: AidData Core, AidData GCDF, UCDP, COVID closures, AI readiness)
 - [ ] All code committed to GitHub before each phase close — **on track**
 - [ ] OSF or Harvard Dataverse deposit live before submission — Phase 14
 - [ ] `renv.lock` pins full package environment — **complete (188 packages)**

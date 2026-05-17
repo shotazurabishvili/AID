@@ -155,11 +155,110 @@ hlo:
   last_updated: '2026-05-17'
 oecd_crs:
   name: OECD DAC Creditor Reporting System
-  url: https://data-explorer.oecd.org/vis?fs[0]=Topic%2C0%7CDevelopment%23DEV%23&pg=0&fc=Topic&bp=true&snb=22&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_CRS%40DF_CRS&df[ag]=OECD.DCD.FSD&df[vs]=1.4
+  url: https://data-explorer.oecd.org/vis?df%5Bds%5D=DisseminateFinalBoost&df%5Bid%5D=DSD_CRS%40DF_CRS&df%5Bag%5D=OECD.DCD.FSD
   auth_required: no
   methodology_cite: OECD DAC (annual CRS release)
-  notes: Sector codes 110/111/112/113/114; retain description text for ADR-0007 typology
-    coding; ADR-0005 stub for commitment vs disbursement
+  notes: 'Education sector group (sector_code in 110/111/112/113/114) filter at ingest;
+    5-digit purpose_code retained for Phase-7 typology granularity. Schema: legacy
+    CRS dotStat format (commitments + disbursements + grant-equivalent are SEPARATE
+    wide columns with paired _defl constant-USD variants). Project-level resolution
+    preserved; country-year aggregation + 3-year MA at R/30_merge_panel.R (Phase 2).
+    Pending ADRs preserved: 0005 (commitment vs disbursement = column choice), 0007
+    (intervention typology - project_title + short/long_description + keywords retained),
+    0008 (China inclusion - DAC-only here; GCDF Session 06 complements). Discovered
+    IDFile=50f0355e-8f61-4230-85f3-90b4db45bfc9. 63452 rows (10.6%) on regional/unspecified
+    aggregates dropped. SSA missingness contrast at output/tables/ssa_oecd_crs_missingness.csv.'
+  access_date: '2026-05-17'
+  version: CRS-Parquet-v20260408 (SDMX dataflow 1.6, fetched 2026-05-17)
+  n_rows: 537586
+  n_countries: 172
+  year_range:
+  - 1995
+  - 2024
+  missing_pct: 14.34
+  raw_files:
+  - name: crs_bulk.zip
+    sha256: 58b74c41b8b5c6abec0394abfac03f09cad1e86256d63b66bde9e40c7035ab1c
+  - name: CRS.parquet
+    sha256: a1e8fbfa8a156ba89aa502c4df53e3817ccf935d157af80f2ceb3f8ffc8655ff
+  variables:
+  - code: year
+    name: year
+  - code: donor_code
+    name: donor_code
+  - code: donor_name
+    name: donor_name
+  - code: agency_code
+    name: agency_code
+  - code: agency_name
+    name: agency_name
+  - code: crs_id
+    name: crs_id
+  - code: project_number
+    name: project_number
+  - code: recipient_code
+    name: recipient_code
+  - code: recipient_name
+    name: recipient_name
+  - code: region_name
+    name: region_name
+  - code: incomegroup_name
+    name: incomegroup_name
+  - code: sector_code
+    name: sector_code
+  - code: sector_name
+    name: sector_name
+  - code: purpose_code
+    name: purpose_code
+  - code: purpose_name
+    name: purpose_name
+  - code: flow_code
+    name: flow_code
+  - code: flow_name
+    name: flow_name
+  - code: bi_multi
+    name: bi_multi
+  - code: category
+    name: category
+  - code: finance_t
+    name: finance_t
+  - code: aid_t
+    name: aid_t
+  - code: channel_code
+    name: channel_code
+  - code: channel_name
+    name: channel_name
+  - code: parent_channel_code
+    name: parent_channel_code
+  - code: usd_commitment
+    name: usd_commitment
+  - code: usd_commitment_defl
+    name: usd_commitment_defl
+  - code: usd_disbursement
+    name: usd_disbursement
+  - code: usd_disbursement_defl
+    name: usd_disbursement_defl
+  - code: usd_received
+    name: usd_received
+  - code: usd_received_defl
+    name: usd_received_defl
+  - code: usd_grant_equiv
+    name: usd_grant_equiv
+  - code: usd_grant_equiv_defl
+    name: usd_grant_equiv_defl
+  - code: currency_code
+    name: currency_code
+  - code: project_title
+    name: project_title
+  - code: short_description
+    name: short_description
+  - code: long_description
+    name: long_description
+  - code: keywords
+    name: keywords
+  - code: iso3
+    name: iso3
+  last_updated: '2026-05-17'
 aiddata_core:
   name: AidData Core Research Release
   url: https://www.aiddata.org/data
