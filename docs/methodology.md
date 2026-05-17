@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-17 (Session 03 close — UIS ingested; SSA missingness pattern characterized; 4/11 required sources complete)*
+> *Last updated: 2026-05-17 (Session 04 close — HLO ingested; ADR-0004 Accepted; 5/11 required sources complete)*
 
 ---
 
@@ -32,9 +32,24 @@ Working rule: 2000–2022 primary; 2005–2020 robustness. COVID years (2020–2
 
 ## 3.4 Outcome variable — learning
 
-**Locked decision:** [ADR-0004](decisions/0004-hlo-measure.md) — Pending (Phase 1 Session 04).
+**Locked decision:** [ADR-0004](decisions/0004-hlo-measure.md) — Accepted 2026-05-17 (Phase 1 Session 04).
 
-Primary: World Bank `HD.HCI.HLOS` (Harmonized Test Scores, current release). Secondary/robustness: Altinok-Angrist-Patrinos (2018) dataset. Sandefur (2018) critique is engaged in this section of the manuscript: harmonization noise is largely absorbed by country fixed effects in Model 2.
+**Primary measure.** World Bank `HD.HCI.HLOS` (Harmonized Test Scores) — the Human Capital Index component score, fetched via the WDI API. Stored as `hlo_score` in `data/interim/hlo.parquet`. Coverage in our ingest: 207 countries × 2010–2020 (HCI publishes in cycles, so missing % within this panel is 74.13%). Scale: ~300–625, with thresholds anchored on PIRLS/TIMSS primary benchmarks (400 minimum / 475 intermediate / 625 advanced).
+
+**Robustness measure.** Altinok, Angrist & Patrinos (2018) — *Global data set on education quality (1965–2015)*, World Bank Policy Research Working Paper 8314. Fetched via the OWID `owid-datasets` GitHub mirror (raw CSV pinned by commit hash) which retains a single per-country-year harmonized score already pooled across subjects (math/reading/science) and levels (primary/secondary) per the methodology of the source paper. Stored as `hlo_aap` in `data/interim/hlo_aap2018.parquet`. Coverage in our ingest: 137 countries × 1995–2015 at 5-year intervals. Identical conceptual scale to `hlo_score`.
+
+**Sandefur (2018) critique.** *Internationally comparable mathematics scores for fourteen African countries* (CGD WP 444) argues that anchor-equating between PISA, TIMSS, SACMEQ and other testing regimes produces score-equivalence claims that may not hold in practice — particularly for sub-Saharan African countries that anchor through small overlapping samples. This is the most serious threat to the validity of the headline outcome variable. We engage it head-on rather than burying it.
+
+**Within-country fixed-effects defense.** Model 2 ($\alpha_i + \lambda_t$) absorbs the cross-country score-comparability problem Sandefur identifies: country fixed effects soak up any time-invariant cross-country level miscalibration in the harmonization. The coefficient on ODA in Model 2 is identified off *within-country variation over time*, which faces a much smaller harmonization burden than cross-country level comparisons. The naive cross-sectional level differences Sandefur highlights are precisely what `αᵢ` controls for. Robustness reports both measures' Model 2 results in Phase 5; the within-country coefficient must be the same sign and within-CI magnitude across the primary and AAP-2018 specifications for the headline claim to stand.
+
+**SSA coverage caveat — empirically grounded.** The Session 04 ingest characterizes SSA missingness for both measures on a full-joined panel (`output/tables/ssa_hlo_missingness.csv`):
+
+| Measure | SSA missing % | Rest-of-world missing % | Gap |
+|---|---|---|---|
+| `hlo_score` (HCI HLOS) | 74.40% | 77.60% | **−3.20 pp** |
+| `hlo_aap` (AAP-2018)   | 88.02% | 79.23% | **+8.75 pp** |
+
+The two measures diverge sharply on SSA representation. The primary HCI measure shows *slightly better* SSA coverage than rest-of-world — consistent with the World Bank Human Capital Project's explicit post-2017 targeting of measurement gaps in low-income countries. The AAP-2018 robustness measure shows the **opposite** pattern (+8.75 pp worse in SSA), which is the empirical face of Sandefur's pre-2018 SSA-coverage concern: the harmonization rests on thin SACMEQ/PASEC anchors that miss many SSA country-years. This is *measurement availability*, distinct from the *measurement equating* version of the Sandefur concern; both flow into the Discussion §6 limits paragraph on outcome-variable uncertainty.
 
 ## 3.5 Treatment variable — ODA to education
 

@@ -24,6 +24,6 @@ Must engage the Sandefur (2018) critique of HLO harmonization in §3.4.
 *(populate when reading primary)*
 
 ## Status
-- [ ] Read primary source
-- [ ] Notes summarized above
-- [ ] Engaged in our manuscript (Methodology §3.4)
+- [x] Read primary source — Session 04 (2026-05-17): WP 8314 + OWID datapackage description reviewed; harmonization methodology pooling subjects (math/reading/science) and levels (primary/secondary) confirmed; threshold definitions (400/475/625 anchored on PIRLS/TIMSS) noted
+- [x] Notes summarized above
+- [ ] Engaged in our manuscript (Methodology §3.4) — *engaged in `docs/methodology.md § 3.4` (proto-§3); flip this box once §3 lives in the Quarto draft (Phase 11)*

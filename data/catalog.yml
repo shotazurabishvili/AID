@@ -136,8 +136,23 @@ hlo:
   url: https://datatopics.worldbank.org/education/
   auth_required: no
   methodology_cite: Patrinos & Angrist (2018); Altinok, Angrist & Patrinos (2018)
-  notes: ADR-0004 pins specific version; default HD.HCI.HLOS via WDI API; sensitivity
-    at AAP-2018
+  notes: Headline outcome variable. Primary specification per ADR-0004. Robustness
+    slug `hlo_aap2018`. SSA missingness contrast at output/tables/ssa_hlo_missingness.csv.
+  access_date: '2026-05-17'
+  version: WDI API live, fetched 2026-05-17
+  n_rows: 2277
+  n_countries: 207
+  year_range:
+  - 2010
+  - 2020
+  missing_pct: 74.13
+  raw_files:
+  - name: hlo_raw.rds
+    sha256: 4cc5f96dc0b43537e66a064e4a3e8be7e178c8eb6ffa90265d8c799425d72177
+  variables:
+  - code: HD.HCI.HLOS
+    name: hlo_score
+  last_updated: '2026-05-17'
 oecd_crs:
   name: OECD DAC Creditor Reporting System
   url: https://data-explorer.oecd.org/vis?fs[0]=Topic%2C0%7CDevelopment%23DEV%23&pg=0&fc=Topic&bp=true&snb=22&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_CRS%40DF_CRS&df[ag]=OECD.DCD.FSD&df[vs]=1.4
@@ -211,3 +226,27 @@ ai_readiness:
   auth_required: no
   methodology_cite: Oxford Insights (annual; methodology revised each edition)
   notes: Cross-sectional in our use (single edition, most recent covering target window)
+hlo_aap2018:
+  name: HLO — Altinok-Angrist-Patrinos 2018 robustness
+  url: https://openknowledge.worldbank.org/handle/10986/29281
+  auth_required: 'no'
+  methodology_cite: Altinok, Angrist & Patrinos (2018) WP 8314
+  access_date: '2026-05-17'
+  version: OWID mirror of WP 8314, retrieved 2018-07-19; fetched locally 2026-05-17
+  n_rows: 486
+  n_countries: 137
+  year_range:
+  - 1995
+  - 2015
+  missing_pct: 0.0
+  raw_files:
+  - name: aap2018.csv
+    sha256: bad355d03dd8ab562ec56b984c5b21c3b848da2c02840bfbd1f944dcfd37acb1
+  variables:
+  - code: AAP2018.HLO
+    name: hlo_aap
+  notes: Robustness measure per ADR-0004. WB Policy Research WP 8314. Fetched via
+    OWID owid-datasets GitHub mirror (subjects/levels pre-pooled by OWID). Threshold-share
+    columns dropped — single score is sufficient for Phase-5 sensitivity. 5-year intervals
+    (2000, 2005, 2010, 2015 within our YEAR_RANGE).
+  last_updated: '2026-05-17'

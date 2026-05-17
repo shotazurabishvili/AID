@@ -2,7 +2,7 @@
 
 > *Canonical reference for every variable in the project's interim parquets. Updated as ingestion scripts complete. The machine-readable version is `data/catalog.yml::variables[]` per source; this file is the human-facing rendering.*
 >
-> *Last updated: 2026-05-17 (Session 01 close)*
+> *Last updated: 2026-05-17 (Session 04 close — HLO added; 5/11 sources documented)*
 
 ---
 
@@ -53,6 +53,36 @@
 | `lays_overall` | HD.HCI.LAYS | Learning-adjusted years of school | years | none | 74.3% |
 | `lays_female` | HD.HCI.LAYS.FE | LAYS, female | years | none | 77.6% |
 | `lays_male` | HD.HCI.LAYS.MA | LAYS, male | years | none | 77.6% |
+
+---
+
+## HLO — Harmonized Learning Outcomes, primary (`data/interim/hlo.parquet`)
+
+1 indicator; 2277 rows; 207 countries; years 2010–2020. Sparse by design (the HCI publishes in cycles: 2010, 2017, 2018, 2020). This is the **headline outcome variable** of the paper. Decision: [ADR-0004](decisions/0004-hlo-measure.md) (Accepted 2026-05-17). See `methodology.md § 3.4`.
+
+| Variable | Source code | Definition | Units | Transform | Missing % |
+|---|---|---|---|---|---|
+| `iso3` | — | ISO 3166-1 alpha-3 | code | iso3 normalization | 0% |
+| `year` | — | Calendar year | integer | as.integer | 0% |
+| `hlo_score` | HD.HCI.HLOS | Harmonized Test Scores (HCI component) | ~300–625 scale | none | 74.13% |
+
+**SSA-specific missingness** on the full-joined HLO panel (`output/tables/ssa_hlo_missingness.csv`):
+- `hlo_score`: SSA 74.40% missing vs Rest 77.60% — gap **−3.20 pp** (SSA modestly better)
+
+## HLO — AAP 2018 robustness (`data/interim/hlo_aap2018.parquet`)
+
+1 indicator; 486 rows; 137 countries; years 1995–2015 at 5-year intervals (2000, 2005, 2010, 2015 within our YEAR_RANGE). Used as the **principal robustness measure** for the headline outcome variable per [ADR-0004](decisions/0004-hlo-measure.md). Source: Altinok, Angrist & Patrinos (2018) *Global data set on education quality (1965–2015)*, WB Policy Research WP 8314, fetched via the OWID `owid-datasets` GitHub mirror (raw CSV pinned by commit hash).
+
+| Variable | Source code | Definition | Units | Transform | Missing % |
+|---|---|---|---|---|---|
+| `iso3` | — | ISO 3166-1 alpha-3 (`Entity` field normalized via `country.name`) | code | iso3 normalization | 0% |
+| `year` | — | Calendar year | integer | as.integer | 0% |
+| `hlo_aap` | AAP2018.HLO | Average harmonized learning outcome score (already pooled across subjects math/reading/science and levels primary/secondary by the source authors) | ~300–625 scale | filter to YEAR_RANGE; drop sub-national rows | 0% (within-panel) |
+
+**Dropped sub-national rows** (logged to `output/logs/iso3_unresolved_hlo_aap2018.csv`): `Canada (British Colombia)`, `England`, `Scotland`, `United States (Indiana State)`, `Zanzibar` — sub-national entities AAP reports separately from the national rows for harmonization comparison; excluded from the country-year panel.
+
+**SSA-specific missingness** on the full-joined HLO panel (`output/tables/ssa_hlo_missingness.csv`):
+- `hlo_aap`: SSA 88.02% missing vs Rest 79.23% — gap **+8.75 pp** (SSA worse — empirical face of the Sandefur 2018 critique; see `methodology.md § 3.4`)
 
 ---
 
@@ -118,7 +148,6 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 ---
 
 ## Pending sources (to be populated)
-- **HLO** (Session 04) — Harmonized Learning Outcomes
 - **OECD CRS** (Session 05) — DAC Creditor Reporting System (incl. project descriptions)
 - **AidDataCore + GCDF v3.0** (Session 06) — DAC + non-DAC + Chinese aid
 - **UCDP/PRIO + UNESCO COVID** (Session 07) — confounders

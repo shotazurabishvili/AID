@@ -18,7 +18,7 @@
 *(From brief § Self-Review Protocol — Statistical Layer)*
 
 - [ ] ODA: commitment vs disbursement — choose and justify → **[ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md)** (Phase 5)
-- [ ] HLO: cite Altinok et al. harmonization methodology and its critics → **[ADR-0004](decisions/0004-hlo-measure.md)** (Phase 1 Session 04). Sandefur (2018) critique engaged in §3.4.
+- [x] HLO: cite Altinok et al. harmonization methodology and its critics → **[ADR-0004](decisions/0004-hlo-measure.md)** Accepted 2026-05-17. Sandefur (2018) critique engaged in §3.4 (within-country FE defense + SSA coverage caveat with empirical numbers from `output/tables/ssa_hlo_missingness.csv`). Both lit notes (altinok-angrist-patrinos-2018, sandefur-2018) read; manuscript-engagement box flips in Phase 11 once §3 lives in the Quarto draft.
 - [ ] UNESCO enrollment: flag self-reporting incentive bias → Phase 3 EDA notes; §3.6 in `methodology.md`
 - [x] WGI: cite Langbein & Knack aggregation critique — *Phase 1 Session 02 done: native bundle ingested with `n_sources` retained; per-source values deferred to Phase 5 per ADR-0009. Evidence: `data/interim/wgi.parquet`, `docs/lit/langbein-knack-2010.md`*
 - [x] Private expenditure: document missing data rate, especially SSA → done Phase 1 Session 03: 91.8% SSA missing vs 80.3% non-SSA (+11.6pp). Evidence: `output/tables/ssa_uis_missingness.csv`, `docs/decisions/0006-uis-missingness-strategy.md::Data observed`
@@ -43,7 +43,7 @@
 ## Robustness Specifications
 *(Cross-reference `methodology.md § 3.12`)*
 
-- [ ] HLO measure: WB current vs AAP-2018 — Phase 5/sensitivity
+- [~] HLO measure: WB current vs AAP-2018 — Phase 5/sensitivity. *Both measures ingested Session 04: `data/interim/hlo.parquet` (207 countries, 2010–2020) + `data/interim/hlo_aap2018.parquet` (137 countries, 1995–2015). Actual Model 1 + Model 2 sensitivity run is Phase 5.*
 - [ ] ODA: disbursement vs commitment — Phase 5
 - [ ] ODA: 1-year vs 3-year moving average lag — Phase 5
 - [ ] Sample: 2000–2022 vs 2005–2020 — Phase 5/sensitivity
@@ -65,7 +65,7 @@
 
 ## Reproducibility Obligations
 
-- [ ] All raw data hashed (SHA-256) at fetch time → recorded in `data/catalog.yml::raw_files[]` — **partial** (WDI, HCI done; 9 sources pending)
+- [ ] All raw data hashed (SHA-256) at fetch time → recorded in `data/catalog.yml::raw_files[]` — **partial** (WDI, HCI, WGI, UIS, HLO primary, HLO AAP-2018 done; 6 sources pending: OECD CRS, AidData Core, AidData GCDF, UCDP, COVID closures, AI readiness)
 - [ ] All code committed to GitHub before each phase close — **on track**
 - [ ] OSF or Harvard Dataverse deposit live before submission — Phase 14
 - [ ] `renv.lock` pins full package environment — **complete (188 packages)**
