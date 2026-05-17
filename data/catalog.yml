@@ -1,0 +1,135 @@
+wdi:
+  name: World Development Indicators
+  url: https://databank.worldbank.org/source/world-development-indicators
+  auth_required: no
+  methodology_cite: World Bank (annual) — World Development Indicators
+  notes: Includes former EdStats education series; pulled via WDI R package
+  access_date: '2026-05-17'
+  version: WDI API live, fetched 2026-05-17
+  n_rows: 6480
+  n_countries: 216
+  year_range:
+  - 1995
+  - 2024
+  missing_pct: 32.45
+  raw_files:
+  - name: wdi_raw.rds
+    sha256: c3674a9bbfa3eb52260bb8a8b8b9b8de3b972cc04af2c22526057c7355740a56
+  variables:
+  - code: NY.GDP.PCAP.CD
+    name: gdp_pc_usd
+  - code: NY.GDP.PCAP.PP.CD
+    name: gdp_pc_ppp
+  - code: NY.GNP.PCAP.CD
+    name: gni_pc_usd
+  - code: SP.POP.TOTL
+    name: population
+  - code: SE.PRM.ENRR
+    name: enroll_prim_gross
+  - code: SE.SEC.ENRR
+    name: enroll_sec_gross
+  - code: SE.PRM.NENR
+    name: enroll_prim_net
+  - code: SE.PRM.ENRL.TC.ZS
+    name: ptr_primary
+  - code: SE.XPD.TOTL.GD.ZS
+    name: edu_exp_pct_gdp
+  - code: SE.XPD.TOTL.GB.ZS
+    name: edu_exp_pct_gov
+  - code: SE.PRM.CMPT.ZS
+    name: primary_completion
+  - code: SE.SEC.CMPT.LO.ZS
+    name: lower_sec_completion
+  - code: SE.PRM.UNER
+    name: oos_primary_count
+  last_updated: '2026-05-17'
+wgi:
+  name: Worldwide Governance Indicators
+  url: https://info.worldbank.org/governance/wgi/
+  auth_required: no
+  methodology_cite: Kaufmann, Kraay & Mastruzzi (2010); engage Langbein & Knack (2010)
+  notes: Native source bundle (not via WDI API) — need underlying source-of-sources
+    data
+hci:
+  name: Human Capital Index
+  url: https://www.worldbank.org/en/publication/human-capital
+  auth_required: no
+  methodology_cite: World Bank Human Capital Project (Patrinos et al.)
+  notes: Composite outcome; HD.HCI.HLOS handled separately in HLO source (Session
+    04)
+  access_date: '2026-05-17'
+  version: WDI API live, fetched 2026-05-17
+  n_rows: 2277
+  n_countries: 207
+  year_range:
+  - 2010
+  - 2020
+  missing_pct: 76.49
+  raw_files:
+  - name: hci_raw.rds
+    sha256: 27bcaacf7222886035c2686805fdc78e4a349cfe504268f9bb54d2e6bfd26cc4
+  variables:
+  - code: HD.HCI.OVRL
+    name: hci_overall
+  - code: HD.HCI.OVRL.FE
+    name: hci_female
+  - code: HD.HCI.OVRL.MA
+    name: hci_male
+  - code: HD.HCI.LAYS
+    name: lays_overall
+  - code: HD.HCI.LAYS.FE
+    name: lays_female
+  - code: HD.HCI.LAYS.MA
+    name: lays_male
+  last_updated: '2026-05-17'
+hlo:
+  name: Harmonized Learning Outcomes
+  url: https://datatopics.worldbank.org/education/
+  auth_required: no
+  methodology_cite: Patrinos & Angrist (2018); Altinok, Angrist & Patrinos (2018)
+  notes: ADR-0004 pins specific version; default HD.HCI.HLOS via WDI API; sensitivity
+    at AAP-2018
+oecd_crs:
+  name: OECD DAC Creditor Reporting System
+  url: https://data-explorer.oecd.org/vis?fs[0]=Topic%2C0%7CDevelopment%23DEV%23&pg=0&fc=Topic&bp=true&snb=22&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_CRS%40DF_CRS&df[ag]=OECD.DCD.FSD&df[vs]=1.4
+  auth_required: no
+  methodology_cite: OECD DAC (annual CRS release)
+  notes: Sector codes 110/111/112/113/114; retain description text for ADR-0007 typology
+    coding; ADR-0005 stub for commitment vs disbursement
+aiddata_core:
+  name: AidData Core Research Release
+  url: https://www.aiddata.org/data
+  auth_required: no
+  methodology_cite: AidData (Tierney et al.)
+  notes: DAC + non-DAC project-level; coverage ~2000-2014
+aiddata_gcdf:
+  name: AidData Global Chinese Development Finance v3.0
+  url: https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0
+  auth_required: no
+  methodology_cite: AidData TUFF methodology; Custer et al.
+  notes: China-specific aid; complements OECD CRS (China is not DAC member)
+uis:
+  name: UNESCO Institute for Statistics
+  url: https://uis.unesco.org/
+  auth_required: no
+  methodology_cite: UNESCO Institute for Statistics (annual)
+  notes: Private expenditure share, out-of-school rates; SSA missingness severe pre-2015;
+    feeds ADR-0006
+ucdp:
+  name: UCDP/PRIO Armed Conflict Dataset
+  url: https://ucdp.uu.se/downloads/
+  auth_required: no
+  methodology_cite: Pettersson, Davies et al. (annual UCDP release)
+  notes: Country-year version (not GED); pin version in catalog at access time
+covid_closures:
+  name: UNESCO COVID-19 School Closures
+  url: https://covid19.uis.unesco.org/global-monitoring-school-closures-covid19/country-dashboard/
+  auth_required: no
+  methodology_cite: UNESCO COVID-19 Monitoring of School Closures
+  notes: Total/partial closure days 2020-2022 by country
+ai_readiness:
+  name: Oxford Insights AI Readiness Index
+  url: https://oxfordinsights.com/ai-readiness/
+  auth_required: no
+  methodology_cite: Oxford Insights (annual; methodology revised each edition)
+  notes: Cross-sectional in our use (single edition, most recent covering target window)
