@@ -69,6 +69,7 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 - Session logs are append-only — never edit past sessions, supersede them with new entries.
 - Causal language is precise: associations are not causal claims unless identification is defended.
 - Indicator lists per source are **pinned in script headers** and committed to git. Changes require an ADR.
+- **No fabrication.** Every value in every interim parquet must trace to a downloadable raw source via a pinned upstream indicator code. Missing is `NA`; never sentinel values; never silently imputed in ingestion. Multiple imputation, where used at all, is a transparent Phase-2 sensitivity step gated by [ADR-0006](docs/decisions/0006-uis-missingness-strategy.md) with MCAR-test evidence and listwise/UIS-dropped comparisons reported alongside — never gap-filling that hides as a real observation. Sub-national rows or non-country aggregates dropped during ISO3 normalization are logged to `output/logs/iso3_unresolved_<src>.csv` for audit.
 
 ## Engagement model
 
