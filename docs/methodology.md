@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-17 (Session 02 close — WGI native bundle ingested; 3/11 required sources complete)*
+> *Last updated: 2026-05-17 (Session 03 close — UIS ingested; SSA missingness pattern characterized; 4/11 required sources complete)*
 
 ---
 
@@ -55,9 +55,16 @@ WGI aggregates for all six dimensions — Voice & Accountability, Political Stab
 
 Operationalization in models (composite vs PCA-collapsed vs reconstructed-from-sources) is deferred to [ADR-0009](decisions/0009-wgi-operationalization.md), to be locked in Phase 5 after VIF is observed.
 
-**Pending ingestion:**
+**Schooling structure (ingested Phase 1 Session 03):**
 
-- *Schooling structure:* UIS private expenditure share, out-of-school rates (Session 03). Missingness for SSA addressed in [ADR-0006](decisions/0006-uis-missingness-strategy.md).
+UIS private expenditure share + out-of-school rates by sex × level. Source: UNESCO Institute for Statistics SDG bulk download (Feb 2026 release). Scope is deliberately *minimal* — only what WDI doesn't already cover (private expenditure + OOS detail) to avoid duplication.
+
+**SSA missingness pattern characterized** (`output/tables/ssa_uis_missingness.csv`):
+- **Private expenditure as % GDP**: 91.8% missing in SSA vs 80.3% rest of world (+11.6pp). Variable is **effectively unusable** for SSA-inclusive primary specifications.
+- Lower / upper secondary OOS: SSA worse by 10.9 / 13.3 pp
+- Primary OOS rates: SSA modestly better than rest of world (UN universal-primary monitoring focus)
+
+This empirical pattern feeds [ADR-0006](decisions/0006-uis-missingness-strategy.md) (locked in Phase 2 after MCAR test): the strong working preference is the primary specification uses **WDI controls only** with UIS-augmented specs as listwise-complete robustness.
 
 ## 3.7 Confounders — conflict and COVID
 

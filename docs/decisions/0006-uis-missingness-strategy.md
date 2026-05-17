@@ -13,6 +13,24 @@ UNESCO UIS data on private education expenditure share and detailed out-of-schoo
 
 The choice between multiple imputation (MI) and listwise deletion is consequential: MI keeps SSA observations but introduces imputation-model assumptions; listwise drops them and risks selection bias.
 
+### Data observed (Phase 1 Session 03)
+
+Empirical missingness in `data/interim/uis.parquet`, broken down by SSA vs rest-of-world (`output/tables/ssa_uis_missingness.csv`):
+
+| Indicator | SSA missing % | Non-SSA missing % | Gap |
+|---|---|---|---|
+| Private expenditure as % GDP | **91.8%** | 80.3% | +11.6 pp |
+| Government expenditure as % GDP (UIS) | 29.5% | 26.1% | +3.4 pp |
+| OOS rate, primary, both sexes | 32.3% | 33.9% | −1.6 pp |
+| OOS rate, primary, female | 38.7% | 51.5% | −12.8 pp |
+| OOS rate, primary, male | 38.7% | 51.5% | −12.8 pp |
+| OOS rate, lower secondary | 62.2% | 51.3% | +10.9 pp |
+| OOS rate, upper secondary | 65.0% | 51.7% | +13.3 pp |
+
+**Key finding:** the private-expenditure variable is **effectively unusable for an SSA-inclusive primary specification** — 91.8% missingness leaves <150 country-year observations across all of SSA from 1970–2025. This strongly favors Option 3 (drop UIS controls from primary; use listwise-complete UIS-augmented spec as robustness).
+
+Primary OOS rate has surprisingly *better* coverage in SSA than rest-of-world — likely reflects the UN's universal-primary monitoring focus during the MDG era.
+
 ## Options considered
 
 1. **Multiple Imputation (Amelia / mice)** for UIS variables where missingness is conditional on observable governance/income covariates (MAR). Run 5–10 imputations; pool via Rubin's rules.

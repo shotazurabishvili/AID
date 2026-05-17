@@ -11,7 +11,7 @@
 | **OECD DAC Creditor Reporting System** | — | https://data-explorer.oecd.org/vis?fs[0]=Topic%2C0%7CDevelopment%23DEV%23&pg=0&fc=Topic&bp=true&snb=22&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_CRS%40DF_CRS&df[ag]=OECD.DCD.FSD&df[vs]=1.4 | — | — | — | — | —–— | Sector codes 110/111/112/113/114; retain description text for ADR-0007 typology… |
 | **AidData Core Research Release** | — | https://www.aiddata.org/data | — | — | — | — | —–— | DAC + non-DAC project-level; coverage ~2000-2014 |
 | **AidData Global Chinese Development Finance v3.0** | — | https://www.aiddata.org/data/aiddatas-global-chinese-development-finance-dataset-version-3-0 | — | — | — | — | —–— | China-specific aid; complements OECD CRS (China is not DAC member) |
-| **UNESCO Institute for Statistics** | — | https://uis.unesco.org/ | — | — | — | — | —–— | Private expenditure share, out-of-school rates; SSA missingness severe pre-2015… |
+| **UNESCO Institute for Statistics** | XGDP.FSHH.FFNTR, XGDP.FSGOV, ROFST.1.CP, ROFST.1.F.CP, ROFST.1.M.CP, ROFST.2.CP… | https://uis.unesco.org/ | 2026-05-17 | SDG bulk 2026-02 | 7059 | 220 | 1970–2025 | Native SDG bulk (Feb 2026); substitutions from planned codes: FFNTP→FFNTR (priv… |
 | **UCDP/PRIO Armed Conflict Dataset** | — | https://ucdp.uu.se/downloads/ | — | — | — | — | —–— | Country-year version (not GED); pin version in catalog at access time |
 | **UNESCO COVID-19 School Closures** | — | https://covid19.uis.unesco.org/global-monitoring-school-closures-covid19/country-dashboard/ | — | — | — | — | —–— | Total/partial closure days 2020-2022 by country |
 | **Oxford Insights AI Readiness Index** | — | https://oxfordinsights.com/ai-readiness/ | — | — | — | — | —–— | Cross-sectional in our use (single edition, most recent covering target window) |
