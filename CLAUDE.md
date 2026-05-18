@@ -25,13 +25,14 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 1. **Session log:** append `docs/session_log/YYYY-MM-DD-NN-<short-topic>.md` using `_template.md`. Be specific about decisions captured. Fill the "What we tried that didn't work" section honestly — failed approaches preserve the reasoning trail that the committed code doesn't show.
 2. **ADR(s):** if any consequential analytical choice was made, write or update an ADR under `docs/decisions/`. Update `docs/decisions/INDEX.md` to reflect status changes.
 3. **Methodology narrative:** if the decision shifts a methodological stance, update the relevant section of `docs/methodology.md`. This is the proto-§3 of the paper — keep it current.
-4. **Data dictionary:** if you ingested new variables, add rows to `docs/data_dictionary.md`.
-5. **Obligations:** if you completed a diagnostic / test / robustness check committed to in `docs/obligations.md`, tick the box and link the evidence.
-6. **Lit note:** if you engaged with a cited author, populate or update `docs/lit/<author>.md`.
-7. **CLAUDE.md Current state:** update the phase progress, next concrete action, blocked-on, open decisions.
-8. **CURRENT.md pointer:** `ln -sf YYYY-MM-DD-NN-<short-topic>.md docs/session_log/CURRENT.md`.
-9. **Commit + push:** `git add -A && git commit -m "<type>: <session topic>" && git push`. Use Conventional Commits (`feat`, `data`, `model`, `docs`, `fix`, `chore`).
-10. **Sync:** `bash scripts/sync_to_desktop.sh`.
+4. **Findings:** if the session produced substantive empirical findings (coefficients, coverage numbers, region-level patterns, MCAR results, novel comparisons), add them to `docs/findings.md` under the relevant §4/§5/§6 subsection. One-line claim (bold) + key numbers + evidence pointer. This is the proto-§4/§5/§6 of the paper — keep it current; future-you in Phase 11 (Writing) will thank you.
+5. **Data dictionary:** if you ingested new variables, add rows to `docs/data_dictionary.md`.
+6. **Obligations:** if you completed a diagnostic / test / robustness check committed to in `docs/obligations.md`, tick the box and link the evidence.
+7. **Lit note:** if you engaged with a cited author, populate or update `docs/lit/<author>.md`.
+8. **CLAUDE.md Current state:** update the phase progress, next concrete action, blocked-on, open decisions.
+9. **CURRENT.md pointer:** `ln -sf YYYY-MM-DD-NN-<short-topic>.md docs/session_log/CURRENT.md`.
+10. **Commit + push:** `git add -A && git commit -m "<type>: <session topic>" && git push`. Use Conventional Commits (`feat`, `data`, `model`, `docs`, `fix`, `chore`).
+11. **Sync:** `bash scripts/sync_to_desktop.sh`.
 
 ---
 
@@ -81,6 +82,7 @@ Claude drives, the author ratifies. Routine analytical calls are documented in t
 
 **Living documents (update as work progresses):**
 - `docs/methodology.md` — proto-§3 of the paper; current methodological stance section by section
+- `docs/findings.md` — proto-§4/§5/§6 of the paper; running register of substantive empirical findings with evidence pointers
 - `docs/data_dictionary.md` — canonical definitions of every variable in interim parquets
 - `docs/obligations.md` — running checklist of every diagnostic / test / robustness spec we've committed to
 - `docs/decisions/INDEX.md` — table of all ADRs with status
