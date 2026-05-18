@@ -37,7 +37,7 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **2 opened (Session 01 done).** Production panel built; ADR-0006 Accepted.
+- **Phase:** **2 closed.** Production panel built; join losses documented; MCAR test run; ADR-0006 Accepted (all Phase-2 exit criteria met in Session 10, one session vs the 2-3 budgeted).
 - **Last session:** 2026-05-18 — Session 10 (production `R/30_merge_panel.R` rewrite; `data/interim/panel.parquet` 3,059 rows × 79 cols × 133 countries × 2000-2022; ADR-0006 Accepted as Option 3 — drop UIS from primary, with 60% complete-row loss when UIS added).
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
