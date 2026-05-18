@@ -108,15 +108,19 @@ $$Learning_i = \beta_0 + \beta_1 ODA_i + \beta_2 GDPpc_i + \beta_3 PTR_i + \vare
 
 Purpose: establish the naive cross-sectional association that the rest of the paper challenges.
 
-### Model 2 — Fixed Effects panel (PRIMARY)
+### Model 2 — Fixed Effects panel (PRIMARY) + System GMM headline robustness
 
 $$Learning_{it} = \beta_1 ODA_{it} + \beta_2 Expenditure_{it} + \beta_3 Stability_{it} + \alpha_i + \lambda_t + \varepsilon_{it}$$
 
 Country fixed effects ($\alpha_i$) and year fixed effects ($\lambda_t$). The contrast between $\beta_1$ here and in Model 1 is the headline finding. Cluster-robust standard errors at country level. Required diagnostics: Hausman, Wooldridge, Breusch-Pagan, VIF (see [obligations](obligations.md)).
 
-### Model 3 — Three-level hierarchical linear model
+**System GMM headline robustness ([ADR-0010](decisions/0010-identification-strategy-gmm.md), Pending — locks Phase 5 Session 1).** A static-FE-only specification draws the canonical *World Development* / aid-effectiveness referee critique: donors target deteriorating learning (reverse causality), and country FE doesn't catch time-varying confounding. Added per Phase-2 external review. Implementation via `plm::pgmm` or `pdynmc` with full Roodman (2009) diagnostics: Hansen overid p-value reported (target p > 0.10, < 0.99 to avoid weak-instrument false-clean tests); AR(1) p < 0.05 expected, AR(2) p > 0.10 required; instrument count < N managed via `collapse=TRUE` and lag-limit. Difference GMM (Arellano-Bond) reported alongside as a triangulation check. Sign-and-magnitude consistency across static FE / Difference GMM / System GMM is the substantive identification defense; divergence (if it occurs) is the §6 Discussion point.
 
-Students nested in schools nested in countries. ICC reported at each level. 30/30 rule checked before estimation. Random intercepts default; random slopes justified per ADR (TBD).
+Power / minimum-detectable-effect calculations reported per Model-2 coefficient — with n≈173 complete rows for the primary spec, thin-data caveats are owned explicitly rather than absorbed into wide CIs.
+
+### Model 3 — 2-level RE-vs-FE (reframed from brief)
+
+**Reframed per Phase-2 external review.** The brief's "students nested in schools nested in countries" is not supportable on country-year aggregate data; PISA/TIMSS/PIRLS student-level microdata is deferred (per [`plan.md`](plan.md) § Phase 1 stretch). Model 3 becomes a 2-level country random intercepts + time FE specification, with a formal Hausman test of FE vs RE — directly justifying the Model 2 FE choice and reporting the RE counterpart for transparency. ICC at the country level is reported; the brief's "30/30 rule" doesn't apply to country-cycle aggregates. ADR locked at Phase 6 Session 1 start.
 
 ### Model 4 — One-way ANOVA on intervention typology
 

@@ -7,10 +7,10 @@ Phased plan from infrastructure → submission. Order is mostly linear; modeling
 | 0 | Infrastructure | 1 | R works, repo pushed to GitHub, `CLAUDE.md` is readable, `sync_to_desktop.sh` runs |
 | 1 | Data ingestion & audit | 4–8 | All 10 sources downloaded (or API-accessible) with access dates in `data/catalog.md`; per-source coverage tables and missingness maps under `output/figures/coverage/` |
 | 2 | Panel construction | 2–3 | Single processed panel (~2,600 obs, ISO3 × year); documented join losses; MCAR test result; MI vs listwise decision recorded as ADR |
-| 3 | EDA | 2–3 | Enrollment/learning divergence figures by region + income group; descriptive table 1 for paper §4.1 |
+| 3 | EDA | 2–3 | Enrollment/learning divergence figures by region + income group; descriptive table 1 for paper §4.1; **LAYS reporting layer** constructed (Learning-Adjusted Years of Schooling per GEEAP 2023 / Angrist 2024) |
 | 4 | Model 1 — OLS baseline | 1 | Cross-sectional OLS coefficients with clustered SE; result documented |
-| 5 | Model 2 — FE panel (PRIMARY) | 2 | Country + year FE; Hausman + Wooldridge + Breusch-Pagan + VIF run; ODA coefficient reported and contrasted with Model 1; ADR on commitment vs disbursement |
-| 6 | Model 3 — Three-level HLM | 2 | ICC at all three levels; convergence diagnostics passed; 30/30 rule confirmed; ADR on random slopes |
+| 5 | Model 2 — FE panel (PRIMARY) + System GMM | 4–5 | Country + year FE baseline; **System GMM as headline robustness ([ADR-0010](decisions/0010-identification-strategy-gmm.md))** with Roodman diagnostics (Hansen overid, AR(1)/AR(2), instrument count); Hausman + Wooldridge + Breusch-Pagan + VIF run; ODA coefficient reported and contrasted with Model 1; [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md) locked |
+| 6 | Model 3 — Reframed 2-level RE vs FE | 1–2 | **Reframed per Phase-2 external review:** brief's "students nested in schools nested in countries" not supportable on country-year data without PISA/TIMSS/PIRLS microdata (deferred stretch). Model 3 becomes a 2-level country random intercepts + time FE; Hausman test justifies FE-over-RE for Model 2 headline; ADR on the reframe locked at session start |
 | 7 | Model 4 — ANOVA on intervention typology | 2 | ADR on group coding (infrastructure / teacher training / curriculum / budget support); Levene's test; Tukey HSD; η² and Cohen's d for ALL pairs |
 | 8 | Model 5 — Counterfactual simulation | 1 | Best / worst / expected case across CI bounds; explicit limit acknowledgments |
 | 9 | Compounding AI penalty section | 1 | HCI × AI Readiness composite constructed; novel finding documented; figure produced |
@@ -50,13 +50,15 @@ Each gets a script `R/10_ingest_<source>.R` + a row in `data/catalog.md` with so
 - Listwise vs MI decision is made *after* the missingness map is built — not before.
 - The missing-data ADR must explicitly characterize the SSA (sub-Saharan Africa) selection bias.
 
-### Phase 5 — Model 2 (the killer model)
+### Phase 5 — Model 2 (the killer model) + System GMM
 
 This is the central finding. The contrast between the Model 1 (naive OLS) coefficient on ODA and the Model 2 (within-country FE) coefficient is the headline result. Specification:
 
 ```
 Learning_it = β1·ODA_it + β2·Expenditure_it + β3·Stability_it + αi + λt + εit
 ```
+
+**System GMM as headline robustness** ([ADR-0010](decisions/0010-identification-strategy-gmm.md)): added per Phase-2 external review. Closes the canonical reverse-causality critique (donors target deteriorating learning); positions paper in the *World Development* / Asongu-2019 / Yogo-2017 mainline aid-effectiveness lit.
 
 Required diagnostics, all reported with the model:
 - Hausman test (FE vs RE)
@@ -65,6 +67,8 @@ Required diagnostics, all reported with the model:
 - VIF table (flag any > 10)
 - Cluster-robust SE at country level
 - Sensitivity to ODA lag structure (1y vs 3y MA)
+- **GMM-specific:** Hansen overidentification test (target p > 0.10, < 0.99); Difference-in-Hansen for instrument subsets; AR(1) on residuals (p < 0.05 expected); AR(2) on residuals (p > 0.10 required); instrument count < N; Roodman (2009) cited
+- **Power / minimum-detectable-effect calculation** per coefficient (n=173 complete rows for primary spec; thin data demands explicit power reporting)
 
 ### Phases 12–13 — Adversarial passes
 
