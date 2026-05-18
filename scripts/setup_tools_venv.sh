@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Set up the .venv-tools/ Python venv with helpers the R ingest scripts shell
-# out to. Currently only needed for Deflate64 zip extraction (OECD CRS bulk).
+# out to. Currently used for:
+#   - Deflate64 zip extraction (OECD CRS bulk, Session 05)
+#   - PDF table extraction (Oxford Insights GARI 2025, Session 08)
 #
 # Idempotent. Run once per fresh machine, or after deleting .venv-tools/.
 
@@ -15,8 +17,10 @@ if [[ ! -d "$VENV" ]]; then
   python3 -m venv "$VENV"
 fi
 
-echo "[tools] installing/upgrading zipfile-deflate64"
+echo "[tools] installing/upgrading pip"
 "$VENV/bin/pip" install --quiet --upgrade pip
-"$VENV/bin/pip" install --quiet zipfile-deflate64
+
+echo "[tools] installing zipfile-deflate64 + pdfplumber"
+"$VENV/bin/pip" install --quiet zipfile-deflate64 pdfplumber
 
 echo "[tools] ready: $VENV/bin/python"

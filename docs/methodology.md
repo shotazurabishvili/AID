@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-17 (Session 07 close — UCDP + UNESCO COVID closures ingested; 9/11 required sources complete; AidData Core deferred)*
+> *Last updated: 2026-05-18 (Session 08 close — Oxford Insights GARI 2025 ingested via PDF extraction; 10/11 sources complete; AidData Core deferred)*
 
 ---
 
@@ -159,6 +159,12 @@ As decisions accumulate, this list is the running register of robustness specifi
 - [ ] ANOVA coding: rule-based vs LLM-assisted (agreement rate ≥ 85%)
 - [ ] Country FE structure: country FE alone vs country × decade FE
 - [ ] Lag structure: contemporaneous ODA vs 3-year MA
+
+### Supplementary measure: Oxford Insights AI Readiness (Phase 9 input)
+
+The brief commits to a **Phase-9 "Compounding AI Penalty" section** (line 159: *"Constructed variable: Human Capital Index × AI Readiness Index. No prior paper has done this."*). The Oxford Insights Government AI Readiness Index 2025 (GARI) provides the AI Readiness side. Ingested in Phase 1 Session 08 from the 2026-01-29 PDF release via `pdfplumber`-based table extraction (no machine-readable export exists). The 195-country table has rank + 6 pillar scores (Policy Capacity, AI Infrastructure, Governance, Public Sector Adoption, Development & Diffusion, Resilience) but **no overall composite**; we derive `ai_readiness_score_mean` as an equally-weighted pillar mean and clearly label it as derived. Stored at `data/interim/ai_readiness.parquet` with `year = 2025` for join compatibility (cross-sectional in our use, not a time-varying variable).
+
+**Phase-9 preview** (`cor(ai_readiness_score_mean, hci_overall)` on the 189-country join): **r = 0.777**. The strong positive correlation between human capital and AI readiness is the empirical face of the compounding-penalty thesis — Phase 9 will partition the joint distribution and quantify the count + share of low-HCI ∩ low-GARI countries.
 
 ## 3.13 Positionality
 

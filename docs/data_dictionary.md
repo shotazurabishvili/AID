@@ -2,7 +2,7 @@
 
 > *Canonical reference for every variable in the project's interim parquets. Updated as ingestion scripts complete. The machine-readable version is `data/catalog.yml::variables[]` per source; this file is the human-facing rendering.*
 >
-> *Last updated: 2026-05-17 (Session 07 close — UCDP + UNESCO COVID closures added; 9/11 sources documented; AidData Core deferred)*
+> *Last updated: 2026-05-18 (Session 08 close — Oxford Insights GARI 2025 added; 10/11 sources documented; AidData Core deferred — Phase-1 substantively closed)*
 
 ---
 
@@ -281,9 +281,33 @@ Median country had 116 days fully closed across 2020-2022 (max 556 days). Scope:
 
 ---
 
+## Oxford Insights GARI 2025 (`data/interim/ai_readiness.parquet`)
+
+10 columns; **195 rows** (all GARI-ranked countries; 0 unresolved labels); single year 2025 (cross-sectional source). Extracted from Oxford Insights *Government AI Readiness Index 2025* PDF report (release dated 2026-01-29, ~8 MB) via `.venv-tools/bin/python scripts/extract_pdf_table.py` (pdfplumber). The 195-country score table is split across PDF pages 59–68; the script concatenates all 8-column tables and promotes the header row from page 59. **No machine-readable export exists** at the source; PDF extraction is the only path.
+
+**Important: no overall composite is published in the source.** The 8 source columns are Country, Rank, and 6 pillar scores. Our `ai_readiness_score_mean` is **DERIVED** as the equally-weighted mean of the 6 pillars (clearly labeled in the column name; documented in catalog notes). Oxford's official composite weighting may differ — our derivation is transparent and reproducible; Phase-9 reading should treat the composite as our construction, not Oxford's.
+
+Citation: Oxford Insights (2026). *Government AI Readiness Index 2025*. Report v01_26.
+
+| Variable | Definition | Type | Notes |
+|---|---|---|---|
+| `iso3` | ISO 3166-1 alpha-3 (from `normalize_iso3(country, origin="country.name")`) | code | 0% missing; all 195 countries resolved |
+| `year` | Edition stamp (2025) — NOT a measurement year | integer | constant across rows |
+| `ai_readiness_rank` | Oxford's published rank (1 = most ready) | integer | 1–195 |
+| `ai_pillar_policy_capacity` | Policy Capacity pillar score | numeric (0–100ish) | — |
+| `ai_pillar_ai_infrastructure` | AI Infrastructure pillar | numeric | — |
+| `ai_pillar_governance` | Governance pillar | numeric | — |
+| `ai_pillar_public_sector_adoption` | Public Sector Adoption pillar | numeric | — |
+| `ai_pillar_development_and_diffusion` | Development & Diffusion pillar | numeric | — |
+| `ai_pillar_resilience` | Resilience pillar | numeric | — |
+| `ai_readiness_score_mean` | **DERIVED** equally-weighted mean of the 6 pillars | numeric (10.28–87.68 observed) | Use for §9 HCI×GARI composite; document the derivation when cited |
+
+**Phase-9 preview**: joining with most-recent HCI cycle per country yields 189 country matches; `cor(ai_readiness_score_mean, hci_overall) = 0.777`. Strong positive correlation — the empirical hook for the brief's "Compounding AI Penalty" §9 thesis.
+
+---
+
 ## Pending sources (to be populated)
 - **AidData Core v3.1** — *DEFERRED* (Session 06 author decision): 1947–2013 only; ~4-year overlap with HLO window (2010+) is marginal. Possible §6 historical-context ingest later if needed.
-- **AI Readiness** (Session 08) — cross-sectional
 
 ---
 

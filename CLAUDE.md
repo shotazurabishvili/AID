@@ -37,13 +37,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 1 — Data Ingestion & Audit (9 of 11 sources complete)
-- **Last session:** 2026-05-17 — Session 07 (UCDP/PRIO ACD+BRD v25.1 + UNESCO COVID closures ingested; confounders obligation flipped from `[~]` to `[x]` with full evidence)
-- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures` → 9 interim parquets
-- **Sources pending:** aiddata_core (deferred), ai_readiness (+ optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** 0001, 0004 Accepted; 0002, 0003, 0005–0009 Pending. ADR-0004 carries empirical "Data observed" block (Session 04: `hlo_score` SSA gap −3.2 pp; `hlo_aap` SSA gap +8.75 pp). ADR-0006 carries empirical "Data observed" block (Session 03: private exp 91.8% missing in SSA). ADR-0008 carries empirical "Data observed" block (Session 06: GCDF SSA coverage +13.1 pp gap; 60.4% of all Chinese education aid bound for SSA; 47 of 48 SSA countries reached).
+- **Phase:** 1 — Data Ingestion & Audit (**10 of 11 sources complete; Phase-1 substantively closed**)
+- **Last session:** 2026-05-18 — Session 08 (Oxford Insights GARI 2025 ingested via pdfplumber PDF extraction; 195 countries × 6 pillars + derived composite; Phase-9 preview r(GARI, HCI) = 0.777 across 189 countries)
+- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets
+- **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
+- **ADRs:** 0001, 0004 Accepted; 0002, 0003, 0005–0009 Pending. ADR-0004 carries empirical "Data observed" block (Session 04). ADR-0006 carries empirical "Data observed" block (Session 03). ADR-0008 carries empirical "Data observed" block (Session 06).
 - **Next concrete action:**
-  *(Phase 1, Session 08)* Ingest **AI Readiness Index** (Oxford Insights) — the final regular Phase-1 source per `data/catalog.yml`. Cross-sectional in our use (single most-recent edition covering the target window). Small CSV per year; manual download from Oxford Insights' site likely required. After this, **Session 09** is the Phase-1 close-out audit: merged-panel coverage map, [ADR-0002](docs/decisions/0002-country-universe.md) lock, [ADR-0003](docs/decisions/0003-year-range.md) lock — expect ADR-0003 to shift from "2000-2022 primary" to "2010-2020 primary" given HLO sparsity (Session 04 finding).
+  *(Phase 1, **Session 09 — close-out audit**)* Build the merged-panel coverage map. Run MCAR test on the merged panel. **Lock [ADR-0002](docs/decisions/0002-country-universe.md)** (country universe) and **[ADR-0003](docs/decisions/0003-year-range.md)** (year range) — both Pending since Phase-1 opened. Expect ADR-0003 to shift from "2000–2022 primary" to "2010–2020 primary" given Session 04's HLO sparsity finding (HCI publishes only 2010/2017/2018/2020 cycles). Then Phase 2 (panel construction) opens.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

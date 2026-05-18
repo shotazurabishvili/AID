@@ -478,10 +478,50 @@ covid_closures:
   last_updated: '2026-05-17'
 ai_readiness:
   name: Oxford Insights AI Readiness Index
-  url: https://oxfordinsights.com/ai-readiness/
+  url: https://oxfordinsights.com/ai-readiness/government-ai-readiness-index-2025/
   auth_required: no
   methodology_cite: Oxford Insights (annual; methodology revised each edition)
-  notes: Cross-sectional in our use (single edition, most recent covering target window)
+  notes: 'Cross-sectional source (single edition); year=2025 reflects edition stamp,
+    not a measurement year per se. Extracted from PDF (pages 59-68) via .venv-tools/bin/python
+    scripts/extract_pdf_table.py (pdfplumber). Source table has 8 columns: Country,
+    Rank, and 6 pillar scores (Policy Capacity, AI Infrastructure, Governance, Public
+    Sector Adoption, Development & Diffusion, Resilience). No overall composite published
+    in source; ai_readiness_score_mean is OUR DERIVED equally-weighted mean of the
+    6 pillars (Oxford''s official weighting may differ; transparent and reproducible).
+    Feeds Phase 9 ''Compounding AI Penalty'' section (HCI × GARI composite per brief).'
+  access_date: '2026-05-18'
+  version: GARI 2025 (Oxford Insights, report v01_26 dated 2026-01-29); fetched 2026-05-18
+  n_rows: 195
+  n_countries: 195
+  year_range:
+  - 2025
+  - 2025
+  missing_pct: 0.0
+  raw_files:
+  - name: gari_2025.pdf
+    sha256: e31993095b7209e3344071cd78293b7da03c90d3fd53ae6bd1703026c29dec13
+  variables:
+  - code: iso3
+    name: iso3
+  - code: year
+    name: year
+  - code: ai_readiness_rank
+    name: ai_readiness_rank
+  - code: ai_pillar_policy_capacity
+    name: ai_pillar_policy_capacity
+  - code: ai_pillar_ai_infrastructure
+    name: ai_pillar_ai_infrastructure
+  - code: ai_pillar_governance
+    name: ai_pillar_governance
+  - code: ai_pillar_public_sector_adoption
+    name: ai_pillar_public_sector_adoption
+  - code: ai_pillar_development_and_diffusion
+    name: ai_pillar_development_and_diffusion
+  - code: ai_pillar_resilience
+    name: ai_pillar_resilience
+  - code: ai_readiness_score_mean
+    name: ai_readiness_score_mean
+  last_updated: '2026-05-18'
 hlo_aap2018:
   name: HLO — Altinok-Angrist-Patrinos 2018 robustness
   url: https://openknowledge.worldbank.org/handle/10986/29281
