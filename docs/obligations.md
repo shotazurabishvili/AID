@@ -51,6 +51,8 @@
 - [~] UIS missingness: listwise vs MI vs UIS-dropped — Phase 2 lock done; Phase 5 will run the three sensitivity specs and report alongside. *ADR-0006 Accepted 2026-05-18: drop UIS from primary; UIS-augmented listwise + MI both reported as Robustness 1 + Robustness 2. Implementation in Phase 5.*
 - [ ] ANOVA coding: rule-based vs LLM-assisted (target agreement ≥ 85%) — Phase 7
 - [ ] FE structure: country FE alone vs country × decade FE — Phase 5
+- [ ] **Identification: static FE vs Difference GMM vs System GMM** — Phase 5. *Added Phase-2 external review. ADR-0010 Pending; System GMM headline robustness with Roodman (2009) diagnostics.*
+- [ ] **LAYS reporting layer** (Learning-Adjusted Years of Schooling, per GEEAP 2023 / Angrist 2024) — Phase 3 EDA construction; Phase 5 Model 5 counterfactual reports in LAYS units alongside raw HLO score units.
 
 ---
 
