@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-18 (Session 09 close — Phase 1 audit complete; ADR-0002 + ADR-0003 Accepted; MCAR rejected at p < 0.000001)*
+> *Last updated: 2026-05-18 (Session 10 close — Phase 2 opened; production panel built; ADR-0006 Accepted)*
 
 ---
 
@@ -58,6 +58,8 @@ The two measures diverge sharply on SSA representation. The primary HCI measure 
 Primary: OECD DAC CRS disbursements to education (sector codes 110/111/112/113/114), 3-year lagged moving average. Robustness: commitments, alternative lag structures, and (per ADR-0008) Chinese development finance from AidData GCDF v3.0.
 
 **Ingest done (Phase 1 Session 05).** Bulk parquet (~1 GB, release CRS-Parquet-v20260408) fetched via dynamic SDMX file-ID discovery (`sdmx.oecd.org/.../DSD_CRS@DF_CRS/1.6` → IDFile GUID). Stored at project-level resolution in `data/interim/oecd_crs.parquet` — **537,586 rows × 38 columns, 172 recipient countries × 125 donor identities, 1995–2024**. Commitments and disbursements are SEPARATE wide columns (legacy CRS dotStat format), not long-format rows, with paired `_defl` constant-USD variants — so the ADR-0005 question becomes a *column choice* at Phase 5, not a *row filter*. Grant-equivalent measure (`usd_grant_equiv`) is the post-2018 ODA methodology and only populates 2015+. Project description text (`project_title`, `short_description`, `long_description`, `keywords`) and the 5-digit `purpose_code` are retained for ADR-0007 typology coding (Phase 7). Country-year aggregation (sum across donors per recipient × year) and 3-year MA happen in `R/30_merge_panel.R` at Phase 2 — ingest preserves source-native resolution. **SSA coverage parity is excellent** on commitments and disbursements (gap −1.3 / −1.1 pp respectively); see `output/tables/ssa_oecd_crs_missingness.csv`.
+
+**Production panel constructed (Phase 2 Session 01).** `R/30_merge_panel.R` aggregates CRS to (iso3, year) sums across donors and builds the ADR-0005 column matrix: **4 raw cols** (`crs_commit_usd_sum`, `crs_commit_usd_defl_sum`, `crs_disburse_usd_sum`, `crs_disburse_usd_defl_sum`); **4 trailing 3-year MA cols** (`*_ma3`); **2 one-year lag cols** on the deflated commit + disburse (`*_defl_lag1`). The MA window is trailing-INCLUSIVE: `mean(t-2, t-1, t)`, with `.complete=TRUE` returning NA when fewer than 3 in-panel years are available (years 2000–2001 per country). NA cells within the ADR-0002 universe are coalesced to 0 before MA computation (rationale: ODA-eligible recipients with no recorded education project in year *t* received $0 that year, not "data missing"). ADR-0005 in Phase 5 chooses primary among these. Pre-2002 disbursement reporting was sparse on the OECD side (~30% of post-2002 rates) — the 2010–2020 primary window is comfortably post-2002, but disbursement MA noise in the 2000–2022 robustness window is documented and not "fixed" (the point of robustness is window-invariance demonstration).
 
 ## 3.6 Controls — macro and sector
 
@@ -126,13 +128,20 @@ Redirect $1B from input-based to outcome-based aid; use effect sizes from Model 
 
 ## 3.9 Missing data strategy
 
-**Locked decision:** [ADR-0006](decisions/0006-uis-missingness-strategy.md) — Pending (Phase 2).
+**Locked decision:** [ADR-0006](decisions/0006-uis-missingness-strategy.md) — **Accepted 2026-05-18**.
 
-Working plan:
-1. Phase 1 Session 03 documents the SSA missingness pattern for UIS variables via `R/lib/coverage.R::ssa_missingness_pattern()`.
-2. Phase 1 Session 09 runs the Little MCAR test on the audit-grade merged panel (2010-2020 ∩ ADR-0002 Option-1 countries, 6 analytical columns: HLO + 3 WDI controls + CRS commit + WGI governance). **Result: MCAR rejected** (Little's χ² = 1213.6, df = 68, p < 0.000001, 20 missingness patterns; `output/tables/mcar_test_result.txt`). The merged-panel missingness is structured by source × time × region — not random.
-3. Phase 2 Session 01 will re-run the MCAR test on the production panel (post-3yr-MA + lag transforms) and lock the MI vs listwise vs UIS-dropped decision in ADR-0006.
-4. Primary specification likely uses WDI controls only (UIS dropped); UIS-augmented spec runs on the listwise-complete subset as robustness. Multiple imputation as third sensitivity if the panel-size loss is severe.
+**Option 3: drop UIS controls from the primary specification.** Primary uses WDI controls only (`wdi_edu_exp_pct_gdp`, `wdi_ptr_primary`, `wdi_gdp_pc_usd`) + WGI governance. UIS-augmented spec is reported in **Robustness 1** on the listwise-complete subset; **Robustness 2** is the multiple-imputation UIS-augmented spec on the full sample (Phase-5 implementation).
+
+**Empirical basis** (Phase 2 Session 01, production panel `data/interim/panel.parquet`, primary window 2010–2020 = 1,463 rows):
+
+| Subset | N rows | Complete rows | χ² (df) | p | Patterns |
+|---|---|---|---|---|---|
+| 6-col primary (HLO + 3 WDI + CRS + WGI) | 1,463 | **173** | 175.80 (41) | < 0.000001 | 12 |
+| 7-col +UIS (private expenditure) | 1,463 | **69** | 341.90 (84) | < 0.000001 | 20 |
+
+Both reject MCAR strongly; adding UIS drops the analytical sample by 60% (`output/tables/production_mcar_test_result.txt` + `production_mcar_with_uis.txt`). The 7-col pattern is structurally SSA-biased (UIS private-expenditure missingness +16.9 pp in SSA vs non-SSA on the production panel; `output/tables/production_ssa_panel_missingness.csv`).
+
+Earlier Phase-1 audit-panel MCAR (Session 09, `output/tables/mcar_test_result.txt`) ran on the unfiltered 250-country audit panel using `crs_commit_usd_sum` (current-USD commitment) and reported χ² = 1216, df = 68; that result is preserved for the audit trail but not the analytical-pipeline finding. The production lock uses `crs_disburse_usd_defl_sum` (production primary intent) on the 133-country universe after the within-universe NA → 0 coalesce.
 
 ## 3.10 Intervention typology coding
 
@@ -156,7 +165,7 @@ As decisions accumulate, this list is the running register of robustness specifi
 - [ ] ODA: disbursement vs commitment; 1-year vs 3-year MA
 - [ ] Sample: 2000–2022 vs 2005–2020
 - [ ] Sample: with vs without China-affected recipients
-- [ ] UIS missingness: listwise vs MI vs UIS-dropped
+- [x] UIS missingness: listwise vs MI vs UIS-dropped — locked [ADR-0006](decisions/0006-uis-missingness-strategy.md) Option 3 (drop UIS from primary); UIS-augmented listwise + MI reported as robustness
 - [ ] ANOVA coding: rule-based vs LLM-assisted (agreement rate ≥ 85%)
 - [ ] Country FE structure: country FE alone vs country × decade FE
 - [ ] Lag structure: contemporaneous ODA vs 3-year MA

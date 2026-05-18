@@ -37,13 +37,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **1 closed.** Audit complete; ADR-0002 + ADR-0003 Accepted; MCAR rejected.
-- **Last session:** 2026-05-18 — Session 09 (Phase-1 close-out audit; locked country universe = 133 countries, Model-2 FE subset = 127; locked year range = 2010-2020 primary + 2000-2022 + 2005-2020 robustness; Little's MCAR test χ² = 1216, p < 0.000001)
-- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets
+- **Phase:** **2 opened (Session 01 done).** Production panel built; ADR-0006 Accepted.
+- **Last session:** 2026-05-18 — Session 10 (production `R/30_merge_panel.R` rewrite; `data/interim/panel.parquet` 3,059 rows × 79 cols × 133 countries × 2000-2022; ADR-0006 Accepted as Option 3 — drop UIS from primary, with 60% complete-row loss when UIS added).
+- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** **0001, 0002, 0003, 0004 Accepted**; 0005–0009 Pending. ADR-0002 carries empirical "Data observed" block (Session 09 — N=133). ADR-0003 carries empirical "Data observed" block + Option 4 added (Session 09 — 2010-2020 primary). ADR-0004 carries empirical "Data observed" block (Session 04). ADR-0006 carries empirical "Data observed" block (Session 03). ADR-0008 carries empirical "Data observed" block (Session 06).
+- **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009 Pending. ADR-0006 carries empirical "Data observed (Phase 2 Session 01)" block (production MCAR 6-col vs 7-col; 60% complete-row loss when adding UIS). All other Accepted ADRs unchanged.
 - **Next concrete action:**
-  *(**Phase 2 Session 01 — production `R/30_merge_panel.R` rewrite**)*. Replace audit-grade aggregation with production logic per ADR-0005 (3-year MA on commitments + disbursements; lag structure; deflator choice). Filter to ADR-0002 universe (133 countries) and ADR-0003 primary window (2010-2020). Output `data/interim/panel.parquet` (no underscore prefix; committed). Re-run MCAR on production panel and **lock [ADR-0006](docs/decisions/0006-uis-missingness-strategy.md)** (MI vs listwise vs UIS-dropped).
+  *(**Phase 3 Session 01 — Exploratory data analysis on the production panel**)*. Build descriptive Table 1 (by region × income group), the enrollment-vs-learning divergence figure (brief §4.1 headline visual), and the primary-window coverage map. Output: `output/tables/table1_descriptives.csv` + `output/figures/enrollment_vs_learning.{pdf,png}`. Then Phase 4 (Model 1 OLS) and Phase 5 (Model 2 FE — locks ADR-0005, ADR-0008, ADR-0009).
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 
