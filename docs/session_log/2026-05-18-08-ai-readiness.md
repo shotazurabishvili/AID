@@ -27,6 +27,15 @@ Ingest the **Oxford Insights Government AI Readiness Index 2025 (GARI)** — the
 - **Year stamp = 2025** for join compatibility. Cross-sectional source; the year column is an edition stamp, not a measurement year. Documented in catalog notes and data dictionary.
 - **No ADR locks** — Phase-9 enters with a pre-specified construction (HCI × GARI) per the brief; no methodological choice point to adjudicate this session.
 
+## What we tried that didn't work
+
+*Added retrospectively (template introduced post-Session-09). High confidence — within current conversation.*
+
+- **R-native PDF extraction blocked.** `pdftools` is referenced in `renv.lock` but not installed (`requireNamespace` returned FALSE). Attempted `renv::install("pdftools")` — failed at configure step because `libpoppler-cpp-dev` system headers aren't installed and no sudo to apt-install them. → Reused the `.venv-tools/` Python venv pattern from Session 05; added `pdfplumber` to the venv via `scripts/setup_tools_venv.sh`.
+- **Considered substituting the IMF AI Preparedness Index** (available via World Bank Data360 with a clean machine-readable CSV API; verified live download with 857 rows). Different methodology than Oxford GARI; escalated via AskUserQuestion as a framing call. → Author chose Oxford PDF extraction over IMF substitution. IMF AIPI noted as possible Phase-9 sensitivity if Oxford extraction is poor.
+- **First plan-mode draft assumed Oxford published an overall composite score** in the country-ranking table. Empirically false. The PDF table has 8 columns: Country, Rank, and 6 pillar scores (Policy Capacity, AI Infrastructure, Governance, Public Sector Adoption, Development & Diffusion, Resilience). No overall score is published. → Derived `ai_readiness_score_mean` as the equally-weighted mean of the 6 pillars; explicitly labeled DERIVED in column name, catalog notes, and data dictionary. Phase-9 reading must disclose this when citing.
+- **Catalog rendered `version = "fetched NA"`** a third time — same root cause as Sessions 05 and 06 (cached file from probe phase). → Manual backfill via `fetched_on("ai_readiness", set = TRUE)` + re-render. Pattern is now familiar enough that a future template/helper change could address it permanently; deferred for now.
+
 ## Methodology entries written this session
 
 - **ADRs written / updated:** — (no ADR touched this session)
