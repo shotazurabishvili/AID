@@ -1,0 +1,33 @@
+Divergence figure summary — paper §4.1 (Phase 3 Session 01)
+Date: 2026-05-19
+Input panel: data/interim/panel.parquet (production)
+
+2020 cross-section, 133-country universe, both HLO + enrollment non-NA:
+  n countries     = 106
+  HLO range       = 307 - 575
+  HLO mean (SD)   = 407.5 (49.9)
+  Enrollment range = 72.4 - 142.8
+  Enrollment mean (SD) = 101.8 (11.2)
+
+OLS regression: HLO ~ Enrollment
+  intercept    = 473.79
+  slope        = -0.651  (HLO points per 1pp enrollment increase)
+  slope p      = 1.34e-01
+  R^2          = 0.0214
+  Adj R^2      = 0.0120
+
+Substantive interpretation:
+  R^2 = 0.02: enrollment explains ~2% of cross-country HLO variance. Most learning
+  variation is NOT captured by enrollment, supporting the brief's divergence thesis.
+  Slope: -0.65 HLO points per 1pp enrollment gain implies a country moving from 80% to
+  100% gross enrollment would, ON AVERAGE, gain only -13.0 HLO points (~-4.7% of the 305-581
+  observed range). Enrollment expansion is not a learning-gains lever at panel scale.
+
+Labeled countries:
+  BGD (South Asia):  enroll=110.1%,  HLO=368
+  BRA (Latin America & Caribbean):  enroll=105.9%,  HLO=413
+  EGY (Middle East & North Africa):  enroll=95.6%,  HLO=356
+  IDN (East Asia & Pacific):  enroll=101.0%,  HLO=395
+  IND (South Asia):  enroll=101.3%,  HLO=399
+  KEN (Sub-Saharan Africa):  enroll=92.0%,  HLO=455
+  NGA (Sub-Saharan Africa):  enroll=84.4%,  HLO=309

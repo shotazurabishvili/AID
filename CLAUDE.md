@@ -37,13 +37,15 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **2 closed.** Production panel built; join losses documented; MCAR test run; ADR-0006 Accepted (all Phase-2 exit criteria met in Session 10, one session vs the 2-3 budgeted).
-- **Last session:** 2026-05-18 — Session 10 (production `R/30_merge_panel.R` rewrite; `data/interim/panel.parquet` 3,059 rows × 79 cols × 133 countries × 2000-2022; ADR-0006 Accepted as Option 3 — drop UIS from primary, with 60% complete-row loss when UIS added).
+- **Phase:** **3 in progress (Session 01 done).** Table 1 + divergence figure produced; LAYS reporting layer verified.
+- **Last session:** 2026-05-19 — Session 11 (Table 1 by WB region across 17 analytical variables; 2020 enrollment-vs-HLO divergence scatter showing R² = 0.02 — empirical validation of the brief's divergence thesis; LAYS verified as `hci_lays_overall` from `HD.HCI.LAYS`).
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009, **0010** Pending. ADR-0006 carries empirical "Data observed (Phase 2 Session 01)" block (production MCAR 6-col vs 7-col; 60% complete-row loss when adding UIS). **ADR-0010 (System GMM as headline robustness)** stubbed Phase-2 post-session per external review — locks Phase 5 Session 1. All other Accepted ADRs unchanged.
+- **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009, 0010 Pending. ADR-0010 (System GMM headline robustness) locks Phase 5 Session 1.
 - **Next concrete action:**
-  *(**Phase 3 Session 01 — Exploratory data analysis on the production panel**)*. Build descriptive Table 1 (by region × income group), the enrollment-vs-learning divergence figure (brief §4.1 headline visual), and the primary-window coverage map. Output: `output/tables/table1_descriptives.csv` + `output/figures/enrollment_vs_learning.{pdf,png}`. Then Phase 4 (Model 1 OLS) and Phase 5 (Model 2 FE — locks ADR-0005, ADR-0008, ADR-0009).
+  *(Two paths — author chooses at next session)*:
+  - **(Recommended) Phase 4 Session 01 — Model 1 OLS baseline.** Cross-sectional OLS on the production panel; establishes the naive cross-sectional association that Model 2 FE then challenges. Output: `output/tables/model1_ols_baseline.{csv,md}`. Phase 3 §4.1 deliverables are complete; further EDA is supplementary.
+  - **(Optional) Phase 3 Session 02 — Supplementary EDA.** Correlation matrices; income-group stratification of Table 1 (requires `wbstats` ingest); time-series visuals of mean HLO vs enrollment trajectories 2010-2020; multi-panel coverage map.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

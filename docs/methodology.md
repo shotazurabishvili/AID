@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-18 (Session 10 close — Phase 2 opened; production panel built; ADR-0006 Accepted)*
+> *Last updated: 2026-05-19 (Session 11 close — Phase 3 Session 01; Table 1 + divergence figure produced; LAYS reporting layer verified)*
 
 ---
 
@@ -41,6 +41,8 @@ The argument is *falsifiable*: if the within-country coefficient on ODA is posit
 **Sandefur (2018) critique.** *Internationally comparable mathematics scores for fourteen African countries* (CGD WP 444) argues that anchor-equating between PISA, TIMSS, SACMEQ and other testing regimes produces score-equivalence claims that may not hold in practice — particularly for sub-Saharan African countries that anchor through small overlapping samples. This is the most serious threat to the validity of the headline outcome variable. We engage it head-on rather than burying it.
 
 **Within-country fixed-effects defense.** Model 2 ($\alpha_i + \lambda_t$) absorbs the cross-country score-comparability problem Sandefur identifies: country fixed effects soak up any time-invariant cross-country level miscalibration in the harmonization. The coefficient on ODA in Model 2 is identified off *within-country variation over time*, which faces a much smaller harmonization burden than cross-country level comparisons. The naive cross-sectional level differences Sandefur highlights are precisely what `αᵢ` controls for. Robustness reports both measures' Model 2 results in Phase 5; the within-country coefficient must be the same sign and within-CI magnitude across the primary and AAP-2018 specifications for the headline claim to stand.
+
+**LAYS reporting layer (Phase 2 external-review addition, Phase 3 Session 01 verified).** The Learning-Adjusted Years of Schooling (LAYS) metric is the de facto reporting standard in the contemporary cost-effectiveness literature ([GEEAP 2023 Smart Buys](obligations.md); [Angrist et al. 2024](lit/)). It is computed by the World Bank as $\text{LAYS} = \text{EYS} \times (\text{HLO}/625)$ where EYS is expected years of schooling and 625 is the upper anchor of the HCI HLOS scale. The production panel carries the WB-published value directly as `hci_lays_overall` (alongside `_female` / `_male`) from `HD.HCI.LAYS`. Coverage is identical to HLO score itself (published in the same HCI cycles): 443 of 1,463 cells in the 2010–2020 primary window. Spot-checked the LAYS identity on 5 random 2020 countries; implied EYS values are realistic (AFG ≈ 8.9 yrs, ALB ≈ 12.9 yrs, ARG ≈ 12.9 yrs, ARM ≈ 11.3 yrs, AGO ≈ 8.1 yrs). The Phase-5 Model 5 counterfactual reports gains in LAYS units alongside raw HLO points; this puts the paper's findings in the metric Angrist 2024 and GEEAP 2023 use for cross-intervention comparison. Both HLO and LAYS appear as outcome variables in Table 1 (`output/tables/table1_descriptives.md`).
 
 **SSA coverage caveat — empirically grounded.** The Session 04 ingest characterizes SSA missingness for both measures on a full-joined panel (`output/tables/ssa_hlo_missingness.csv`):
 

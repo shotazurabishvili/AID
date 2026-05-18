@@ -52,7 +52,7 @@
 - [ ] ANOVA coding: rule-based vs LLM-assisted (target agreement ≥ 85%) — Phase 7
 - [ ] FE structure: country FE alone vs country × decade FE — Phase 5
 - [ ] **Identification: static FE vs Difference GMM vs System GMM** — Phase 5. *Added Phase-2 external review. ADR-0010 Pending; System GMM headline robustness with Roodman (2009) diagnostics.*
-- [ ] **LAYS reporting layer** (Learning-Adjusted Years of Schooling, per GEEAP 2023 / Angrist 2024) — Phase 3 EDA construction; Phase 5 Model 5 counterfactual reports in LAYS units alongside raw HLO score units.
+- [~] **LAYS reporting layer** (Learning-Adjusted Years of Schooling, per GEEAP 2023 / Angrist 2024) — Phase 3 Session 01 done: LAYS column verified as `hci_lays_overall` (WB-published from `HD.HCI.LAYS`); coverage = 443 cells in primary window (same as HLO); spot-checked LAYS = EYS × (HLO/625) identity on 5 countries; included in Table 1. Phase 5 Model 5 counterfactual implementation in LAYS units pending. Evidence: `docs/methodology.md §3.4 LAYS subsection`; `output/tables/table1_descriptives.md`.
 
 ---
 
