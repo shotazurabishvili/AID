@@ -20,6 +20,14 @@ duration_min: ~
 - <Decision> → ADR `docs/decisions/NNNN-<slug>.md` (if formal)
 - <Smaller call, with one-line reasoning>
 
+## What we tried that didn't work
+
+*Capture failed first-attempts, rejected approaches, and dead-end paths. The committed code only shows the final version; this section preserves the reasoning trail for a future session or a referee asking "why didn't you just X?". Format: one bullet per attempt, ≤2 lines: what was tried, why it failed, what replaced it.*
+
+- <Attempt> — <why it failed> → <what we did instead>
+
+If nothing failed this session, write "Clean run — no failed attempts" rather than omitting the section; it forces the audit.
+
 ## Methodology entries written this session
 
 *Cross-reference what got recorded WHERE so future-you can reconstruct the trail.*

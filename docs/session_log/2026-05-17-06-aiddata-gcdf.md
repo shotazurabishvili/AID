@@ -29,6 +29,13 @@ Ingest **AidData GCDF v3.0** (Chinese development finance, TUFF methodology) —
 - **`Amount (Constant USD 2021)` retained as primary value column**, alongside Original Currency and Nominal USD variants. ADR-0005 (commitment vs disbursement, Phase 5) is more nuanced for GCDF — Chinese aid often reports commitments without granular disbursement schedules; this is documented in the catalog notes.
 - **No ADR locks** — ADR-0008 stays Pending until Phase 5 Model 2 sensitivity actually runs. Data Observed subsection appended.
 
+## What we tried that didn't work
+
+*Added retrospectively (template introduced post-Session-09). High confidence — within current conversation.*
+
+- **Initial scope included AidData Core v3.1.** I planned both Core + GCDF in the first draft of the Session-06 plan. → Mid-plan escalation flagged that Core is frozen at 2016 with data ending 2013, giving only ~4 years of overlap with our HLO-usable window (2010+). Author dropped Core from scope; only GCDF ingested. `aiddata_core` catalog stub remains as a Pending note.
+- **Catalog rendered `version = "fetched NA"`** again — same root cause as Session 05 (cached zip from probe phase skipped the `fetched_on(set=TRUE)` branch). → Manual backfill via `fetched_on("aiddata_gcdf", set = TRUE)` + re-render. Same known cosmetic edge case.
+
 ## Methodology entries written this session
 
 - **ADRs written / updated:** ADR-0008 — "Data observed (Phase 1 Session 06)" subsection appended with SSA-coverage contrast table + headline volume + Phase-5 substantive implications.

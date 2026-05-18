@@ -26,6 +26,15 @@ Close out session 00 by installing R and locking the package environment. Sessio
 - *Snapshot strategy:* lock all packages in project library (`type = "all"`), not just those explicitly `library()`-d. The brief's adversarial review requires a fully-pinned environment a reviewer can `renv::restore()`. Trade-off: lockfile carries packages we may not end up using; this is fine — referees and OSF deposits want completeness.
 - *User-library bootstrap path:* `~/R/library` rather than `R_LIBS_USER` default (`~/R/x86_64-pc-linux-gnu-library/4.3`). Shorter, version-agnostic; renv overrides .libPaths anyway after init so this only matters for the very first install.
 
+## What we tried that didn't work
+
+*Added retrospectively (template introduced post-Session-09). LOW confidence — predates current conversation; reconstruction from hints already in this log.*
+
+- **`.Rprofile` unconditionally sourced `renv/activate.R`** which didn't exist on first run → R session errored on startup. → Made the `source()` conditional on `file.exists()`.
+- **R's system library `/usr/local/lib/R/site-library` is root-only**, blocking `install.packages()` from succeeding without sudo. → `R/00_setup.R` now creates `~/R/library` and prepends it to `.libPaths()` before bootstrapping renv.
+- **`nloptr` and `fs` failed to install** for missing system libs (`cmake` for nloptr, `libuv1-dev` for fs). → Installed both system packages via apt (one-time sudo).
+- **`renv::snapshot()` defaults to `type = "implicit"`** which only locks packages explicitly `library()`-d in project code. First snapshot captured 16 packages; the rest of the dependency graph would have been irreproducible. → Re-snapshotted with `type = "all"` (188 packages); patched the setup script to default to `"all"` for future runs.
+
 ## Results / findings
 
 - **R version:** 4.3.3 (2024-02-29)
