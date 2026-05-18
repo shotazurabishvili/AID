@@ -7,8 +7,8 @@ Auto-maintainable index of all Architecture Decision Records.
 | # | Title | Status | Decided | Phase locked | What it decides |
 |---|---|---|---|---|---|
 | [0001](0001-toolchain-and-scaffolding.md) | Toolchain and project scaffolding | Accepted | 2026-05-16 | 0 | R + renv on WSL; private GitHub; CLAUDE.md + per-session-log + ADR continuity model |
-| [0002](0002-country-universe.md) | Country universe | Pending | — | 1 (Session 09) | Which ~120 countries enter every downstream model |
-| [0003](0003-year-range.md) | Year range | Pending | — | 1 (Session 09) | 2000–2022 primary; 2005–2020 robustness |
+| [0002](0002-country-universe.md) | Country universe | Accepted | 2026-05-18 | 1 (Session 09) | Option 1: ODA-eligible ∩ ≥1 HLO. **N=133 countries** (Model-2 FE: 127 with ≥2 HLO obs) |
+| [0003](0003-year-range.md) | Year range | Accepted | 2026-05-18 | 1 (Session 09) | **2010–2020 primary** (HCI-cycle-anchored); 2000–2022 + 2005–2020 reported in parallel as robustness |
 | [0004](0004-hlo-measure.md) | HLO score harmonization | Accepted | 2026-05-17 | 1 (Session 04) | WB `HD.HCI.HLOS` primary; AAP-2018 robustness |
 | [0005](0005-oda-commitment-vs-disbursement.md) | ODA commitment vs disbursement | Pending | — | 5 (Model 2) | Disbursement primary; commitment robustness; lag structure |
 | [0006](0006-uis-missingness-strategy.md) | UIS missingness strategy | Pending | — | 2 (Panel construction) | Listwise vs MI vs drop-UIS-controls for SSA-sparse variables |

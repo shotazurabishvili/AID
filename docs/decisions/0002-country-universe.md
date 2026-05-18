@@ -1,7 +1,7 @@
 # ADR-0002: Country universe
 
-**Status:** Pending — locked in Phase 1 Session 09 after the combined coverage matrix is built
-**Date:** —
+**Status:** Accepted
+**Date:** 2026-05-18
 **Phase:** 1 — Data Ingestion & Audit (close)
 
 ## Context
@@ -16,9 +16,25 @@ The natural restriction is **ODA recipients**: high-income countries don't recei
 2. **All countries with ≥1 HLO observation, regardless of aid receipt** — broader (~140-160). Forces NA on ODA for non-recipients; coefficients become uninterpretable for the "no aid" group.
 3. **World Bank low + lower-middle income only** — narrower (~70–90). Cleaner story but drops upper-middle-income countries (Brazil, South Africa) that *are* aid recipients and *do* show learning variation.
 
-## Decision (provisional)
+## Decision
 
-**Option 1.** The combined coverage matrix in `output/tables/coverage_matrix.csv` (built in Session 09) will produce the actual count; ADR locks after the count is observed.
+**Option 1: countries that are ODA-eligible at any point in 1995–2024 ∩ have ≥1 HLO observation.** Locked 2026-05-18 with the empirical count below.
+
+### Data observed (Phase 1 Session 09)
+
+Empirical enumeration from `data/interim/_panel_audit.parquet` (audit-grade merge of all 11 interim parquets) and recorded in `output/tables/country_universe_candidates.csv`:
+
+| Filter | Count |
+|---|---|
+| Total ISO3 in the union of all sources | **250** |
+| ODA-eligible (received any positive OECD CRS commitment in 1995–2024) | **171** |
+| Has ≥1 non-NA HLO observation (`hlo_score` in any year) | **169** |
+| **ADR-0002 Option 1 (∩): 133** | **133** |
+| ... of which with **≥2 HLO observations** (Model-2 within-country FE identifiable) | **127** |
+
+**Final country universe locked: 133 countries** for descriptive use and Model-1 (cross-sectional OLS). The Model-2 FE panel will use the 127-country subset where within-country variation is identifiable (a slope can't be estimated with only one observation). The 6-country difference (countries with exactly 1 HLO observation) is reported in the Methodology footnote.
+
+ODA-eligibility is derived empirically from OECD CRS (any recipient with a positive `usd_commitment` in 1995–2024) rather than from a separate OECD DAC list ingest. This is reproducible from sources already on disk; matches the spirit of "ODA-eligible per WB classification" in the original ADR Context.
 
 ## Consequences
 

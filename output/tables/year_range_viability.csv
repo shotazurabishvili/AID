@@ -1,0 +1,4 @@
+window,years,n_countries,n_years,cartesian_cells,hlo_cells,countries_with_2plus_hlo,hlo_plus_wdi_cells,full_row_cells,useful_sample_pct
+win_2000_2022,2000-2022,250,23,5750,589,163,219,155,2.7
+win_2005_2020,2005-2020,250,16,4000,589,163,219,155,3.88
+win_2010_2020,2010-2020,250,11,2750,589,163,219,155,5.64

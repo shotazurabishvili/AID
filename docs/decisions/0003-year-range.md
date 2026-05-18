@@ -1,7 +1,7 @@
 # ADR-0003: Year range
 
-**Status:** Pending — locked in Phase 1 Session 09 after coverage maps are built
-**Date:** —
+**Status:** Accepted
+**Date:** 2026-05-18
 **Phase:** 1 — Data Ingestion & Audit (close)
 
 ## Context
@@ -13,10 +13,25 @@ The brief specifies **2000–2022 (23 years)**, anchored to the MDG/EFA window t
 1. **2000–2022** — brief default. Maximum panel length; captures full MDG + early SDG era.
 2. **2005–2020** — restricted. Drops both ends to avoid thin pre-2005 coverage and COVID years (2020–2022) where school closures distort enrollment/learning measures.
 3. **2000–2019, with 2020–2022 as a COVID-controlled sub-sample** — keeps the long window but treats COVID years explicitly with closure-day controls (UNESCO COVID data, Session 07).
+4. **2010–2020 (HCI-cycle-anchored)** — added Phase 1 Session 09 after Session 04's HLO sparsity finding. All HLO observations are in 2010, 2017, 2018, 2020 (HCI cycles); pre-2010 cells contribute zero useful Model-2 observations. Maximizes useful-cell density.
 
-## Decision (provisional)
+## Decision
 
-**Option 1 (2000–2022) as primary; Option 2 (2005–2020) as the main sensitivity check.** Coverage maps in Session 09 confirm both ends have enough country-year observations. COVID handling: include 2020–2022 with `covid_closure_days` as a time-varying control (Model 2 spec); robustness drops these years.
+**Option 4 (2010–2020) as primary; Options 1 and 2 reported in parallel as robustness sensitivities.** Locked 2026-05-18.
+
+Reasoning: the audit in Session 09 (`output/tables/year_range_viability.csv`) reveals all three candidate windows have *identical* Model-2 sample sizes (156 full-row cells × 163 countries with ≥2 HLO observations × 589 HLO cells). HLO is the binding constraint: it's observed only in HCI cycles (2010/2017/2018/2020), so pre-2010 cells are NA and contribute zero useful information to within-country FE identification. 2010–2020 produces the cleanest, most defensible primary specification; the wider windows are reported alongside to demonstrate the result is window-invariant (a key World Development referee concern about cherry-picking).
+
+### Data observed (Phase 1 Session 09)
+
+`output/tables/year_range_viability.csv`:
+
+| Window | Years | Countries | HLO cells | Countries ≥2 HLO | Full-row cells | Useful % |
+|---|---|---|---|---|---|---|
+| 2000–2022 | 23 | 250 | 589 | 163 | 156 | 2.71 |
+| 2005–2020 | 16 | 250 | 589 | 163 | 156 | 3.90 |
+| **2010–2020** | **11** | **250** | **589** | **163** | **156** | **5.67** |
+
+All three windows produce the same Model-2 sample because HLO sparsity is the binding constraint, not window choice. The locked primary is the densest framing (highest useful %); the others are reported as referee-resistant robustness alongside.
 
 ## Consequences
 

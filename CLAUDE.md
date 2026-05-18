@@ -37,13 +37,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** 1 — Data Ingestion & Audit (**10 of 11 sources complete; Phase-1 substantively closed**)
-- **Last session:** 2026-05-18 — Session 08 (Oxford Insights GARI 2025 ingested via pdfplumber PDF extraction; 195 countries × 6 pillars + derived composite; Phase-9 preview r(GARI, HCI) = 0.777 across 189 countries)
+- **Phase:** **1 closed.** Audit complete; ADR-0002 + ADR-0003 Accepted; MCAR rejected.
+- **Last session:** 2026-05-18 — Session 09 (Phase-1 close-out audit; locked country universe = 133 countries, Model-2 FE subset = 127; locked year range = 2010-2020 primary + 2000-2022 + 2005-2020 robustness; Little's MCAR test χ² = 1216, p < 0.000001)
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** 0001, 0004 Accepted; 0002, 0003, 0005–0009 Pending. ADR-0004 carries empirical "Data observed" block (Session 04). ADR-0006 carries empirical "Data observed" block (Session 03). ADR-0008 carries empirical "Data observed" block (Session 06).
+- **ADRs:** **0001, 0002, 0003, 0004 Accepted**; 0005–0009 Pending. ADR-0002 carries empirical "Data observed" block (Session 09 — N=133). ADR-0003 carries empirical "Data observed" block + Option 4 added (Session 09 — 2010-2020 primary). ADR-0004 carries empirical "Data observed" block (Session 04). ADR-0006 carries empirical "Data observed" block (Session 03). ADR-0008 carries empirical "Data observed" block (Session 06).
 - **Next concrete action:**
-  *(Phase 1, **Session 09 — close-out audit**)* Build the merged-panel coverage map. Run MCAR test on the merged panel. **Lock [ADR-0002](docs/decisions/0002-country-universe.md)** (country universe) and **[ADR-0003](docs/decisions/0003-year-range.md)** (year range) — both Pending since Phase-1 opened. Expect ADR-0003 to shift from "2000–2022 primary" to "2010–2020 primary" given Session 04's HLO sparsity finding (HCI publishes only 2010/2017/2018/2020 cycles). Then Phase 2 (panel construction) opens.
+  *(**Phase 2 Session 01 — production `R/30_merge_panel.R` rewrite**)*. Replace audit-grade aggregation with production logic per ADR-0005 (3-year MA on commitments + disbursements; lag structure; deflator choice). Filter to ADR-0002 universe (133 countries) and ADR-0003 primary window (2010-2020). Output `data/interim/panel.parquet` (no underscore prefix; committed). Re-run MCAR on production panel and **lock [ADR-0006](docs/decisions/0006-uis-missingness-strategy.md)** (MI vs listwise vs UIS-dropped).
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

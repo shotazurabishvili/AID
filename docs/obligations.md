@@ -12,7 +12,7 @@
 - [ ] Verify all causal language is precise (association vs causation) — *manuscript-wide audit in Pass 2 (Phase 12)*
 - [x] Identify time-varying confounders (conflict, COVID, political transitions) — *Phase 1 Session 07 done: UCDP/PRIO ACD + BRD v25.1 aggregated to country-year panel (data/interim/ucdp.parquet, 7470 × 10 × 1995-2024, 12.3% of cells with active conflict, SSA prevalence gap +16.1 pp); UNESCO COVID closures derived from daily HDX status CSV (data/interim/covid_closures.parquet, 630 × 8 × 2020-2022, cross-validated against UNESCO pre-aggregated at median |diff| = 2 days). Political transitions captured via WGI (Session 02).*
 - [ ] Test for reverse causality: Granger causality test on panel — *Phase 5*
-- [~] Characterize selection bias from missing-data countries explicitly — *Phase 1 Session 03 partial: UIS SSA pattern documented at `output/tables/ssa_uis_missingness.csv`. Full version (combined panel) is Phase 1 Session 09 audit + ADR-0006*
+- [x] Characterize selection bias from missing-data countries explicitly — *Phase 1 Session 09 done: combined-panel SSA missingness at `output/tables/ssa_panel_missingness.csv` on the 2010-2020 ∩ ADR-0002 Option-1 analytical subset. SSA is BETTER covered than non-SSA on the analytical columns (HLO −1.84 pp; CRS commit −15.5 pp; edu_exp −13.5 pp) because high-income non-SSA countries fall outside the HLO/CRS measurement universes. Phase 1 Session 03 partial (UIS-only) preserved as `output/tables/ssa_uis_missingness.csv`.*
 
 ## Data Integrity Checks
 *(From brief § Self-Review Protocol — Statistical Layer)*
@@ -22,7 +22,7 @@
 - [ ] UNESCO enrollment: flag self-reporting incentive bias → Phase 3 EDA notes; §3.6 in `methodology.md`
 - [x] WGI: cite Langbein & Knack aggregation critique — *Phase 1 Session 02 done: native bundle ingested with `n_sources` retained; per-source values deferred to Phase 5 per ADR-0009. Evidence: `data/interim/wgi.parquet`, `docs/lit/langbein-knack-2010.md`*
 - [x] Private expenditure: document missing data rate, especially SSA → done Phase 1 Session 03: 91.8% SSA missing vs 80.3% non-SSA (+11.6pp). Evidence: `output/tables/ssa_uis_missingness.csv`, `docs/decisions/0006-uis-missingness-strategy.md::Data observed`
-- [ ] Missingness strategy: test MCAR, choose MI or listwise deletion, run sensitivity analysis both ways → **[ADR-0006](decisions/0006-uis-missingness-strategy.md)** (Phase 2)
+- [~] Missingness strategy: test MCAR, choose MI or listwise deletion, run sensitivity analysis both ways → **[ADR-0006](decisions/0006-uis-missingness-strategy.md)** (Phase 2). *Phase 1 Session 09 partial: Little's MCAR test run on audit-grade panel (2010-2020 × 6 analytical cols), strongly rejected (χ² = 1213.6, df = 68, p < 0.000001). Evidence: `output/tables/mcar_test_result.txt`. MI vs listwise choice + sensitivity analysis remain Phase 2 work.*
 
 ## Model Diagnostics Checklist
 *(From brief § Self-Review Protocol — Statistical Layer)*
