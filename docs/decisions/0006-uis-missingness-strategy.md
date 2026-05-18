@@ -1,8 +1,8 @@
 # ADR-0006: UIS missingness strategy
 
-**Status:** Pending — locked in Phase 2 (Panel construction) after the SSA missingness pattern is characterized in Phase 1 Session 03 (UIS ingest)
-**Date:** —
-**Phase:** 2 — Panel construction
+**Status:** Accepted
+**Date:** 2026-05-18
+**Phase:** 2 — Panel construction (Session 01)
 
 ## Context
 
@@ -37,13 +37,28 @@ Primary OOS rate has surprisingly *better* coverage in SSA than rest-of-world �
 2. **Listwise deletion** for any country-year with UIS missing on the primary controls. Smaller, cleaner sample.
 3. **Drop UIS controls from the primary specification entirely** — use only WDI controls (which have higher coverage). Report UIS-augmented specs as robustness on the listwise-complete subset.
 
-## Decision (Pending)
+## Decision
 
-To be locked after seeing:
-- The Little MCAR test result from `R/lib/coverage.R::ssa_missingness_pattern()` run on UIS data in Session 03
-- The combined coverage matrix in Session 09
+**Option 3: drop UIS controls from the primary specification.** Locked 2026-05-18 with the empirical evidence below.
 
-Working preference: **Option 3** — keep the primary specification minimal (using WDI controls only) to maximize sample retention; UIS-augmented spec reported as robustness. This pre-empts the "imputation drove the result" critique.
+- **Primary spec** uses WDI controls only (`wdi_edu_exp_pct_gdp`, `wdi_ptr_primary`, `wdi_gdp_pc_usd`) + WGI governance.
+- **Robustness 1:** UIS-augmented spec on the listwise-complete UIS subset (smaller N; reported alongside).
+- **Robustness 2 (Phase-5 implementation):** Multiple-imputation UIS-augmented spec on the full sample, with imputation diagnostics + MCAR test reported openly.
+
+### Data observed (Phase 2 Session 01)
+
+Production panel (`data/interim/panel.parquet`, 133 countries × 23 years = 3,059 rows; primary window 2010–2020 = 1,463 rows). Little MCAR test (`naniar::mcar_test()`) run twice on the primary-window subset, both confirming MCAR rejected and quantifying the cost of including UIS:
+
+| Subset | Cols | N rows | Complete rows | χ² | df | Missingness patterns | p |
+|---|---|---|---|---|---|---|---|
+| **6-col primary (no UIS)** | HLO + 3 WDI + CRS disburse_defl + WGI gov_eff | 1,463 | **173** | 175.80 | 41 | 12 | < 0.000001 |
+| **7-col +UIS** | + UIS private expenditure | 1,463 | **69** | 341.90 | 84 | 20 | < 0.000001 |
+
+The 6-col vs 7-col contrast is the decisive piece of evidence: **including UIS as a control drops the complete-row count from 173 to 69 — a 60% loss of analytical sample.** Both subsets reject MCAR strongly (p ≪ 0.001), so MI assumptions can't be cheaply defended on either; but the 6-col MCAR pattern reflects only HLO sparsity + WDI `ptr_primary` (~43% NA) + small WGI residuals, while the 7-col pattern adds the SSA-biased UIS missingness (85.1% SSA vs 68.1% non-SSA = +16.9 pp gap, `output/tables/production_ssa_panel_missingness.csv`).
+
+CRS and GCDF aid-flow columns show 0% NA within universe by construction — the production merge applies an NA → 0 coalesce within the 133-country ADR-0002 universe (rationale: ODA-eligible recipients with no recorded CRS project in year t had $0 aid that year, not "data missing"). This decision interacts with the missingness story and is documented in `R/30_merge_panel.R` header + data dictionary.
+
+Note divergence from the Session-09 audit-panel MCAR run (`output/tables/mcar_test_result.txt`): that run was on the unfiltered 250-country audit panel using `crs_commit_usd_sum` (current-USD commitment); the production run is on the 133-universe within 2010-2020 using `crs_disburse_usd_defl_sum` (production primary intent per [methodology §3.5](../methodology.md)) after NA → 0 coalesce. The two answer different questions; this one is the analytical-pipeline missingness that locks the ADR.
 
 ## Consequences
 
@@ -60,3 +75,7 @@ Response: Primary spec doesn't impute. Robustness reports both directions: the r
 *"Dropping UIS controls means you're not adjusting for private spending, which differs systematically by region."*
 
 Response: Private spending share is largely time-invariant within country — absorbed by country fixed effects in Model 2. Cross-sectional variation in private spending is real but enters through the country FE, not as a within-country control.
+
+*"Your '60% sample loss with UIS' justifies dropping it, but the lost cases may be where the relationship is strongest."*
+
+Response: Reported as Robustness 1 — the UIS-augmented spec on the 69-row listwise-complete subset is in the robustness table with explicit caveat about the SSA selection bias (`production_ssa_panel_missingness.csv` quantifies it at +16.9 pp gap). Robustness 2 (MI on the full sample) addresses the directional concern without the listwise N loss; if all three (primary, listwise-UIS, MI-UIS) give the same sign and within-CI magnitude, the result is robust to the choice.

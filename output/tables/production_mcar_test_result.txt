@@ -1,0 +1,9 @@
+[production 6-col primary-window] naniar::mcar_test() (n=1463 rows, 6 cols)
+
+statistic = 175.796
+df = 41
+p_value = 0.000000
+missing_patterns = 12
+
+Complete-row count: 173
+

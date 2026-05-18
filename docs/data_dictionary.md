@@ -2,7 +2,7 @@
 
 > *Canonical reference for every variable in the project's interim parquets. Updated as ingestion scripts complete. The machine-readable version is `data/catalog.yml::variables[]` per source; this file is the human-facing rendering.*
 >
-> *Last updated: 2026-05-18 (Session 08 close — Oxford Insights GARI 2025 added; 10/11 sources documented; AidData Core deferred — Phase-1 substantively closed)*
+> *Last updated: 2026-05-18 (Session 10 close — production panel constructed; CRS column matrix + flags documented)*
 
 ---
 
@@ -303,6 +303,56 @@ Citation: Oxford Insights (2026). *Government AI Readiness Index 2025*. Report v
 | `ai_readiness_score_mean` | **DERIVED** equally-weighted mean of the 6 pillars | numeric (10.28–87.68 observed) | Use for §9 HCI×GARI composite; document the derivation when cited |
 
 **Phase-9 preview**: joining with most-recent HCI cycle per country yields 189 country matches; `cor(ai_readiness_score_mean, hci_overall) = 0.777`. Strong positive correlation — the empirical hook for the brief's "Compounding AI Penalty" §9 thesis.
+
+---
+
+## Production panel (`data/interim/panel.parquet`)
+
+3,059 rows; 79 columns; 133 countries × 23 years (2000–2022); built by `R/30_merge_panel.R` (Phase 2 Session 01).
+
+The production panel is a balanced (iso3, year) frame derived from 10 interim parquets (GARI excluded — cross-sectional 2025; Phase 9 re-joins separately). Country universe is locked at the ADR-0002 Option-1 set; year storage range is the widest robustness window per ADR-0003. All source-native columns from the 10 ingest parquets are carried forward with source-slug prefixes (`wdi_*`, `hci_*`, `wgi_*`, `uis_*`, `hlo_*`, `aap_*`, `ucdp_*`, `covid_*`, `crs_*`, `gcdf_*`); see per-source sections above for those definitions. Below: only the columns *added or transformed* during the production merge.
+
+### Production CRS column matrix (per ADR-0005 deferred choice)
+
+| Variable | Definition | Units | Transform | NA % within universe |
+|---|---|---|---|---|
+| `crs_commit_usd_sum` | Sum of `usd_commitment` across donors in (iso3, year) | USD (current) | aggregate; coalesce NA→0 within universe | 0% |
+| `crs_commit_usd_defl_sum` | Sum of `usd_commitment_defl` (constant-USD) | USD (constant) | aggregate; coalesce NA→0 | 0% |
+| `crs_disburse_usd_sum` | Sum of `usd_disbursement` across donors | USD (current) | aggregate; coalesce NA→0 | 0% |
+| `crs_disburse_usd_defl_sum` | Sum of `usd_disbursement_defl` (constant-USD) | USD (constant) | aggregate; coalesce NA→0 | 0% |
+| `crs_n_projects` | Count of CRS project rows in (iso3, year) | integer | aggregate; coalesce NA→0 | 0% |
+| `crs_n_donors` | Distinct donor identities in (iso3, year) | integer | aggregate; coalesce NA→0 | 0% |
+| `crs_commit_usd_ma3` | 3-year trailing-inclusive MA: `mean(t-2, t-1, t)` | USD (current) | `slider::slide_dbl(.before=2, .after=0, .complete=TRUE)` within iso3 | ~9% (first 2 years per country) |
+| `crs_commit_usd_defl_ma3` | Same, constant-USD | USD (constant) | as above | ~9% |
+| `crs_disburse_usd_ma3` | Same, disbursement, current-USD | USD (current) | as above | ~9% |
+| `crs_disburse_usd_defl_ma3` | **Production primary intent**: 3-yr trailing MA of constant-USD disbursement | USD (constant) | as above | ~9% |
+| `crs_commit_usd_defl_lag1` | 1-year lag of `crs_commit_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% (first year per country) |
+| `crs_disburse_usd_defl_lag1` | 1-year lag of `crs_disburse_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% |
+
+### Production GCDF columns
+
+| Variable | Definition | Units | Transform | NA % within universe |
+|---|---|---|---|---|
+| `gcdf_amount_const2021_sum` | Sum of `Amount (Constant USD 2021)` across GCDF projects | USD (constant 2021) | aggregate; coalesce NA→0 within universe | 0% |
+| `gcdf_n_projects` | Count of GCDF project rows in (iso3, year) | integer | aggregate; coalesce NA→0 | 0% |
+| `gcdf_amount_const2021_ma3` | 3-year trailing MA | USD (constant 2021) | `slider::slide_dbl` within iso3 | ~9% |
+| `gcdf_amount_const2021_lag1` | 1-year lag | USD (constant 2021) | `dplyr::lag` within iso3 | ~4% |
+
+### Window + identification flags
+
+| Variable | Definition | Type | Notes |
+|---|---|---|---|
+| `in_primary_window` | `year %in% 2010:2020` (ADR-0003 primary window) | logical | Use `filter(in_primary_window)` for the primary spec |
+| `in_robust_2005_2020` | `year %in% 2005:2020` (ADR-0003 robustness window) | logical | Use for the second robustness spec; the 2000-2022 window is the full panel (no flag needed) |
+| `has_2plus_hlo` | TRUE for the 127 countries with ≥2 non-NA `hlo_hlo_score` observations in 2000-2022 | logical | Model-2 within-country FE requires ≥2 observations to identify a slope; filter on this for Model 2 |
+
+### NA → 0 convention (FLOW columns only)
+
+Aid-flow columns (CRS + GCDF) are coalesced NA → 0 within the 133-country ADR-0002 universe. Rationale: ODA-eligible recipients with no CRS or GCDF project recorded in year *t* received $0 aid that year, not "data missing". This enables clean trailing MAs without leading NA propagation.
+
+**Outcome and control columns are NOT coalesced.** HLO, HLO_AAP, WGI, UIS, WDI, HCI, COVID closures — NA in these means "not measured / not reported", which is structurally different from $0. Their NA fractions are preserved (see per-source sections above for source-native missing %s; the production panel filtered to a smaller universe + window has slightly different observed %s).
+
+UCDP is a special case: its country-year panel was filled with 0s during ingest (Session 07) for non-conflict cells, because UCDP records only ≥25-deaths conflicts. That ingest-time fill is retained.
 
 ---
 

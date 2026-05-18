@@ -11,7 +11,7 @@ Auto-maintainable index of all Architecture Decision Records.
 | [0003](0003-year-range.md) | Year range | Accepted | 2026-05-18 | 1 (Session 09) | **2010–2020 primary** (HCI-cycle-anchored); 2000–2022 + 2005–2020 reported in parallel as robustness |
 | [0004](0004-hlo-measure.md) | HLO score harmonization | Accepted | 2026-05-17 | 1 (Session 04) | WB `HD.HCI.HLOS` primary; AAP-2018 robustness |
 | [0005](0005-oda-commitment-vs-disbursement.md) | ODA commitment vs disbursement | Pending | — | 5 (Model 2) | Disbursement primary; commitment robustness; lag structure |
-| [0006](0006-uis-missingness-strategy.md) | UIS missingness strategy | Pending | — | 2 (Panel construction) | Listwise vs MI vs drop-UIS-controls for SSA-sparse variables |
+| [0006](0006-uis-missingness-strategy.md) | UIS missingness strategy | Accepted | 2026-05-18 | 2 (Session 01) | **Option 3: drop UIS from primary** (WDI controls only); UIS-augmented listwise + MI as robustness |
 | [0007](0007-oecd-crs-intervention-typology.md) | OECD CRS intervention typology coding | Pending | — | 7 (Model 4 ANOVA) | Rule-based keyword vs LLM-assisted classification |
 | [0008](0008-china-aid-inclusion.md) | Chinese aid inclusion in primary ODA | Pending | — | 5 (Model 2) | OECD CRS primary; GCDF robustness |
 | [0009](0009-wgi-operationalization.md) | WGI operationalization in models | Pending | — | 5 (Model 2) | All-six aggregates with VIF audit + PCA-collapsed robustness, vs single composite vs reconstructed-from-sources |
