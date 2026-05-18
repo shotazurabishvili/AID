@@ -50,7 +50,7 @@
 | `hci_overall` | HD.HCI.OVRL | Human Capital Index, overall | 0–1 index | none | 74.3% |
 | `hci_female` | HD.HCI.OVRL.FE | HCI, female | 0–1 index | none | 77.6% |
 | `hci_male` | HD.HCI.OVRL.MA | HCI, male | 0–1 index | none | 77.6% |
-| `lays_overall` | HD.HCI.LAYS | Learning-adjusted years of school | years | none | 74.3% |
+| `lays_overall` | HD.HCI.LAYS | **Learning-Adjusted Years of Schooling (LAYS)** — manuscript's secondary outcome metric per GEEAP 2023 / Angrist 2024. WB methodology: LAYS = EYS × (HLO / 625). | years | none | 74.3% |
 | `lays_female` | HD.HCI.LAYS.FE | LAYS, female | years | none | 77.6% |
 | `lays_male` | HD.HCI.LAYS.MA | LAYS, male | years | none | 77.6% |
 
