@@ -21,6 +21,9 @@ renv/staging/
 # Output logs (transient run output; figures and tables ARE committed)
 output/logs/
 
+# Audit artifacts (reproducible from interim parquets; not pinned across sessions)
+data/interim/_panel_audit.parquet
+
 # Python venv used as a one-off tool (Deflate64 zip extraction for OECD CRS)
 .venv-tools/
 

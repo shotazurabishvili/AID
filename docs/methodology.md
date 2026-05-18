@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-18 (Session 08 close — Oxford Insights GARI 2025 ingested via PDF extraction; 10/11 sources complete; AidData Core deferred)*
+> *Last updated: 2026-05-18 (Session 09 close — Phase 1 audit complete; ADR-0002 + ADR-0003 Accepted; MCAR rejected at p < 0.000001)*
 
 ---
 
@@ -20,15 +20,15 @@ The argument is *falsifiable*: if the within-country coefficient on ODA is posit
 
 ## 3.2 Sample — country universe
 
-**Locked decision:** [ADR-0002](decisions/0002-country-universe.md) — Pending (Phase 1 Session 09).
+**Locked decision:** [ADR-0002](decisions/0002-country-universe.md) — **Accepted 2026-05-18**.
 
-Working rule: countries that are **ODA-eligible per WB classification at any point in 2000–2022 ∩ have ≥1 HLO observation**. Expected N ≈ 100–120.
+**N = 133 countries** — those that are ODA-eligible (received any positive OECD CRS commitment in 1995–2024) ∩ have ≥1 HLO observation. Derived empirically in Session 09 from `data/interim/_panel_audit.parquet`; full enumeration at `output/tables/country_universe_candidates.csv`. The Model-2 within-country FE subset uses the **127** countries with ≥2 HLO cycles (slope identification requires ≥2 observations). The 6-country difference is reported in the Methodology footnote.
 
 ## 3.3 Period — year range
 
-**Locked decision:** [ADR-0003](decisions/0003-year-range.md) — Pending (Phase 1 Session 09).
+**Locked decision:** [ADR-0003](decisions/0003-year-range.md) — **Accepted 2026-05-18**.
 
-Working rule: 2000–2022 primary; 2005–2020 robustness. COVID years (2020–2022) included with closure-day controls.
+**Primary: 2010–2020** (HCI-cycle-anchored). Robustness in parallel: **2000–2022** and **2005–2020**. The Session 09 audit (`output/tables/year_range_viability.csv`) confirms all three windows yield *identical* Model-2 sample sizes (156 full-row cells × 163 countries × 589 HLO cells) — HLO is observed only in HCI cycles (2010/2017/2018/2020), so pre-2010 cells contribute zero useful information to within-country FE. The 2010–2020 primary maximizes useful-cell density (5.67% vs 2.71% for 2000–2022); the wider windows are reported alongside as referee-resistant robustness. COVID years (2020–2022) handled with `covid_days_closed` as a time-varying control in Model 2; robustness drops 2020+ entirely.
 
 ## 3.4 Outcome variable — learning
 
@@ -130,8 +130,9 @@ Redirect $1B from input-based to outcome-based aid; use effect sizes from Model 
 
 Working plan:
 1. Phase 1 Session 03 documents the SSA missingness pattern for UIS variables via `R/lib/coverage.R::ssa_missingness_pattern()`.
-2. Phase 2 runs the Little MCAR test on the merged panel.
-3. Primary specification likely uses WDI controls only (UIS dropped); UIS-augmented spec runs on the listwise-complete subset as robustness. Multiple imputation as third sensitivity if the panel-size loss is severe.
+2. Phase 1 Session 09 runs the Little MCAR test on the audit-grade merged panel (2010-2020 ∩ ADR-0002 Option-1 countries, 6 analytical columns: HLO + 3 WDI controls + CRS commit + WGI governance). **Result: MCAR rejected** (Little's χ² = 1213.6, df = 68, p < 0.000001, 20 missingness patterns; `output/tables/mcar_test_result.txt`). The merged-panel missingness is structured by source × time × region — not random.
+3. Phase 2 Session 01 will re-run the MCAR test on the production panel (post-3yr-MA + lag transforms) and lock the MI vs listwise vs UIS-dropped decision in ADR-0006.
+4. Primary specification likely uses WDI controls only (UIS dropped); UIS-augmented spec runs on the listwise-complete subset as robustness. Multiple imputation as third sensitivity if the panel-size loss is severe.
 
 ## 3.10 Intervention typology coding
 

@@ -1,0 +1,7 @@
+naniar::mcar_test() on 2010-2020 ∩ ADR-0002 Option-1 (n=1463 rows, 6 cols)
+
+statistic = 1213.559
+df = 68
+p_value = 0.000000
+missing_patterns = 20
+
