@@ -13,9 +13,15 @@ The Worldwide Governance Indicators (WGI) are presented as six distinct dimensio
 ## Our engagement
 **Critical methodological note for our use of WGI as governance controls.** Cited in §3 (Data & Methodology, specifically §3.6 Controls) and feeds the decision in Phase 1 Session 02 to ingest the **native WGI source bundle** (with per-source detail) rather than just the aggregated composites from the WDI API.
 
-We will engage the critique by either:
-- Using a single principal-component score collapsed from the six dimensions, or
-- Using only the underlying source indicators most relevant to the education sector (e.g., government effectiveness sub-components from EIU, BTI), reported transparently.
+**Empirical engagement (Phase 5 Session 05, locked in [ADR-0009](../decisions/0009-wgi-operationalization.md)):** Quantitatively confirmed on our 2010-2020 primary-window sample (1462 country-years with all six WGI dimensions populated):
+
+- **PC1 of the six WGI estimates (scaled prcomp) captures 76.4% of variance.** PC2 adds 10.9%; PC3 adds 6.5%. The L-K "essentially one factor" claim is empirically supported on this sample.
+- **All six loadings on PC1 are positive** in a narrow 0.35-0.45 band: Rule of Law 0.45, Control of Corruption 0.44, Government Effectiveness 0.43, Regulatory Quality 0.41, Political Stability 0.37, Voice & Accountability 0.36. The six dimensions are mutually consistent indicators of one underlying governance-quality dimension.
+- **Per-dimension WGI coefficients in the all-six Model 2 FE spec are uninformative:** none individually significant at p < 0.10 despite the bundle being jointly significant; signs mixed (VA = −26.2 ns, RL = −9.4 ns, others positive). Direct empirical Langbein-Knack — collinearity prevents identification of separate dimension effects.
+- **Within-FE absorbs the cross-sectional collinearity** that the L-K critique highlights as a regression hazard: max VIF on demeaned regressors in the all-six spec = 4.71 (below the ≤5 viability threshold), down from 5.24 in the Model 1 cross-section (Session 13).
+- **Operational response: lock Option 1 (PC1 primary)** over Option 2 (single GE) or Option 3 (all six). PC1 yields β_ODA = 11.1, p = 0.048 vs single-GE β = 8.17, p = 0.10 — broader WGI representation captures more confounding variance that single-GE under-controls. Single-GE retained as parallel robustness for prior-literature comparability.
+
+Per-source ingest (Option 4) deferred: PC1's 76% variance + clean interpretation made the additional source-level reconstruction informationally unnecessary.
 
 ## Key claims to engage or cite
 - WGI composites mask their underlying single-factor structure
@@ -28,7 +34,7 @@ We will engage the critique by either:
 ## Status
 - [ ] Read primary source
 - [x] Notes summarized above (current preview from secondary references)
-- [ ] Engaged in our manuscript (Methodology §3.6)
+- [x] Engaged in our manuscript (Methodology §3.6) — empirical engagement locked in ADR-0009 (Phase 5 Session 05, 2026-05-19). PC1 76.4% variance + within-FE VIF audit + per-dimension wash-out reported.
 
 ## Data status
 
