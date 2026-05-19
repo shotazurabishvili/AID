@@ -1,0 +1,4 @@
+Model,N,beta_ODA,SE,p_value,SE_type,Sample
+"Model 1 (cross-sectional OLS, full spec 1e)",120,-1.361,2.477,0.5837,HC robust,Country-level means; one row per country
+"Model 2 v2 (within-country FE, locked encoding 2e)",143,11.136,5.518,0.0481,Country-clustered,Country-year panel; HLO non-NA cells; singleton-FE countries dropped
+"Model 2 v2 (locked + conflict + COVID, 2g)",143,9.613,5.438,0.0822,Country-clustered,Same + non-NA on conflict/COVID

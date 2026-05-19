@@ -1,0 +1,18 @@
+part,term,statistic,2a (bivariate),2b (+log GDP/cap),2c (+PTR),2d (+ed exp; brief spec),2e (+WGI PC1; full),2f (+log GCDF strict; China-robust),2g (+conflict + COVID)
+estimates,log(1 + CRS disburse strict-past MA3),estimate,1.142,0.768,9.723*,8.754,11.136**,11.256**,9.613*
+estimates,log(1 + CRS disburse strict-past MA3),std.error,(1.629),(1.748),(4.978),(5.322),(5.518),(5.529),(5.438)
+estimates,log(GDP per capita),estimate,,5.831,-4.101,-24.539,-32.680,-34.467,-36.123
+estimates,log(GDP per capita),std.error,,(7.572),(16.889),(23.780),(22.936),(26.436),(27.231)
+estimates,PTR (primary),estimate,,,0.509,0.524,-0.234,-0.283,-0.145
+estimates,PTR (primary),std.error,,,(0.898),(1.062),(0.942),(0.863),(0.823)
+estimates,Ed expenditure (% GDP),estimate,,,,-1.561,-1.928,-1.783,-1.802
+estimates,Ed expenditure (% GDP),std.error,,,,(2.318),(2.990),(2.999),(3.023)
+estimates,WGI PC1 (governance composite),estimate,,,,,20.121**,21.537*,19.766*
+estimates,WGI PC1 (governance composite),std.error,,,,,(9.397),(12.091),(11.574)
+estimates,log(1 + GCDF strict-past MA3),estimate,,,,,,-0.205,-0.132
+estimates,log(1 + GCDF strict-past MA3),std.error,,,,,,(0.787),(0.779)
+estimates,In active conflict,estimate,,,,,,,-10.060
+estimates,In active conflict,std.error,,,,,,,(9.577)
+gof,N,,441,437,184,143,143,143,143
+gof,R^2,,0.941,0.940,0.928,0.928,0.933,0.933,0.935
+gof,Adj R^2,,0.916,0.914,0.870,0.865,0.873,0.872,0.873
