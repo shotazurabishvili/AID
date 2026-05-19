@@ -1,0 +1,7 @@
+dimension,beta,se,p_value,signif
+wgi_va_est,-26.245,16.438,0.1156,
+wgi_pv_est,2.314,13,0.8593,
+wgi_ge_est,9.91,25.954,0.7039,
+wgi_rq_est,44.927,30.762,0.1494,
+wgi_rl_est,-9.414,26.564,0.7243,
+wgi_cc_est,32.742,21.356,0.1305,

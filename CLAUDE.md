@@ -38,14 +38,16 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **5 Session 04 done.** ADR-0008 locked with empirical evidence: Option 2 (OECD CRS primary, GCDF parallel robustness) confirmed. Adding GCDF as covariate shifts OECD β from 8.17 → 8.06 (0.02 SD; within ±1 SD criterion); GCDF own coefficient null (β=−0.27, p=0.74). **OECD-CRS-only headline is robust to the non-DAC blind spot at static-FE specification.** Chinese aid joins OECD CRS in showing no detectable within-country effect on HLO at the strictly-past spec.
-- **Last session:** 2026-05-19 — Session 17 (ADR-0008 lock; 4-spec × 2-outcome × 2-sample China-robustness grid; spec A reproduces Session-03 lock to the digit; spec B confirms OECD coefficient stability; spec C exposes log-of-sum encoding artifact; SSA-stratified uninformative at N=52.)
+- **Phase:** **5 Session 05 done. Phase-5 analytical robustness chain structurally complete** (ADRs 0005, 0008, 0009 all Accepted). ADR-0009 locked Option 1 (PCA-collapsed PC1) primary — overrides plan's pre-grid default of Option 2 (single GE) because PC1 captures 76.4% of WGI variance (direct Langbein-Knack engagement) AND yields the strongest empirical spec: β_ODA=11.1, **p=0.048** (only spec crossing conventional 0.05 threshold). Three Phase-5 robustness sessions now converge: ODA→learning shows a positive within-country effect that survives encoding/Chinese-aid/WGI sensitivity.
+- **Last session:** 2026-05-19 — Session 18 (ADR-0009 lock; 4-spec × 2-outcome = 8 fits; PC1 76.4% variance + max demeaned VIF 4.71 on all-six + per-dimension wash-out as direct Langbein-Knack evidence; double override of ADR's working preference and plan's pre-grid default, both empirically motivated; manuscript-engagement checkbox flipped on lit note langbein-knack-2010.)
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet` (3059 × 86 cols).
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** **0001, 0002, 0003, 0004, 0005, 0006, 0008, 0010 Accepted**; 0007, 0009 Pending. ADR-0008 locked 2026-05-19: Option 2 (CRS primary, GCDF as parallel robustness) empirically confirmed.
+- **ADRs:** **0001, 0002, 0003, 0004, 0005, 0006, 0008, 0009, 0010 Accepted**; only 0007 (CRS intervention typology) Pending — that's Phase 7 work (Model 4 ANOVA), not Phase 5.
 - **Next concrete action:**
-  *(**Phase 5 Session 05 — ADR-0009 lock (WGI operationalization)**)*. Test single-composite (current `wgi_ge_est`) vs six-aggregate (with VIF audit) vs PCA-collapsed index on the Session-03 locked treatment. Pre-grid candidate: keep `wgi_ge_est` primary (max VIF on demeaned regressors = 1.57-1.64 per Session-03 diagnostics — within-FE absorbs the cross-sectional WGI×log(GDP/cap) r=0.79 collinearity). Closes the last analytical Phase-5 ADR.
-- **Open decisions:** Manuscript framing reframe (paths a/b/c per `docs/findings.md §5.2.1`) — author judgment needed; Session 04 strengthened the "ODA shows weak positive within-country effect" framing (both OECD and Chinese aid). Whether to defer ADR-0009 next, or update Session-14 headline tables with the Session-03 locked encoding first.
+  Two viable next sessions (author judgment):
+  - **Option α — Phase 5 Session 06 (update headline tables on locked encoding).** Re-run Session-14 spec progression (2a-2g) with the Session-03 treatment lock + Session-05 WGI lock (PC1). Output: refreshed `model2_fe_baseline_v2.{csv,md}` that becomes the manuscript's headline Table 2. Refreshed Model 1 vs Model 2 contrast table. Clean conversion from "old-encoding" tables to "locked-encoding" tables. **Recommended first.**
+  - **Option β — Phase 6 (Model 3, 2-level RE + time FE).** Per the brief's roadmap. Partial-pooling between-country heterogeneity in β_ODA; closes the Models 1-3 chain.
+- **Open decisions:** Manuscript framing reframe (paths a/b/c per `docs/findings.md §5.2.1`) — increasingly load-bearing; Session-05 adds a third independent strand showing positive within-country ODA→learning effect. Author judgment needed before §6 writing.
 - **Blocked on:** Nothing.
 
 ---

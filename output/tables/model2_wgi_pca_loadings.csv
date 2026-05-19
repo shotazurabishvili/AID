@@ -1,0 +1,7 @@
+dimension,pc1_loading,pc2_loading,pc3_loading
+wgi_va_est,0.3545,0.578,-0.7208
+wgi_pv_est,0.3667,0.5584,0.6099
+wgi_ge_est,0.4271,-0.3887,0.0399
+wgi_rq_est,0.4086,-0.4382,-0.2569
+wgi_rl_est,0.4482,-0.0612,0.0929
+wgi_cc_est,0.4355,-0.0854,0.1796

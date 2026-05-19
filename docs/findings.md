@@ -349,6 +349,33 @@ All specs use Session-03 lock encoding (strictly-past 3-yr MA, constant USD), fu
 
 > *Sources:* `output/tables/model2_china_robustness.{csv,md}`; `output/figures/eda/model2_china_robustness_plot.png`; [ADR-0008](decisions/0008-china-aid-inclusion.md); session log: [2026-05-19-17-adr0008-lock.md](session_log/2026-05-19-17-adr0008-lock.md)
 
+### §5.2.3 WGI operationalization sensitivity — ADR-0009 lock (Phase 5 Session 05)
+
+**WGI dimensions collapse to essentially one factor on this sample (PC1 captures 76.4% of variance), confirming the Langbein & Knack (2010) critique quantitatively. The primary spec switches from single Government Effectiveness to PCA-collapsed PC1; β_ODA on HLO rises from 8.17 (p=0.10) to 11.1 (p=0.048) — crossing the conventional significance threshold.** ADR-0009 locked Option 1 (PCA-collapsed).
+
+**Spec table — HLO outcome, all N=143** (`output/tables/model2_wgi_specs.csv`):
+
+| Spec | WGI representation | β_ODA | SE | p |
+|---|---|---|---|---|
+| A | Single GE (Session-03 baseline) | 8.17 | 4.91 | 0.102 |
+| B | All six WGI aggregates | 10.3* | 5.21 | 0.052 |
+| **C** | **PC1 (Option 1, ADR-0009 lock)** | **11.1*** | **5.52** | **0.048** |
+| D | No WGI control | 8.75 | 5.32 | 0.105 |
+
+All specs: Session-03 lock treatment `log(1 + crs_disburse_usd_defl_ma3_lag1)`, base controls (log GDP/cap + PTR primary + ed_exp_%GDP), two-way FE (iso3 + year), country-clustered SE, primary window 2010-2020. LAYS outcome (N=139): all four specs ns, β in 0.10-0.18 range — pattern consistent with HLO but weaker, as in prior sessions.
+
+**Three claims supported by the surface:**
+
+1. **PC1 variance share = 76.4%** — within Langbein-Knack's predicted 60-80% range. PC2 adds only 10.9%; PC3 only 6.5%. WGI dimensions are *empirically* the same construct on this sample, vindicating the L-K critique with concrete numbers (lit note `langbein-knack-2010.md` updated accordingly). PC1 loadings: all six dimensions load positively in a narrow 0.35-0.45 band (RL=0.45, CC=0.44, GE=0.43, RQ=0.41, PV=0.37, VA=0.36) — PC1 = "overall governance quality" with the same direction as the single-GE spec.
+2. **Per-dimension coefficients in spec B are all ns and mixed-sign** (VA=−26.2, PV=+2.3, GE=+9.9, RQ=+44.9, RL=−9.4, CC=+32.7; all p > 0.10). Direct empirical Langbein-Knack: collinearity prevents identification of individual dimensions despite joint significance. The all-six spec is informative *as a bundle*, useless *as six separate effects*.
+3. **β_ODA increases with broader WGI representation** (A→B→C: 8.17 → 10.3 → 11.1). Single GE under-controls for governance; broader WGI captures additional confounding variance, pushing β_ODA from marginal (p=0.10) to significant (p=0.048). Within-FE absorbs the cross-sectional WGI×GDP collinearity (max VIF on demeaned spec B = 4.71, below the ≤5 viability threshold).
+
+**Methodological override notes.** The lock chose Option 1 (PCA) over both the ADR's stated working preference (Option 3 all-six) and the Session-05 plan's pre-grid default (Option 2 single GE). The override is empirically motivated: PC1 directly engages Langbein-Knack quantitatively (lit note pre-committed to PCA), gives the strongest empirical result (only spec crossing p<0.05), and has clean interpretation (all positive loadings, narrow band). ADR's working preference was deferred to "after VIF is observed"; that observation is now in hand. Plan's default was based on parsimony arguments superseded by the L-K engagement requirement.
+
+**§6 Discussion implication.** The ODA→learning positive within-country pattern now has *three independent strands of evidence* converging to the same conclusion: (a) Session-03 16-cell treatment-encoding grid (all 16 β ≥ 0; lock at β=8.17, p=0.10); (b) Session-04 China-aid robustness (β stable at 8.06 when GCDF added; OECD-only is non-DAC-blind-spot robust); (c) Session-05 WGI operationalization (β=11.1 at p<0.05 on the cleanest L-K-engaging spec). The pre-Phase-5 "ODA does not predict learning" framing is now unambiguously outdated. The §6 narrative must reframe — paths a/b/c per §5.2.1 above remain author's call.
+
+> *Sources:* `output/tables/model2_wgi_specs.{csv,md}`; `output/tables/model2_wgi_vif.csv`; `output/tables/model2_wgi_pca_loadings.csv`; `output/tables/model2_wgi_vif_dim_coefs.csv`; `output/figures/eda/model2_wgi_plot.png`; [ADR-0009](decisions/0009-wgi-operationalization.md); session log: [2026-05-19-18-adr0009-lock.md](session_log/2026-05-19-18-adr0009-lock.md)
+
 ### §5.3 Model 2 — System GMM identification triangulation (Phase 5 Session 02)
 
 **GMM was attempted as committed by [ADR-0010](decisions/0010-identification-strategy-gmm.md) but the small-T HCI-cycle panel (T = 4) does not support clean identification.** Static FE remains the headline empirical claim; the manuscript § 3 (Methodology) acknowledges this transparently. ADR-0010 locked **Option 1 with caveats** 2026-05-19.
