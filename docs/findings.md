@@ -4,7 +4,7 @@
 >
 > *Parallel to [`methodology.md`](methodology.md) (proto-§3) and [`positionality.md`](positionality.md) (proto-§3 positionality). Updated at session end alongside the session log — see [`CLAUDE.md`](../CLAUDE.md) end-of-session protocol.*
 >
-> *Last updated: 2026-05-19 (Session 11 close — Phase 3 Session 01; first creation of this document, backfilled with all Phase 1-3 substantive findings)*
+> *Last updated: 2026-05-19 (Session 12 close — Phase 3 Session 02; added §4.3 regional trajectories + income-group stratification + new §4.7 control-variable correlation structure)*
 
 ---
 
@@ -91,6 +91,35 @@ The Kenya–Bangladesh pair is the empirically cleanest illustration of "enrollm
 **MENA shows the only large within-region HLO outlier**: Egypt 356 (low), Jordan etc. 405+ (mid). Worth disaggregating in §4.4 supplementary.
 > *Source:* `output/tables/table1_descriptives.md`; eyeball of the divergence figure (`output/figures/eda/enrollment_vs_learning.png`)
 
+### Regional trajectories 2010–2020 (Session 12 supplementary)
+
+**HLO regional means show non-monotonic temporal patterns dominated by cycle-composition changes** (`output/figures/eda/regional_trajectories.png` Panel A). The 2010 HCI cycle included 119 of the 133 universe countries; 2020 includes all 133 — so region means at different cycle years are computed over different country subsets. Most striking shift: **East Asia & Pacific HLO mean dropped 56 points (473 → 417) between 2010 and 2020** — almost certainly a composition effect (Korea, Singapore, and other high-performing EAP countries graduated out of the universe over time, while lower-performing EAP countries entered via later HCI cycles). The figure caption documents this caveat; reading the slope as a learning *deterioration* would be misleading. Sub-Saharan Africa shifted −22 points (395 → 374) over the same window; ECA was roughly stable (+6 points). South Asia has no 2010 observation (HCI cycle membership only from 2017+ for that region).
+> *Source:* `output/figures/eda/regional_trajectories.png`; [session 12](session_log/2026-05-19-12-eda-supplementary.md)
+
+**Gross primary enrollment trajectories are flat across all regions** (Panel B). Already-saturated enrollment landscape: 2010-2020 region means hover in a 95-110% band per region throughout the window. Reinforces the "enrollment expansion is over" Discussion thread (§6); the SDG era cannot rely on enrollment as a growth lever because there's no expansion left to harvest. The slight downward drift visible 2018-2020 in several regions is likely COVID-related undercount in WDI reporting.
+
+**GDP per capita trajectories show modest within-region growth** (Panel C). ECA + EAP rising fastest; SSA + South Asia flat at low levels (~$2-3k); MENA stable at high middle-income level (~$13k). No cross-region convergence over the decade.
+
+**OECD CRS aid trajectories: South Asia dominates volume** (Panel D). India's mass drives the South Asia panel ($350M+ average per country-year, much of it India). SSA, MENA, LAC, EAP all bunched between $50-150M; ECA lowest at $45M (graduated-recipient effect).
+
+### Income-group stratification (Session 12 supplementary)
+
+The income gradient is **even sharper than the regional gradient** for outcomes (`output/tables/table1_by_income.md`):
+
+| Variable | Low income | Lower-middle | Upper-middle | High income | Total |
+|---|---|---|---|---|---|
+| HLO score | **354** | 386 | 415 | 456 | 403 |
+| LAYS (years) | — | 6.2 | 7.9 | **9.4** | 6.9 |
+| GDP per capita | (low) | 2,276 | 6,367 | **23,984** | 7,138 |
+| Pupil-teacher ratio | (high) | 31.6 | 20.1 | **14.3** | 27.5 |
+| In active conflict | (high) | 19.6% | 14.0% | **2.8%** | 19.8% |
+| OECD CRS aid (USD M) | (high) | 143 | 92 | **8** | 96 |
+| GCDF Chinese aid (USD M) | (mod) | 6.1 | 2.1 | **0.2** | 3.3 |
+
+HLO spread Low → High = **102 points**, vs the region spread (SSA → ECA) of 82 points. LAYS spread is ~5.4 years across income groups. Aid intensity inverts as expected (graduated High-income countries get ~$8M CRS aid per country-year vs $143M for Lower-middle). Conflict prevalence drops 7× across the income gradient (19.6% → 2.8%). **Caveat: the High income bucket (n=23) comprises graduated ODA recipients** like Chile, Argentina, Korea — countries that received aid in 1995–2024 but are now classified high-income by WB. They are part of our universe by ADR-0002 definition.
+> *Source:* `output/tables/table1_by_income.md`; [session 12](session_log/2026-05-19-12-eda-supplementary.md)
+> Kosovo (XKX) is the single "Not classified" country: HLO 356, LAYS 4.45 yrs.
+
 ---
 
 ## §4.4 Treatment-side facts (ODA + Chinese aid)
@@ -139,6 +168,32 @@ The Kenya–Bangladesh pair is the empirically cleanest illustration of "enrollm
 
 **Compounding-penalty preview**: `cor(ai_readiness_score_mean, hci_overall) = 0.777` across 189 countries that join. Strong positive correlation between human capital and AI readiness — the empirical face of the brief's "Compounding AI Penalty" §9 thesis. Phase 9 will partition the joint distribution and quantify the count + share of low-HCI ∩ low-GARI countries.
 > *Source:* [session 08](session_log/2026-05-17-08-ai-readiness.md); `methodology.md §3.12 Supplementary measure`
+
+---
+
+## §4.7 Control-variable correlation structure (Session 12)
+
+Pearson correlations across the 13 Model-2 candidate variables, computed on country-level means within primary window 2010–2020. Skewed variables log-transformed before correlation: log(GDP/cap), log(Pop), log(1+CRS_disburse_defl_MA3), log(1+GCDF_amount_const2021_sum). Other variables (HLO, LAYS, PTR, ed exp %, primary completion, gross enrollment, gov effectiveness, in_conflict, COVID days) used raw.
+
+**Top 5 |r| pairs** (`output/tables/correlation_matrix_primary.csv`):
+
+| Pair | r | Reading |
+|---|---|---|
+| LAYS — HLO | **0.85** | Tautological by construction (LAYS = EYS × HLO/625); confirms the panel's LAYS column is consistent with HLO — not independent information |
+| Gov effectiveness — log(GDP/cap) | **0.79** | Strong institutional-quality / income coupling; ADR-0009 (WGI operationalization) will need to address governance × income collinearity |
+| LAYS — log(GDP/cap) | 0.78 | Human capital strongly tracks income — the central correlation the paper challenges via within-country FE |
+| PTR primary — log(GDP/cap) | **−0.77** | Higher-income countries have lower pupil-teacher ratios (more teachers per student) |
+| Primary completion — LAYS | 0.77 | Quality and completion correlate cross-sectionally; less obviously co-moving within country (Phase 5 will test) |
+
+**Phase-5 VIF prep implications:**
+- **log(GDP/cap) is the central confounder.** It correlates ≥0.6 with LAYS, HLO, gov effectiveness, PTR (negatively), primary completion, log(1+CRS), log(1+GCDF). In Model 2 specifications including governance + GDP, expect VIF > 5 for both; consider orthogonalizing or dropping one.
+- **WGI governance × log(GDP/cap) r = 0.79** is the binding multicollinearity for [ADR-0009](decisions/0009-wgi-operationalization.md). If Model 2 includes both, VIF likely > 7. Options: (a) drop governance entirely and rely on log(GDP/cap) as the institutional-quality proxy; (b) PCA-collapse the 6 WGI dimensions and use the first principal component (residualized against log GDP/cap); (c) keep governance, drop log(GDP/cap). Phase 5 ADR-0009 lock chooses among these.
+- **CRS and GCDF moderately co-target** (r = 0.36 in logs): the same countries that DAC donors prioritize also tend to receive Chinese education aid. Useful context for ADR-0008 (China inclusion) — a regression including both treatments will have moderate but not severe collinearity.
+- **In_conflict negatively correlates with most positive outcomes** (HLO r=−0.26, gov effectiveness r=−0.60, primary completion r=−0.27) and positively with COVID closure days (r=+0.21). Treat as an important time-varying covariate.
+- **COVID days closed are weakly correlated with everything except in_conflict** — the panel-scale variation in pandemic exposure isn't a function of pre-pandemic structural variables in our universe.
+
+The heatmap (`output/figures/eda/correlation_heatmap.png`) is the Phase-5 prep visual; the manuscript may reproduce it as supplementary or fold the high-|r| pairs into a §3.6 footnote.
+> *Source:* `output/tables/correlation_matrix_primary.csv`; `output/figures/eda/correlation_heatmap.png`; [session 12](session_log/2026-05-19-12-eda-supplementary.md); [ADR-0009](decisions/0009-wgi-operationalization.md)
 
 ---
 

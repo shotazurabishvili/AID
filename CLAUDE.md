@@ -38,15 +38,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **3 in progress (Session 01 done).** Table 1 + divergence figure produced; LAYS reporting layer verified.
-- **Last session:** 2026-05-19 — Session 11 (Table 1 by WB region across 17 analytical variables; 2020 enrollment-vs-HLO divergence scatter showing R² = 0.02 — empirical validation of the brief's divergence thesis; LAYS verified as `hci_lays_overall` from `HD.HCI.LAYS`).
+- **Phase:** **3 closed.** Both Sessions 01 + 02 complete; §4 descriptive layer fully drafted in `docs/findings.md`.
+- **Last session:** 2026-05-19 — Session 12 (correlation matrix on Model-2 candidate variables; 4-panel regional trajectories 2010-2020 via cowplot; income-group Table 1 via WDI metadata). Headline empirical finding: governance × log(GDP/cap) r = 0.79 — binding multicollinearity for Phase 5 ADR-0009; income gradient on HLO sharper (102 pts) than regional gradient (82 pts).
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
 - **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009, 0010 Pending. ADR-0010 (System GMM headline robustness) locks Phase 5 Session 1.
 - **Next concrete action:**
-  *(Two paths — author chooses at next session)*:
-  - **(Recommended) Phase 4 Session 01 — Model 1 OLS baseline.** Cross-sectional OLS on the production panel; establishes the naive cross-sectional association that Model 2 FE then challenges. Output: `output/tables/model1_ols_baseline.{csv,md}`. Phase 3 §4.1 deliverables are complete; further EDA is supplementary.
-  - **(Optional) Phase 3 Session 02 — Supplementary EDA.** Correlation matrices; income-group stratification of Table 1 (requires `wbstats` ingest); time-series visuals of mean HLO vs enrollment trajectories 2010-2020; multi-panel coverage map.
+  *(**Phase 4 Session 01 — Model 1 OLS baseline**)*. Cross-sectional OLS on the production panel within primary window; country-clustered SE. Specification: HLO ~ log(CRS_disburse_defl_MA3) + log(GDP/cap) + PTR + ed_exp_%GDP + Gov_effect. Establishes the naive cross-sectional association that Phase 5 Model 2 (within-country FE) then challenges. Output: `output/tables/model1_ols_baseline.{csv,md}` + LAYS-as-outcome variant. Adds to `findings.md §5.1`.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

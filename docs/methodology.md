@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-19 (Session 11 close — Phase 3 Session 01; Table 1 + divergence figure produced; LAYS reporting layer verified)*
+> *Last updated: 2026-05-19 (Session 12 close — Phase 3 closed; correlation structure + regional trajectories + income stratification on the production panel)*
 
 ---
 
@@ -75,6 +75,8 @@ Primary: OECD DAC CRS disbursements to education (sector codes 110/111/112/113/1
 WGI aggregates for all six dimensions — Voice & Accountability, Political Stability, Government Effectiveness, Regulatory Quality, Rule of Law, Control of Corruption — fetched from the native multi-sheet Excel bundle at info.worldbank.org/governance/wgi/, **not** via the WDI R package. The native bundle retains the `n_sources` count per country-year, which is the minimum information needed to acknowledge the Langbein & Knack (2010) aggregation critique in this section of the manuscript.
 
 Operationalization in models (composite vs PCA-collapsed vs reconstructed-from-sources) is deferred to [ADR-0009](decisions/0009-wgi-operationalization.md), to be locked in Phase 5 after VIF is observed.
+
+**Correlation structure observed (Phase 3 Session 02 supplementary EDA).** Pearson correlations across 13 Model-2 candidate variables (country-level means within primary window; flow variables log-transformed) reveal the binding multicollinearity for ADR-0009: governance effectiveness (WGI) correlates with log(GDP/cap) at r = 0.79, and both correlate strongly with HLO and LAYS (r > 0.6). Model 2 specifications including both will likely show VIF > 5–7 for the pair. Full matrix at `output/tables/correlation_matrix_primary.csv`; visualized at `output/figures/eda/correlation_heatmap.png`; full analysis in [`findings.md § 4.7`](findings.md#47-control-variable-correlation-structure-session-12).
 
 **Schooling structure (ingested Phase 1 Session 03):**
 
