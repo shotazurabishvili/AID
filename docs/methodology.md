@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-19 (Session 12 close — Phase 3 closed; correlation structure + regional trajectories + income stratification on the production panel)*
+> *Last updated: 2026-05-19 (Session 13 close — Phase 4 Session 01; Model 1 OLS baseline produced)*
 
 ---
 
@@ -111,6 +111,8 @@ The brief specifies five models, each pre-registered in the research design befo
 $$Learning_i = \beta_0 + \beta_1 ODA_i + \beta_2 GDPpc_i + \beta_3 PTR_i + \varepsilon_i$$
 
 Purpose: establish the naive cross-sectional association that the rest of the paper challenges.
+
+**Estimated (Phase 4 Session 01).** Six sequential-add specifications on country-level means across primary window 2010–2020; HC-robust SE; N varies 120–133 by listwise completeness. Headline ODA coefficient drops from −11.54*** (bivariate) to −1.36 (ns) in the full spec — the cross-sectional negative association is fully absorbed by income and governance controls. Full results: [`findings.md § 5.1`](findings.md#51-model-1--cross-sectional-ols-baseline-phase-4-session-01); regression tables at `output/tables/model1_ols_baseline.{csv,md}` and the LAYS-outcome parallel at `output/tables/model1_ols_lays_outcome.{csv,md}`.
 
 ### Model 2 — Fixed Effects panel (PRIMARY) + System GMM headline robustness
 

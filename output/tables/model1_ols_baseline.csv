@@ -1,0 +1,18 @@
+part,term,statistic,1a (bivariate),1b (+log GDP/cap),1c (+PTR),1d (+ed exp; brief spec),1e (+gov effect; full),1f (+log GCDF; China-robust)
+estimates,"log(1 + CRS disbursement, USD M)",estimate,-11.537***,-1.204,-1.141,-1.787,-1.361,-1.150
+estimates,"log(1 + CRS disbursement, USD M)",std.error,(2.715),(2.280),(2.439),(2.595),(2.477),(2.413)
+estimates,"log(GDP per capita, USD)",estimate,,26.251***,23.037***,21.952***,9.301,9.047
+estimates,"log(GDP per capita, USD)",std.error,,(3.710),(6.444),(6.389),(7.442),(7.544)
+estimates,Pupil-teacher ratio (primary),estimate,,,-0.367,-0.453,-0.538,-0.497
+estimates,Pupil-teacher ratio (primary),std.error,,,(0.429),(0.418),(0.413),(0.441)
+estimates,Govt education expenditure (% GDP),estimate,,,,-0.238,-1.015,-1.119
+estimates,Govt education expenditure (% GDP),std.error,,,,(1.840),(1.592),(1.641)
+estimates,Govt effectiveness (WGI),estimate,,,,,24.512***,24.552***
+estimates,Govt effectiveness (WGI),std.error,,,,,(8.756),(8.830)
+estimates,"log(1 + GCDF Chinese aid, USD)",estimate,,,,,,-0.308
+estimates,"log(1 + GCDF Chinese aid, USD)",std.error,,,,,,(0.621)
+estimates,(Intercept),estimate,443.455***,191.531***,228.611***,244.238***,359.294***,362.827***
+estimates,(Intercept),std.error,(11.363),(34.257),(65.172),(64.357),(74.996),(76.085)
+gof,N,,133,133,125,120,120,120
+gof,R^2,,0.154,0.397,0.396,0.402,0.444,0.445
+gof,Adj R^2,,0.148,0.388,0.381,0.381,0.419,0.416

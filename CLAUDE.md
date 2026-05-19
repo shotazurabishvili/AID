@@ -38,13 +38,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **3 closed.** Both Sessions 01 + 02 complete; §4 descriptive layer fully drafted in `docs/findings.md`.
-- **Last session:** 2026-05-19 — Session 12 (correlation matrix on Model-2 candidate variables; 4-panel regional trajectories 2010-2020 via cowplot; income-group Table 1 via WDI metadata). Headline empirical finding: governance × log(GDP/cap) r = 0.79 — binding multicollinearity for Phase 5 ADR-0009; income gradient on HLO sharper (102 pts) than regional gradient (82 pts).
+- **Phase:** **4 closed.** Model 1 OLS baseline estimated; first inferential result on the books.
+- **Last session:** 2026-05-19 — Session 13 (Model 1: 6 cross-sectional OLS specs × HLO + LAYS outcomes; HC-robust SE; ODA coefficient drops from −11.5*** bivariate to −1.4 ns in full spec — naive negative association fully absorbed by income + governance controls. Sets up the β_OLS vs β_FE contrast as Phase 5's headline.)
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
 - **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009, 0010 Pending. ADR-0010 (System GMM headline robustness) locks Phase 5 Session 1.
 - **Next concrete action:**
-  *(**Phase 4 Session 01 — Model 1 OLS baseline**)*. Cross-sectional OLS on the production panel within primary window; country-clustered SE. Specification: HLO ~ log(CRS_disburse_defl_MA3) + log(GDP/cap) + PTR + ed_exp_%GDP + Gov_effect. Establishes the naive cross-sectional association that Phase 5 Model 2 (within-country FE) then challenges. Output: `output/tables/model1_ols_baseline.{csv,md}` + LAYS-as-outcome variant. Adds to `findings.md §5.1`.
+  *(**Phase 5 Session 01 — Model 2 within-country FE panel**)*. Static FE baseline: `feols(hlo ~ log_crs_disb + controls | iso3 + year, panel)` with country-clustered SE on the production panel (1,463 rows, primary window). β_FE vs β_OLS contrast is the headline empirical result. Hausman + Wooldridge + Breusch-Pagan + VIF diagnostics. Locks ADR-0005 (commit vs disburse + lag structure). Phase 5 expands to 4-5 sessions per [ADR-0010](docs/decisions/0010-identification-strategy-gmm.md): static FE → System GMM headline robustness → ADR-0008 China-aid lock → ADR-0009 WGI lock → ADR-0005 lock.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

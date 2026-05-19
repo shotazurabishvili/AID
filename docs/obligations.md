@@ -32,7 +32,7 @@
 - [ ] **Breusch-Pagan heteroskedasticity test** — Phase 5
 - [ ] **Wooldridge test for serial autocorrelation** — Phase 5
 - [ ] **Cluster standard errors at country level** — Phase 5 (default in `fixest::feols`)
-- [ ] **VIF table — flag any VIF > 10** — Phase 5
+- [~] **VIF table — flag any VIF > 10** — Phase 5 (Model 2). *Phase 4 Session 01 partial: VIF computed on Model 1 cross-sectional specs. Max VIF in full spec = 5.24 on log(GDP/cap); none > 10. ADR-0009 will revisit on the within-country FE specification where multicollinearity patterns may differ. Evidence: `output/tables/model1_vif.csv`.*
 - [ ] **Levene's test before ANOVA** — Phase 7 (Model 4)
 - [ ] **ICC at all three multilevel model levels** — Phase 6 (Model 3 HLM)
 - [ ] **Convergence diagnostics for HLM** — Phase 6
