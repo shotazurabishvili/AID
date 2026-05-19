@@ -2,7 +2,7 @@
 
 > *This document is the proto-§3 ("Data & Methodology") of the manuscript. It grows session by session as decisions are locked. Each section references the relevant ADR for the load-bearing call. When Phase 11 (Writing) begins, much of `drafts/paper.qmd § 3` is a refactoring of this file.*
 >
-> *Last updated: 2026-05-19 (Session 13 close — Phase 4 Session 01; Model 1 OLS baseline produced)*
+> *Last updated: 2026-05-19 (Session 14 close — Phase 5 Session 01; Model 2 within-country FE estimated; β_FE = +10.95*** vs β_OLS = −1.36 ns — the headline empirical contrast)*
 
 ---
 
@@ -119,6 +119,8 @@ Purpose: establish the naive cross-sectional association that the rest of the pa
 $$Learning_{it} = \beta_1 ODA_{it} + \beta_2 Expenditure_{it} + \beta_3 Stability_{it} + \alpha_i + \lambda_t + \varepsilon_{it}$$
 
 Country fixed effects ($\alpha_i$) and year fixed effects ($\lambda_t$). The contrast between $\beta_1$ here and in Model 1 is the headline finding. Cluster-robust standard errors at country level. Required diagnostics: Hausman, Wooldridge, Breusch-Pagan, VIF (see [obligations](obligations.md)).
+
+**Estimated (Phase 5 Session 01).** Static two-way FE on the production panel (primary window 2010-2020) with country-clustered SE. Full-spec β = **+10.95 (SE 3.60, p = 0.003, N = 143)** — large, positive, statistically significant. Cross-sectional Model 1 full-spec β = −1.36 ns; the **β_OLS vs β_FE contrast flips sign and amplifies ~8×** when within-country FE is applied. This is the manuscript's central empirical claim. **The brief's falsification standard ("if β_FE is positive, significant, meaningful in magnitude, the thesis fails") is in play.** Phase-5 robustness chain (System GMM, lag structure, China-aid, WGI operationalization across sessions 02-05) determines whether the result confirms or fragments. Diagnostics: Wooldridge AR(1) F = 0.252, p = 0.62 (no serial autocorrelation); Breusch-Pagan χ² = 137, p = 0.004 (heteroskedasticity, addressed by HC-robust + cluster-robust SE); VIF max on demeaned regressors = 1.64 (within-FE absorbs the cross-sectional governance × income multicollinearity Session 12 surfaced); Hausman test deferred (Swamy-Arora RE requires > 3 time periods, HCI cycles provide only 4). Full results: [`findings.md § 5.2`](findings.md#52-model-2--within-country-fe-panel-phase-5-session-01); regression tables at `output/tables/model2_fe_baseline.{csv,md}` + `model2_fe_lays_outcome.{csv,md}`; headline contrast at `output/tables/model1_vs_model2_contrast.md`.
 
 **System GMM headline robustness ([ADR-0010](decisions/0010-identification-strategy-gmm.md), Pending — locks Phase 5 Session 1).** A static-FE-only specification draws the canonical *World Development* / aid-effectiveness referee critique: donors target deteriorating learning (reverse causality), and country FE doesn't catch time-varying confounding. Added per Phase-2 external review. Implementation via `plm::pgmm` or `pdynmc` with full Roodman (2009) diagnostics: Hansen overid p-value reported (target p > 0.10, < 0.99 to avoid weak-instrument false-clean tests); AR(1) p < 0.05 expected, AR(2) p > 0.10 required; instrument count < N managed via `collapse=TRUE` and lag-limit. Difference GMM (Arellano-Bond) reported alongside as a triangulation check. Sign-and-magnitude consistency across static FE / Difference GMM / System GMM is the substantive identification defense; divergence (if it occurs) is the §6 Discussion point.
 

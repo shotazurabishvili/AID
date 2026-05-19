@@ -38,13 +38,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **4 closed.** Model 1 OLS baseline estimated; first inferential result on the books.
-- **Last session:** 2026-05-19 — Session 13 (Model 1: 6 cross-sectional OLS specs × HLO + LAYS outcomes; HC-robust SE; ODA coefficient drops from −11.5*** bivariate to −1.4 ns in full spec — naive negative association fully absorbed by income + governance controls. Sets up the β_OLS vs β_FE contrast as Phase 5's headline.)
+- **Phase:** **5 Session 01 done.** Model 2 within-country FE estimated; β_FE = +10.95*** (p=0.003, N=143) vs β_OLS = −1.36 ns. **The headline contrast holds at static FE; brief's falsification standard is in play.**
+- **Last session:** 2026-05-19 — Session 14 (Model 2: 7 two-way FE specs × HLO + LAYS outcomes; country-clustered SE; β_FE jumps to +13 when PTR primary enters, stays at +10-14 across controlled specs. Diagnostics: Wooldridge no AR(1) p=0.62; BP heteroskedasticity p=0.004; VIF max 1.64 on demeaned regressors; Hausman deferred — small-T limitation. Three interpretive paths held open until Phase-5 robustness chain completes.)
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009, 0010 Pending. ADR-0010 (System GMM headline robustness) locks Phase 5 Session 1.
+- **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009, 0010 Pending. ADR-0010 (System GMM headline robustness) locks Phase 5 Session 02 (next).
 - **Next concrete action:**
-  *(**Phase 5 Session 01 — Model 2 within-country FE panel**)*. Static FE baseline: `feols(hlo ~ log_crs_disb + controls | iso3 + year, panel)` with country-clustered SE on the production panel (1,463 rows, primary window). β_FE vs β_OLS contrast is the headline empirical result. Hausman + Wooldridge + Breusch-Pagan + VIF diagnostics. Locks ADR-0005 (commit vs disburse + lag structure). Phase 5 expands to 4-5 sessions per [ADR-0010](docs/decisions/0010-identification-strategy-gmm.md): static FE → System GMM headline robustness → ADR-0008 China-aid lock → ADR-0009 WGI lock → ADR-0005 lock.
+  *(**Phase 5 Session 02 — System GMM headline robustness**)*. Per [ADR-0010](docs/decisions/0010-identification-strategy-gmm.md). Implementation via `plm::pgmm` or `pdynmc`. Full Roodman (2009) diagnostics: Hansen overid (target p ∈ (0.10, 0.99)), AR(1) p<0.05, AR(2) p>0.10, instrument count < N (via `collapse=TRUE`). System + Difference GMM triangulation. Sign-and-magnitude consistency across static FE / Diff GMM / System GMM is the identification defense. If GMM confirms β > 0, the brief's falsification thesis stands refuted; if it fragments, the original framing survives with caveats.
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

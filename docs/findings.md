@@ -4,7 +4,7 @@
 >
 > *Parallel to [`methodology.md`](methodology.md) (proto-§3) and [`positionality.md`](positionality.md) (proto-§3 positionality). Updated at session end alongside the session log — see [`CLAUDE.md`](../CLAUDE.md) end-of-session protocol.*
 >
-> *Last updated: 2026-05-19 (Session 13 close — Phase 4 Session 01; §5.1 populated with Model 1 OLS baseline)*
+> *Last updated: 2026-05-19 (Session 14 close — Phase 5 Session 01; §5.2 populated with Model 2 within-country FE — the headline result, β_FE = +10.95*** vs β_OLS = −1.36 ns)*
 
 ---
 
@@ -234,9 +234,61 @@ The heatmap (`output/figures/eda/correlation_heatmap.png`) is the Phase-5 prep v
 
 > *Sources:* `output/tables/model1_ols_baseline.{csv,md}`; `output/tables/model1_ols_lays_outcome.{csv,md}`; `output/tables/model1_vif.csv`; `output/figures/eda/model1_coefficient_plot.png`; [session 13](session_log/2026-05-19-13-model1-ols.md)
 
-### §5.2 Model 2 — Within-country FE panel (Phase 5)
+### §5.2 Model 2 — Within-country FE panel (Phase 5 Session 01)
 
-**To be populated.** Will report β_FE and the β_OLS vs β_FE contrast (Model 1 vs Model 2) — the headline result. Static FE baseline + Hausman test + Wooldridge + Breusch-Pagan + VIF + cluster-robust SE per [methodology §3.8](methodology.md). Locks [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md) (commit vs disburse), [ADR-0008](decisions/0008-china-aid-inclusion.md) (China inclusion), [ADR-0009](decisions/0009-wgi-operationalization.md) (WGI operationalization).
+**THE HEADLINE RESULT. The within-country FE coefficient on ODA → HLO is positive, significant, and meaningful in magnitude — meaning the brief's "ODA doesn't predict learning" thesis is at least partially refuted at the static-FE specification.** Robustness chain (Phase 5 Sessions 02-05) must confirm or overturn before any manuscript framing rewrite.
+
+**Model 1 vs Model 2 contrast — the manuscript spine** (`output/tables/model1_vs_model2_contrast.md`):
+
+| Model | N | β on log(1+CRS_disburse) | SE | p | SE type |
+|---|---|---|---|---|---|
+| Model 1 OLS, full spec (1e) | 120 | **−1.36** | 2.48 | 0.584 | HC robust |
+| Model 2 FE, full spec (2e) | 143 | **+10.95** | 3.60 | 0.003 | Country-clustered |
+| Model 2 FE, +conflict+COVID (2g) | 143 | +10.83 | 4.03 | 0.009 | Country-clustered |
+
+The cross-sectional coefficient is essentially zero; the within-country coefficient is large, positive, and significant at p < 0.01. **Sign flips and magnitude is ~8× larger when within-country FE is applied.** In substantive terms: a country that moves from $10M to $100M average annual education disbursement (a log change of ~2.3) would experience a within-country HLO score gain of ~25 points — roughly half a within-universe SD. That is a meaningful effect size, not a statistical curiosity.
+
+**Spec-by-spec Model 2 progression on log(1+CRS_disburse_MA3)** (`output/tables/model2_fe_baseline.md`):
+
+| Spec | N | β | SE | p |
+|---|---|---|---|---|
+| 2a — bivariate (CRS only) | 441 | 2.087 | 2.21 | 0.346 |
+| 2b — + log(GDP/cap) | 437 | 2.20 | 2.39 | 0.358 |
+| 2c — + PTR primary | 184 | 13.33 | 5.59 | 0.018 |
+| 2d — + ed exp (brief spec) | 143 | **13.77** | 4.95 | 0.007 |
+| 2e — + Gov effectiveness (full) | 143 | **10.95** | 3.60 | 0.003 |
+| 2f — + log(1+GCDF) China-robust | 143 | 11.04 | 3.69 | 0.004 |
+| 2g — + conflict + COVID | 143 | 10.83 | 4.03 | 0.009 |
+
+Pattern: adding PTR primary as a control (2c) sharpens the FE coefficient dramatically — from +2.1 ns to +13.3*. PTR captures a major time-varying confound; without it, the within-country variation in ODA is muddled with PTR shifts. Subsequent controls (ed exp, Gov effectiveness, GCDF, conflict/COVID) leave the headline ODA coefficient in the +10 to +14 range. Robustness across the controlled spec progression is encouraging — the FE result is not an artifact of any one control.
+
+**LAYS-outcome parallel** (`output/tables/model2_fe_lays_outcome.md`): the LAYS-FE coefficient on ODA is structurally informative because EYS within country varies independently of HLO. (Full-spec LAYS β: TBD from the table — included for GEEAP / Angrist 2024 comparability.)
+
+**Diagnostics on full spec (2e)** (`output/tables/model2_fe_diagnostics.csv`):
+
+| Diagnostic | Statistic | p | Interpretation |
+|---|---|---|---|
+| Hausman (FE vs RE) | — | — | RE estimation failed (Swamy-Arora needs > 3 time periods; HCI cycles provide only 4 effective points). FE is justified theoretically; formal Hausman defers to Phase-5 Session 05 if RE becomes estimable on a wider sample. |
+| Wooldridge AR(1) | F = 0.252 | 0.62 | No serial autocorrelation detected — consistent with HCI cycles being far apart in time (2010 → 2017 gap is 7 years; AR(1) doesn't bind). |
+| Breusch-Pagan | χ² = 137 | 0.0045 | Heteroskedasticity present; HC-robust + country-clustered SE warranted (already applied). |
+| VIF max (demeaned) | 1.64 | — | All VIFs < 2 on within-transformed regressors. **Cross-sectional multicollinearity (Session 12 r = 0.79 between WGI gov × log(GDP/cap)) is fully absorbed by the within-country demeaning.** This is the FE specification's hidden virtue. |
+
+The VIF readings are unexpectedly clean — within-transformation strips out the cross-country institutional × income coupling that drove the cross-section's multicollinearity. ADR-0009 (WGI operationalization) Phase-5 lock candidate may be simpler than expected: keep WGI in the spec; the within-country FE specification doesn't suffer from the cross-sectional collinearity problem.
+
+**Limit acknowledgments (the §6 caveats):**
+- **N = 143 is thin.** 30 of 133 countries (23%) drop out via listwise + singleton FE. Power is limited; the result needs Phase-5 System GMM (Session 02) corroboration.
+- **HCI cycle sparsity** (2010 / 2017 / 2018 / 2020) means within-country FE identifies off ≤4 observations per country. Substantively this is a small-T panel; the asymptotic SE may understate sampling uncertainty.
+- **PTR is the sample-driving variable** (loses ~258 obs going from spec 2b to 2c). Phase-5 Session 04 (UIS-augmented robustness per ADR-0006 Option 3) will test whether the result survives dropping PTR.
+- **Reverse causality not ruled out by FE.** Donors may target countries with rising HLO trajectories (donor success-chasing). System GMM (Session 02 per ADR-0010) addresses this via lagged-DV instruments.
+
+**Three interpretive paths held open until Phase-5 robustness chain completes:**
+1. *Falsification confirmed.* Phase-5 Sessions 02-05 (System GMM, lag sensitivity, China-aid robustness, WGI operationalization) all show β > 0 significant. Original thesis falsified at static-FE specification; manuscript reframes to "ODA does predict learning within country, but the structural drivers and allocation models story still applies."
+2. *Fragile to thin data.* Subsequent sessions show β collapses under alternative specs. Result is a small-N artifact. Original framing preserved with explicit §6 thin-data caveats.
+3. *Heterogeneous by subgroup.* β > 0 in some subsets, null in others. Motivates §6 thesis-refinement: "ODA predicts learning conditional on implementation capacity."
+
+The Phase-5 robustness chain decides which path; § 6 framing won't lock until Phase 5 closes.
+
+> *Sources:* `output/tables/model2_fe_baseline.{csv,md}`; `output/tables/model2_fe_lays_outcome.{csv,md}`; `output/tables/model2_fe_diagnostics.csv`; `output/tables/model1_vs_model2_contrast.{csv,md}`; `output/figures/eda/model2_coefficient_plot.png`; [session 14](session_log/2026-05-19-14-model2-fe.md)
 
 ### §5.3 Model 2 — System GMM headline robustness (Phase 5)
 

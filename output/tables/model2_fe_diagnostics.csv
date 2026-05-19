@@ -1,0 +1,4 @@
+test,statistic,df,p_value,interpretation
+Wooldridge AR(1) serial autocorrelation,0.252,1,0.62,No AR(1) detected
+Breusch-Pagan heteroskedasticity,137.274,97,0.0045,Heteroskedasticity present; HC-robust SE warranted
+VIF (on demeaned regressors) max,1.644,NA,NA,Max VIF = 1.64; threshold: flag > 10. Variable: wgi_ge_est
