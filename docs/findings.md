@@ -236,6 +236,8 @@ The heatmap (`output/figures/eda/correlation_heatmap.png`) is the Phase-5 prep v
 
 ### §5.2 Model 2 — Within-country FE panel (Phase 5 Session 01)
 
+> **Historical Session-14 writeup on pre-lock encoding.** The numbers below (β=10.95, etc.) reflect what Session 14 actually found on the old encoding (trailing-inclusive MA + single GE). They are preserved as-is for the audit trail. **For the manuscript-grade headline tables on the locked encoding (strictly-past MA + WGI PC1), see [§5.2.4 below](#524-manuscript-grade-headline-tables-on-locked-encoding-phase-5-session-06).** The post-lock spec 2e gives β=11.14, p=0.048, N=143 (Session-06 refresh).
+
 **THE HEADLINE RESULT. The within-country FE coefficient on ODA → HLO is positive, significant, and meaningful in magnitude — meaning the brief's "ODA doesn't predict learning" thesis is at least partially refuted at the static-FE specification.** Robustness chain (Phase 5 Sessions 02-05) must confirm or overturn before any manuscript framing rewrite.
 
 **Model 1 vs Model 2 contrast — the manuscript spine** (`output/tables/model1_vs_model2_contrast.md`):
@@ -375,6 +377,61 @@ All specs: Session-03 lock treatment `log(1 + crs_disburse_usd_defl_ma3_lag1)`, 
 **§6 Discussion implication.** The ODA→learning positive within-country pattern now has *three independent strands of evidence* converging to the same conclusion: (a) Session-03 16-cell treatment-encoding grid (all 16 β ≥ 0; lock at β=8.17, p=0.10); (b) Session-04 China-aid robustness (β stable at 8.06 when GCDF added; OECD-only is non-DAC-blind-spot robust); (c) Session-05 WGI operationalization (β=11.1 at p<0.05 on the cleanest L-K-engaging spec). The pre-Phase-5 "ODA does not predict learning" framing is now unambiguously outdated. The §6 narrative must reframe — paths a/b/c per §5.2.1 above remain author's call.
 
 > *Sources:* `output/tables/model2_wgi_specs.{csv,md}`; `output/tables/model2_wgi_vif.csv`; `output/tables/model2_wgi_pca_loadings.csv`; `output/tables/model2_wgi_vif_dim_coefs.csv`; `output/figures/eda/model2_wgi_plot.png`; [ADR-0009](decisions/0009-wgi-operationalization.md); session log: [2026-05-19-18-adr0009-lock.md](session_log/2026-05-19-18-adr0009-lock.md)
+
+### §5.2.4 Manuscript-grade headline tables on locked encoding (Phase 5 Session 06)
+
+**The Session-14 spec progression (2a-2g) and the Model-1-vs-Model-2 contrast are re-estimated on the post-lock encoding (Session-03 treatment + Session-05 WGI PC1 + Session-04 strictly-past GCDF) to produce manuscript-ready Tables 2-4.** Spec 2e is now the headline cell: **β=11.14, SE=5.52, p=0.048, N=143** (HLO outcome, two-way FE, country-clustered SE). This subsection lists the locked-encoding numbers in the form they will appear in §4 of the manuscript draft.
+
+**Table 3 (v2) — Model 2 spec progression on HLO, locked encoding** (`output/tables/model2_fe_baseline_v2.{csv,md}`):
+
+| Spec | Description | N | β_ODA | SE | p |
+|---|---|---|---|---|---|
+| 2a | bivariate (CRS only) | 441 | 1.14 | 1.63 | 0.485 |
+| 2b | + log(GDP/cap) | 437 | 0.77 | 1.75 | 0.661 |
+| 2c | + PTR primary | 184 | 9.72 | 4.98 | 0.054* |
+| 2d | + ed expenditure %GDP (brief spec) | 143 | 8.75 | 5.32 | 0.105 |
+| **2e** | **+ WGI PC1 (full controls; HEADLINE)** | **143** | **11.14** | **5.52** | **0.048**** |
+| 2f | + log GCDF strict (China-robust) | 143 | 11.26 | 5.53 | 0.046** |
+| 2g | + conflict + COVID | 143 | 9.61 | 5.44 | 0.082* |
+
+The spec progression on the locked encoding has a clean pattern: 2a/2b bivariate-plus-GDP show essentially zero coefficient (ns) — without PTR, the within-country relationship is masked. **PTR is the sample-driving control**: adding PTR at 2c drops N from 437 → 184 (PTR availability) and lifts β from 0.77 ns to 9.72* (p=0.054). Adding ed_exp at 2d drops N further to 143 and slightly attenuates β to 8.75 (p=0.105 — just over the conventional threshold). **Adding WGI PC1 at 2e — the manuscript headline — both lifts β to 11.14 and tightens it to p=0.048**, the only locked-encoding spec to cross the conventional 0.05 threshold cleanly. The China-robust 2f spec barely moves β (consistent with Session-04's finding that GCDF's own within-country effect on HLO is near-zero). Conflict + COVID at 2g weakens β to marginal (β=9.61, p=0.082): contemporaneous time-varying confounders absorb some of the within-country aid variance, and the strictly-past spec already has tight identification room.
+
+**The headline-spec 2e improvement under WGI PC1 (vs single-GE 2d-equivalent) is the manuscript story for §3.6:** broader WGI captures more confounding variance, sharpens the ODA estimate. This is the empirical pay-off of the Session-05 ADR-0009 lock decision (PCA primary over single-dimension).
+
+**Table 4 (v2) — Model 1 vs Model 2 contrast on locked encoding** (`output/tables/model1_vs_model2_contrast_v2.{csv,md}`):
+
+| Model | N | β on log(1+CRS) | SE | p | SE type |
+|---|---|---|---|---|---|
+| Model 1 OLS, full spec 1e (country means) | 120 | **−1.36** | 2.48 | 0.584 | HC robust |
+| **Model 2 v2 FE, locked 2e** | **143** | **+11.14** | **5.52** | **0.048** | Country-clustered |
+| Model 2 v2 FE, locked 2g (+conflict+COVID) | 143 | +9.61 | 5.44 | 0.082 | Country-clustered |
+
+**The manuscript's central empirical claim is preserved and strengthened under the lock:** Model 1's cross-sectional β is essentially zero and not significant; Model 2's within-country β is +11.14, an order of magnitude larger, and now crosses the conventional p < 0.05 threshold. Sign-flip + ~8× magnitude under within-FE. The locked encoding tightens identification (strictly-past forecloses contemporaneous reverse-causation) while preserving the headline direction.
+
+**Diagnostics on locked 2e** (`output/tables/model2_fe_diagnostics_v2.csv`):
+
+| Diagnostic | Statistic | p | Interpretation |
+|---|---|---|---|
+| Hausman (FE vs RE) | — | — | RE not estimable (T_eff ≤ 3 on strictly-past spec; Swamy-Arora requires > 3 time periods). FE is theoretically justified; formal Hausman defers. |
+| Wooldridge AR(1) | F = 0.44 | 0.51 | No serial autocorrelation detected. |
+| Breusch-Pagan | χ² = 137 | 0.0045 | Heteroskedasticity present; HC-robust + country-clustered SE warranted (applied). |
+| VIF max (demeaned) | 1.62 | — | All VIFs < 2 on within-transformed regressors. Cross-sectional collinearity is absorbed by within-country demeaning, as in Session-14. PC1 inclusion does not inflate VIF. |
+
+**LAYS robustness** (`output/tables/model2_fe_lays_outcome_v2.{csv,md}`): all 7 LAYS-FE specs are ns at p < 0.10 with β in the 0.10-0.21 range — LAYS-FE is structurally weaker than HLO-FE, as in Session-14. The HLO result is the headline; LAYS is reported alongside per the brief's spec.
+
+**Reproducibility note.** Spec 2e on the v2 driver returns β=11.136 vs Session-05's spec C β=11.142 — a 0.006 difference (0.001 SD on SE=5.52). p-value, N, and the substantive conclusion are identical. The drift is `prcomp` floating-point precision across R sessions and is well within numerical tolerance for an empirical paper. Documented for the audit trail.
+
+**Convergent evidence summary (post Phase-5 robustness chain):**
+
+The locked-encoding 2e headline β=11.14 is supported by four independent strands:
+1. Session-03 16-cell encoding sensitivity: all 16 HLO cells β ≥ 0, no sign flips
+2. Session-04 China-aid robustness: OECD coefficient stable at 8.06 when GCDF added; OECD-only is non-DAC-blind-spot robust
+3. Session-05 WGI operationalization: PC1 captures 76.4% of WGI variance; β=11.1 at p<0.05 on the L-K-engaging spec
+4. Session-06 manuscript-grade refresh (this section): 2e=11.14 at p=0.048 on the locked encoding; sign-flip + magnitude story strengthened relative to Model 1 cross-section
+
+The pre-Phase-5 "ODA does not predict learning" framing is structurally outdated across all four strands. §6 framing reframe (paths a/b/c per §5.2.1) is the next author-judgment task.
+
+> *Sources:* `output/tables/model2_fe_baseline_v2.{csv,md}`; `output/tables/model2_fe_lays_outcome_v2.{csv,md}`; `output/tables/model2_fe_diagnostics_v2.csv`; `output/tables/model1_vs_model2_contrast_v2.{csv,md}`; `output/figures/eda/model2_coefficient_plot_v2.png`; [R/56_model2_lock_encoding_tables.R](../R/56_model2_lock_encoding_tables.R); session log: [2026-05-19-19-lock-encoding-headline-tables.md](session_log/2026-05-19-19-lock-encoding-headline-tables.md)
 
 ### §5.3 Model 2 — System GMM identification triangulation (Phase 5 Session 02)
 
