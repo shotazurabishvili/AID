@@ -4,7 +4,7 @@
 >
 > *Parallel to [`methodology.md`](methodology.md) (proto-§3) and [`positionality.md`](positionality.md) (proto-§3 positionality). Updated at session end alongside the session log — see [`CLAUDE.md`](../CLAUDE.md) end-of-session protocol.*
 >
-> *Last updated: 2026-05-19 (Session 12 close — Phase 3 Session 02; added §4.3 regional trajectories + income-group stratification + new §4.7 control-variable correlation structure)*
+> *Last updated: 2026-05-19 (Session 13 close — Phase 4 Session 01; §5.1 populated with Model 1 OLS baseline)*
 
 ---
 
@@ -199,16 +199,60 @@ The heatmap (`output/figures/eda/correlation_heatmap.png`) is the Phase-5 prep v
 
 ## §5 Results
 
-**TO BE POPULATED** as Phase 4 (Model 1 OLS), Phase 5 (Model 2 FE + System GMM), Phase 6 (Model 3 2-level RE-vs-FE), Phase 7 (Model 4 ANOVA), Phase 8 (Model 5 counterfactual), and Phase 9 (Compounding AI Penalty) run. Each model gets its own subsection here; coefficients + SEs + diagnostics summarized; full tables live in `output/tables/`.
+### §5.1 Model 1 — Cross-sectional OLS baseline (Phase 4 Session 01)
 
-Stub structure to be filled:
+**The naive cross-sectional ODA → HLO association is large and negative; it is fully absorbed by income and governance controls.** Across the 133-country ADR-0002 universe over 2010–2020 (country-level means), bivariate OLS shows a strongly significant negative slope of HLO on log(1 + CRS education disbursement). Once log(GDP per capita) enters the specification, ~90% of the coefficient is absorbed; subsequent controls reduce it to essentially zero with wide CIs. This is the "naive association is illusory" pattern the brief predicts.
 
-- **§5.1 Model 1 — Cross-sectional OLS.** Cross-sectional β on ODA → HLO; expected positive and statistically significant. The "naive" headline that the within-country contrast challenges.
-- **§5.2 Model 2 — Within-country FE panel.** Headline result. Contrast β_OLS vs β_FE; cluster-robust SE; Hausman, Wooldridge, Breusch-Pagan, VIF diagnostics. Locks [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md), [ADR-0008](decisions/0008-china-aid-inclusion.md), [ADR-0009](decisions/0009-wgi-operationalization.md).
-- **§5.3 Model 2 — System GMM headline robustness.** Per [ADR-0010](decisions/0010-identification-strategy-gmm.md). Roodman diagnostics. Sign-and-magnitude triangulation: static FE vs Difference GMM vs System GMM.
-- **§5.4 Model 3 — 2-level country RE + time FE.** Per the Phase-2 external-review reframe. Hausman test justifies FE choice for Model 2.
-- **§5.5 Model 4 — ANOVA on intervention typology.** Per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md). Levene; Tukey HSD; η²; Cohen's d.
-- **§5.6 Model 5 — Counterfactual simulation.** Reported in **LAYS units** (per [ADR-0010](decisions/0010-identification-strategy-gmm.md)-adjacent commitment) alongside raw HLO points.
+**Headline coefficients on log(1 + CRS_disburse_defl_sum)** (`output/tables/model1_ols_baseline.md`):
+
+| Spec | β | SE (HC robust) | p | N | R² |
+|---|---|---|---|---|---|
+| 1a — bivariate | **−11.54** | 2.72 | <0.001 | 133 | 0.154 |
+| 1b — + log(GDP/cap) | −1.20 | 2.28 | 0.598 | 133 | 0.397 |
+| 1c — + PTR primary | −1.14 | 2.44 | 0.640 | 125 | 0.396 |
+| 1d — + ed exp %GDP (brief spec) | −1.79 | 2.60 | 0.493 | 120 | 0.402 |
+| 1e — + Gov effectiveness (full) | **−1.36** | 2.48 | 0.584 | 120 | 0.444 |
+| 1f — + log(1+GCDF) China-robust | −1.15 | 2.41 | 0.633 | 120 | 0.445 |
+
+**Other full-spec (1e) coefficients:**
+- log(GDP per capita): **+9.30** (SE 7.44, ns; was +26.25*** in 1b before WGI entered)
+- Pupil-teacher ratio (primary): −0.54 (SE 0.41, ns)
+- Govt education expenditure (% GDP): −1.02 (SE 1.59, ns) — note the unexpected negative sign (compositional %-GDP effect)
+- **Govt effectiveness (WGI): +24.51***** (SE 8.76, p<0.01) — the dominant cross-sectional correlate of HLO
+- Intercept: 359.3*** (SE 75.0)
+
+**VIF diagnostic (full spec 1e):** log(GDP/cap) = 5.24; Gov effectiveness = 2.95; PTR = 2.64; log_CRS_disb = 1.60; ed_exp = 1.13. Only one VIF marginally above 5, on log(GDP/cap) — the inflation comes from its correlation with both governance and PTR, not just governance alone. The Session-12 prediction was directionally right but milder in magnitude than the bivariate r=0.79 suggested.
+
+**Substantive read:**
+- The CROSS-SECTIONAL negative association (β = −11.5 bivariate) is **selection-driven**: poorer + worse-governed countries receive more education aid AND have lower HLO scores. Once those structural factors are absorbed, aid intensity has no cross-sectional association with learning outcomes.
+- WGI governance dominates the cross-section (β = 24.5, ~0.5 SD HLO per 1-unit WGI), absorbing much of GDP/cap's bivariate effect when added.
+- GCDF (Chinese aid) coefficient is essentially zero (β = −0.31, ns) — Chinese aid intensity also doesn't predict learning cross-sectionally.
+
+**The Model 1 → Model 2 contrast is the paper's empirical spine.** Model 1 here establishes the cross-sectional null after controls. Phase 5 Model 2 asks the harder question: does within-country variation in ODA predict within-country variation in HLO? That is the headline result the paper turns on.
+
+**LAYS-outcome parallel** (`output/tables/model1_ols_lays_outcome.md`): same 6 specs with `hci_lays_overall` as DV. LAYS coefficients are a metric translation of HLO results (LAYS = EYS × HLO/625); not independent evidence. Reported for GEEAP / Angrist 2024 comparability per the Phase-2 external review LAYS commitment. Full-spec ODA coefficient on LAYS: −0.018 (ns); the same null-after-controls story in years-of-learning units.
+
+> *Sources:* `output/tables/model1_ols_baseline.{csv,md}`; `output/tables/model1_ols_lays_outcome.{csv,md}`; `output/tables/model1_vif.csv`; `output/figures/eda/model1_coefficient_plot.png`; [session 13](session_log/2026-05-19-13-model1-ols.md)
+
+### §5.2 Model 2 — Within-country FE panel (Phase 5)
+
+**To be populated.** Will report β_FE and the β_OLS vs β_FE contrast (Model 1 vs Model 2) — the headline result. Static FE baseline + Hausman test + Wooldridge + Breusch-Pagan + VIF + cluster-robust SE per [methodology §3.8](methodology.md). Locks [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md) (commit vs disburse), [ADR-0008](decisions/0008-china-aid-inclusion.md) (China inclusion), [ADR-0009](decisions/0009-wgi-operationalization.md) (WGI operationalization).
+
+### §5.3 Model 2 — System GMM headline robustness (Phase 5)
+
+**To be populated.** Per [ADR-0010](decisions/0010-identification-strategy-gmm.md). Roodman (2009) diagnostics. Sign-and-magnitude triangulation: static FE vs Difference GMM vs System GMM.
+
+### §5.4 Model 3 — 2-level country RE + time FE (Phase 6)
+
+**To be populated.** Per the Phase-2 external-review reframe. Hausman test justifies FE choice for Model 2.
+
+### §5.5 Model 4 — ANOVA on intervention typology (Phase 7)
+
+**To be populated.** Per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md). Levene; Tukey HSD; η²; Cohen's d.
+
+### §5.6 Model 5 — Counterfactual simulation (Phase 8)
+
+**To be populated.** Reported in LAYS units alongside raw HLO points.
 
 ---
 
