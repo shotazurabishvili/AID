@@ -1,0 +1,3 @@
+test,b_fe,var_fe,b_re,var_re,H_statistic,df,p_value,notes
+Manual univariate Cameron-Trivedi Hausman (β_ODA only),11.1356,30.450795,-1.3224,7.179685,6.6693,1,0.0098,"Manual univariate Cameron-Trivedi Hausman on β_ODA: H=6.6693, df=1, p=0.0098. (b_FE-b_RE)^2=155.2023 over (Var_FE - Var_RE)=23.2711."
+plm::phtest (full coefficient vector; if estimable),NA,NA,NA,NA,NA,NA,NA,plm::phtest: RE not estimable on T_eff ≤ 3 (Swamy-Arora requirement). Falling back to manual univariate Hausman.

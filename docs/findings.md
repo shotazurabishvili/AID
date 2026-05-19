@@ -476,7 +476,52 @@ The Phase-2 external review correctly anticipated this risk: "Half-hearted GMM i
 
 ### §5.4 Model 3 — 2-level country RE + time FE (Phase 6)
 
-**To be populated.** Per the Phase-2 external-review reframe. Hausman test justifies FE choice for Model 2.
+**Hausman test formally rejects RE in favor of FE (manual univariate Cameron-Trivedi: H=6.67, df=1, p=0.0098). The brief's Phase-2 reframe is fully supported — Model 2 FE is the identified specification; Model 3 RE is reported as transparency.** Country-level ICC is 91.2% (unconditional) — HLO is overwhelmingly a country-level construct, so cross-sectional and partial-pooling estimators are dominated by country-quality confounding. Within-FE (Model 2) is required to isolate the ODA → learning signal.
+
+**Manuscript Table 5 — Three-way Model 1/2/3 contrast on locked encoding HLO** (`output/tables/model123_three_way_contrast.{csv,md}`):
+
+| Model | Identification | N | β_ODA | SE | p |
+|---|---|---|---|---|---|
+| Model 1 OLS (1e, cross-sectional country means) | Between-country only | 120 | −1.36 | 2.48 | 0.584 |
+| **Model 2 v2 FE (2e, locked encoding)** | **Within-country only** | **143** | **+11.14** | **5.52** | **0.048** |
+| Model 3 RE (3e, random intercepts + year FE) | Weighted between + within | 173 | −1.32 | 2.68 | 0.622 |
+
+**Reading the three-way contrast.** Model 3's RE β has *collapsed onto Model 1's cross-sectional estimate* (−1.32 vs −1.36) rather than splitting the difference with Model 2 FE. This is the empirical signature of an extreme ICC: when 91% of outcome variance is between-country, the variance-component weighting in RE puts essentially all weight on between-country information, mechanically replicating the OLS estimate. The within-country signal that Model 2 FE isolates is invisible to RE. **Only FE recovers the positive ODA effect.**
+
+**Model 3 RE spec progression — HLO** (`output/tables/model3_re_specs.{csv,md}`, lmer with country random intercepts + year FE, REML=FALSE for Hausman comparability):
+
+| Spec | Description | N | β_ODA | SE | p |
+|---|---|---|---|---|---|
+| 3a | bivariate (CRS + year FE only) | 447 | **−5.19** | 1.66 | **0.002**** |
+| 3b | + log(GDP/cap) | 443 | −1.80 | 1.60 | 0.262 |
+| 3c | + PTR primary | 206 | −0.59 | 2.37 | 0.806 |
+| 3d | + ed exp %GDP | 173 | −2.76 | 2.61 | 0.291 |
+| **3e** | **+ WGI PC1 (full)** | **173** | **−1.32** | **2.68** | **0.622** |
+
+**Spec 3a is the unconditional cross-country ODA→HLO association**: β=−5.19 at p=0.002. *Aid receipt is strongly negatively correlated with learning outcomes across countries* — the well-known "aid concentrates in low-outcome countries" pattern. Adding log(GDP/cap) at 3b kills the significance (GDP is the binding cross-country confound). By 3e (full controls + PC1), the cross-country signal is fully absorbed by the controls and β returns to near-zero ns. **This is exactly the pattern Model 2 FE was designed to escape**: at the country level, ODA flows track country-quality variables; only within-country variation can isolate ODA's marginal contribution.
+
+**Hausman test detail** (`output/tables/model3_hausman_test.csv`):
+
+- **Manual univariate Cameron-Trivedi on β_ODA:** H = (b_FE − b_RE)² / (Var(b_FE) − Var(b_RE)) = (11.14 − (−1.32))² / (5.52² − 2.68²) = 155.20 / 23.27 = **6.67**, df=1, **p=0.0098**. Rejects H₀ that RE is consistent — RE β is systematically different from FE β beyond what sampling variation can explain. **FE is the identified specification.**
+- **`plm::phtest` failed** (same as Sessions 14/06): Swamy-Arora RE requires T > 3 time periods; HCI cycles give T_eff ≤ 3-4. Manual univariate Hausman is the operative test.
+
+**ICC at country level** (`output/tables/model3_icc.csv`, `performance::icc()`):
+
+| Model | Adjusted ICC | Unadjusted ICC | Interpretation |
+|---|---|---|---|
+| Unconditional (`hlo ~ 1 + (1\|iso3)`) | **0.912** | 0.912 | 91.2% of raw HLO variance is between-country. |
+| Conditional (3e full controls + year FE) | 0.793 | 0.476 | After conditioning on observables, 79% of residual variance is still between-country. |
+
+**Substantive implication for §3.8 of the manuscript:** the within-FE specification is not just methodologically convenient — it is *necessary* given the panel's variance structure. With 91% of HLO variance located between countries, any estimator that pools between-country information (OLS, RE) is mechanically dominated by country-quality confounding. The brief's Phase-2 reframe of Model 3 from "the headline" to "the FE-justifying counterpart" is empirically validated.
+
+**Convergent evidence across the Models 1-3 chain now closes:**
+1. **Cross-sectional pattern is negative-or-null** (Model 1 OLS: −1.36 ns; Model 3 3a unconditional RE: −5.19**). Aid concentrates where outcomes are poor — the classical pattern.
+2. **Within-country pattern is positive** (Model 2 FE 2e: +11.14, p=0.048). Among aid-receiving countries, increases in ODA over time predict increases in HLO.
+3. **The two patterns are reconcilable via the country-quality variance structure** (ICC=91% between-country): the cross-section captures confounding-by-country-type; the within isolates the time-varying ODA signal. Hausman p=0.0098 formally validates this reading.
+
+The pre-Phase-5 "ODA does not predict learning" framing is structurally rejected across **five independent strands**: Sessions 03 (16-cell encoding), 04 (China-aid robustness), 05 (WGI operationalization), 06 (manuscript-grade headline tables), and 06-S01 (this section: Hausman + ICC + Model 1/2/3 contrast).
+
+> *Sources:* `output/tables/model3_re_specs.{csv,md}`; `output/tables/model3_hausman_test.csv`; `output/tables/model3_icc.csv`; `output/tables/model123_three_way_contrast.{csv,md}`; `output/figures/eda/model3_coefficient_plot.png`; [R/57_model3_re_panel.R](../R/57_model3_re_panel.R); session log: [2026-05-19-20-model3-re-panel.md](session_log/2026-05-19-20-model3-re-panel.md)
 
 ### §5.5 Model 4 — ANOVA on intervention typology (Phase 7)
 

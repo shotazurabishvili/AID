@@ -1,0 +1,4 @@
+Model,Identification,N,beta_ODA,SE,p_value
+Model 1 OLS — full spec 1e (cross-sectional),Between-country variation only (country-mean averaging eliminates within variation),120,-1.361,2.477,0.5837
+"Model 2 v2 FE — full spec 2e (within-country, locked)",Within-country variation only (country FE eliminates between variation),143,11.136,5.518,0.0481
+"Model 3 RE — full spec 3e (random intercepts + year FE, locked)",Weighted combination of between + within (RE with country random intercepts),173,-1.322,2.679,0.6225
