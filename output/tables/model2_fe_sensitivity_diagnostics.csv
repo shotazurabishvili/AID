@@ -1,0 +1,4 @@
+test,statistic,df,p_value,interpretation
+Wooldridge AR(1) on FE residuals,0.29,1,0.59,No AR(1) detected
+Breusch-Pagan heteroskedasticity,137.517,97,0.0043,Heteroskedasticity present; HC-robust SE warranted
+VIF (demeaned regressors) max,1.568,NA,NA,Max VIF = 1.57; threshold: flag > 10. Variable: wgi_ge_est

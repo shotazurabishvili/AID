@@ -325,9 +325,15 @@ The production panel is a balanced (iso3, year) frame derived from 10 interim pa
 | `crs_commit_usd_ma3` | 3-year trailing-inclusive MA: `mean(t-2, t-1, t)` | USD (current) | `slider::slide_dbl(.before=2, .after=0, .complete=TRUE)` within iso3 | ~9% (first 2 years per country) |
 | `crs_commit_usd_defl_ma3` | Same, constant-USD | USD (constant) | as above | ~9% |
 | `crs_disburse_usd_ma3` | Same, disbursement, current-USD | USD (current) | as above | ~9% |
-| `crs_disburse_usd_defl_ma3` | **Production primary intent**: 3-yr trailing MA of constant-USD disbursement | USD (constant) | as above | ~9% |
-| `crs_commit_usd_defl_lag1` | 1-year lag of `crs_commit_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% (first year per country) |
+| `crs_disburse_usd_defl_ma3` | 3-yr trailing-inclusive MA of constant-USD disbursement. Pre-Session-03 production primary intent; Session-14 working spec. | USD (constant) | as above | ~9% |
+| `crs_commit_usd_lag1` | 1-year lag of `crs_commit_usd_sum` (added Session 03 for ADR-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% (first year per country) |
+| `crs_commit_usd_defl_lag1` | 1-year lag of `crs_commit_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% |
+| `crs_disburse_usd_lag1` | 1-year lag of `crs_disburse_usd_sum` (added Session 03 for ADR-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% |
 | `crs_disburse_usd_defl_lag1` | 1-year lag of `crs_disburse_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% |
+| `crs_commit_usd_ma3_lag1` | 3-yr **strictly-past** MA of current-USD commitment: `mean(t-3, t-2, t-1)`. Added Session 03 for ADR-0005 grid. | USD (current) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
+| `crs_commit_usd_defl_ma3_lag1` | Same, constant-USD | USD (constant) | as above | ~13% |
+| `crs_disburse_usd_ma3_lag1` | 3-yr strictly-past MA of current-USD disbursement | USD (current) | as above | ~13% |
+| `crs_disburse_usd_defl_ma3_lag1` | **ADR-0005 LOCK (2026-05-19)**: primary treatment column. 3-yr strictly-past MA of constant-USD disbursement; forecloses contemporaneous reverse-causation. | USD (constant) | as above | ~13% |
 
 ### Production GCDF columns
 

@@ -17,7 +17,7 @@
 ## Data Integrity Checks
 *(From brief § Self-Review Protocol — Statistical Layer)*
 
-- [ ] ODA: commitment vs disbursement — choose and justify → **[ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md)** (Phase 5)
+- [x] ODA: commitment vs disbursement — choose and justify → **[ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md)** Accepted 2026-05-19 (Phase 5 Session 03). Lock: `crs_disburse_usd_defl_ma3_lag1` (disburse × constant USD × strictly-past 3-yr MA). 16-cell sensitivity grid shows all HLO β ≥ 0 (no sign flips); commit + disburse both report positive within-country associations; disburse primary on theoretical grounds. Evidence: `output/tables/model2_fe_sensitivity.csv`.
 - [x] HLO: cite Altinok et al. harmonization methodology and its critics → **[ADR-0004](decisions/0004-hlo-measure.md)** Accepted 2026-05-17. Sandefur (2018) critique engaged in §3.4 (within-country FE defense + SSA coverage caveat with empirical numbers from `output/tables/ssa_hlo_missingness.csv`). Both lit notes (altinok-angrist-patrinos-2018, sandefur-2018) read; manuscript-engagement box flips in Phase 11 once §3 lives in the Quarto draft.
 - [ ] UNESCO enrollment: flag self-reporting incentive bias → Phase 3 EDA notes; §3.6 in `methodology.md`
 - [x] WGI: cite Langbein & Knack aggregation critique — *Phase 1 Session 02 done: native bundle ingested with `n_sources` retained; per-source values deferred to Phase 5 per ADR-0009. Evidence: `data/interim/wgi.parquet`, `docs/lit/langbein-knack-2010.md`*
@@ -44,8 +44,8 @@
 *(Cross-reference `methodology.md § 3.12`)*
 
 - [~] HLO measure: WB current vs AAP-2018 — Phase 5/sensitivity. *Both measures ingested Session 04: `data/interim/hlo.parquet` (207 countries, 2010–2020) + `data/interim/hlo_aap2018.parquet` (137 countries, 1995–2015). Actual Model 1 + Model 2 sensitivity run is Phase 5.*
-- [ ] ODA: disbursement vs commitment — Phase 5
-- [ ] ODA: 1-year vs 3-year moving average lag — Phase 5
+- [x] ODA: disbursement vs commitment — Phase 5 Session 03 done (ADR-0005 lock). Full 16-cell sensitivity table at `output/tables/model2_fe_sensitivity.csv`; disburse and commit both yield positive within-country β on HLO across all MA specs. Disburse primary on theoretical grounds.
+- [x] ODA: 1-year vs 3-year moving average lag — Phase 5 Session 03 done. Lag1 specs all weak (β=2.5-3.2, p>0.10); 3-yr MA specs significant (β=9-12). 3-yr window absorbs spending → learning lag better; 3-yr locked in ADR-0005.
 - [ ] Sample: 2000–2022 vs 2005–2020 — Phase 5/sensitivity
 - [ ] Sample: with vs without Chinese aid flows (GCDF) — Phase 5
 - [~] UIS missingness: listwise vs MI vs UIS-dropped — Phase 2 lock done; Phase 5 will run the three sensitivity specs and report alongside. *ADR-0006 Accepted 2026-05-18: drop UIS from primary; UIS-augmented listwise + MI both reported as Robustness 1 + Robustness 2. Implementation in Phase 5.*

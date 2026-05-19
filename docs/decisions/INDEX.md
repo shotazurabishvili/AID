@@ -10,7 +10,7 @@ Auto-maintainable index of all Architecture Decision Records.
 | [0002](0002-country-universe.md) | Country universe | Accepted | 2026-05-18 | 1 (Session 09) | Option 1: ODA-eligible ∩ ≥1 HLO. **N=133 countries** (Model-2 FE: 127 with ≥2 HLO obs) |
 | [0003](0003-year-range.md) | Year range | Accepted | 2026-05-18 | 1 (Session 09) | **2010–2020 primary** (HCI-cycle-anchored); 2000–2022 + 2005–2020 reported in parallel as robustness |
 | [0004](0004-hlo-measure.md) | HLO score harmonization | Accepted | 2026-05-17 | 1 (Session 04) | WB `HD.HCI.HLOS` primary; AAP-2018 robustness |
-| [0005](0005-oda-commitment-vs-disbursement.md) | ODA commitment vs disbursement | Pending | — | 5 (Model 2) | Disbursement primary; commitment robustness; lag structure |
+| [0005](0005-oda-commitment-vs-disbursement.md) | ODA commitment vs disbursement (+ lag structure) | Accepted | 2026-05-19 | 5 (Session 03) | **Primary: `crs_disburse_usd_defl_ma3_lag1`** (disburse × constant USD × 3-yr strictly-past MA, mean of t-3,t-2,t-1). Robustness: trailing-inclusive MA, raw, commitment. 16-cell sensitivity grid: all HLO β ≥ 0, no sign flips. |
 | [0006](0006-uis-missingness-strategy.md) | UIS missingness strategy | Accepted | 2026-05-18 | 2 (Session 01) | **Option 3: drop UIS from primary** (WDI controls only); UIS-augmented listwise + MI as robustness |
 | [0007](0007-oecd-crs-intervention-typology.md) | OECD CRS intervention typology coding | Pending | — | 7 (Model 4 ANOVA) | Rule-based keyword vs LLM-assisted classification |
 | [0008](0008-china-aid-inclusion.md) | Chinese aid inclusion in primary ODA | Pending | — | 5 (Model 2) | OECD CRS primary; GCDF robustness |

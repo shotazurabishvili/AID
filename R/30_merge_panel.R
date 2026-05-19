@@ -12,8 +12,9 @@
 #      not 1995-2025. AI Readiness dropped (cross-sectional 2025; Phase 9
 #      re-joins it separately).
 #   3. CRS column matrix expanded per ADR-0005: commit × disburse × current
-#      × constant USD = 4 raw cols, plus 3-yr trailing MA (4 cols) and 1-yr
-#      lag on defl variants (2 cols). Phase 5 chooses primary at modeling.
+#      × constant USD = 4 raw cols, plus 3-yr trailing MA (4 cols), 1-yr lag
+#      (4 cols: defl + current USD), and 3-yr strictly-past MA (4 cols).
+#      Phase 5 Session 03 picks primary from this 16-cell grid (ADR-0005 lock).
 #   4. NA -> 0 coalesce on CRS + GCDF aid-flow columns within universe.
 #      Rationale: ODA-eligible recipients with no CRS project in year t had
 #      $0 aid that year, not "data missing". This enables clean MAs.
@@ -160,25 +161,39 @@ panel <- panel |>
 
 message("[merge-prod] coalesced CRS + GCDF flow columns NA -> 0 within universe")
 
-# 11. Compute MA3 (trailing-inclusive: t-2, t-1, t) + lag1 ----------
-# .complete=TRUE returns NA when fewer than 3 obs in window (years 2000-2001
-# per country). Group by iso3; arrange ensures within-country time order.
+# 11. Compute MA3 (trailing-inclusive: t-2, t-1, t) + lag1 + strictly-past MA ----
+# Trailing-inclusive MA: .before=2, .after=0, .complete=TRUE returns NA when fewer
+# than 3 obs in window (years 2000-2001 per country).
+# Strictly-past MA (mean of t-3, t-2, t-1): dplyr::lag(ma3, n=1). NA for first
+# 3 years per country. Used in Phase 5 Session 03 to foreclose contemporaneous
+# leakage (ADR-0005 sensitivity grid).
+# Group by iso3; arrange ensures within-country time order.
 panel <- panel |>
   group_by(iso3) |>
   arrange(year, .by_group = TRUE) |>
   mutate(
+    # 3-yr trailing-inclusive MA (mean of t-2, t-1, t)
     crs_commit_usd_ma3        = slide_dbl(crs_commit_usd_sum,        mean, .before = 2, .after = 0, .complete = TRUE),
     crs_commit_usd_defl_ma3   = slide_dbl(crs_commit_usd_defl_sum,   mean, .before = 2, .after = 0, .complete = TRUE),
     crs_disburse_usd_ma3      = slide_dbl(crs_disburse_usd_sum,      mean, .before = 2, .after = 0, .complete = TRUE),
     crs_disburse_usd_defl_ma3 = slide_dbl(crs_disburse_usd_defl_sum, mean, .before = 2, .after = 0, .complete = TRUE),
+    # 1-yr lag (all four USD bases, for ADR-0005 grid symmetry)
+    crs_commit_usd_lag1        = dplyr::lag(crs_commit_usd_sum,        n = 1),
     crs_commit_usd_defl_lag1   = dplyr::lag(crs_commit_usd_defl_sum,   n = 1),
+    crs_disburse_usd_lag1      = dplyr::lag(crs_disburse_usd_sum,      n = 1),
     crs_disburse_usd_defl_lag1 = dplyr::lag(crs_disburse_usd_defl_sum, n = 1),
+    # 3-yr strictly-past MA (mean of t-3, t-2, t-1) = lag(ma3, 1)
+    crs_commit_usd_ma3_lag1        = dplyr::lag(crs_commit_usd_ma3,        n = 1),
+    crs_commit_usd_defl_ma3_lag1   = dplyr::lag(crs_commit_usd_defl_ma3,   n = 1),
+    crs_disburse_usd_ma3_lag1      = dplyr::lag(crs_disburse_usd_ma3,      n = 1),
+    crs_disburse_usd_defl_ma3_lag1 = dplyr::lag(crs_disburse_usd_defl_ma3, n = 1),
+    # GCDF (unchanged from Session-10 production merge)
     gcdf_amount_const2021_ma3  = slide_dbl(gcdf_amount_const2021_sum, mean, .before = 2, .after = 0, .complete = TRUE),
     gcdf_amount_const2021_lag1 = dplyr::lag(gcdf_amount_const2021_sum, n = 1)
   ) |>
   ungroup()
 
-message("[merge-prod] computed MA3 + lag1 transforms within country")
+message("[merge-prod] computed MA3 + lag1 + strictly-past MA transforms within country")
 
 # 12. Window flags + identification flag ----------------------------
 has_2plus_hlo_iso3 <- panel |>
