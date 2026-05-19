@@ -15,7 +15,7 @@ Auto-maintainable index of all Architecture Decision Records.
 | [0007](0007-oecd-crs-intervention-typology.md) | OECD CRS intervention typology coding | Pending | — | 7 (Model 4 ANOVA) | Rule-based keyword vs LLM-assisted classification |
 | [0008](0008-china-aid-inclusion.md) | Chinese aid inclusion in primary ODA | Pending | — | 5 (Model 2) | OECD CRS primary; GCDF robustness |
 | [0009](0009-wgi-operationalization.md) | WGI operationalization in models | Pending | — | 5 (Model 2) | All-six aggregates with VIF audit + PCA-collapsed robustness, vs single composite vs reconstructed-from-sources |
-| [0010](0010-identification-strategy-gmm.md) | Identification strategy (System GMM) | Pending | — | 5 (Model 2) | System GMM as headline robustness vs static-FE-only; provisional decision to add GMM per Phase-2 external review |
+| [0010](0010-identification-strategy-gmm.md) | Identification strategy (System GMM) | Accepted (with caveats) | 2026-05-19 | 5 (Session 02) | System GMM attempted; Hansen p=0.022 rejects validity (small-T limitation); Bond bounds degenerate. Static FE remains headline; §3 acknowledges identification limits transparently. |
 
 ---
 

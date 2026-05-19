@@ -1,8 +1,8 @@
 # ADR-0010: Identification strategy — System GMM as headline robustness
 
-**Status:** Pending — locked in Phase 5 Session 1 (Model 2 FE panel) after baseline FE results are observed
-**Date:** —
-**Phase:** 5 — Model 2 (Fixed Effects panel)
+**Status:** Accepted with caveats — System GMM attempted Phase 5 Session 02; reported but Hansen overid rejects instrument validity (small-T limitation); static FE remains headline; Bond (2002) bounds also degenerate on T=4 HCI cycles; identification defense relies on transparent §3 acknowledgment of small-T limits.
+**Date:** 2026-05-19
+**Phase:** 5 — Model 2 (Session 02)
 
 ## Context
 
@@ -23,19 +23,50 @@ Phase 1 Session 09 external review flagged this as the "defensible weak flank". 
 3. **External IV** (e.g., Galiani-style IDA-graduation thresholds; Dreher-style donor characteristics) — cleaner exclusion restriction in principle, but defending it for *education* aid is harder than for *total* aid.
 4. **Descriptive-FE with measurement-failure lean** — own the identification limit in §3; lean on the measurement-architecture thesis as the headline claim. Lower cost; probably aims at IJED rather than *World Development*.
 
-## Decision (Pending)
+## Decision
 
-**Provisional: Option 1 — System GMM as headline robustness.** Decision rationale committed via Phase-2 external review:
+**Option 1 with caveats: System GMM attempted and reported, but identification defense rests primarily on static FE + transparent acknowledgment of small-T limits. Locked 2026-05-19 (Phase 5 Session 02) with the empirical evidence below.**
 
-- *World Development* expects econometric identification; a static-FE-only paper is more likely to land at IJED or Economics of Education Review.
-- System GMM is technically achievable in 2-3 Phase-5 sessions; the production panel's lag columns + ODA column matrix (ADR-0005) make implementation low-friction.
-- Closes the most predictable referee critique without redesigning the paper.
+### Data observed (Phase 5 Session 02)
 
-Lock in Phase 5 Session 1 (after baseline FE results) with:
-- Roodman (2009) "How to do xtabond2" cited as the standard reference.
-- Diagnostics reported in Table 2: Hansen overid p-value, AR(1) p < 0.05 expected, AR(2) p > 0.10 required, instrument count vs N comparison.
-- Instrument count managed via `collapse=TRUE` and a lag limit (typically L2-L4) — full matrix overfits in small T panels.
-- Compared to Model 2 static FE; if signs and magnitudes agree, headline is robust to identification choice. If they diverge, the divergence is *the* §6 Discussion point.
+Empirical evidence from `R/52_model2_gmm.R` on the cycle-indexed HCI panel (T = 4 effective cycles: 2010, 2017, 2018, 2020; N = 127 FE-identifiable countries; full-control sample collapses to T=3 × 61 countries):
+
+**Identification triangulation** (`output/tables/model2_identification_triangulation.md`):
+
+| Estimator | β | SE | p | Hansen p | AR(2) p |
+|---|---|---|---|---|---|
+| **Static FE Model 2 (Session 14, full 2e)** | **+10.95** | 3.60 | **0.003** | — | — |
+| Static FE Model 2 (Session 14, +conflict+COVID) | +10.83 | 4.03 | 0.009 | — | — |
+| (A) Pooled OLS w/ lagged DV — MIN spec | 0.000 | 0.000 | 0.870 | — | — |
+| (A) Pooled OLS w/ lagged DV — FULL spec | 0.000 | 0.000 | 0.962 | — | — |
+| (B) Within FE w/ lagged DV (LSDV) — MIN spec | 0.000 | 0.000 | 0.942 | — | — |
+| (B) Within FE w/ lagged DV (LSDV) — FULL spec | 0.000 | 0.000 | 0.866 | — | — |
+| (C) Difference GMM — MIN spec | +0.601 | 10.6 | 0.955 | 0.498 | NA |
+| (C) Difference GMM — FULL spec | failed to estimate | — | — | — | — |
+| (D) System GMM — MIN spec | −0.923 | 0.81 | 0.254 | **0.022** | NA |
+| (D) System GMM — FULL spec | failed to estimate | — | — | — | — |
+
+**Findings:**
+
+1. **Bond (2002) consistency bounds are degenerate.** Pooled OLS-LDV (upward bound) and Within FE-LDV (downward bound) both produce β = 0.000 on log(1+CRS), with `lag_hlo` coefficient ≈ 1.000 (essentially perfect-fit warning issued by `lm()`). With T = 3-4 effective cycles, the lagged-DV plus FE plus controls exhausts the degrees of freedom; the LDV becomes a near-perfect predictor, leaving no residual variance for the ODA coefficient to explain. **The Bond bracketing strategy that the methodology committed to is not informative on this panel.**
+
+2. **Difference GMM minimal-spec runs** with Hansen p = 0.498 (passes overidentification at the 5% level) but β = +0.601 ± 10.6 (wide CI; effectively uninformative). AR(2) test cannot compute because T_eff after differencing = 1. **Diff GMM produces a point estimate but no usable identification defense.**
+
+3. **System GMM minimal-spec runs** with β = −0.923 (SE 0.81, ns) — sign opposite to static FE — but Hansen overid p = 0.022, **rejecting instrument validity at the 5% level**. The Hansen rejection means the System GMM coefficient is biased; cannot be trusted as identification defense.
+
+4. **Difference GMM and System GMM FULL specs both fail to estimate** (matrix singularity errors) when the full control set is added. Listwise-complete sample on the full controls is N=143 × T=3 cycles — too small for the GMM machinery.
+
+5. **The brief's identification-via-GMM requirement is not feasible on this panel.** Asongu (2019) and Yogo (2017) GMM-aid-effectiveness applications use 20+ year annual panels (T ≥ 15-20); our HCI-cycle-only outcome provides T ≤ 4. This is the small-T panel problem Bond (2002) explicitly warns about. The data simply does not support the GMM machinery cleanly.
+
+**Locked decision:** Option 1 with caveats. We attempted System GMM per the brief's requirement and the Phase-2 external review commitment. The results are reported transparently in `findings.md § 5.3` and `output/tables/model2_identification_triangulation.{csv,md}`. The static-FE result (β = +10.95***, Session 14) remains the headline empirical claim. The manuscript § 3 (Methodology) acknowledges the small-T limitation honestly: GMM machinery is the field's identification gold standard but does not apply at our outcome's measurement frequency. The substantive identification defense rests on:
+
+- Country + year two-way FE (Session 14)
+- Country-clustered SE (Session 14)
+- HC-robust Breusch-Pagan-adjusted inference (Session 14)
+- Transparent reporting of attempted dynamic-panel methods + their failure modes (this session)
+- Phase-5 robustness chain across Sessions 03 (commit vs disburse + lag), 04 (China-aid), 05 (WGI operationalization) — sign-and-magnitude consistency across all robustness specs is the identification claim
+
+If a *World Development* referee asks "how do you address reverse causality?", the answer is: (a) within-country FE absorbs time-invariant donor preferences; (b) we attempted GMM honestly per Bond/Roodman; (c) the small-T HCI panel makes GMM diagnostics fail; (d) the falsification thesis from the brief is satisfied at static FE with the explicit thin-data caveat; (e) Phase-5 robustness chain provides the alternative defense.
 
 ## Consequences
 

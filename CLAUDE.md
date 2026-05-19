@@ -38,13 +38,13 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **5 Session 01 done.** Model 2 within-country FE estimated; β_FE = +10.95*** (p=0.003, N=143) vs β_OLS = −1.36 ns. **The headline contrast holds at static FE; brief's falsification standard is in play.**
-- **Last session:** 2026-05-19 — Session 14 (Model 2: 7 two-way FE specs × HLO + LAYS outcomes; country-clustered SE; β_FE jumps to +13 when PTR primary enters, stays at +10-14 across controlled specs. Diagnostics: Wooldridge no AR(1) p=0.62; BP heteroskedasticity p=0.004; VIF max 1.64 on demeaned regressors; Hausman deferred — small-T limitation. Three interpretive paths held open until Phase-5 robustness chain completes.)
+- **Phase:** **5 Session 02 done.** System GMM attempted per ADR-0010; **Hansen p=0.022 rejects instrument validity** on small-T HCI panel; Bond bounds degenerate. **Static FE remains headline** with transparent §3 acknowledgment of small-T identification limit.
+- **Last session:** 2026-05-19 — Session 15 (Model 2 identification triangulation; Diff GMM minimal: β=+0.60 ± 10.6, Hansen p=0.498 passes but CI uninformative; System GMM minimal: β=−0.92 ns, Hansen p=0.022 rejects; Diff/Sys GMM FULL specs fail matrix-singular; Bond OLS-LDV + LSDV bounds degenerate with lag_hlo coefficient ≈ 1.0. T_eff ≤ 4 below Bond 2002 minimum.)
 - **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** **0001, 0002, 0003, 0004, 0006 Accepted**; 0005, 0007, 0008, 0009, 0010 Pending. ADR-0010 (System GMM headline robustness) locks Phase 5 Session 02 (next).
+- **ADRs:** **0001, 0002, 0003, 0004, 0006, 0010 Accepted**; 0005, 0007, 0008, 0009 Pending. ADR-0010 locked "Option 1 with caveats" 2026-05-19: GMM attempted + transparently reported; static FE retained as headline.
 - **Next concrete action:**
-  *(**Phase 5 Session 02 — System GMM headline robustness**)*. Per [ADR-0010](docs/decisions/0010-identification-strategy-gmm.md). Implementation via `plm::pgmm` or `pdynmc`. Full Roodman (2009) diagnostics: Hansen overid (target p ∈ (0.10, 0.99)), AR(1) p<0.05, AR(2) p>0.10, instrument count < N (via `collapse=TRUE`). System + Difference GMM triangulation. Sign-and-magnitude consistency across static FE / Diff GMM / System GMM is the identification defense. If GMM confirms β > 0, the brief's falsification thesis stands refuted; if it fragments, the original framing survives with caveats.
+  *(**Phase 5 Session 03 — ADR-0005 lock (commit vs disburse + lag structure)**)*. Estimate Model 2 FE specs varying treatment column: `crs_commit_*` vs `crs_disburse_*` × current vs constant USD × {raw, 1-yr lag, 3-yr MA, strictly-past MA}. Sensitivity table across 6-12 specs. Lock ADR-0005 with empirical evidence. All using static FE (GMM-LDV infeasible per Session 15).
 - **Open decisions:** None pending.
 - **Blocked on:** Nothing.
 

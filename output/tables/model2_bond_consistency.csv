@@ -1,0 +1,5 @@
+estimator,beta,se,p,n,lag_hlo
+(A) Pooled OLS w/ lagged DV -MIN spec,0,0,0.8705,437,1
+(A) Pooled OLS w/ lagged DV -FULL spec,-0,0,0.9616,143,1
+(B) Within FE w/ lagged DV (LSDV) -MIN spec,0,0,0.9422,437,1
+(B) Within FE w/ lagged DV (LSDV) -FULL spec,-0,0,0.8656,143,1
