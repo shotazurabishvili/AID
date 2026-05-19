@@ -341,7 +341,8 @@ The production panel is a balanced (iso3, year) frame derived from 10 interim pa
 |---|---|---|---|---|
 | `gcdf_amount_const2021_sum` | Sum of `Amount (Constant USD 2021)` across GCDF projects | USD (constant 2021) | aggregate; coalesce NA→0 within universe | 0% |
 | `gcdf_n_projects` | Count of GCDF project rows in (iso3, year) | integer | aggregate; coalesce NA→0 | 0% |
-| `gcdf_amount_const2021_ma3` | 3-year trailing MA | USD (constant 2021) | `slider::slide_dbl` within iso3 | ~9% |
+| `gcdf_amount_const2021_ma3` | 3-year trailing-inclusive MA: `mean(t-2, t-1, t)` | USD (constant 2021) | `slider::slide_dbl` within iso3 | ~9% |
+| `gcdf_amount_const2021_ma3_lag1` | 3-year strictly-past MA: `mean(t-3, t-2, t-1)`. Added Session 04 for ADR-0008 grid symmetry with the Session-03 OECD lock. | USD (constant 2021) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
 | `gcdf_amount_const2021_lag1` | 1-year lag | USD (constant 2021) | `dplyr::lag` within iso3 | ~4% |
 
 ### Window + identification flags

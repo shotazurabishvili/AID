@@ -187,9 +187,10 @@ panel <- panel |>
     crs_commit_usd_defl_ma3_lag1   = dplyr::lag(crs_commit_usd_defl_ma3,   n = 1),
     crs_disburse_usd_ma3_lag1      = dplyr::lag(crs_disburse_usd_ma3,      n = 1),
     crs_disburse_usd_defl_ma3_lag1 = dplyr::lag(crs_disburse_usd_defl_ma3, n = 1),
-    # GCDF (unchanged from Session-10 production merge)
-    gcdf_amount_const2021_ma3  = slide_dbl(gcdf_amount_const2021_sum, mean, .before = 2, .after = 0, .complete = TRUE),
-    gcdf_amount_const2021_lag1 = dplyr::lag(gcdf_amount_const2021_sum, n = 1)
+    # GCDF — trailing-inclusive MA + 1-yr lag (Session 10) + strictly-past MA (Session 04, ADR-0008 grid)
+    gcdf_amount_const2021_ma3      = slide_dbl(gcdf_amount_const2021_sum, mean, .before = 2, .after = 0, .complete = TRUE),
+    gcdf_amount_const2021_lag1     = dplyr::lag(gcdf_amount_const2021_sum, n = 1),
+    gcdf_amount_const2021_ma3_lag1 = dplyr::lag(gcdf_amount_const2021_ma3, n = 1)
   ) |>
   ungroup()
 
