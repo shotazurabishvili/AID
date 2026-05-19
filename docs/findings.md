@@ -4,7 +4,7 @@
 >
 > *Parallel to [`methodology.md`](methodology.md) (proto-§3) and [`positionality.md`](positionality.md) (proto-§3 positionality). Updated at session end alongside the session log — see [`CLAUDE.md`](../CLAUDE.md) end-of-session protocol.*
 >
-> *Last updated: 2026-05-19 (Session 14 close — Phase 5 Session 01; §5.2 populated with Model 2 within-country FE — the headline result, β_FE = +10.95*** vs β_OLS = −1.36 ns)*
+> *Last updated: 2026-05-19 (Session 15 close — Phase 5 Session 02; §5.3 populated with System GMM identification triangulation; ADR-0010 locked Option-1-with-caveats; small-T HCI panel doesn't support clean GMM identification)*
 
 ---
 
@@ -290,9 +290,46 @@ The Phase-5 robustness chain decides which path; § 6 framing won't lock until P
 
 > *Sources:* `output/tables/model2_fe_baseline.{csv,md}`; `output/tables/model2_fe_lays_outcome.{csv,md}`; `output/tables/model2_fe_diagnostics.csv`; `output/tables/model1_vs_model2_contrast.{csv,md}`; `output/figures/eda/model2_coefficient_plot.png`; [session 14](session_log/2026-05-19-14-model2-fe.md)
 
-### §5.3 Model 2 — System GMM headline robustness (Phase 5)
+### §5.3 Model 2 — System GMM identification triangulation (Phase 5 Session 02)
 
-**To be populated.** Per [ADR-0010](decisions/0010-identification-strategy-gmm.md). Roodman (2009) diagnostics. Sign-and-magnitude triangulation: static FE vs Difference GMM vs System GMM.
+**GMM was attempted as committed by [ADR-0010](decisions/0010-identification-strategy-gmm.md) but the small-T HCI-cycle panel (T = 4) does not support clean identification.** Static FE remains the headline empirical claim; the manuscript § 3 (Methodology) acknowledges this transparently. ADR-0010 locked **Option 1 with caveats** 2026-05-19.
+
+**Identification triangulation table** (`output/tables/model2_identification_triangulation.md`):
+
+| Estimator | β | SE | p | Hansen p | AR(2) p |
+|---|---|---|---|---|---|
+| **Static FE Model 2 (Session 14, full 2e)** | **+10.95** | 3.60 | **0.003** | — | — |
+| Static FE +conflict+COVID (2g) | +10.83 | 4.03 | 0.009 | — | — |
+| (A) Pooled OLS w/ lagged DV — MIN | 0.000 | 0.000 | 0.870 | — | — |
+| (A) Pooled OLS w/ lagged DV — FULL | 0.000 | 0.000 | 0.962 | — | — |
+| (B) Within FE w/ lagged DV (LSDV) — MIN | 0.000 | 0.000 | 0.942 | — | — |
+| (B) Within FE w/ lagged DV (LSDV) — FULL | 0.000 | 0.000 | 0.866 | — | — |
+| (C) Difference GMM — MIN | +0.601 | 10.6 | 0.955 | 0.498 | NA |
+| (C) Difference GMM — FULL | failed to estimate | — | — | — | — |
+| (D) System GMM — MIN | −0.923 | 0.81 | 0.254 | **0.022** | NA |
+| (D) System GMM — FULL | failed to estimate | — | — | — | — |
+
+**Reading the triangulation:**
+
+1. **Bond (2002) consistency bounds (A + B) are degenerate.** Lagged-DV soaks up essentially all variance (`lag_hlo` coefficient ≈ 1.000; lm reports "essentially perfect fit" warning). With T = 3-4 cycles, LDV + FE + controls exhaust degrees of freedom; no residual variance left for the ODA coefficient. The Bond bracketing strategy that methodology § 3.8 committed to is not informative on this panel.
+2. **Difference GMM minimal-spec runs cleanly on Hansen** (p = 0.498, passes) but produces β = +0.601 ± 10.6 — point estimate with wide CI that brackets every plausible value. AR(2) test cannot compute (T_eff after differencing = 1).
+3. **System GMM minimal-spec runs with sign opposite to static FE** (β = −0.923 ns) but **Hansen overid p = 0.022 rejects instrument validity**. The coefficient is mechanically biased; cannot serve as identification defense.
+4. **Difference and System GMM FULL specs both fail to estimate** (matrix singularity errors). With listwise on the full control set the sample collapses to N = 143 × T = 3 — too small for the GMM machinery.
+5. **The brief's "GMM as headline robustness" requirement is not feasible on this panel.** Asongu (2019) and Yogo (2017) GMM-aid applications use 20+ year annual panels (T ≥ 15-20); our HCI-cycle outcome provides T ≤ 4. This is the small-T problem Bond (2002) explicitly warns about.
+
+**Substantive interpretation:** the static-FE Model 2 result (β = +10.95***, Session 14) is the cleanest empirical estimate we can produce. GMM was attempted honestly per the brief and the Phase-2 external review commitment; the results are transparently documented. The identification defense for *World Development* refereeing rests on:
+
+- Two-way (country + year) FE (Session 14)
+- Country-clustered SE (Session 14)
+- HC-robust + Wooldridge no-AR(1) + Breusch-Pagan-adjusted inference (Session 14)
+- This session's transparent attempt + small-T failure documentation
+- Phase-5 robustness chain across Sessions 03 (commit vs disburse + lag), 04 (China-aid), 05 (WGI operationalization) — sign-and-magnitude consistency across all robustness specs is the alternative identification argument
+
+The Phase-2 external review correctly anticipated this risk: "Half-hearted GMM is worse than no GMM." We attempted GMM properly; the panel limits prevented credible estimation. The honest acknowledgment is more defensible than either silent omission or contrived workaround.
+
+**§6 Discussion candidate:** the identification limits exposed here are themselves substantive — they motivate the paper's measurement-architecture thesis. Education ODA is measured by donors annually but its outcomes are measured by harmonized testing only at long, irregular intervals. The mismatch between treatment frequency and outcome frequency creates exactly the small-T problem that defeats GMM identification. *World Development* readers may find this a stronger story than a single GMM coefficient with debatable Hansen statistics.
+
+> *Sources:* `output/tables/model2_identification_triangulation.{csv,md}`; `output/tables/model2_bond_consistency.csv`; `output/tables/model2_gmm_diagnostics.csv`; `output/figures/eda/model2_gmm_coefficient_plot.png`; [session 15](session_log/2026-05-19-15-model2-gmm.md); [ADR-0010](decisions/0010-identification-strategy-gmm.md)
 
 ### §5.4 Model 3 — 2-level country RE + time FE (Phase 6)
 
