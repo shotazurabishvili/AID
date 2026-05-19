@@ -27,12 +27,12 @@
 ## Model Diagnostics Checklist
 *(From brief § Self-Review Protocol — Statistical Layer)*
 
-- [ ] **Hausman test (FE vs RE)** — report result — Phase 5 (Model 2)
-- [ ] **Year fixed effects included in panel model** — Phase 5 (Model 2 spec)
-- [ ] **Breusch-Pagan heteroskedasticity test** — Phase 5
-- [ ] **Wooldridge test for serial autocorrelation** — Phase 5
-- [ ] **Cluster standard errors at country level** — Phase 5 (default in `fixest::feols`)
-- [~] **VIF table — flag any VIF > 10** — Phase 5 (Model 2). *Phase 4 Session 01 partial: VIF computed on Model 1 cross-sectional specs. Max VIF in full spec = 5.24 on log(GDP/cap); none > 10. ADR-0009 will revisit on the within-country FE specification where multicollinearity patterns may differ. Evidence: `output/tables/model1_vif.csv`.*
+- [~] **Hausman test (FE vs RE)** — attempted Phase 5 Session 01. *RE estimation failed (Swamy-Arora requires > 3 time periods; HCI cycles provide only 4 effective points per country). FE specification justified theoretically per Mundlak; formal Hausman deferred to Phase-5 Session 05 if RE becomes estimable on a wider/different sample. Evidence: `output/tables/model2_fe_diagnostics.csv`.*
+- [x] **Year fixed effects included in panel model** — Phase 5 Session 01. *Two-way FE (country + year) in all Model 2 specs. Evidence: `R/51_model2_fe.R`; `output/tables/model2_fe_baseline.md`.*
+- [x] **Breusch-Pagan heteroskedasticity test** — Phase 5 Session 01. *χ² = 137 (df 97), p = 0.0045 — heteroskedasticity present; HC-robust + country-clustered SE applied. Evidence: `output/tables/model2_fe_diagnostics.csv`.*
+- [x] **Wooldridge test for serial autocorrelation** — Phase 5 Session 01. *F = 0.252, p = 0.62 — no serial autocorrelation detected (HCI cycle spacing of 7+ years makes AR(1) non-binding). Evidence: `output/tables/model2_fe_diagnostics.csv`.*
+- [x] **Cluster standard errors at country level** — Phase 5 Session 01. *Applied via `feols(., vcov = ~iso3)`. Evidence: `R/51_model2_fe.R`.*
+- [x] **VIF table — flag any VIF > 10** — Phase 5 Session 01. *Max VIF on within-demeaned regressors = 1.64 (Model 2 full spec); max VIF in Model 1 cross-section = 5.24 on log(GDP/cap). All below 10. The cross-sectional governance × income multicollinearity (Session 12 r=0.79) is fully absorbed by within-country FE. Evidence: `output/tables/model2_fe_diagnostics.csv` + `model1_vif.csv`.*
 - [ ] **Levene's test before ANOVA** — Phase 7 (Model 4)
 - [ ] **ICC at all three multilevel model levels** — Phase 6 (Model 3 HLM)
 - [ ] **Convergence diagnostics for HLM** — Phase 6
