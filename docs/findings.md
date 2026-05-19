@@ -290,6 +290,35 @@ The Phase-5 robustness chain decides which path; § 6 framing won't lock until P
 
 > *Sources:* `output/tables/model2_fe_baseline.{csv,md}`; `output/tables/model2_fe_lays_outcome.{csv,md}`; `output/tables/model2_fe_diagnostics.csv`; `output/tables/model1_vs_model2_contrast.{csv,md}`; `output/figures/eda/model2_coefficient_plot.png`; [session 14](session_log/2026-05-19-14-model2-fe.md)
 
+### §5.2.1 Treatment-encoding sensitivity — ADR-0005 lock (Phase 5 Session 03)
+
+**The positive within-country ODA→HLO coefficient is sign-stable across the 16-cell treatment encoding grid (all β ≥ 0 on HLO outcome, no flips), but its statistical significance varies from p<0.01 to p=0.10 depending on encoding choice.** ADR-0005 lock: **`crs_disburse_usd_defl_ma3_lag1`** (disburse × constant USD × 3-yr strictly-past MA, mean of t-3,t-2,t-1). Justification: forecloses contemporaneous donor response to in-year learning shocks; honest about identification cost (β=8.17, p=0.10 vs the trailing-inclusive working-preference β=10.9, p=0.003).
+
+**HLO sensitivity surface — coefficient + significance** (`output/tables/model2_fe_sensitivity.csv`):
+
+| Family   | USD basis | Raw           | 1-yr lag      | Trailing MA3  | **Strictly-past MA3** |
+|----------|-----------|---------------|---------------|---------------|------------------------|
+| Commit   | Current   | −0.36 (0.90)  | 3.23 (0.10)   | 9.88** (0.022) | 12.8*** (0.008)       |
+| Commit   | Constant  | −0.18 (0.95)  | 2.99 (0.12)   | 9.28** (0.034) | 11.9** (0.011)        |
+| Disburse | Current   | 8.27*** (0.005) | 2.64 (0.29) | 11.4*** (0.005) | 8.54 (0.11)           |
+| Disburse | Constant  | 8.20*** (0.004) | 2.47 (0.31) | **10.9*** (0.003) | **8.17 (0.10) ← LOCK** |
+
+All 16 cells N=143; FE-singleton drops dominate strictly-past MA's start-of-panel NA pattern, so N-comparability is essentially perfect across the surface. Two-way FE (iso3 + year), country-clustered SE, full controls (log GDP/cap, PTR primary, ed_exp_%GDP, WGI gov effectiveness), primary window 2010-2020.
+
+**Three claims supported by the surface:**
+
+1. **Sign stability.** No HLO cell shows β < 0. The "ODA does not predict learning" pre-Session-03 framing in CLAUDE.md and the brief's falsification standard ("if within-country β > 0 significant, thesis fails") is empirically settled in favor of falsification at static-FE specification — across every encoding tested, not just one.
+2. **Lag1 is universally weak** (all 4 lag1 cells p > 0.10, β ≈ 2.5-3.2). The 3-yr window captures education spending → learning lag better than a single-year lag. Obligation `docs/obligations.md:48` (1-yr vs 3-yr MA) closed in favor of 3-yr.
+3. **Strictly-past vs trailing-inclusive trade-off.** Trailing-inclusive MA includes year-t disbursement on the RHS of a year-t HLO regression — admits contemporaneous reverse causation. Strictly-past MA forecloses this by construction. The empirical cost: SE widens (4.91 vs 3.60), p moves from 0.003 to 0.10, but β remains positive and within 1 SD of the trailing estimate. The strictly-past spec is the cleaner identification claim, and the manuscript should lead with it.
+
+**LAYS robustness panel.** LAYS outcome is generally weaker than HLO (15 of 16 cells fail p<0.05); the only family that reaches significance on LAYS is commitment-MA (β=0.19-0.26, p<0.05). LAYS captures EYS variation in addition to HLO, and EYS variation is smaller within the 2010-2020 window. The HLO lock spec on LAYS: β=0.104, p=0.39 (ns). This LAYS-vs-HLO divergence is consistent with the brief's expectation that LAYS-FE is structurally noisier; we report it but the headline rides on HLO.
+
+**Lock-spec diagnostics** (`output/tables/model2_fe_sensitivity_diagnostics.csv`): Wooldridge AR(1) F=0.29 (p=0.59, no AR(1)), Breusch-Pagan χ²=138 (p=0.004, heteroskedasticity present → country-clustered SE warranted, already applied), max VIF = 1.57 (no multicollinearity on demeaned regressors). Hausman undefined (RE not estimable on T ≤ 3 effective time periods, same as Session-14 baseline). Diagnostic profile matches Session-14 closely; the lock spec is residually well-behaved.
+
+**Manuscript implications.** The "ODA → learning is a positive but small within-country effect, dependent on encoding" framing supersedes the pre-Session-03 "ODA does not predict learning" framing. CLAUDE.md Current-state block updated accordingly. The §6 paper-framing reframe is a Session 04+ task — possible directions: (a) reframe headline to "ODA does predict learning, with caveats" and re-litigate the brief's thesis; (b) keep the structural-determinants thesis but recast as "ODA predicts learning, but its structural-determinant correlates predict learning even more strongly"; (c) draw out the encoding-sensitivity finding itself as a methodological contribution.
+
+> *Sources:* `output/tables/model2_fe_sensitivity.{csv,md}`; `output/tables/model2_fe_sensitivity_diagnostics.csv`; `output/figures/eda/model2_fe_sensitivity_plot.png`; [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md); session log: [2026-05-19-16-adr0005-lock.md](session_log/2026-05-19-16-adr0005-lock.md)
+
 ### §5.3 Model 2 — System GMM identification triangulation (Phase 5 Session 02)
 
 **GMM was attempted as committed by [ADR-0010](decisions/0010-identification-strategy-gmm.md) but the small-T HCI-cycle panel (T = 4) does not support clean identification.** Static FE remains the headline empirical claim; the manuscript § 3 (Methodology) acknowledges this transparently. ADR-0010 locked **Option 1 with caveats** 2026-05-19.

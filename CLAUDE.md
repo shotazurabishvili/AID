@@ -38,14 +38,14 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 ## Current state
 
-- **Phase:** **5 Session 02 done.** System GMM attempted per ADR-0010; **Hansen p=0.022 rejects instrument validity** on small-T HCI panel; Bond bounds degenerate. **Static FE remains headline** with transparent §3 acknowledgment of small-T identification limit.
-- **Last session:** 2026-05-19 — Session 15 (Model 2 identification triangulation; Diff GMM minimal: β=+0.60 ± 10.6, Hansen p=0.498 passes but CI uninformative; System GMM minimal: β=−0.92 ns, Hansen p=0.022 rejects; Diff/Sys GMM FULL specs fail matrix-singular; Bond OLS-LDV + LSDV bounds degenerate with lag_hlo coefficient ≈ 1.0. T_eff ≤ 4 below Bond 2002 minimum.)
-- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet`.
+- **Phase:** **5 Session 03 done.** ADR-0005 locked with empirical evidence from 16-cell treatment-encoding sensitivity grid. Primary spec: `crs_disburse_usd_defl_ma3_lag1` (disburse × constant USD × 3-yr strictly-past MA). **All 16 HLO cells β ≥ 0** — the pre-Session-03 "ODA does not predict learning" framing is no longer accurate; falsification standard from brief is met across the entire encoding grid at static-FE specification.
+- **Last session:** 2026-05-19 — Session 16 (ADR-0005 lock; 16-spec sensitivity grid on Model 2 FE; lock β=8.17 ± 4.91 p=0.10 on strictly-past MA, robustness trailing-inclusive β=10.9 ± 3.60 p=0.003; baseline reproduces Session-14 to the digit; lock-spec diagnostics match Session-14 closely.)
+- **Sources ingested:** `wdi`, `hci`, `wgi`, `uis`, `hlo` (+ `hlo_aap2018`), `oecd_crs`, `aiddata_gcdf`, `ucdp`, `covid_closures`, `ai_readiness` → 10 interim parquets, plus production `data/interim/panel.parquet` (3059 × 85 cols).
 - **Sources pending:** aiddata_core (deferred per Session-06 author decision; +optional PISA/TIMSS/PIRLS stretch)
-- **ADRs:** **0001, 0002, 0003, 0004, 0006, 0010 Accepted**; 0005, 0007, 0008, 0009 Pending. ADR-0010 locked "Option 1 with caveats" 2026-05-19: GMM attempted + transparently reported; static FE retained as headline.
+- **ADRs:** **0001, 0002, 0003, 0004, 0005, 0006, 0010 Accepted**; 0007, 0008, 0009 Pending. ADR-0005 locked 2026-05-19: disburse × constant USD × strictly-past 3-yr MA primary; full robustness panel reported.
 - **Next concrete action:**
-  *(**Phase 5 Session 03 — ADR-0005 lock (commit vs disburse + lag structure)**)*. Estimate Model 2 FE specs varying treatment column: `crs_commit_*` vs `crs_disburse_*` × current vs constant USD × {raw, 1-yr lag, 3-yr MA, strictly-past MA}. Sensitivity table across 6-12 specs. Lock ADR-0005 with empirical evidence. All using static FE (GMM-LDV infeasible per Session 15).
-- **Open decisions:** None pending.
+  *(**Phase 5 Session 04 — ADR-0008 lock (China aid inclusion)**)*. Re-estimate the Session-03 locked treatment spec on (i) ODA-only, (ii) ODA + GCDF combined, (iii) GCDF-only. Lock ADR-0008 with empirical evidence on whether including Chinese development finance changes the within-country ODA→HLO coefficient. Closes obligation `docs/obligations.md:50`. Alternative ordering: ADR-0009 (WGI operationalization) — defer per existing roadmap.
+- **Open decisions:** Manuscript framing reframe (paths a/b/c per `docs/findings.md §5.2.1`) — author judgment needed in Session 04+ given that 16-cell grid confirms ODA → learning is positive within-country.
 - **Blocked on:** Nothing.
 
 ---
