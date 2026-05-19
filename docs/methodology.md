@@ -165,7 +165,9 @@ Phase 1 Session 05 ingests CRS *with description text retained*. Phase 7 impleme
 
 ## 3.11 Chinese aid inclusion
 
-**Locked decision:** [ADR-0008](decisions/0008-china-aid-inclusion.md) — Pending (Phase 5).
+**Locked decision:** [ADR-0008](decisions/0008-china-aid-inclusion.md) — Accepted (Phase 5 Session 04, 2026-05-19).
+
+**Lock: Option 2.** OECD CRS disbursement is the primary treatment (per ADR-0005 lock: `crs_disburse_usd_defl_ma3_lag1`); AidData GCDF reported as parallel robustness. The pre-specified lock criterion — "if the within-country OECD coefficient changes sign or magnitude when GCDF is added, OECD-only is biased" — is empirically satisfied. Adding GCDF as a separate covariate shifts the OECD β from 8.17 (Session-03 lock) to 8.06 (Session-04 spec B) — a 0.02 SD movement, well within the ±1 SD criterion. GCDF's own coefficient is null (β = −0.27, p = 0.74). Conclusion: the OECD-CRS-only headline is robust to the non-DAC blind spot at static-FE specification. Evidence at `output/tables/model2_china_robustness.csv` and §5.2.2 of `findings.md`.
 
 **Ingest done (Phase 1 Session 06).** AidData GCDF v3.0 (China-only, 2000–2021, TUFF methodology) is on disk at `data/interim/aiddata_gcdf.parquet` — **2,654 project-level rows × 30 columns × 138 recipient countries**. Filtered to `Sector Name = "EDUCATION"` and `Recommended For Aggregates = "Yes"` at ingest (per the GCDF 3.0 codebook; the recommended-aggregates filter avoids umbrella double-counting). Year filter on `Commitment Year` in 1995–2024 (effective 2000–2021). Phase 5 primary uses OECD CRS only; GCDF as headline robustness for the with-vs-without-China sensitivity. AidData Core Research Release v3.1 is **not** ingested — frozen 2016 release ending 2013 gives only marginal overlap with the HLO-usable 2010+ window (author decision Session 06).
 

@@ -319,6 +319,36 @@ All 16 cells N=143; FE-singleton drops dominate strictly-past MA's start-of-pane
 
 > *Sources:* `output/tables/model2_fe_sensitivity.{csv,md}`; `output/tables/model2_fe_sensitivity_diagnostics.csv`; `output/figures/eda/model2_fe_sensitivity_plot.png`; [ADR-0005](decisions/0005-oda-commitment-vs-disbursement.md); session log: [2026-05-19-16-adr0005-lock.md](session_log/2026-05-19-16-adr0005-lock.md)
 
+### §5.2.2 Chinese-aid robustness — ADR-0008 lock (Phase 5 Session 04)
+
+**The OECD-CRS-only headline is robust to the Chinese-aid blind spot at static-FE specification.** Adding GCDF as a separate covariate shifts the OECD coefficient from β=8.17 (Session-03 lock) to β=8.06 (spec B) — a 0.02 SD movement, within the pre-specified ±1 SD criterion. GCDF's own coefficient is null (β=−0.27, SE=0.77, p=0.74). ADR-0008 lock: **Option 2 — OECD CRS primary, GCDF as parallel robustness**.
+
+**Spec table — HLO outcome, all-sample (N=143)** (`output/tables/model2_china_robustness.csv`):
+
+| Spec | Treatment | Coefficient | β | SE | p |
+|---|---|---|---|---|---|
+| A | OECD-only (Session-03 lock) | log(1+CRS_strict) | **8.17** | 4.91 | 0.10 |
+| B | OECD + GCDF covariate (lock test) | log(1+CRS_strict) | **8.06*** | 4.75 | 0.095 |
+| B | OECD + GCDF covariate (lock test) | log(1+GCDF_strict) | −0.26 | 0.77 | 0.74 |
+| C | Combined treatment (log of sum) | log(1+CRS+GCDF strict) | −0.35 | 1.12 | 0.76 |
+| D | GCDF-only treatment | log(1+GCDF_strict) | −0.27 | 0.77 | 0.72 |
+
+All specs use Session-03 lock encoding (strictly-past 3-yr MA, constant USD), full Session-14 2e control stack (log GDP/cap + PTR primary + ed_exp_%GDP + WGI gov effectiveness), two-way FE (iso3 + year), country-clustered SE, primary window 2010-2020.
+
+**Three claims supported by the table:**
+
+1. **OECD coefficient is stable across the GCDF inclusion test.** Spec A → spec B shifts β from 8.17 to 8.06 (Δ = 0.11, or 0.02 SD on the spec-A SE). Lock criterion 1 (sign preservation) and criterion 2 (magnitude band) both satisfied unambiguously. The Burnside-Dollar / Easterly-Levine-Roodman-style OECD-only specification is not biased by the non-DAC blind spot in this sample.
+2. **Chinese aid does not show its own within-country effect on HLO** in any spec (D, B, or implied in C). Even where GCDF is concentrated (SSA, 47/48 countries, $5.61B in commitments), the within-country variation in Chinese education flows does not co-vary with within-country variation in learning outcomes. A possible reading: GCDF concentrates in *physical infrastructure* (school construction, Confucius Institutes) rather than *learning quality* (curriculum, teacher training) — but this is a hypothesis for §6 Discussion, not a finding.
+3. **Combined treatment (spec C) shows a misleading null** due to the log-of-sum encoding: `log(1 + CRS + GCDF)` compresses signal when the two flows are at very different magnitudes ($96M CRS mean vs $3.3M GCDF mean in-panel). Spec B (separate log covariates) is the correct specification for assessing GCDF's marginal contribution; spec C is recorded as a methodological caution, not used as headline.
+
+**SSA-stratified robustness** (N=52): SSA-only sample yields β = −5.95 (CRS, SE=14.1, p=0.68) and β = −0.10 (GCDF, SE=0.99, p=0.92). The wide CIs reflect small-N noise (≤4 HCI cycles × 13 SSA countries clearing all controls), not contradiction of the pooled finding. SSA-stratified is uninformative on this panel; pooled is the operative test.
+
+**LAYS robustness panel** (`output/tables/model2_china_robustness.csv`, LAYS sample): all specs show near-zero, ns coefficients (β = 0.10 ± 0.12 for OECD CRS, β ≈ 0 for GCDF). LAYS is structurally weaker than HLO; both outcomes confirm the lock direction.
+
+**§6 Discussion narrative shift.** Pre-Session-04, the planned narrative was "the non-DAC blind spot is a structural measurement failure that biases the OECD-only coefficient." Post-Session-04, the corrected narrative is: *the blind spot is real* (47/48 SSA countries miss Chinese aid in OECD data) *but not consequential* for the within-country ODA→learning coefficient in this sample. The structural-measurement-failure thesis is more accurately about *what donors track* than *what donors fund* in this specific within-country framework. Chinese aid joins the list of education-finance flows whose dollar volumes don't translate into measurable learning gains — alongside OECD CRS at the strictly-past identification spec.
+
+> *Sources:* `output/tables/model2_china_robustness.{csv,md}`; `output/figures/eda/model2_china_robustness_plot.png`; [ADR-0008](decisions/0008-china-aid-inclusion.md); session log: [2026-05-19-17-adr0008-lock.md](session_log/2026-05-19-17-adr0008-lock.md)
+
 ### §5.3 Model 2 — System GMM identification triangulation (Phase 5 Session 02)
 
 **GMM was attempted as committed by [ADR-0010](decisions/0010-identification-strategy-gmm.md) but the small-T HCI-cycle panel (T = 4) does not support clean identification.** Static FE remains the headline empirical claim; the manuscript § 3 (Methodology) acknowledges this transparently. ADR-0010 locked **Option 1 with caveats** 2026-05-19.

@@ -47,7 +47,7 @@
 - [x] ODA: disbursement vs commitment — Phase 5 Session 03 done (ADR-0005 lock). Full 16-cell sensitivity table at `output/tables/model2_fe_sensitivity.csv`; disburse and commit both yield positive within-country β on HLO across all MA specs. Disburse primary on theoretical grounds.
 - [x] ODA: 1-year vs 3-year moving average lag — Phase 5 Session 03 done. Lag1 specs all weak (β=2.5-3.2, p>0.10); 3-yr MA specs significant (β=9-12). 3-yr window absorbs spending → learning lag better; 3-yr locked in ADR-0005.
 - [ ] Sample: 2000–2022 vs 2005–2020 — Phase 5/sensitivity
-- [ ] Sample: with vs without Chinese aid flows (GCDF) — Phase 5
+- [x] Sample: with vs without Chinese aid flows (GCDF) — Phase 5 Session 04 (ADR-0008 lock). Spec B (OECD + GCDF covariate) shifts OECD β from 8.17 → 8.06 (0.02 SD); GCDF own β = −0.27, p = 0.74 ns. OECD-CRS-only headline is robust to non-DAC blind spot. Evidence: `output/tables/model2_china_robustness.csv`.
 - [~] UIS missingness: listwise vs MI vs UIS-dropped — Phase 2 lock done; Phase 5 will run the three sensitivity specs and report alongside. *ADR-0006 Accepted 2026-05-18: drop UIS from primary; UIS-augmented listwise + MI both reported as Robustness 1 + Robustness 2. Implementation in Phase 5.*
 - [ ] ANOVA coding: rule-based vs LLM-assisted (target agreement ≥ 85%) — Phase 7
 - [ ] FE structure: country FE alone vs country × decade FE — Phase 5
