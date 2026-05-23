@@ -76,6 +76,26 @@ Core thesis: **ODA to education predicts enrollment but not learning outcomes, a
 
 Claude drives, the author ratifies. Routine analytical calls are documented in the session log + ADRs with reasoning. Only decisions that meaningfully turn on the author's institutional knowledge or framing preference get escalated as questions.
 
+## Branching strategy (post-Pass-1 fork, 2026-05-23)
+
+**Fork point:** tag `v0.10-pass1-closed` on commit `0a1e325` (`main`), the close of Phase 10 Session 01. Pass 1 closed as a qualified pass; the principal HLO robustness check (ADR-0004) failed sign-agreement with the AAP-2018 alternative, surfacing a measure-fragility finding that reshapes how the manuscript should be framed. See `docs/session_log/2026-05-23-24-pass1-statistical-validity.md` and `output/pass1_statistical_validity_audit.md` for the why-this-fork-exists context.
+
+**Three findings-§5.2.1 paths reduced to two execution branches:**
+- **`manuscript/path-c` (active)** — *methodological-discipline arc*. The §5.5 Model 4 drop, §5.8 HLO measure-fragility, and ADR-0012 UIS-MI retirement are first-class narrative beats alongside the within-country positive headline. Intro frames the pre-commit-and-test-honestly methodology as a contribution; §6 Discussion treats each methodological discovery as a finding for the cross-country aid-learning literature. Targets *World Development*'s methodological-reflection tradition (Sandefur 2018; Vivalt 2020; Deaton & Cartwright 2018).
+- **`manuscript/path-a` (placeholder)** — *hedged within-country headline*. Leads with the +11.14 within-country β, hedged to "the WB HCI HLOS specification on the 2010–2020 panel"; methodological discoveries appear as caveats rather than first-class beats. Preserved for revisitation if path-c does not land. Path-b (cross-section vs within-country contrast) folds into path-a as a sub-variant via §5 emphasis-choice.
+
+**Workflow.** Shared infrastructure work (analysis fixes, new data, ADR-quality methodology decisions) happens on `main` and is merged forward to both manuscript branches. Manuscript-prose work (intro, discussion, ordering, framing language, the eventual Quarto draft under `drafts/`) is branch-specific. Single-author project; be loose about strict branch hygiene rather than pedantic — if a methodology-paragraph edit accidentally lands on path-c when it should have been on main, fix it next pass; don't manufacture branch-hygiene churn.
+
+**Worktree upgrade path.** Today's setup uses branch-switching (one branch checked out at a time in the single `~/AID` working tree). If the author later decides to draft both paths in parallel, spin up a second working tree without disturbing the active one:
+
+```bash
+git worktree add ../AID-path-a manuscript/path-a
+# work in ~/AID (path-c) and ../AID-path-a (path-a) simultaneously
+git worktree remove ../AID-path-a   # when done
+```
+
+Worktrees share `.git/` so the disk overhead is just the working-tree files (~30 MB given the interim parquets). Skipped today because there is no parallel-drafting need yet.
+
 ## Key references
 
 **Living documents (update as work progresses):**
