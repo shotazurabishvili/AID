@@ -1,0 +1,26 @@
+# Compounding AI penalty — bottom-20 countries by compound_index
+
+Most exposed to the joint low-HCI ∩ low-GARI position (low compound_index = both axes weak). N joined = 132. Compound index = HCI × (GARI_score / 100).
+
+| rank_bottom|iso3 |region                     |is_ssa | hci_year| hci_overall| gari_norm| compound_index|quadrant         |
+|-----------:|:----|:--------------------------|:------|--------:|-----------:|---------:|--------------:|:----------------|
+|           1|SSD  |Sub-Saharan Africa         |TRUE   |     2020|      0.3065|    0.1084|         0.0332|low_hci_low_gari |
+|           2|CAF  |Sub-Saharan Africa         |TRUE   |     2020|      0.2916|    0.1194|         0.0348|low_hci_low_gari |
+|           3|LBR  |Sub-Saharan Africa         |TRUE   |     2020|      0.3190|    0.1452|         0.0463|low_hci_low_gari |
+|           4|YEM  |Middle East & North Africa |FALSE  |     2020|      0.3728|    0.1260|         0.0470|low_hci_low_gari |
+|           5|TCD  |Sub-Saharan Africa         |TRUE   |     2020|      0.2998|    0.1843|         0.0552|low_hci_low_gari |
+|           6|NER  |Sub-Saharan Africa         |TRUE   |     2020|      0.3157|    0.1756|         0.0554|low_hci_low_gari |
+|           7|SDN  |Sub-Saharan Africa         |TRUE   |     2020|      0.3774|    0.1523|         0.0575|low_hci_low_gari |
+|           8|AFG  |South Asia                 |FALSE  |     2020|      0.4003|    0.1527|         0.0611|low_hci_low_gari |
+|           9|GIN  |Sub-Saharan Africa         |TRUE   |     2020|      0.3709|    0.1733|         0.0643|low_hci_low_gari |
+|          10|BDI  |Sub-Saharan Africa         |TRUE   |     2020|      0.3862|    0.1750|         0.0676|low_hci_low_gari |
+|          11|MHL  |East Asia & Pacific        |FALSE  |     2020|      0.4234|    0.1613|         0.0683|low_hci_low_gari |
+|          12|HTI  |Latin America & Caribbean  |FALSE  |     2020|      0.4466|    0.1532|         0.0684|low_hci_low_gari |
+|          13|MLI  |Sub-Saharan Africa         |TRUE   |     2020|      0.3183|    0.2233|         0.0711|low_hci_low_gari |
+|          14|COG  |Sub-Saharan Africa         |TRUE   |     2020|      0.4193|    0.1800|         0.0755|low_hci_low_gari |
+|          15|TLS  |East Asia & Pacific        |FALSE  |     2020|      0.4543|    0.1675|         0.0761|low_hci_low_gari |
+|          16|SLE  |Sub-Saharan Africa         |TRUE   |     2020|      0.3627|    0.2107|         0.0764|low_hci_low_gari |
+|          17|MDG  |Sub-Saharan Africa         |TRUE   |     2020|      0.3920|    0.1998|         0.0783|low_hci_low_gari |
+|          18|TUV  |East Asia & Pacific        |FALSE  |     2020|      0.4476|    0.1769|         0.0792|low_hci_low_gari |
+|          19|COM  |Sub-Saharan Africa         |TRUE   |     2020|      0.4047|    0.2026|         0.0820|low_hci_low_gari |
+|          20|MOZ  |Sub-Saharan Africa         |TRUE   |     2020|      0.3621|    0.2268|         0.0821|low_hci_low_gari |
