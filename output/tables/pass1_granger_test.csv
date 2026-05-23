@@ -1,0 +1,2 @@
+test,direction,order_lag,statistic,p_value,n_countries,note
+Dumitrescu-Hurlin panel Granger,log_crs_strict → hlo_hlo_score,1,NA,NA,133,pgrangertest failed; see stdout / consider lag-order reduction
