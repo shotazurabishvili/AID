@@ -38,7 +38,8 @@ Thumbs.db
 *.swo
 
 # Quarto
-/.quarto/
+.quarto/
+drafts/_output/
 *.aux
 *.log
 *.toc

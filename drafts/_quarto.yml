@@ -1,0 +1,40 @@
+project:
+  type: default
+  output-dir: _output
+
+# Default render targets. PDF (xelatex) is primary for review-cycle PDFs; docx
+# is the format World Development's submission portal prefers. Add formats
+# (html, epub, etc.) as needed without disturbing the primary chain.
+format:
+  pdf:
+    pdf-engine: xelatex
+    documentclass: article
+    geometry:
+      - margin=1in
+    fontsize: 11pt
+    linestretch: 1.4
+    mainfont: "Latin Modern Roman"
+    mathfont: "Latin Modern Math"
+    cite-method: citeproc
+    number-sections: true
+    toc: false
+    colorlinks: true
+    keep-tex: false
+  docx:
+    # reference-doc: journal-template.docx   # add a World Development docx template at submission
+    cite-method: citeproc
+    number-sections: true
+
+# Bibliography + citation style. References live in drafts/references.bib.
+# CSL: apa.csl referenced relatively. If apa.csl is not present in this
+# directory, Quarto falls back to its built-in chicago-author-date — fine
+# for review cycles; submission-format pass replaces with the actual CSL.
+bibliography: references.bib
+csl: apa.csl
+link-citations: true
+
+# Standard authoring conveniences
+execute:
+  echo: false
+  warning: false
+  message: false

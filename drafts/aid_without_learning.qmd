@@ -1,0 +1,211 @@
+---
+title: "Aid Without Learning: A Cross-Country Analysis of ODA Allocation, Structural Determinants, and the Measurement Failure at the Heart of Global Education Finance"
+# Path-c alt title under consideration for Session 09 final-revision pass once §5/§6 are fully drafted:
+# title: "Measuring Aid for Learning: What Cross-Country Panel Evidence Can and Cannot Say"
+author:
+  - name: "Shota Zurabishvili"
+    affiliation: ""  # add at submission
+    email: "shota.zurabishvili@gmail.com"
+date: "2026-05-23"
+abstract-title: "Abstract"
+keywords:
+  - education aid
+  - learning outcomes
+  - cross-country panel
+  - fixed effects
+  - methodological discipline
+  - AI readiness
+  - sub-Saharan Africa
+---
+
+# Abstract {.unnumbered}
+
+Does development assistance for education improve learning outcomes? Cross-country panel evidence has been used to answer yes, no, and "it depends," but the field has paid less attention to whether the answer is stable across the methodological choices it conditions on. We assemble a 133-country, 2010–2020 panel from OECD CRS disbursements, World Bank Human Capital Index Harmonized Learning Outcomes (HLO), and the standard macro / governance / sector controls, and we run the brief's pre-specified five-model architecture (cross-section, within-country fixed effects, multilevel, intervention-typology ANOVA, counterfactual simulation) under an *ex ante* commitment design in which every consequential analytical choice is locked in an Architecture Decision Record before its analysis runs. The within-country fixed-effects specification recovers a positive aid-to-learning coefficient (β = +11.14 HLO points per unit log treatment; p ≈ 0.05; N = 143 country-cycles) on the World Bank HCI HLO outcome — the empirical observation cross-country panel evidence at this data shape unambiguously supports. The pre-commitment design, however, surfaces three findings that reshape how to read this result. First, the four-bucket intervention typology the literature treats as policy-relevant (infrastructure / teacher training / curriculum / budget support) is not extractable from CRS project metadata at the inter-method agreement threshold we committed to; the ANOVA does not run. Second, substituting the published AAP-2018 harmonized learning measure for the World Bank HCI HLO measure flips the within-country coefficient's sign in both the full and the overlap-window samples (β = −16.67 and −3.94 respectively); the headline is measure-sensitive. Third, the standard multiple-imputation robustness check the missingness ADR pre-committed to requires assumptions our MCAR test pre-committed to running already refutes. Alongside these, the paper constructs a novel Human Capital × AI Readiness joint composite that quantifies a previously unmeasured ≈2× over-representation of sub-Saharan Africa in the low-HCI ∩ low-AI-readiness cell. We position the paper in the methodological-reflection tradition [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts] and read its contribution as *a calibrated map of what cross-country aid-effectiveness panel evidence can and cannot say at the current data frontier*.
+
+# 1. Introduction — The measurement illusion
+
+Universal primary enrollment is, by the standards of any prior era of development policy, a solved problem. Across the 133 ODA-eligible recipient countries in our 2010–2020 panel, gross primary enrollment is uniformly between 98 and 109 percent; the MDG-era convergence on access has reached every region. *Learning* has not converged. Human Capital Index Harmonized Learning Outcomes (HLO) range from roughly 300 to 625 across the same country set, with no narrowing trend across the four HCI cycles published since 2010. The policy literature has, over the same decade, converged on a near-universal lever: redirect education aid away from inputs that the access-era apparatus knows how to deliver (classrooms, enrollment subsidies, teacher headcount) and toward interventions that produce learning — targeted pedagogy, accountability mechanisms, structured-instruction at-scale rollouts [@glewwe2016improving; @geeap2023smart; @angrist2024lays]. The empirical record on whether aid actually moves learning, however, is contested — and the contestation depends as much on methodological choices as on substantive findings.
+
+This paper assembles the canonical cross-country panel the contestation has been conducted on, runs the brief's pre-specified five-model architecture, and operates under a design choice the cross-country aid-effectiveness literature has not historically committed to: *every consequential analytical decision is locked in writing in an Architecture Decision Record before the analysis whose result the decision would influence runs*. The decision record names the options considered, the criterion that would distinguish them, and the threshold at which the criterion would be considered met. When the analysis subsequently runs, the criterion either is or is not met; the record makes the outcome auditable and the response disciplined. The brief's Three-Pass Self-Review Protocol — statistical validity before any writing, argumentative coherence after the full draft, adversarial read after a 48-hour gap — adds a second tier of pre-commitment around the manuscript itself.
+
+The within-country panel fixed-effects specification, which is the cleanest identification claim this kind of data supports, recovers a positive aid-to-learning coefficient: β = +11.14 HLO points per unit log of three-year-moving-average constant-USD CRS disbursement, country-clustered SE = 5.52, p ≈ 0.05, N = 143 country-cycles. The cross-sectional specification yields β = −1.36 (non-significant) on the same panel, controlling for the same covariates; the within-country result is the structural empirical claim this data identifies and the contested literature has not consistently delivered. *This single number is not the principal contribution of this paper.* Three pre-committed methodology gates that the paper's brief required us to run surfaced findings that reshape how to read it.
+
+The first gate was the intervention-typology question. The brief specified Model 4 as a one-way ANOVA on a four-bucket typology — infrastructure aid / teacher-training aid / curriculum-materials aid / budget support — coded from OECD CRS project descriptions. Architecture Decision Record 0007 (ADR-0007) pre-committed to a binding inter-method agreement threshold (raw agreement ≥85 %; Cohen's κ ≥0.70; rule-based unclassified <30 %) between a regex-based classifier and a purpose-code-derived classifier as the gate for using the typology in the ANOVA. All three thresholds failed; the typology cannot be extracted from CRS project metadata at the agreement we committed to. Model 4 was dropped rather than escalated to hand-coding. The second gate was the published-measure robustness check ADR-0004 committed to: refit the within-country coefficient using the Altinok-Angrist-Patrinos (2018) harmonization in place of the World Bank HCI HLO measure, and verify sign agreement. The AAP-2018 coefficient is β = −16.67 on the full AAP sample and β = −3.94 on the year-overlap window restricted to 2010 onward; sign agreement fails. The headline result is real in the World Bank HCI HLO specification but does not generalize across the published learning-harmonization choice. The third gate was the missing-data sensitivity check ADR-0006 pre-committed to: run the multiple-imputation UIS-augmented robustness on the full sample alongside the listwise-complete UIS-augmented spec. The MCAR test ADR-0006 also required came back rejected at p ≪ 10⁻⁶ on every relevant subset; multiple imputation's MAR assumption is therefore not empirically supportable on this data, and ADR-0012 retires the MI sub-commitment in favor of the listwise spec alone.
+
+Alongside these three discipline findings, the paper executes a fourth substantive analysis the brief committed to: a novel joint composite of the World Bank Human Capital Index and the Oxford Insights Government AI Readiness Index 2025, partitioned into median-split quadrants. The empirical finding is that 47 of 132 joined countries (35.6 %) fall in the low-HCI ∩ low-AI-readiness "double-excluded" cell, and 29 of those 47 (61.7 %) are sub-Saharan African — against sub-Saharan Africa's 31.8 % share of the joined sample. The compounding-divergence thesis that Brookings, the World Bank's *Beyond the AI Divide* working paper, and the International Labour Organization have articulated theoretically [@brookings2024divergence; @worldbank2025beyond; @ilo2024disruption] receives a concrete country-cross-section operationalization with explicit regional-concentration quantification.
+
+The remainder of the paper proceeds as follows. §2 reviews the cross-country aid-effectiveness literature [@burnside2000aid; @easterly2004aid; @glewwe2016improving; @hanushek2008role] and the methodological-reflection strand we position alongside [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts; @pritchett2013rebirth]. §3 describes the data sources, the panel construction, the brief's pre-commitment design, and the positionality of practitioner-researcher authorship. §4 reports descriptive patterns and walks the empirical models in the order the discipline arc requires — the Models 1–2–3 chain establishing the within-country positive coefficient, then the Model 4 drop, the Model 5 counterfactual on the locked aggregate β, the Compounding AI Penalty composite, and finally the HLO measure-fragility finding. §5 discusses what the paper as a whole can and cannot claim. §6 draws policy implications. §7 concludes.
+
+# 2. Literature Review
+
+<!--
+Phase 11 Session 02 target. ~1,500 words. Three strands to engage:
+
+(a) Cross-country aid-effectiveness empirics: Burnside-Dollar 2000; Easterly-Levine-Roodman 2004; Asongu 2019; the broader Hanushek-Woessmann strand on cognitive-skills-for-growth.
+
+(b) Education-specific aid effectiveness: Glewwe-Muralidharan 2016; Vegas-Coffin 2015; Hanushek-Woessmann 2008/2015; GEEAP 2023; Angrist 2024; Pritchett 2013.
+
+(c) Methodological-reflection tradition we position the paper alongside: Sandefur 2018 (harmonization critique); Vivalt 2020 (RCT generalizability); Deaton & Cartwright 2018 (RCT interpretation); Pritchett's "Folk and Formula" papers.
+
+Reuse: docs/lit/*.md notes already contain summaries + APA cites + "our engagement" sections for the works named above. Carve from there rather than reading primaries cold.
+-->
+
+# 3. Data & Methodology
+
+<!--
+Phase 11 Session 03 target. ~2,000 words. Three components:
+
+(a) Data sources + panel construction. Source: docs/methodology.md §3.1–§3.7 + §3.10–§3.13. Carve into ~1,000 words.
+
+(b) Pre-commitment design. The ADR architecture (now 12 ADRs, one Rejected, two amended); brief's Three-Pass Protocol; obligations.md as the running audit list. New prose; ~500 words. This is the methodological contribution the paper foregrounds in path-c framing.
+
+(c) Positionality statement. Source: docs/positionality.md (stub; awaits author specifics about years, regions, role). Frame as methodological asset per brief lines 231–234. ~300 words once author input provided.
+
+(d) Pass 1 sign-off + audit summary. Source: output/pass1_statistical_validity_audit.md + docs/obligations.md. ~200 words.
+-->
+
+# 4. Results
+
+## 4.1 Descriptive: Enrollment-learning divergence
+
+<!--
+Phase 11 Session 04 target. ~400 words. Source: docs/findings.md §4.1–§4.3.
+Headline figure: enrollment-vs-learning divergence (existing in output/figures/eda/).
+Table 1: descriptive statistics by region (output/tables/table1_descriptives.md).
+-->
+
+## 4.2 Models 1 & 2: The cross-section vs within-country contrast
+
+<!--
+Phase 11 Session 04 target. ~800 words. Source: docs/findings.md §5.1–§5.2 +
+§5.2.1 (treatment-encoding sensitivity) + §5.2.2 (China-aid robustness) +
+§5.2.3 (WGI operationalization) + §5.2.4 (manuscript headline tables).
+Headline table: cross-section vs within-FE contrast (model1_vs_model2_contrast_v2.md).
+-->
+
+## 4.3 Model 3: Multilevel transparency counterpart
+
+<!--
+Phase 11 Session 05 target. ~600 words. Source: docs/findings.md §5.4.
+Headline: Hausman test (H=6.67, p=0.0098) + country ICC (91.2%) jointly justify
+the within-FE specification; Model 3 RE collapses onto Model 1 OLS by design
+of the variance-component weighting.
+-->
+
+## 4.4 Model 4 — Dropped: a pre-committed protocol failure
+
+<!--
+Phase 11 Session 05 target. ~500 words. Source: docs/findings.md §5.5 +
+ADR-0007 (Rejected).
+Path-c framing: report failure transparently AS the finding, not as a caveat.
+-->
+
+## 4.5 Model 5: Counterfactual on the identified aggregate β
+
+<!--
+Phase 11 Session 05 target. ~600 words. Source: docs/findings.md §5.6 +
+ADR-0011.
+Headline figure: output/figures/model5_scenario_plot.pdf. Brief-bridge
+on the $1B redirect translation. Hedge: aggregate-β only, no typology-axis
+disaggregation (per §4.4 result).
+-->
+
+## 4.6 The compounding AI penalty: HCI × Oxford GARI joint distribution
+
+<!--
+Phase 11 Session 06 target. ~600 words. Source: docs/findings.md §5.7.
+Headline figure: output/figures/compound_ai_penalty_scatter.pdf.
+Hedged novelty claim per docs/lit/oxford-insights-2026.md "novelty audit".
+-->
+
+## 4.7 HLO measure-fragility: a sensitivity that fails sign-agreement
+
+<!--
+Phase 11 Session 06 target. ~500 words. Source: docs/findings.md §5.8 +
+ADR-0004 "Data observed (Phase 10)" block + ADR-0012.
+Path-c framing: this is the second discipline finding, alongside §4.4
+Model 4 drop. Report transparently AS the finding.
+-->
+
+# 5. Discussion — Why the system perpetuates itself
+
+## 5.1 Thesis
+
+Three findings, taken together, mark out the empirical terrain of cross-country aid-effectiveness research as more constrained than the standard literature has admitted. *First*, the four-bucket intervention typology the policy literature [@glewwe2016improving; @geeap2023smart] treats as the operative axis of "what aid composition produces learning" is not recoverable from the standard donor-reporting dataset (OECD CRS project metadata) at any inter-method agreement threshold a referee would accept; the typology-ANOVA the brief and the field both expected from this kind of panel cannot be defensibly produced. *Second*, the within-country positive aid-to-learning coefficient that the cross-country panel evidence does identify (β = +11.14 HLO points; p ≈ 0.05) is sensitive to the choice of harmonized learning measurement: the published Altinok-Angrist-Patrinos (2018) alternative reverses the sign in both the full AAP coverage window and the overlap window restricted to 2010 onward — the headline is real in one specification but does not carry across the published-measure choice. *Third*, the multiple-imputation robustness check the missingness ADR pre-committed to requires assumptions (MAR) the MCAR test the same ADR pre-committed to running already refutes; the standard sensitivity-direction the literature treats as default is not, on this data, empirically defensible. Alongside, the paper's HCI × AI-readiness joint composite quantifies a previously unmeasured ≈2× sub-Saharan-African over-representation in the low-HCI ∩ low-AI-readiness cell, giving the qualitative compounding-divergence thesis a concrete cross-section. *What the cross-country aid-effectiveness panel literature can rigorously claim from data at this shape is narrower than the policy discourse has been treating it as. The paper's principal contribution is mapping that narrower terrain precisely, with the pre-commitment apparatus visible enough that the next paper attempting similar work knows which choices the field needs to make differently.*
+
+<!--
+Subsequent §5 elaboration (Phase 11 Session 06–07; ~1,300 additional words):
+
+5.2 The typology-axis lacuna in CRS metadata (~400 words)
+- Why purpose codes don't proxy what the policy literature means by "intervention type"
+- What CRS would need to record to support the brief's Model 4 question
+- Implications for the next generation of donor-reporting standards
+
+5.3 Measure-fragility in cross-country learning research (~400 words)
+- WB HCI HLOS vs AAP-2018: why they diverge on the within-country dimension
+- Connection to Sandefur 2018's harmonization critique
+- A within-country FE specification absorbs cross-country level differences but not within-country measure noise
+
+5.4 The MCAR-MAR-MNAR triangle in donor-reporting data (~300 words)
+- Why MI is the wrong tool when MCAR is rejected on the relevant data shape
+- The no-fabrication principle as a project-level discipline gate
+
+5.5 Compounding-divergence in concrete terms (~200 words)
+- Why 61.7% SSA in the double-excluded cell vs 31.8% sample share matters
+- Connection to Brookings / WBG / ILO theoretical framing
+- The longitudinal claim we cannot yet make
+-->
+
+# 6. Policy Implications
+
+<!--
+Phase 11 Session 08 target. ~800 words. Three implications, each grounded
+in a specific paper finding:
+
+(a) Donor-reporting standards (from §5.2 lacuna): what CRS would need to
+    record to enable intervention-type analyses at panel scale.
+
+(b) Cross-country panel evidence claims in the aid-effectiveness discourse
+    (from §5.3 measure-fragility): the kinds of policy claims that survive
+    measure-fragility checks vs the kinds that don't.
+
+(c) Compounding penalty + the SSA over-representation (from §4.6): the
+    practical case for measurement-investment + AI-readiness assistance
+    targeted at the double-excluded set.
+-->
+
+# 7. Conclusion
+
+<!--
+Phase 11 Session 08 target. ~500 words. Brief restatement of the four findings;
+the path-c thesis (calibrated map of what the literature can claim); the methodological
+contribution as a model for the next paper attempting similar work; explicit
+limit-acknowledgment (T_eff ≤ 4; no GMM available; positionality of practitioner-
+researcher authorship).
+-->
+
+# References {.unnumbered}
+
+<!-- Bibliography rendered automatically by Quarto from drafts/references.bib via citeproc. -->
+
+# Appendix A: Full regression tables {.unnumbered}
+
+<!--
+Phase 11 Session 09 target. Embed the locked Model 1 / Model 2 / Model 3 /
+Model 5 / Compounding-penalty / Pass 1 tables verbatim from output/tables/.
+-->
+
+# Appendix B: Robustness checks {.unnumbered}
+
+<!--
+Phase 11 Session 09 target. Embed the 16-cell treatment-encoding sensitivity,
+the WGI operationalization variants, the China-aid robustness, the HLO-AAP
+sensitivity (full + overlap), and the UIS-augmented listwise.
+-->
+
+# Appendix C: Variable operationalization {.unnumbered}
+
+<!--
+Phase 11 Session 09 target. Carve from docs/data_dictionary.md. One row per
+variable used in the manuscript; source, ingest pipeline, transformations.
+-->
