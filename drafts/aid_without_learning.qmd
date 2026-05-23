@@ -32,22 +32,97 @@ The within-country panel fixed-effects specification, which is the cleanest iden
 
 The first gate was the intervention-typology question. The brief specified Model 4 as a one-way ANOVA on a four-bucket typology — infrastructure aid / teacher-training aid / curriculum-materials aid / budget support — coded from OECD CRS project descriptions. Architecture Decision Record 0007 (ADR-0007) pre-committed to a binding inter-method agreement threshold (raw agreement ≥85 %; Cohen's κ ≥0.70; rule-based unclassified <30 %) between a regex-based classifier and a purpose-code-derived classifier as the gate for using the typology in the ANOVA. All three thresholds failed; the typology cannot be extracted from CRS project metadata at the agreement we committed to. Model 4 was dropped rather than escalated to hand-coding. The second gate was the published-measure robustness check ADR-0004 committed to: refit the within-country coefficient using the Altinok-Angrist-Patrinos (2018) harmonization in place of the World Bank HCI HLO measure, and verify sign agreement. The AAP-2018 coefficient is β = −16.67 on the full AAP sample and β = −3.94 on the year-overlap window restricted to 2010 onward; sign agreement fails. The headline result is real in the World Bank HCI HLO specification but does not generalize across the published learning-harmonization choice. The third gate was the missing-data sensitivity check ADR-0006 pre-committed to: run the multiple-imputation UIS-augmented robustness on the full sample alongside the listwise-complete UIS-augmented spec. The MCAR test ADR-0006 also required came back rejected at p ≪ 10⁻⁶ on every relevant subset; multiple imputation's MAR assumption is therefore not empirically supportable on this data, and ADR-0012 retires the MI sub-commitment in favor of the listwise spec alone.
 
-Alongside these three discipline findings, the paper executes a fourth substantive analysis the brief committed to: a novel joint composite of the World Bank Human Capital Index and the Oxford Insights Government AI Readiness Index 2025, partitioned into median-split quadrants. The empirical finding is that 47 of 132 joined countries (35.6 %) fall in the low-HCI ∩ low-AI-readiness "double-excluded" cell, and 29 of those 47 (61.7 %) are sub-Saharan African — against sub-Saharan Africa's 31.8 % share of the joined sample. The compounding-divergence thesis that Brookings, the World Bank's *Beyond the AI Divide* working paper, and the International Labour Organization have articulated theoretically [@brookings2024divergence; @worldbank2025beyond; @ilo2024disruption] receives a concrete country-cross-section operationalization with explicit regional-concentration quantification.
+Alongside these three discipline findings, the paper executes a fourth substantive analysis the brief committed to: a novel joint composite of the World Bank Human Capital Index and the Oxford Insights Government AI Readiness Index 2025, partitioned into median-split quadrants. The empirical finding is that 47 of 132 joined countries (35.6 %) fall in the low-HCI ∩ low-AI-readiness "double-excluded" cell, and 29 of those 47 (61.7 %) are sub-Saharan African — against sub-Saharan Africa's 31.8 % share of the joined sample. The compounding-divergence thesis that UNDP, the World Bank's *Beyond the AI Divide* working paper, and the joint ILO–World Bank background study for the *World Development Report 2026* have articulated theoretically [@muthukrishna2025divergence; @mandon2025beyond; @ilo2026disruption] receives a concrete country-cross-section operationalization with explicit regional-concentration quantification.
 
 The remainder of the paper proceeds as follows. §2 reviews the cross-country aid-effectiveness literature [@burnside2000aid; @easterly2004aid; @glewwe2016improving; @hanushek2008role] and the methodological-reflection strand we position alongside [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts; @pritchett2013rebirth]. §3 describes the data sources, the panel construction, the brief's pre-commitment design, and the positionality of practitioner-researcher authorship. §4 reports descriptive patterns and walks the empirical models in the order the discipline arc requires — the Models 1–2–3 chain establishing the within-country positive coefficient, then the Model 4 drop, the Model 5 counterfactual on the locked aggregate β, the Compounding AI Penalty composite, and finally the HLO measure-fragility finding. §5 discusses what the paper as a whole can and cannot claim. §6 draws policy implications. §7 concludes.
 
 # 2. Literature Review
 
+The cross-country aid-effectiveness debate, the education-specific aid-and-learning literature, and the methodological-reflection strand on what empirical-development research can credibly claim are three distinct conversations that this paper sits at the intersection of. We engage each in turn — briefly, since the paper's contribution is the synthesis at the intersection rather than incremental advances within any one strand.
+
+## 2.1 Cross-country aid-effectiveness empirics
+
+The canonical question — *does development aid raise growth?* — has been answered in the affirmative, the negative, and conditionally in the same data over the last two-and-a-half decades. The widely cited finding by Burnside and Dollar [-@burnside2000aid] was that aid raises growth only in countries with good fiscal, monetary, and trade policies; their aid × policy interaction term entered cross-country growth regressions with a positive and significant coefficient on an instrumental-variables design. The conditional-effectiveness finding was widely interpreted as policy advice — *target good-policy countries* — and shaped a generation of aid-allocation debate. Easterly, Levine, and Roodman [-@easterly2004aid] subsequently showed that the Burnside-Dollar interaction does not survive extension of the original sample to more countries and years; the result is fragile to sample composition. The two papers together — and the subsequent extensions in the aid-and-growth-in-Africa GMM literature [@asongu2019aid] — left the field with a robust *methodological* finding even where the substantive coefficient remained contested: interaction-effect claims in cross-country aid-effectiveness panels are sensitive to sample, specification, and the choice of instrument. The lesson is one our pre-commitment design takes seriously: in @sec-methods §3 we specify the within-country fixed-effects specification before estimating it, and we report sample and specification sensitivities in §4 rather than searching across them for the most favorable result.
+
 <!--
-Phase 11 Session 02 target. ~1,500 words. Three strands to engage:
+EVIDENCE TRACE — §2.1:
+- Burnside-Dollar interaction finding → docs/lit/burnside-dollar-2000.md::Argument + Key claims
+- Easterly-Levine-Roodman fragility-to-extended-sample → docs/lit/easterly-levine-roodman-2004.md::Argument + Method
+- Asongu 2019 GMM-in-Africa lineage → references.bib note; lit note not yet created
+- Hedge level: HIGH for Burnside-Dollar + ELR (lit notes "Read primary source" UNCHECKED — hedged via "widely cited as", "subsequently showed", "the lesson")
+- No specific coefficient figures asserted; only directional / methodological claims
+-->
 
-(a) Cross-country aid-effectiveness empirics: Burnside-Dollar 2000; Easterly-Levine-Roodman 2004; Asongu 2019; the broader Hanushek-Woessmann strand on cognitive-skills-for-growth.
+The cognitive-skills-for-growth strand associated with Hanushek and Woessmann [-@hanushek2008role; -@hanushek2015knowledge] re-framed the same broad question — *what makes education translate into development?* — at the *outcome* level. Cross-country growth regressions using harmonized test-score measures (rather than years of schooling or enrollment) find that cognitive skills explain a substantial share of cross-country income variation that schooling alone does not capture. The implication for aid is direct: if learning is what matters for growth, and aid is meant to support development, then aid that fails to move learning is structurally misaligned with its stated purpose. This paper is the education-aid-specific extension of that logic — taking the cognitive-skills-as-outcome framing as the dependent-variable construction and asking whether the donor-side input (CRS-recorded education-sector ODA) moves the learning-side output (HCI HLO).
 
-(b) Education-specific aid effectiveness: Glewwe-Muralidharan 2016; Vegas-Coffin 2015; Hanushek-Woessmann 2008/2015; GEEAP 2023; Angrist 2024; Pritchett 2013.
+<!--
+EVIDENCE TRACE — §2.1 ¶2:
+- Hanushek-Woessmann cognitive-skills-for-growth thesis → docs/lit/hanushek-woessmann-2008-2015.md::Argument + Key claims
+- Hedge level: MEDIUM (lit note has substantive Our engagement; cite for directional thesis but not specific coefficient figures)
+- The "education-aid-specific extension" framing is the paper's own positioning, traceable to docs/lit/hanushek-woessmann-2008-2015.md::Our engagement
+-->
 
-(c) Methodological-reflection tradition we position the paper alongside: Sandefur 2018 (harmonization critique); Vivalt 2020 (RCT generalizability); Deaton & Cartwright 2018 (RCT interpretation); Pritchett's "Folk and Formula" papers.
+## 2.2 Education-specific aid effectiveness
 
-Reuse: docs/lit/*.md notes already contain summaries + APA cites + "our engagement" sections for the works named above. Carve from there rather than reading primaries cold.
+Within education, the field's evidence base on *what aid composition actually produces learning* is broader at the program-evaluation level than at the country-panel level. Glewwe and Muralidharan's [-@glewwe2016improving] *Handbook of the Economics of Education* review synthesizes a substantial RCT and quasi-experimental record on developing-country education interventions and identifies a recurring pattern: pedagogical interventions (targeted instruction; teaching at the right level; structured pedagogy at scale) and accountability mechanisms produce larger learning gains per dollar than mass input interventions (more teachers; more textbooks; more classrooms) in many evaluated settings. The GEEAP "Smart Buys" framework [@geeap2023smart] codifies this into a cost-effectiveness ranking that has shaped donor practice. Angrist and colleagues' Learning-Adjusted Years of Schooling (LAYS) framework [@angrist2024lays] provides a reporting unit that puts micro-cost-effectiveness findings on a scale comparable to country-level outcomes.
+
+<!--
+EVIDENCE TRACE — §2.2 ¶1:
+- Glewwe-Muralidharan pedagogy-vs-mass-inputs distinction → docs/lit/glewwe-muralidharan-2016.md::Argument + Key claims
+- GEEAP 2023 cost-effectiveness ranking → references.bib; lit note not yet created (cite from training knowledge of the framework's general claim only)
+- Angrist 2024 LAYS framework → references.bib; lit note not yet created; we operationalize LAYS in our Model 5 (methodology.md §3.4)
+- Hedge level: MEDIUM-HIGH (Glewwe-Muralidharan primary UNCHECKED; GEEAP / Angrist no lit notes; cite for general framework claims only, not specific effect-size numbers)
+-->
+
+The relationship between education *spending* and learning is, in the published cross-country evidence, conditional rather than monotonic. Vegas and Coffin's [-@vegas2015when] analysis using PISA scores and cumulative per-student expenditure data found that the spending–learning relationship plateaus above a threshold (roughly USD 8,000 cumulative spending per student); below the threshold, additional spending raises outcomes; above it, the marginal returns are negligible. Pritchett's [-@pritchett2013rebirth] *The Rebirth of Education: Schooling Ain't Learning* — the closest qualitative intellectual ancestor of this paper — argues that the broader system of education aid and policy has been organized around inputs (enrollment, completion, expenditure) rather than outcomes (what children can actually do) because the input metrics are politically tractable and the outcome metrics are politically inconvenient. The institutional concept Pritchett develops — *isomorphic mimicry*, where education systems adopt the forms of effective schooling without the substance — connects the empirical pattern (input-tracking, learning-stagnating) to the donor-side incentive structures that perpetuate it.
+
+<!--
+EVIDENCE TRACE — §2.2 ¶2:
+- Vegas-Coffin threshold finding → docs/lit/vegas-coffin-2015.md::Argument + Key claims (the ~$8K threshold is in the lit note)
+- Pritchett intellectual ancestor + isomorphic mimicry → docs/lit/pritchett-2013.md::Argument + Key claims + Our engagement ("closest intellectual ancestor")
+- Hedge level: MEDIUM (Vegas-Coffin primary UNCHECKED; Pritchett primary UNCHECKED; cite for general framework/concept; the "$8K" figure is in the lit note from secondary source)
+-->
+
+Taken together, these strands give the *program-evaluation* and *spending-threshold* literatures plenty to say about what works in education and where the binding constraints are. They do not, however, give a clean cross-country panel test of *whether the aid that countries actually receive moves their learning outcomes over time* — which is the question the cross-country panel data we assemble is sized to answer, with the limits we own in §4 and §5. The brief's Model 4 design (a four-bucket intervention-typology ANOVA on CRS disbursements) was the planned operationalization of the field's "what aid composition produces learning" question; §4.4 reports the pre-committed protocol failure that prevents Model 4 from running on the available donor-reporting data. That failure is itself a finding for this literature — the pedagogical-vs-input-mass distinction the field treats as policy-load-bearing is *not extractable from CRS metadata at country-year resolution*, and §5 takes that as a methodological contribution rather than as a caveat against the paper's other results.
+
+<!--
+EVIDENCE TRACE — §2.2 ¶3:
+- Synthesizing claim — no inline citation needed
+- Forward-reference to §4.4 + §5 — internal cross-reference
+- Hedge level: N/A (synthesis paragraph; no empirical claims requiring citation hedge)
+-->
+
+## 2.3 Methodological-reflection tradition
+
+This paper positions its contribution alongside a small but growing strand in development empirics that treats *what an empirical method can and cannot credibly claim* as itself a methodological contribution — not a caveat to be acknowledged before moving on, but a substantive finding the literature should know about. Sandefur's [-@sandefur2018internationally] *Internationally comparable mathematics scores for fourteen African countries* is the clearest precedent on the outcome-measurement side: it re-analyzes the SACMEQ–PISA item overlap underlying the harmonized learning measures the field treats as cross-country comparable, finds that anchor-sample sizes are often too thin for credible item-equating, and concludes that cross-test rankings rest on harmonization assumptions weaker than the literature has admitted. This paper engages Sandefur head-on in §3, defending the within-country fixed-effects specification as the answer to the level-comparability concern Sandefur raises (within-country variation does not require cross-country score comparability), but accepting that the alternative-harmonization robustness check Sandefur's critique anticipates is exactly the test we report in §4.7 — and on which the headline within-country coefficient does not survive sign-agreement.
+
+<!--
+EVIDENCE TRACE — §2.3 ¶1:
+- Sandefur harmonization critique → docs/lit/sandefur-2018.md::Argument + Method + Key claims (Read primary source CHECKED)
+- Our defense via within-FE absorbing cross-country level differences → docs/lit/sandefur-2018.md::Our engagement (lines 16-20)
+- Forward-reference to §4.7 sign-agreement failure → docs/findings.md §5.8 (now drafted in §4.7 placeholder for Session 06)
+- Hedge level: LOW (Sandefur primary READ; cite with confidence)
+-->
+
+On the cross-country-generalizability side, Vivalt's [-@vivalt2020generalize] meta-analysis of impact-evaluation external validity finds that effect sizes in development RCTs vary substantially across contexts — heterogeneity is large enough that single-study estimates routinely do not transport. Deaton and Cartwright [-@deaton2018rcts], in *Understanding and misunderstanding randomized controlled trials*, argue more broadly that the RCT methodological community over-interprets the inferential warrants that randomization itself supports; covariate imbalance, treatment-effect heterogeneity, and the absence of a credible causal model can each undermine the routine "RCT = gold standard" framing. The substantive method Vivalt and Deaton-Cartwright critique (RCTs) differs from the method this paper uses (cross-country panel FE), but the *over-claiming* concern carries: the cross-country-panel community has likewise tended to report a within-FE coefficient as if it were measure-independent, sample-independent, and identification-robust, when in fact each of those properties needs to be tested rather than assumed. The path-c framing of this manuscript — and the §3 pre-commitment design that operationalizes it — places the paper deliberately in this lineage.
+
+<!--
+EVIDENCE TRACE — §2.3 ¶2:
+- Vivalt 2020 meta-analysis external-validity finding → docs/lit/vivalt-2020.md::Argument + Key claims
+- Deaton & Cartwright 2018 over-interpreting-RCT critique → docs/lit/deaton-cartwright-2018.md::Argument + Key claims
+- Hedge level: MEDIUM (both new lit notes are SECONDARY engagement, marked unread-primary; cite for over-claiming lineage and directional argument, not specific Vivalt heterogeneity figures or Deaton-Cartwright re-analyses)
+- The "substantive method differs, over-claiming concern carries" reframe is the paper's own positioning, traceable to the lit-note "Our engagement" sections
+-->
+
+The compounding-divergence literature — Muthukrishna and Schellekens' [-@muthukrishna2025divergence] UNDP report, Mandon's [-@mandon2025beyond] *Beyond the AI Divide* World Bank working paper, and the joint ILO–World Bank *Disruption without dividend?* background study [-@ilo2026disruption] for the *World Development Report 2026* — articulates a different methodological-reflection theme. These works argue that AI-driven divergence between countries is conditional on absorptive capacity (human capital, digital infrastructure, governance) and that the standard country-comparison tools have not yet operationalized the joint distribution of those capacities at country-cross-section resolution. The §4.6 Compounding AI Penalty analysis is our contribution at that joint-distribution operationalization layer; we cite the three above as the closest theoretical (Muthukrishna-Schellekens) and practitioner (Mandon; ILO-WBG) antecedents we are aware of, while noting in §4.6 that we are not aware of a prior peer-reviewed paper that constructs the HCI × Oxford-GARI joint composite at the exact country-cross-section level we report.
+
+<!--
+EVIDENCE TRACE — §2.3 ¶3:
+- Muthukrishna-Schellekens UNDP report → docs/lit/muthukrishna-schellekens-2025.md::Argument + Our engagement (secondary engagement noted; cite for theoretical antecedent role)
+- Mandon WBG WP 11073 → docs/lit/mandon-2025.md::Argument + Our engagement (note that Mandon uses IMF AI Preparedness Index, not Oxford GARI — methodologically distinct from §4.6)
+- ILO-WBG 2026 GenAI study → docs/lit/ilo-2026-disruption.md::Argument + Our engagement (employment-level complementarity vs our country-level analysis)
+- Hedge level: MEDIUM (all three new lit notes SECONDARY engagement only; cite for antecedent positioning, not specific findings beyond the headline framings already in the lit notes)
+- The "not aware of a prior peer-reviewed paper..." hedge tracks docs/lit/oxford-insights-2026.md::Novelty-claim audit
 -->
 
 # 3. Data & Methodology
