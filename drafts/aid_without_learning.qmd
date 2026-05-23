@@ -415,30 +415,175 @@ EVIDENCE TRACE — §4.2 ¶4 (qualifications + §4.7 hand-off):
 
 ## 4.3 Model 3: Multilevel transparency counterpart
 
+Model 3 re-estimates the ODA-on-HLO relationship as a two-level random-effects multilevel model — country random intercepts plus year fixed effects — on the same locked-encoding stack as Model 2 (the Session-03 strictly-past three-year moving-average treatment per ADR-0005 and the Session-05 WGI PC1 governance composite per ADR-0009). The specification is `lmer(hlo ~ controls + year_FE + (1|iso3), REML=FALSE)`, with the unrestricted maximum-likelihood estimator chosen to enable Hausman comparability against Model 2 FE. Spec 3a is the bivariate unconditional, with only the ODA treatment plus year fixed effects: **β = −5.19** per unit log treatment (SE 1.66; p = 0.002; N = 447). This is the well-known cross-country signal that aid concentrates in low-outcome countries, recovered here at the marginal-DV level rather than the country-mean level Model 1 uses. Adding log GDP per capita at 3b absorbs the significance (β = −1.80, not significant); by the full specification 3e — with the same control stack as Model 2 — the coefficient is β = **−1.32** (SE 2.68; p = 0.622; N = 173). Parallel to Model 1's full-spec absorption.
+
 <!--
-Phase 11 Session 05 target. ~600 words. Source: docs/findings.md §5.4.
-Headline: Hausman test (H=6.67, p=0.0098) + country ICC (91.2%) jointly justify
-the within-FE specification; Model 3 RE collapses onto Model 1 OLS by design
-of the variance-component weighting.
+EVIDENCE TRACE — §4.3 ¶1 (Model 3 RE specification + spec progression):
+- lmer spec + REML=FALSE for Hausman comparability → docs/findings.md §5.4 + R/57_model3_re_panel.R
+- Spec 3a β=-5.19, SE=1.66, p=0.002, N=447 → output/tables/model3_re_specs.md
+- 3b absorption β=-1.80 ns → output/tables/model3_re_specs.md
+- 3e full β=-1.32, SE=2.68, p=0.622, N=173 → output/tables/model3_re_specs.md
+- Hedge level: LOW (project-internal authored result tables)
 -->
+
+The Hausman test formally adjudicates the FE-vs-RE choice. The default `plm::phtest` Swamy-Arora estimator requires T > 3 time periods and is not estimable on the HCI-cycle panel (T_eff ≤ 4 with the strictly-past lag structure), so the manual univariate Cameron-Trivedi Hausman on β_ODA is the operative test: H = (β_FE − β_RE)² / (Var(β_FE) − Var(β_RE)) = (11.14 − (−1.32))² / (5.52² − 2.68²) = **6.67**, df = 1, **p = 0.0098**. The null that RE is consistent is rejected at the conventional one-percent threshold; β_RE differs from β_FE beyond what sampling variation can plausibly explain. The fixed-effects specification is identified. Country-level intraclass correlation, computed via `performance::icc` on the unconditional null model, returns **ICC = 0.912** — ninety-one percent of HLO variance is between-country. After conditioning on the full Model 2 / Model 3 control stack the conditional ICC is still 0.793. With outcome variance located almost entirely between countries, any estimator that pools between-country information is mechanically dominated by country-quality confounding; within-FE is not a methodological preference but the only specification on this panel that can identify a within-country aid-to-learning signal at all.
+
+<!--
+EVIDENCE TRACE — §4.3 ¶2 (Hausman + ICC: formal FE validation):
+- plm::phtest Swamy-Arora unavailable at T_eff ≤ 4 → docs/findings.md §5.4 + ADR-0010 consistency
+- Manual Cameron-Trivedi Hausman: H=6.67, df=1, p=0.0098 → output/tables/model3_hausman_test.csv
+- ICC unconditional 0.912 + conditional 0.793 → output/tables/model3_icc.csv
+- "FE is the identified specification" framing → findings.md §5.4
+- Hedge level: LOW (project-internal diagnostic tables)
+-->
+
+The three-way Models 1 / 2 / 3 contrast closes the identification-strategy chapter §4.2 opened. Model 1 OLS spec 1e (between-country only): β = −1.36, not significant. Model 2 v2 FE spec 2e (within-country only, the principal specification): β = +11.14, p = 0.048. Model 3 RE spec 3e (variance-component-weighted combination of between and within): **β = −1.32, not significant** — collapsed onto Model 1's cross-sectional estimate rather than splitting the difference with Model 2. This is the empirical signature of an extreme ICC: when ninety-one percent of outcome variance is between-country, the RE variance-component weighting puts essentially all weight on the cross-sectional information, mechanically replicating the OLS result. The within-country signal Model 2 isolates is invisible to RE. Only the within-FE specification recovers the positive coefficient; the Hausman test, the country-level ICC, and the three-way contrast jointly establish that the §4.2 headline rests on the only identification strategy this panel's variance structure supports.
+
+<!-- TABLE-PLACEHOLDER — Table 3: Models 1 / 2 / 3 three-way contrast on locked encoding
+- Source: output/tables/model123_three_way_contrast.{csv,md} (verbatim-ready)
+- Columns: Model | Identification | N | β_ODA | SE | p
+- Rows (3, from the .md file, in this order):
+  | Model 1 OLS, full spec 1e (cross-sectional)                    | Between-country only          | 120 |  -1.36 | 2.48 | 0.584 |
+  | **Model 2 v2 FE, full spec 2e (within-country, locked)**       | **Within-country only**       | 143 | +11.14 | 5.52 | 0.048 |
+  | Model 3 RE, full spec 3e (random intercepts + year FE, locked) | Weighted between + within     | 173 |  -1.32 | 2.68 | 0.622 |
+- Caption (proposed): "Table 3. Three-way Model 1 / Model 2 / Model 3 contrast on locked encoding,
+  HLO outcome, primary window 2010–2020. Model 1 uses country means; Model 2 uses two-way (country
+  + year) fixed effects, country-clustered SE; Model 3 uses country random intercepts plus year
+  fixed effects, REML=FALSE. Manual univariate Cameron-Trivedi Hausman on β_ODA: H = 6.67, df = 1,
+  p = 0.0098 (rejects RE). Country-level ICC = 91.2% unconditional; 79.3% conditional on the full
+  control stack. Stars: ***p<0.01, **p<0.05, *p<0.1."
+- DO NOT INSERT as live Quarto table this turn per author directive 2026-05-23
+-->
+
+<!--
+EVIDENCE TRACE — §4.3 ¶3 (three-way contrast: RE collapses onto OLS):
+- Three-row table: Model 1 -1.36 / Model 2 +11.14 / Model 3 -1.32 → output/tables/model123_three_way_contrast.md
+- "RE collapsed onto Model 1 by design of variance-component weighting" framing → findings.md §5.4 ¶ "Reading the three-way contrast"
+- 91% ICC → mechanically dominates between-country weighting → findings.md §5.4 ¶ "Substantive implication for §3.8"
+- Forward-reference to §4.2 thesis closure
+- Hedge level: LOW (closes the convergent-evidence chain across Sessions 03-06 per findings.md §5.4 closing paragraph)
+-->
+
 
 ## 4.4 Model 4 — Dropped: a pre-committed protocol failure
 
-<!--
-Phase 11 Session 05 target. ~500 words. Source: docs/findings.md §5.5 +
-ADR-0007 (Rejected).
-Path-c framing: report failure transparently AS the finding, not as a caveat.
+The brief's original Model 4 specification proposed an ANOVA-style decomposition of within-country variance in HLO into components attributable to four intervention typology classes — infrastructure, teacher training, curriculum and materials, and budget support. ADR-0007 locked three pre-specified inter-method agreement criteria before any classification ran on the OECD CRS extract: raw agreement on a joint-classified subsample of at least 85 percent, Cohen's κ of at least 0.70, and a rule-based unclassified rate below 30 percent. The classification pipeline — a 49-pattern keyword rule cascade across the four buckets, cross-validated against a purpose-code-to-bucket mapping — was run on the full 537,586-project education-sector CRS extract on 2026-05-19. **All three criteria failed.** On the joint subsample of 130,737 projects: raw agreement was **39.04 percent**, Cohen's κ was **0.19**, and the rule-based classifier left **75.68 percent** of projects unclassified. The failure pattern was diagnostic, not noisy: the rule cascade left three-quarters of education-sector projects unmatched because the lexical breadth of CRS project descriptions exceeds what a regex cascade can cover without iterative tuning; the purpose-code mapping placed 82.7 percent of projects in `budget_support` while the rule-based classifier placed 4.2 percent there. The two methods were measuring different constructs, not the same construct with measurement noise.
+
+<!-- TABLE-PLACEHOLDER — Table for §4.4: Typology classifier agreement against pre-committed gate
+- Source: output/tables/typology_method_agreement.{csv,md} (verbatim-ready)
+- Columns: Criterion | Observed | Required | Verdict
+- Rows (3):
+  | Raw inter-method agreement (joint subsample N=130,737) | 39.04% | ≥ 85% | FAIL |
+  | Cohen's κ (rule-based vs purpose-code bucket)          | 0.19   | ≥ 0.70 | FAIL |
+  | Rule-based unclassified                                 | 75.68% | < 30%  | FAIL |
+- Caption (proposed): "Pre-committed (ADR-0007) inter-method-agreement criteria for the four-bucket
+  OECD CRS intervention typology, against observed agreement on the 537,586-project education-sector
+  extract. All three criteria fail; the typology classifier was retired and Model 4 dropped per the
+  pre-committed protocol. Source: output/tables/typology_method_agreement.md;
+  R/61_typology_coding.R."
+- DO NOT INSERT as live Quarto table this turn per author directive 2026-05-23
 -->
+
+<!--
+EVIDENCE TRACE — §4.4 ¶1 (pre-committed gate + failure):
+- 4-bucket inventory + ADR-0007 lock criteria → docs/decisions/0007-oecd-crs-intervention-typology.md
+- Raw agreement 39.04%, κ=0.19, unclassified 75.68% → output/tables/typology_method_agreement.md
+- 537,586-project CRS extract count → findings.md §5.5
+- 49-pattern keyword cascade + purpose-code cross-validation → R/61_typology_coding.R header + findings.md §5.5
+- Bucket distribution divergence (82.7% vs 4.2% on budget_support) → output/tables/typology_method_agreement.md
+- "Different constructs, not measurement noise" framing → findings.md §5.5 ¶2
+- Hedge level: LOW (project-internal lock-gate evidence)
+-->
+
+The pre-committed escalation path under ADR-0007 was Option 3: hand-code approximately one thousand stratified projects and train a TF-IDF plus logistic-regression production classifier. The researcher-grade decision (2026-05-23) was to drop Model 4 rather than escalate. Iterating the rule cascade, replacing the comparator, or investing two weeks of hand-coding would have either burned resources on an extractability axis that ADR-0007 was written precisely to test, or broken the no-post-hoc-tuning discipline the ADR's pre-commitment criteria were written to enforce. A pre-committed protocol catching an unfeasible design before it ran is the gate working as designed, not a methodological setback. The substantive implication, picked up in §5 and §6, is methodological. The development-aid effectiveness literature [@glewwe2016improving; @vegascoffin2015education; @geeap2023smart] treats the input-intensive versus pedagogically-targeted distinction as load-bearing for policy. The finding here is that this distinction is *not extractable* from OECD CRS metadata at country-year resolution without substantial hand-coding investment — an empirical limit on what cross-country aid-effectiveness panel work can credibly say about composition, and a measurement constraint that helps explain why the existing panel literature relies on aid-amount rather than aid-composition regressions. Model 5, originally specified to use Model-4 effect sizes for a $1B counterfactual, was correspondingly redesigned per ADR-0011 to operate on the identified aggregate-β only; §4.5 reports the redesigned scenarios.
+
+<!--
+EVIDENCE TRACE — §4.4 ¶2 (path-c framing: drop as researcher decision; failure as measurement-limit finding):
+- ADR-0007 Option 3 escalation path (hand-code ~1000 + TF-IDF + logistic) → docs/decisions/0007-oecd-crs-intervention-typology.md "Escalation path" block
+- 2026-05-23 author drop decision → findings.md §5.5 ¶ "Per the pre-committed protocol..."
+- "Gate working as designed" framing → findings.md §5.5 ¶ closing
+- Lit citations (Glewwe-Muralidharan 2016, Vegas-Coffin 2015, GEEAP 2023) → drafts/references.bib (verified Sessions 01-02)
+- Model 5 redesign cross-reference → §4.5 + ADR-0011
+- Hedge level: LOW (researcher decision documented in session log + ADR-0007 Rejected)
+-->
+
 
 ## 4.5 Model 5: Counterfactual on the identified aggregate β
 
+The brief's original Model 5 specification — redirect $1B of annual education aid from input-based to outcome-based interventions and quantify the implied learning gain via Model-4 effect sizes — was made unestimable by §4.4. ADR-0011 locked a redesigned counterfactual on what the data does identify: marginal within-country percentage shocks applied to Model 2's locked β (in the principal specification), at three within-support shock magnitudes (+10 percent, +50 percent, +100 percent), translated to LAYS via the World Bank identity ΔLAYS = EYS × ΔHLO / 625 holding EYS constant. The baseline is the median country in the Model 2 estimation sample at **$59.7 million** in annual CRS education disbursement (constant USD; Q1 = $23.7M; Q3 = $123.7M). The counterfactual is honest about staying within the identified within-country log-CRS support: a literal $1B injection to a single country would push that country roughly 18× above its baseline — outside the within-country variation Model 2 was identified on — and we do not project there. The aggregate-only operationalization reflects the §4.4 typology drop; the brief's compositional question survives as a §5 / §6 Discussion point rather than a Model 5 estimand.
+
 <!--
-Phase 11 Session 05 target. ~600 words. Source: docs/findings.md §5.6 +
-ADR-0011.
-Headline figure: output/figures/model5_scenario_plot.pdf. Brief-bridge
-on the $1B redirect translation. Hedge: aggregate-β only, no typology-axis
-disaggregation (per §4.4 result).
+EVIDENCE TRACE — §4.5 ¶1 (locked redesign per ADR-0011):
+- Brief's original Model 5 + Model-4-dependence → docs/brief.md (Model 5 spec); §4.4 drop above
+- ADR-0011 within-support % shocks; LAYS via WB identity → docs/decisions/0011-counterfactual-specification.md
+- Median country baseline $59.7M (Q1 $23.7M, Q3 $123.7M) → output/tables/model5_counterfactual.md ¶ "Baseline"
+- 18× single-country extrapolation refused → output/tables/model5_counterfactual.md ¶ "Brief-bridge context"
+- Aggregate-only per §4.4 cross-reference → findings.md §5.6 ¶ first sentence
+- Hedge level: LOW (project-internal ADR + counterfactual table)
 -->
+
+At the median-country baseline, the three within-support shocks produce the following expected-case learning effects, computed at β = 11.14 with worst-case and best-case columns using the lower and upper 95 percent CI bounds of the headline β ([0.32, 21.95]). A **+10 percent shock** (additional $5.97M; Δlog CRS = 0.094) yields **+1.04 HLO points** at the expected case (range 0.03 to 2.06), translating via the implied-EYS median (11.57 years) to **+0.019 LAYS years** (range 0.001 to 0.038). A **+50 percent shock** yields **+4.45 HLO points / +0.082 LAYS years** at the expected case (range +0.13 to +8.78 HLO; +0.002 to +0.163 LAYS). A **+100 percent shock** yields **+7.63 HLO points / +0.141 LAYS years** (range +0.22 to +15.03 HLO; +0.004 to +0.278 LAYS). Quartile-baseline sensitivity at Q1 ($23.7M) and Q3 ($123.7M) returns essentially identical marginal effects in percentage-shock space — a structural property of the `log1p` transformation, not a substantive finding. The brief-bridge anchors the magnitude to a policy-recognizable number: a $1B annual increase distributed pro-rata across the 173-country Model 2 estimation sample is $5.78M per country, which is 9.7 percent of the median baseline and 5.49 percent of the sample's total $18.22B annual education aid. **The brief's $1B headline therefore lands in the low-shock band — approximately +1 HLO point and ~0.02 LAYS years at the median country, in the principal specification** — not in the high-shock band the original framing might have invited the reader to expect. The pro-rata read is the only honest projection on the identified support.
+
+<!-- TABLE-PLACEHOLDER — Table 4: Model 5 counterfactual scenarios
+- Source: output/tables/model5_counterfactual.{csv,md} (verbatim-ready)
+- Columns: Shock | Scenario | Δ HLO points | Δ LAYS (years, at EYS p50 = 11.57 yr)
+- Rows (9; 3 shocks × 3 cases — Worst β-lower-CI, Expected β-point, Best β-upper-CI):
+  | +10% (low-shock)   | Worst (β=0.32)    |  +0.03 |  +0.0006 |
+  | +10% (low-shock)   | **Expected (β=11.14)** | **+1.04** | **+0.0193** |
+  | +10% (low-shock)   | Best (β=21.95)    |  +2.06 |  +0.0381 |
+  | +50% (mid-shock)   | Worst             |  +0.13 |  +0.0024 |
+  | +50% (mid-shock)   | **Expected**      | **+4.45** | **+0.0824** |
+  | +50% (mid-shock)   | Best              |  +8.78 |  +0.1625 |
+  | +100% (high-shock) | Worst             |  +0.22 |  +0.0041 |
+  | +100% (high-shock) | **Expected**      | **+7.63** | **+0.1412** |
+  | +100% (high-shock) | Best              | +15.03 |  +0.2783 |
+- Caption (proposed): "Table 4. Model 5 within-support counterfactual scenarios. Baseline: median
+  country in Model 2 estimation sample = $59.7M annual CRS education disbursement (constant USD).
+  Δ HLO computed as β × Δlog(1+CRS). Δ LAYS via WB identity ΔLAYS = EYS × ΔHLO / 625 at EYS p50
+  = 11.57 years; full p10/p50/p90 EYS fan reported in output/tables/model5_counterfactual.md.
+  Worst/Best columns use 95% CI bounds of headline β = [0.32, 21.95]. Locked per ADR-0011."
+- DO NOT INSERT as live Quarto table this turn per author directive 2026-05-23
+-->
+
+<!-- FIG-PLACEHOLDER — Figure 2: Model 5 scenario plot
+- Source file: output/figures/model5_scenario_plot.pdf (also .png)
+- Generated by: R/70_model5_counterfactual.R
+- Data: 9 scenario points (3 shocks × 3 β-cases) from output/tables/model5_counterfactual.md
+- Caption (proposed): "Figure 2. Model 5 within-support counterfactual scenarios. Δ HLO points
+  on the y-axis; shock magnitude (+10%, +50%, +100% of median country baseline annual CRS
+  disbursement) on the x-axis. Three bars per shock: Worst case (β lower 95% CI), Expected case
+  (β point estimate = 11.14), Best case (β upper 95% CI). Brief's $1B redirect pro-rata across
+  the 173-country sample = $5.78M per country, landing in the low-shock band as noted in §4.5
+  ¶2. Locked per ADR-0011."
+- Width recommendation: 80% of page width
+- DO NOT INSERT as live Quarto figure syntax this turn per author directive 2026-05-23
+-->
+
+<!--
+EVIDENCE TRACE — §4.5 ¶2 (headline scenario numbers + brief-bridge):
+- All 9 scenario cells (+10/+50/+100% × Worst/Expected/Best) → output/tables/model5_counterfactual.md table
+- Δlog CRS = 0.094 / 0.400 / 0.685 → output/tables/model5_counterfactual.md delta_log_crs column
+- Implied-EYS median 11.57 yr → output/tables/model5_counterfactual.md ¶ "LAYS translation"
+- $1B pro-rata = $5.78M/country = 9.7% baseline, 5.49% sample total → output/tables/model5_counterfactual.md ¶ "Brief-bridge"
+- Quartile sensitivity invariance → output/tables/model5_baseline_quartile_sensitivity.md
+- "low-shock band" framing → findings.md §5.6 ¶ "Brief-bridge"
+- Short-form hedge "in the principal specification" applied to β=11.14 invocation
+- Hedge level: LOW (project-internal counterfactual + brief-bridge tables)
+-->
+
+The counterfactual magnitudes are best read against the program-level cost-effectiveness benchmarks the policy literature relies on for intervention design. The GEEAP 2023 Smart Buys catalog [@geeap2023smart] reports headline interventions with LAYS gains in the 0.5-3.0-year range *per pupil* for well-targeted tutoring, pedagogical-targeting, and structured-pedagogy programs — values that dwarf even the best-case aggregate-shock numbers above. The contrast is not a paper finding; it reflects two structural differences. The GEEAP benchmark is micro cost-effectiveness on programme participants, not macro aid elasticity at the country level. And the GEEAP benchmark is the *upper envelope* of intervention-type evidence whose extraction from CRS metadata the §4.4 Model 4 drop demonstrates this paper cannot perform. Angrist 2024 [@angrist2024] provides the LAYS reporting unit for cross-paper comparison; the aggregate-β counterfactual reported here is small relative to that literature, which is the honest read of what a cross-country panel β identifies at the country level. The §6 Discussion frames Model 5 as a **floor** on the policy-realistic channel — what the data unambiguously supports saying about the within-country aid-learning relationship at the aggregate level — while leaving open, by reference to the GEEAP and Glewwe-Muralidharan literatures, that programme-level targeting is where the larger gains plausibly live. The paper does not claim Model 5's headline is a ceiling; §5.5 owns that the compositional question is structurally unanswerable from CRS metadata at panel scale.
+
+<!--
+EVIDENCE TRACE — §4.5 ¶3 (GEEAP/Angrist comparison + floor-not-ceiling):
+- GEEAP Smart Buys 0.5-3.0 LAYS per-pupil range → docs/lit/geeap-2023.md + findings.md §5.6 ¶ "Comparison with cost-effectiveness benchmarks"
+- @geeap2023smart citation → drafts/references.bib (verified Session 01)
+- @angrist2024 citation + LAYS reporting unit → drafts/references.bib (verified Session 01) + lit/angrist-2024.md
+- "Micro cost-effectiveness vs macro aid elasticity" framing → findings.md §5.6 ¶ "Comparison"
+- "Floor not ceiling" framing → findings.md §5.6 ¶ "§6 Discussion connection"
+- §4.4 / §5.5 cross-reference on compositional unanswerability
+- Hedge level: LOW (project-internal §5.6 discussion + verified lit citations)
+-->
+
 
 ## 4.6 The compounding AI penalty: HCI × Oxford GARI joint distribution
 
