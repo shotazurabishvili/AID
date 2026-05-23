@@ -33,10 +33,10 @@
 - [x] **Wooldridge test for serial autocorrelation** — Phase 5 Session 01. *F = 0.252, p = 0.62 — no serial autocorrelation detected (HCI cycle spacing of 7+ years makes AR(1) non-binding). Evidence: `output/tables/model2_fe_diagnostics.csv`.*
 - [x] **Cluster standard errors at country level** — Phase 5 Session 01. *Applied via `feols(., vcov = ~iso3)`. Evidence: `R/51_model2_fe.R`.*
 - [x] **VIF table — flag any VIF > 10** — Phase 5 Session 01. *Max VIF on within-demeaned regressors = 1.64 (Model 2 full spec); max VIF in Model 1 cross-section = 5.24 on log(GDP/cap). All below 10. The cross-sectional governance × income multicollinearity (Session 12 r=0.79) is fully absorbed by within-country FE. Evidence: `output/tables/model2_fe_diagnostics.csv` + `model1_vif.csv`.*
-- [ ] **Levene's test before ANOVA** — Phase 7 (Model 4)
+- [~] ~~**Levene's test before ANOVA** — Phase 7 (Model 4)~~ **Withdrawn 2026-05-23** — Model 4 dropped per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected (pre-committed typology gate failed all three criteria).
 - [ ] **ICC at all three multilevel model levels** — Phase 6 (Model 3 HLM)
 - [ ] **Convergence diagnostics for HLM** — Phase 6
-- [ ] **Effect sizes (η², Cohen's d) for ALL ANOVA pairs** — Phase 7
+- [~] ~~**Effect sizes (η², Cohen's d) for ALL ANOVA pairs** — Phase 7~~ **Withdrawn 2026-05-23** — Model 4 dropped per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected.
 
 ---
 
@@ -49,7 +49,7 @@
 - [ ] Sample: 2000–2022 vs 2005–2020 — Phase 5/sensitivity
 - [x] Sample: with vs without Chinese aid flows (GCDF) — Phase 5 Session 04 (ADR-0008 lock). Spec B (OECD + GCDF covariate) shifts OECD β from 8.17 → 8.06 (0.02 SD); GCDF own β = −0.27, p = 0.74 ns. OECD-CRS-only headline is robust to non-DAC blind spot. Evidence: `output/tables/model2_china_robustness.csv`.
 - [~] UIS missingness: listwise vs MI vs UIS-dropped — Phase 2 lock done; Phase 5 will run the three sensitivity specs and report alongside. *ADR-0006 Accepted 2026-05-18: drop UIS from primary; UIS-augmented listwise + MI both reported as Robustness 1 + Robustness 2. Implementation in Phase 5.*
-- [ ] ANOVA coding: rule-based vs LLM-assisted (target agreement ≥ 85%) — Phase 7
+- [~] ~~ANOVA coding: rule-based vs LLM-assisted (target agreement ≥ 85%) — Phase 7~~ **Withdrawn 2026-05-23** — gate ran on 2026-05-19 (raw 39 %, κ=0.19, unclassified 76 %), all three pre-committed criteria failed; Model 4 dropped per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected. The failure is the finding (see `findings.md §5.5`).
 - [ ] FE structure: country FE alone vs country × decade FE — Phase 5
 - [x] **Identification: static FE vs Difference GMM vs System GMM** — Phase 5 Session 02 done. *ADR-0010 Accepted (with caveats) 2026-05-19. GMM attempted per brief + Phase-2 external review; Hansen p=0.022 on System GMM rejects instrument validity; Diff GMM full and Sys GMM full fail to estimate (matrix singularity at T=3); Bond consistency bounds degenerate with `lag_hlo` coefficient ≈ 1.0. Small-T HCI panel (T_eff ≤ 4) is below Bond (2002) minimum (T ≥ 5-10). Static FE remains headline; §3.8 + ADR-0010 acknowledge identification limits transparently. Evidence: `output/tables/model2_identification_triangulation.md`, `output/tables/model2_gmm_diagnostics.csv`.*
 - [~] **LAYS reporting layer** (Learning-Adjusted Years of Schooling, per GEEAP 2023 / Angrist 2024) — Phase 3 Session 01 done: LAYS column verified as `hci_lays_overall` (WB-published from `HD.HCI.LAYS`); coverage = 443 cells in primary window (same as HLO); spot-checked LAYS = EYS × (HLO/625) identity on 5 countries; included in Table 1. Phase 5 Model 5 counterfactual implementation in LAYS units pending. Evidence: `docs/methodology.md §3.4 LAYS subsection`; `output/tables/table1_descriptives.md`.

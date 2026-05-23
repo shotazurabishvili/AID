@@ -134,13 +134,13 @@ Power / minimum-detectable-effect calculations reported per Model-2 coefficient 
 
 **Empirical lock (Phase 6 Session 01, 2026-05-19).** Model 3 estimated via `lme4::lmer` on the locked encoding (Session-03 treatment + Session-05 WGI PC1) with country random intercepts and year fixed effects. **Headline spec 3e on HLO: β=−1.32, SE=2.68, p=0.622, N=173** — Model 3 RE has *collapsed onto Model 1's cross-sectional estimate* (β=−1.36) rather than splitting the difference with Model 2 FE (β=+11.14). This is the empirical signature of an **extreme country-level ICC: 91.2% unconditional** (`performance::icc()`), 79.3% adjusted after controls. The variance-component structure puts essentially all weight on between-country variation, mechanically replicating the OLS estimate. **Manual univariate Cameron-Trivedi Hausman: H=6.67, df=1, p=0.0098 — formally rejects RE in favor of FE.** `plm::phtest` not estimable (Swamy-Arora requires T > 3; HCI cycles give T_eff ≤ 3-4 — same failure as Sessions 14/06). Model 2 FE is the identified specification; Model 3 RE is the transparency counterpart. The brief's Phase-2 reframe is fully validated. Full Model 1/2/3 three-way contrast in `findings.md §5.4` and `output/tables/model123_three_way_contrast.csv`.
 
-### Model 4 — One-way ANOVA on intervention typology
+### Model 4 — Dropped (Phase 7 Session 01, 2026-05-23)
 
-Compares mean 5-year learning gains across four mutually exclusive aid types: infrastructure / teacher training / curriculum-materials / budget support. Coding from CRS project descriptions per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md). Levene's test → Welch's if needed. Tukey HSD post-hoc; η² and Cohen's d for all pairs.
+The brief specifies a one-way ANOVA on a four-bucket intervention typology (infrastructure / teacher training / curriculum-materials / budget support) coded from CRS project descriptions. [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) pre-committed to a binding lock gate — raw agreement ≥ 85 %, Cohen's κ ≥ 0.70, rule-based unclassified < 30 % — between a rule-based classifier and a purpose-code-mapping comparator. `R/61_typology_coding.R` ran on 2026-05-19; all three criteria failed (39.04 %, 0.19, 75.68 % respectively; full evidence at `output/tables/typology_method_agreement.md`). Per the binding protocol the next step was Option 3 (hand-coding ~1000 stratified projects). The author decision (2026-05-23) was to honor the pre-commitment, drop Model 4 rather than escalate, and report the failed gate as evidence rather than an obstacle. The paper's empirical headline reduces to Models 1–3 plus Model 5 (counterfactual). See `findings.md §5.5` and [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected for the full reasoning trail.
 
 ### Model 5 — Counterfactual simulation
 
-Redirect $1B from input-based to outcome-based aid; use effect sizes from Model 4 to project learning gains. Report best/worst/expected case across CI bounds.
+Phase 8 work. **Originally** designed to use Model-4 ANOVA effect sizes for a "redirect $1B from input-based to outcome-based aid" simulation; with Model 4 dropped, Phase 8 Session 01 will lock a redesign — a total-volume / lag-structure / sub-sector counterfactual built from Model 2's within-country β on log(CRS disbursement), translated through the LAYS reporting layer. Best / worst / expected case across CI bounds; explicit limit acknowledgments.
 
 ## 3.9 Missing data strategy
 
@@ -161,9 +161,9 @@ Earlier Phase-1 audit-panel MCAR (Session 09, `output/tables/mcar_test_result.tx
 
 ## 3.10 Intervention typology coding
 
-**Locked decision:** [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) — Pending (Phase 7).
+**Locked decision:** [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) — **Rejected 2026-05-23** (Phase 7 Session 01).
 
-Phase 1 Session 05 ingests CRS *with description text retained*. Phase 7 implements rule-based keyword classification as primary, LLM-assisted classification as robustness comparator.
+Phase 1 Session 05 ingested CRS *with description text retained*. Phase 7 Session 01 ran `R/61_typology_coding.R` against the pre-committed lock gate (raw agreement ≥ 85 %, κ ≥ 0.70, rule-based unclassified < 30 %); all three criteria failed (39.04 %, 0.19, 75.68 % — evidence at `output/tables/typology_method_agreement.md`). The author honored the no-post-hoc-tuning discipline and dropped Model 4 rather than escalate to Option 3 (hand-coding). The CRS description-text columns remain in the interim parquet for raw-data fidelity but no longer feed an active analysis path. The negative result itself is a §6 Discussion point: the four-bucket typology that the development-aid effectiveness literature (Glewwe-Muralidharan 2016) treats as the natural taxonomy is *not recoverable from OECD CRS project metadata at a defensible inter-method agreement* — an empirical limit on what cross-country panel evidence can say about intervention-type allocation.
 
 ## 3.11 Chinese aid inclusion
 

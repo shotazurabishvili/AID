@@ -523,9 +523,25 @@ The pre-Phase-5 "ODA does not predict learning" framing is structurally rejected
 
 > *Sources:* `output/tables/model3_re_specs.{csv,md}`; `output/tables/model3_hausman_test.csv`; `output/tables/model3_icc.csv`; `output/tables/model123_three_way_contrast.{csv,md}`; `output/figures/eda/model3_coefficient_plot.png`; [R/57_model3_re_panel.R](../R/57_model3_re_panel.R); session log: [2026-05-19-20-model3-re-panel.md](session_log/2026-05-19-20-model3-re-panel.md)
 
-### §5.5 Model 4 — ANOVA on intervention typology (Phase 7)
+### §5.5 Model 4 — Dropped: pre-committed typology gate failed (Phase 7 Session 01)
 
-**To be populated.** Per [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md). Levene; Tukey HSD; η²; Cohen's d.
+**The brief's four-bucket intervention typology (infrastructure / teacher training / curriculum-materials / budget support) is not recoverable from OECD CRS project metadata at a defensible inter-method agreement.** Pre-committed lock gate ([ADR-0007](decisions/0007-oecd-crs-intervention-typology.md)) — raw agreement ≥ 85 %, Cohen's κ ≥ 0.70, rule-based unclassified < 30 % — failed on all three criteria when `R/61_typology_coding.R` ran on 2026-05-19 against the 537,586-project CRS extract:
+
+| Criterion | Observed | Required | Verdict |
+|---|---|---|---|
+| Raw agreement (joint subsample, N = 130,737) | **39.04 %** | ≥ 85 % | FAIL |
+| Cohen's κ (rule-based vs purpose-code-bucket) | **0.19** | ≥ 0.70 | FAIL |
+| Rule-based unclassified | **75.68 %** | < 30 % | FAIL |
+
+The failure has two distinct signatures. The rule cascade (49 keyword patterns across 4 buckets) leaves three-quarters of education-sector projects unmatched — the lexical breadth of CRS descriptions exceeds what a regex cascade can cover without iterative tuning. The purpose-code-to-bucket mapping puts 82.7 % of projects in `budget_support` while the rule-based classifier puts 4.2 % there — the two methods are measuring different constructs, not the same construct with noise.
+
+Per the pre-committed protocol the escalation path was Option 3 (hand-code ~1000 stratified projects, train a TF-IDF + logistic-regression production classifier). Author researcher-grade decision (2026-05-23): **drop Model 4 rather than escalate.** Iterating the rules, replacing the comparator, or spending two weeks of hand-coding would all either burn resources on an axis whose CRS-extractability is unproven or break the no-post-hoc-tuning discipline that ADR-0007 was written to enforce. The failed gate is reported as evidence: a pre-committed protocol catching an unfeasible design is the gate working as designed.
+
+**Substantive implication for §6.** The development-aid effectiveness literature (Glewwe & Muralidharan 2016; Vegas & Coffin 2015) treats the input-intensive vs pedagogically-targeted distinction as load-bearing for policy. Our finding is that this distinction is *not extractable* from OECD CRS at country-year resolution without a substantial hand-coding investment — an empirical limit on what cross-country aid-effectiveness panel work can credibly say about composition. §6 owns this as a methodological contribution rather than burying it: the four-bucket question is real, the data shape does not currently support answering it at panel scale, and the field's reliance on aid-amount regressions reflects a measurement constraint as much as a theoretical preference.
+
+**Model 5 (Phase 8) redesign required.** The brief's Model 5 counterfactual ("redirect $1B from input-based to outcome-based aid") was specified to use Model-4 effect sizes. Phase 8 Session 01 will lock a redesigned counterfactual built from Model 2's within-country β on log(CRS disbursement) and the LAYS reporting layer, framed as a total-volume / lag-structure / sub-sector counterfactual rather than a four-bucket reallocation.
+
+> *Sources:* `output/tables/typology_method_agreement.{csv,md}`; `output/tables/typology_country_dominant.csv`; `output/tables/typology_country_shares.csv`; `output/tables/typology_bucket_distribution.csv`; `data/interim/oecd_crs_typology.parquet` (537,586 rows × 14 cols); `data/interim/typology_country_year.parquet` (29,387 rows); [`R/61_typology_coding.R`](../R/61_typology_coding.R); [ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected; session log: [2026-05-23-21-model4-dropped.md](session_log/2026-05-23-21-model4-dropped.md).
 
 ### §5.6 Model 5 — Counterfactual simulation (Phase 8)
 

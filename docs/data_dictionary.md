@@ -151,7 +151,9 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 
 38 columns; **537,586 rows** (project-level); 172 recipient countries × 125 donor identities; years 1995–2024. Bulk parquet release **CRS-Parquet-v20260408** fetched via dynamic SDMX file-ID discovery (see `R/10_ingest_oecd_crs.R` header for the SDMX endpoint + marker regex). Schema is the legacy **CRS dotStat format**: commitments and disbursements are SEPARATE wide columns (NOT long-format rows on a measure dimension).
 
-**Sector filter at ingest:** `sector_code %in% c(110, 111, 112, 113, 114)` (education sector group). 5-digit `purpose_code` retained for Phase-7 typology granularity. 10.6% of pre-filter rows were on regional/unspecified aggregates (logged in `output/logs/iso3_unresolved_oecd_crs.csv`) and dropped from the country panel.
+**Sector filter at ingest:** `sector_code %in% c(110, 111, 112, 113, 114)` (education sector group). 5-digit `purpose_code` retained (originally for Phase-7 typology granularity; see ADR-0007 note below). 10.6% of pre-filter rows were on regional/unspecified aggregates (logged in `output/logs/iso3_unresolved_oecd_crs.csv`) and dropped from the country panel.
+
+**ADR-0007 note (2026-05-23):** the four description-text columns marked *ADR-0007 typology source* below were ingested specifically to feed Phase-7 typology coding. That coding was attempted on 2026-05-19, failed the pre-committed lock gate, and Model 4 was dropped on 2026-05-23 ([ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected; see `findings.md §5.5`). The columns are retained on disk for raw-data fidelity and reproducibility-package completeness but **no longer feed an active analysis path**. Two derived artifacts (`data/interim/oecd_crs_typology.parquet`, `data/interim/typology_country_year.parquet`) are kept as negative-evidence artifacts.
 
 **Resolution note:** project-level rows. Aggregation to ISO3 × year (sum across donors per recipient; 3-year MA per ADR-0005) happens in `R/30_merge_panel.R` at Phase 2. Do not aggregate in ingest.
 
