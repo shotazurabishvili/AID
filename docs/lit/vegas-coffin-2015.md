@@ -11,7 +11,7 @@ The relationship between **education spending and learning outcomes** is conditi
 - Tests for diminishing returns
 
 ## Our engagement
-**Directly relevant to our control structure and the spending threshold question.** Cited in §2 (Lit Review) and §5 (Discussion). Their conditional elasticity supports our argument that **input volumes matter less than how inputs are used** — which our Model 4 (intervention typology) operationalizes.
+**Directly relevant to our control structure and the spending threshold question.** Cited in §2 (Lit Review) and §5 (Discussion). Their conditional elasticity supports our argument that **input volumes matter less than how inputs are used** — a claim Model 4 was originally designed to operationalize via a four-bucket intervention-type ANOVA. **Model 4 was dropped on 2026-05-23** ([ADR-0007](../decisions/0007-oecd-crs-intervention-typology.md) Rejected; pre-committed CRS-coding gate failed). Vegas-Coffin's conditional-elasticity finding now carries the "how inputs are used" argument in §6 Discussion as theoretical scaffolding rather than as a quantitative prediction we test in this paper.
 
 ## Key claims to engage or cite
 - Cumulative per-student spending has a threshold beyond which additional spending does not raise learning

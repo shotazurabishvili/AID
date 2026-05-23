@@ -1,0 +1,48 @@
+priority,bucket,pattern,notes
+1,teacher_training,\bteacher[s]?\b,Most specific intervention claim wins per ADR-0007 cascade
+1,teacher_training,training of educator,
+1,teacher_training,professional development,
+1,teacher_training,\bin[- ]service training\b,
+1,teacher_training,\bpre[- ]service training\b,
+1,teacher_training,pedagogical,
+1,teacher_training,teacher quality,
+1,teacher_training,teacher effectiveness,
+1,teacher_training,headmaster training,
+1,teacher_training,principal training,
+2,curriculum,\bcurricul(um|ar)\b,Curriculum reform / content / assessment systems
+2,curriculum,syllabus,
+2,curriculum,learning standards,
+2,curriculum,learning assessment,
+2,curriculum,educational assessment,
+2,curriculum,\bEMIS\b,Education Management Information Systems
+2,curriculum,education management information,
+2,curriculum,learning content,
+2,curriculum,pedagogy reform,
+2,curriculum,educational research,
+3,infrastructure,\bconstruct(ion|ing)?\b,Physical capital
+3,infrastructure,\bbuild(ing|ings)?\b,
+3,infrastructure,\bclassroom[s]?\b,
+3,infrastructure,school building,
+3,infrastructure,\bfacility|facilities\b,
+3,infrastructure,\binfrastructure\b,
+3,infrastructure,\bequipment\b,
+3,infrastructure,\btextbook[s]?\b,Default: bulk distribution (development = curriculum is rule-based blind spot)
+3,infrastructure,materials supplied,
+3,infrastructure,materials supplies,
+3,infrastructure,school feeding,
+3,infrastructure,school meal,
+3,infrastructure,rehabilitation,Physical school rehab
+3,infrastructure,furniture,
+3,infrastructure,\bdesk[s]?\b,
+4,budget_support,\bpolicy\b,Catch-all for sector / policy / general support
+4,budget_support,policies,
+4,budget_support,budget support,
+4,budget_support,sector[- ]wide,
+4,budget_support,\bSWAp\b,Sector-wide approach
+4,budget_support,general education,
+4,budget_support,administrative management,
+4,budget_support,education administration,
+4,budget_support,recurrent expenditure,
+4,budget_support,salary support,
+4,budget_support,ministry of education,
+4,budget_support,governance of education,

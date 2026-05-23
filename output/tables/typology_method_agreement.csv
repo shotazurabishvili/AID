@@ -1,0 +1,10 @@
+metric,value
+Raw agreement (joint-classified subsample),0.3904
+Cohen's kappa,0.1902
+Joint subsample N,130737
+Total CRS rows,537586
+Rule-based unclassified %,75.68%
+Lock criterion ≥85% met,FAIL
+Lock criterion κ≥0.70 met,FAIL
+Lock criterion unclassified<30% met,FAIL
+Overall lock outcome,ESCALATE

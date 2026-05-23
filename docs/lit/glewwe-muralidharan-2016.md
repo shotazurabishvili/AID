@@ -11,7 +11,7 @@ Comprehensive review of what works in education in developing countries. Effecti
 - Meta-analysis where data permits
 
 ## Our engagement
-**Critical evidence base for our ANOVA on intervention typology (Model 4).** Cited in §2 (Lit Review) and §5 (Discussion). Our intervention typology (infrastructure / teacher training / curriculum / budget support) maps loosely to their effectiveness categorization. We expect Model 4 to find the **input-intensive categories underperform pedagogically targeted ones** — consistent with Glewwe-Muralidharan.
+**Reframed 2026-05-23 (Model 4 dropped per [ADR-0007](../decisions/0007-oecd-crs-intervention-typology.md) Rejected).** Originally cited as the theoretical scaffold for our four-bucket ANOVA on intervention typology. With Model 4 dropped — the pre-committed CRS-coding gate failed and the four-bucket distinction is not recoverable from OECD CRS metadata at acceptable agreement — Glewwe-Muralidharan now serves a **different role in the paper**: it grounds the §6 Discussion point that the input-intensive vs pedagogically-targeted distinction is load-bearing for policy *but cannot be tested at country-year panel scale with the available data*. Cited in §2 (Lit Review) as background on what works in education, and in §6 as the theoretical motivation for why our negative typology-coding result (`findings.md §5.5`) matters — the question we cannot answer is the question the field cares about.
 
 ## Key claims to engage or cite
 - Spending on general school inputs (infrastructure, teacher salaries) often does not move learning
