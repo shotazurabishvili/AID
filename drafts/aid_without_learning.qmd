@@ -127,16 +127,136 @@ EVIDENCE TRACE — §2.3 ¶3:
 
 # 3. Data & Methodology
 
+## 3.1 Data sources and panel construction
+
+The analytical panel is a balanced 133-country × 11-year (2010–2020) dataset assembled from ten administrative and harmonized-research sources. The country universe is the set of recipient countries that received any positive OECD CRS commitment between 1995 and 2024 *and* recorded at least one Human Capital Index Harmonized Learning Outcomes (HLO) observation in the period; 127 of the 133 carry the ≥2 HLO cycles required for within-country slope identification in Model 2. The 2010–2020 primary window is HCI-cycle-anchored — HLO is observed only in 2010, 2017, 2018, and 2020 — so wider windows (2000–2022 and 2005–2020) yield mechanically identical Model-2 samples; both are reported as referee-resistant robustness alongside the primary. COVID-affected years (2020–2022) are handled with a time-varying school-closure control derived from the UNESCO HDX daily-status time series; a parallel robustness drops 2020+ entirely.
+
 <!--
-Phase 11 Session 03 target. ~2,000 words. Three components:
+EVIDENCE TRACE — §3.1 ¶1 (universe + period):
+- ADR-0002 N=133 / Model-2 FE on 127 → docs/methodology.md §3.2 (lines 21-25)
+- ADR-0003 windows-identical per Session-09 audit → docs/methodology.md §3.3 (lines 27-31); output/tables/year_range_viability.csv
+- COVID-closure control variable → docs/methodology.md §3.7
+- Hedge level: N/A (all source claims trace directly to project-internal authored methodology.md)
+-->
 
-(a) Data sources + panel construction. Source: docs/methodology.md §3.1–§3.7 + §3.10–§3.13. Carve into ~1,000 words.
+The outcome variable is the World Bank Human Capital Index Harmonized Test Scores (`HD.HCI.HLOS`), fetched via the WDI API and stored as `hlo_score` (scale roughly 300–625, anchored on PIRLS/TIMSS primary benchmarks at 400/475/625). The principal robustness measure is the Altinok, Angrist and Patrinos [-@altinok2018global] *Global Data Set on Education Quality (1965–2015)* — a parallel harmonization stored as `aap_hlo_aap` and fetched from the OWID `owid-datasets` GitHub mirror at a frozen commit hash. ADR-0004 commits the paper to verifying sign-agreement on the within-country coefficient across the two measures as a precondition for the headline claim; §4.7 reports the measure-sensitivity finding from that test. The Sandefur [-@sandefur2018internationally] critique that anchor-equating between testing regimes (PISA, TIMSS, SACMEQ, PASEC) produces score-equivalence claims that may not hold in practice — particularly for sub-Saharan African countries that anchor through small overlapping samples — is engaged head-on in two places: the within-country fixed-effects specification (Model 2) absorbs any time-invariant cross-country level miscalibration in the harmonization, and the AAP-2018 alternative serves as the published-measure check against measurement-choice fragility. Learning-Adjusted Years of Schooling (`hci_lays_overall`, computed by the World Bank as $\text{LAYS} = \text{EYS} \times (\text{HLO}/625)$) is reported as a parallel outcome to put the paper's findings in the unit Angrist [-@angrist2024lays] and the GEEAP [-@geeap2023smart] cost-effectiveness benchmarks use.
 
-(b) Pre-commitment design. The ADR architecture (now 12 ADRs, one Rejected, two amended); brief's Three-Pass Protocol; obligations.md as the running audit list. New prose; ~500 words. This is the methodological contribution the paper foregrounds in path-c framing.
+<!--
+EVIDENCE TRACE — §3.1 ¶2 (outcome variable HLO):
+- WB HCI HLOS primary + AAP-2018 robustness → docs/methodology.md §3.4 (lines 35-45); ADR-0004
+- Sandefur 2018 critique + within-FE defense → docs/methodology.md §3.4 lines 41-43; docs/lit/sandefur-2018.md (READ primary)
+- LAYS layer → docs/methodology.md §3.4 line 45; ADR-0011 connection
+- §4.7 measure-sensitivity forward-reference → docs/methodology.md §3.4.1 (Phase-10 addition); findings.md §5.8
+- Hedge level: LOW for Sandefur (primary READ); LOW for LAYS / AAP / WB HCI (project-internal documentation)
+-->
 
-(c) Positionality statement. Source: docs/positionality.md (stub; awaits author specifics about years, regions, role). Frame as methodological asset per brief lines 231–234. ~300 words once author input provided.
+The treatment variable is OECD DAC Creditor Reporting System (CRS) disbursements to education (sector codes 110/111/112/113/114), constant USD with the DAC deflator, and a three-year strictly-past moving average (mean of *t*−3, *t*−2, *t*−1). ADR-0005 locks this construction — `crs_disburse_usd_defl_ma3_lag1` — from a 16-cell sensitivity surface that tests commitment-vs-disbursement, current-vs-constant USD, and four lag/MA combinations. All sixteen cells produce a non-negative within-country coefficient on HLO; the strictly-past MA is chosen as primary because it forecloses contemporaneous donor response to within-year learning shocks. The raw OECD CRS extract is a 537,586-row project-level parquet (release CRS-Parquet-v20260408) fetched via the OECD's SDMX endpoint; aggregation to the (iso3, year) panel happens in `R/30_merge_panel.R` at Phase 2. NA cells within the ODA-eligible universe are coalesced to zero before MA computation, on the rationale that ODA-eligible recipients with no recorded CRS project in year *t* received zero dollars that year, not "data missing". AidData's Global Chinese Development Finance v3.0 (GCDF; ADR-0008) is ingested in parallel for the non-DAC blind-spot robustness reported in Appendix B.
 
-(d) Pass 1 sign-off + audit summary. Source: output/pass1_statistical_validity_audit.md + docs/obligations.md. ~200 words.
+<!--
+EVIDENCE TRACE — §3.1 ¶3 (treatment ODA):
+- 16-cell sensitivity surface + strictly-past MA choice → docs/methodology.md §3.5 lines 62-66; ADR-0005
+- 537K row CRS extract + ingest pipeline → docs/methodology.md §3.5 lines 68; data/interim/oecd_crs.parquet
+- NA→0 coalesce → docs/methodology.md §3.5 line 70; R/30_merge_panel.R header
+- GCDF + ADR-0008 → docs/methodology.md §3.11
+- Hedge level: LOW (project-internal documentation; locked decisions)
+-->
+
+Macro and sector controls (WDI: GDP per capita in constant USD; pupil-teacher ratio at primary level; education expenditure as percent of GDP) are fetched via the `WDI` R package. Governance controls use the native Worldwide Governance Indicators bundle from `info.worldbank.org/governance/wgi/` — not the WDI mirror — to retain the per-source count needed to engage Langbein and Knack's [-@langbein2010governance] critique that the six WGI dimensions collapse to a single latent factor and the published aggregates over-state their independence. ADR-0009 locks the operationalization as the PCA-collapsed first principal component (`wgi_pc1`), computed via `prcomp(scale. = TRUE)` on the six WGI estimate columns and sign-flipped to align with the positive governance-quality direction. Empirically, PC1 captures 76.4 % of WGI variance with all six loadings positive in the 0.35–0.45 band; the all-six specification shows none of the six dimensions individually significant despite joint significance, confirming the Langbein-Knack aggregation critique on this sample. ADR-0006 drops UNESCO Institute for Statistics (UIS) variables from the primary specification because the private-expenditure share is 91.8 % missing in sub-Saharan Africa (vs 80.3 % in the rest of the world); a UIS-augmented listwise robustness is reported in Appendix B. The enrollment and out-of-school indicators flowing through WDI and UIS ultimately rest on country-side reporting to UNESCO's annual education survey; ministries face well-documented incentives to over-report enrollment and under-report out-of-school children during MDG and SDG-4 monitoring cycles, and the paper treats these variables as suggestive rather than authoritative measures of schooling participation. The §5 limits paragraph owns this measurement caveat directly.
+
+<!--
+EVIDENCE TRACE — §3.1 ¶4 (controls):
+- WDI macro + sector controls → docs/methodology.md §3.6 lines 74-77
+- WGI PC1 via Langbein-Knack engagement → docs/methodology.md §3.6 lines 81-85; ADR-0009; docs/lit/langbein-knack-2010.md (engaged through ADR-0009 empirical confirmation)
+- UIS dropped per ADR-0006 + 91.8% SSA missingness → docs/methodology.md §3.6 lines 89-98
+- UNESCO self-reporting bias paragraph → docs/methodology.md §3.6 line 79 (Phase-10 addition)
+- Hedge level: LOW for ADR-locked claims; MEDIUM for the UNESCO self-reporting bias paragraph (qualitative claim referencing Sandefur 2022 secondary; lit-note not yet created)
+-->
+
+Two confounder sources control for time-varying disruption. The Uppsala Conflict Data Program / PRIO Armed Conflict Dataset (v25.1 + Battle-Related Deaths v25.1) provides a binary `in_conflict` indicator and intensity counts, aggregated to country-year from the original conflict-level data; 12.3 % of country-year cells in the panel show active conflict, with the expected sub-Saharan over-representation (25.3 % SSA vs 9.2 % rest-of-world). The UNESCO COVID-19 School Closures dataset gives `days_closed` per country-year for 2020–2022, derived transparently from the daily status time series rather than from UNESCO's pre-aggregated figures; cross-validation against the pre-aggregated source agrees at median |diff| = 2 days. Both confounders enter Model 2 as time-varying controls and are documented at variable-level in Appendix C.
+
+<!--
+EVIDENCE TRACE — §3.1 ¶5 (confounders):
+- UCDP v25.1 + BRD v25.1 + 12.3% conflict rate + SSA over-rep → docs/methodology.md §3.7 (line 107)
+- UNESCO COVID closures + transparent daily-status counts → docs/methodology.md §3.7 (line 109)
+- Hedge level: LOW (project-internal documentation; ingestion already executed in Phase 1 Session 07)
+-->
+
+## 3.2 Pre-commitment design
+
+The path-c framing the paper foregrounds rests on a design choice the cross-country aid-effectiveness literature has not historically made: every consequential analytical decision is locked in writing in an Architecture Decision Record (ADR) *before* the analysis whose result the decision would influence runs. Twelve ADRs have been written over the project's eleven-month lifespan, and they form the spine of the methodological audit trail Pass 1 verified at Phase 10. The roster: ADR-0001 (toolchain — R + renv + a CLAUDE.md + per-session-log + ADR-continuity model); ADR-0002 (country universe, locked as ODA-eligible ∩ ≥1 HLO observation, N = 133); ADR-0003 (year window, locked as 2010–2020 primary with 2000–2022 / 2005–2020 robustness mechanically identical per the Session-09 viability audit); ADR-0004 (HLO measure choice, locked as WB HCI HLOS primary with AAP-2018 robustness *and a pre-specified sign-agreement gate*); ADR-0005 (treatment construction, locked as strictly-past 3-year MA of constant-USD disbursements after a 16-cell sensitivity grid); ADR-0006 (UIS missingness strategy, locked as drop-from-primary after a Little MCAR test rejected at p ≪ 10⁻⁶); ADR-0007 (CRS intervention typology, **Rejected** because the pre-committed inter-method agreement gate failed on all three criteria — the protocol caught an unfeasible design before it produced defensible-looking but fragile results); ADR-0008 (Chinese-aid robustness, AidData GCDF reported alongside OECD CRS); ADR-0009 (WGI operationalization, PCA-collapsed PC1 primary with Langbein-Knack engagement); ADR-0010 (identification limit, static FE remains headline because System GMM failed Hansen overid at p = 0.022 and the small-T HCI-cycle panel is below the Bond 2002 minimum of T ≥ 5–10); ADR-0011 (Model 5 counterfactual specification, within-support % shocks on the locked aggregate β with plug-in CI propagation); and ADR-0012 (retirement of the UIS multiple-imputation sub-commitment of ADR-0006, because MCAR-rejection makes the MI MAR assumption empirically indefensible). The ADR architecture is not paperwork — it is the operational frame for treating every potentially-arbitrary methodological choice as a falsifiable gate the data must clear.
+
+<!--
+EVIDENCE TRACE — §3.2 ¶1 (ADR architecture):
+- All 12 ADRs and one-line summaries → docs/decisions/INDEX.md table rows (verified verbatim Phase-1 audit)
+- ADR-0007 Rejected as exemplar of the gate-catching-an-unfeasible-design pattern → docs/decisions/0007-oecd-crs-intervention-typology.md
+- ADR-0004 sign-agreement gate → docs/decisions/0004-hlo-measure.md "Data observed (Phase 10)" block
+- ADR-0012 UIS-MI retirement rationale → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
+- Hedge level: LOW (all ADRs are project-authored; INDEX.md is the canonical roster)
+-->
+
+A second pre-commitment layer wraps the ADR discipline: the brief's Three-Pass Self-Review Protocol. Pass 1 (Statistical Validity) requires running every diagnostic committed to in the project's `obligations.md` before any manuscript writing begins; results are documented privately, and the paper does not proceed until the audit is complete. Pass 2 (Argumentative Coherence) is read-only on Abstract → Introduction → Discussion → Conclusion after the full draft exists, with the question *does the argument hold without the numbers?* Pass 3 (Adversarial Read) follows a deliberate 48-hour gap from the final draft and asks the author to read as a skeptical *World Development* referee, marking every sentence the form *"claim X but did not demonstrate X"* for repair or reframe. Pass 1 closed at Phase 10 as a *qualified pass*: every Statistical-Layer diagnostic is run or documented as not-feasible at our T (the small-T limit forecloses the Dumitrescu-Hurlin panel Granger test by the same data-shape constraint that limits the GMM exercise per ADR-0010), and the principal HLO measure-sensitivity check produced a sign-flip the manuscript now adapts to throughout. Passes 2 and 3 are scheduled for Phases 12 and 13.
+
+<!--
+EVIDENCE TRACE — §3.2 ¶2 (Three-Pass Protocol):
+- Three-Pass Protocol verbatim → docs/brief.md lines 212-227 (Pass 1 / Pass 2 / Pass 3 specifications)
+- Pass 1 closed as qualified pass → output/pass1_statistical_validity_audit.md §6 sign-off
+- Granger not-feasible-at-our-T linked to ADR-0010 → docs/obligations.md (Granger row updated Phase 10)
+- Hedge level: LOW (brief is project-authored; Pass 1 audit doc is project-authored)
+-->
+
+The third layer of the pre-commitment design is `obligations.md` — the project's running ledger of every diagnostic test, robustness specification, and reproducibility commitment the manuscript makes. Each item names the obligation, the phase committed to running it, the evidence pointer when complete, and an explicit status marker (`[x]` complete; `[~]` partial; `[N/A]` documented as not-applicable; struck-through with rationale for items withdrawn via an ADR amendment). Twenty-four obligations are checked complete; two are withdrawn per ADR-0007's Rejected status; two are scope-resolved by the Phase-2 reframe of the original 3-level HLM specification to the operative 2-level country-RE + year-FE form; the Granger test is documented as not feasible at our T; Pass 2 / Pass 3 / OSF deposit / `renv::restore` reproducibility checks are deferred to Phases 12, 13, and 14 with documentation. The collective discipline is straightforward: every claim the manuscript makes is traceable to a committed-in-advance diagnostic with documented status, and every methodological choice is locked in an ADR before the result that depends on it is generated.
+
+<!--
+EVIDENCE TRACE — §3.2 ¶3 (obligations spine):
+- 24 checked / 2 withdrawn / 2 scope-resolved + Granger not-feasible + deferred items → docs/obligations.md status sweep (Phase 10 updated)
+- Hedge level: LOW (obligations.md is project-authored audit document)
+-->
+
+## 3.3 Positionality
+
+<!--
+PLACEHOLDER — Phase 11 Session 03 (2026-05-23). The author's biographical
+specifics are needed to complete this section. Four items per
+docs/positionality.md "Specifics to fill in before submission":
+
+(a) Exact years and roles in the education sector.
+(b) Countries / regions of direct field experience.
+(c) Type of donor / implementer relationship (multilateral, bilateral,
+    INGO, national government).
+(d) One or two concrete examples of reporting-bias incentive mismatches
+    the author has observed first-hand — used in §5 Discussion to ground
+    the abstract claims about reporting bias (especially §3.1 ¶4's
+    UNESCO self-reporting caveat).
+
+When (a)-(d) are provided, the prose target is ~300 words framing
+positionality as a methodological asset per brief lines 231-234, not as
+apology. The draft will follow docs/positionality.md "What the
+positionality statement should accomplish" structure (lines 21-26):
+establish epistemic authority, pre-empt advocacy-dressed-as-research
+critique, justify methodological choices (especially the skepticism
+toward enrollment-based metrics, the WGI critique, and the disbursement-
+over-commitment ODA measure), avoid apology.
+
+DO NOT DRAFT WITHOUT AUTHOR INPUT — fabricating biographical specifics
+is exactly the kind of hallucination the user warned against in Phase 11
+Session 02 ("ensure not hallucinating and real, evidence-based work").
+-->
+
+*Positionality statement to be drafted upon author input. See `docs/positionality.md` for the four specifics needed (years, regions, donor/implementer relationship type, two concrete reporting-bias examples). Approximate length when drafted: 300 words. Framing principle per the project brief: positionality is a methodological asset that grounds the qualitative interpretation of model findings, not an apology for the author's institutional embeddedness.*
+
+## 3.4 Pass 1 statistical-validity sign-off
+
+Pass 1 closed as a *qualified pass* at Phase 10 Session 01. Every diagnostic in the brief's Statistical Layer is either executed and passed (eight of ten Model Diagnostics; the relevant Data Integrity items), withdrawn per a documented ADR (the two ANOVA diagnostics now obsolete under ADR-0007 Rejected), passed on documented scope-resolution (the original brief's three-level multilevel-ICC and HLM-convergence items, reframed to country-level-only when the 3-level student-school-country specification was deferred for lack of PISA/TIMSS/PIRLS micro-data), deferred to a later pass with explicit documentation (the causal-language audit to Pass 2 at Phase 12; reproducibility checks to Phase 14), or documented as not feasible at the project's effective time-series length (the Dumitrescu-Hurlin panel Granger test, which requires T > 5 + 3·order = 8 per country and is therefore not estimable on the HCI-cycle panel — the same small-T limit that constrained the System GMM exercise per ADR-0010).
+
+The substantive Pass 1 finding is not the obligations-bookkeeping completion. It is the failed HLO measure-sensitivity check: the principal robustness committed in ADR-0004 — refit Model 2's headline specification on the AAP-2018 alternative outcome and verify sign agreement with the World Bank HCI HLOS specification — produced a sign-flip on both the full AAP coverage (β = −16.67, p = 0.009) and the overlap window restricted to year ≥ 2010 (β = −3.94, p = 0.66). The overlap-window null rules out sample-window composition as the sole driver; the harmonized-measure choice itself materially shapes the headline. ADR-0004 carries the "Data observed (Phase 10 Session 01)" block documenting the failure; the manuscript adapts via the hedge route — the within-country positive headline is reported throughout the paper with explicit measure-qualification ("*in the WB HCI HLOS specification on the 2010–2020 panel*") rather than naked attribution. §4.7 reports the sensitivity numbers; §5 frames the measure-fragility as itself a methodological contribution to the cross-country aid-learning literature, alongside the Model 4 drop (§4.4 / ADR-0007 Rejected) and the UIS multiple-imputation retirement (§4.7 / ADR-0012).
+
+<!--
+EVIDENCE TRACE — §3.4 ¶1 + ¶2 (Pass 1 sign-off):
+- Verbatim carving + condensation from output/pass1_statistical_validity_audit.md §6 sign-off (lines 76-89)
+- AAP sign-flip numbers → output/tables/pass1_hlo_sensitivity.csv; findings.md §5.8; ADR-0004 Phase-10 block
+- Granger not-feasible-at-our-T linkage to ADR-0010 → output/pass1_statistical_validity_audit.md §1 row 3
+- 3-level → 2-level scope-resolution → docs/methodology.md §3.8 Phase-10 paragraph
+- Hedge level: LOW (all source artifacts are project-authored and verified at Phase 10)
 -->
 
 # 4. Results
