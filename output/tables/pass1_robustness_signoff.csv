@@ -1,0 +1,5 @@
+spec,source,N,beta_ODA,se_ODA,p_ODA,passes
+Primary (locked Model 2 spec 2e),output/tables/model2_fe_baseline_v2.csv,143,11.136,5.518,NA,(reference)
+"Granger pre-test (DH Z-tilde, order=1)",pass1_granger_test.csv,133,NA,NA,NA,Granger non-rejection at small T (uninformative)
+HLO sensitivity (AAP-2018),pass1_hlo_sensitivity.csv,69,-16.6732,5.9648,0.0094,INVESTIGATE
+UIS-augmented listwise (ADR-0006 Rob 1),pass1_uis_listwise.csv,41,-1.9666,4.3952,0.6602,INVESTIGATE

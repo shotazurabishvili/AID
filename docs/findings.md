@@ -586,6 +586,27 @@ LAYS reported at median implied EYS (11.57 yr); fan over p10 (7.25 yr) / p50 / p
 
 > *Sources:* `output/tables/compound_ai_penalty_quadrant.{csv,md}`; `output/tables/compound_ai_penalty_bottom20.{csv,md}`; `output/tables/compound_ai_penalty_ssa_crosstab.{csv,md}`; `output/tables/compound_ai_penalty_robustness.{csv,md}`; `output/figures/compound_ai_penalty_scatter.{pdf,png}`; [R/71_compounding_ai_penalty.R](../R/71_compounding_ai_penalty.R); [methodology.md §3.12 Phase-9 implementation](methodology.md); [Oxford Insights lit note](lit/oxford-insights-2026.md); session log: [2026-05-23-23-compounding-ai-penalty.md](session_log/2026-05-23-23-compounding-ai-penalty.md).
 
+### §5.8 Pass 1 robustness battery — HLO measure sensitivity fails sign-agreement; UIS-augmented weakly robust; Granger not feasible (Phase 10 Session 01, 2026-05-23)
+
+**The within-country positive ODA coefficient is real in the WB HCI HLOS specification but does not carry across to the AAP-2018 alternative measure.** Phase 10 Pass 1 executed the three sensitivity / diagnostic checks committed in the brief's Statistical Layer + ADR-0004's principal-robustness commitment + ADR-0006's Robustness 1:
+
+| Spec | Outcome | Sample | N | β_ODA | SE | p | Verdict |
+|---|---|---|---|---|---|---|---|
+| **Primary (locked)** | hlo_hlo_score | 2010–2020 | 143 | **+11.14** | 5.52 | ~0.05 | (reference) |
+| HLO sensitivity — AAP full | aap_hlo_aap | 1995–2015 | 69 | **−16.67** | 5.96 | **0.009** | **Sign-flip; outside primary's CI** |
+| HLO sensitivity — AAP overlap | aap_hlo_aap | year ≥ 2010 | 36 | **−3.94** | 8.68 | 0.66 | Sign-flip on overlap window too; null |
+| UIS-augmented listwise (ADR-0006 R1) | hlo_hlo_score | 2010–2020 | 41 | **−1.97** | 4.40 | > 0.05 | Sign-flip; CIs overlap (primary [0.32, 21.95]; listwise [−10.59, 6.66]) |
+
+**HLO measure sensitivity fails the ADR-0004 principal-robustness criterion.** Methodology §3.4 committed: *"the within-country coefficient must be the same sign and within-CI magnitude across the primary and AAP-2018 specifications for the headline claim to stand."* Sign agreement fails on both the full AAP coverage (1995–2015, p=0.009 negative) and the overlap-window restriction (year ≥ 2010, null). The overlap-window result is decisive: sample-window composition is *not* the sole driver — the HLO measure choice itself materially shapes the estimate. This is a **measure-fragility finding**, written up in methodology §3.4.1 and the ADR-0004 "Data observed (Phase 10)" block. The manuscript adapts by hedging the headline claim throughout: *"in the WB HCI HLOS specification on the 2010–2020 panel"* rather than naked *"ODA positively predicts learning"*. The §6 Discussion frames this as itself a methodological contribution to the cross-country aid-learning literature — *the measure choice changes the empirical answer*, which has not been quantified at this scale in prior work to our knowledge.
+
+**UIS-augmented listwise (ADR-0006 Robustness 1)** sign-flips but is non-significant on a thin N = 41 (post-singleton) sample; CIs partially overlap (any β in [0.32, 6.66] is consistent with both). This is *weak robustness*: not a contradiction, not a confirmation. The UIS-MI Robustness 2 sub-commitment was retired by [ADR-0012](decisions/0012-retirement-of-uis-multiple-imputation.md) (MCAR rejected → MAR assumption unsupported; CLAUDE.md no-fabrication principle conflict; listwise covers the same robustness direction). The manuscript reports both primary and listwise honestly without claiming strong UIS-robustness.
+
+**Granger pre-test not feasible.** The Dumitrescu-Hurlin (2012) panel Granger test requires T > 5+3·order = 8 per country for the Z-tilde variant; our HCI-cycle panel provides T_eff ≤ 4. The test does not run on this data. This is the same small-T identification limit acknowledged in [ADR-0010](decisions/0010-identification-strategy-gmm.md) (GMM unavailable for the same reason). The §6 limits paragraph carries this forward as part of the static-FE-on-small-T story rather than relying on Granger pre-tests to defend the causal direction.
+
+**Reading.** Pass 1 closes as a **qualified pass**: the brief's diagnostic Statistical-Layer checks are run or documented as not-feasible-at-our-T; the *implications* for the headline are non-trivial and force a hedge of the manuscript's central within-country claim. The paper proceeds to Phase 11 with the hedge built in throughout — methodology §3.4.1, ADR-0004 "Data observed" block, this §5.8 entry, and the audit doc `output/pass1_statistical_validity_audit.md` together carry the discipline forward into drafting.
+
+> *Sources:* `output/tables/pass1_granger_test.{csv,md}`; `output/tables/pass1_hlo_sensitivity.{csv,md}`; `output/tables/pass1_uis_listwise.{csv,md}`; `output/tables/pass1_robustness_signoff.{csv,md}`; `output/pass1_statistical_validity_audit.md`; [R/72_pass1_robustness_battery.R](../R/72_pass1_robustness_battery.R); [ADR-0012](decisions/0012-retirement-of-uis-multiple-imputation.md) (new); [ADR-0004 Phase-10 update](decisions/0004-hlo-measure.md); methodology §3.4.1 + §3.6 + §3.8 + §3.9 (Phase-10 updates); session log: [2026-05-23-24-pass1-statistical-validity.md](session_log/2026-05-23-24-pass1-statistical-validity.md).
+
 ---
 
 ## §6 Discussion candidates

@@ -1,0 +1,4 @@
+spec,outcome,N,beta,se,p_value
+"Primary (WB HD.HCI.HLOS, 2010-2020)",hlo_hlo_score,143,11.136,5.518,NA
+AAP-2018 full coverage (1995-2015),aap_hlo_aap,69,-16.6732,5.9648,0.0094
+AAP-2018 overlap window (year >= 2010),aap_hlo_aap,36,-3.941,8.6821,0.6556

@@ -1,1 +1,1 @@
-2026-05-23-23-compounding-ai-penalty.md
+2026-05-23-24-pass1-statistical-validity.md
