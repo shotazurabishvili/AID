@@ -1,1 +1,1 @@
-2026-05-23-22-model5-counterfactual.md
+2026-05-23-23-compounding-ai-penalty.md

@@ -563,6 +563,29 @@ LAYS reported at median implied EYS (11.57 yr); fan over p10 (7.25 yr) / p50 / p
 
 > *Sources:* `output/tables/model5_counterfactual.{csv,md}`; `output/tables/model5_baseline_quartile_sensitivity.{csv,md}`; `output/figures/model5_scenario_plot.{pdf,png}`; [R/70_model5_counterfactual.R](../R/70_model5_counterfactual.R); locked β from `output/tables/model2_fe_baseline_v2.csv` (spec 2e); [ADR-0011](decisions/0011-counterfactual-specification.md); session log: [2026-05-23-22-model5-counterfactual.md](session_log/2026-05-23-22-model5-counterfactual.md).
 
+### §5.7 Compounding AI penalty — joint distribution of human capital and AI readiness (Phase 9 Session 01, 2026-05-23)
+
+**On a sample-median split, 47 of 132 joined countries (35.6%) fall in the low-HCI ∩ low-GARI "double-excluded" cell — and sub-Saharan Africa supplies 29 of those 47 (61.7%) despite being only 31.8% of the joined sample.** That is roughly a **2× over-representation** of SSA in the double-excluded cell relative to its share of the sample. The 132-country joined cross-section uses each country's latest non-missing HCI (the 2020 cycle, fully populated across all 132 countries in the join) and the Oxford Insights GARI 2025 edition; the composite `compound_index = HCI × (GARI / 100)` ranges 0.033–0.495 across the sample, peaking well below its theoretical maximum because no country approaches the upper bound on both axes. The five most exposed countries by `compound_index` are **SSD** (0.033), **CAF** (0.035), **LBR** (0.046), **YEM** (0.047), **TCD** (0.055) — a list dominated by conflict-affected low-income states, four of five SSA.
+
+**Quadrant counts (sample-median split: HCI median = 0.506, GARI/100 median = 0.382):**
+
+| Quadrant | N | SSA in cell | Mean HCI | Mean GARI/100 | Mean compound |
+|---|---|---|---|---|---|
+| high HCI / high GARI | 47 | 2 | 0.620 | 0.569 | 0.357 |
+| high HCI / low GARI  | 19 | 1 | 0.571 | 0.270 | 0.154 |
+| low HCI / high GARI  | 19 | 10 | 0.438 | 0.484 | 0.213 |
+| **low HCI / low GARI (double-excluded)** | **47** | **29** | **0.407** | **0.238** | **0.099** |
+
+**Robustness.** Re-running the median-split partition with sample terciles produces a strictly smaller "low/low" cell (mechanically, terciles cover ⅓ × ⅓ ≈ 11% of the sample vs median's ¼ ≈ 25%); Jaccard agreement with the headline set is 0.53, which reflects the cell-size difference, not a fragile boundary. Re-running with HCI cycle 2018 only (pre-COVID anchor) yields Jaccard = **0.94** with the headline set — the choice of *latest non-missing* vs *2018-only* moves three or four countries at the margin and otherwise preserves the result. Detail at `output/tables/compound_ai_penalty_robustness.{csv,md}`.
+
+**Calibrated novelty claim.** The brief calls this a finding "no prior paper has done" (`docs/brief.md:159`). The phrasing is too strong. The lit-note audit (`docs/lit/oxford-insights-2026.md`) surfaced Brookings' *Next Great Divergence*, the World Bank's *Beyond the AI Divide* (Working Paper 11073), ILO's *Disruption without dividend?*, and practitioner tools like symbio6.nl's AI Readiness Map — all of which articulate the compounding-divergence thesis at country level or construct adjacent joint composites. What appears genuinely novel in §5.7 is (a) the explicit `HCI × GARI` joint composite at country-cross-section with median-split quadrant analysis, (b) the SSA over-representation quantification (≈ 2× over-representation in the double-excluded cell), and (c) embedding it in an educational-aid-effectiveness paper. The manuscript should hedge ("we are not aware of a prior peer-reviewed paper that constructs the joint composite at this exact country-cross-section and quantifies the regional concentration") rather than echo the brief's stronger framing.
+
+**Caveat: positive correlation creates partial tautology.** With r = 0.777 between HCI and GARI on the joint sample, the dimensions share ≈ 60% of their variance — the "low-low" cell is partly tautological with "low overall HCI/GARI quality". The residual 22% is where the *interaction* claim has empirical bite, but we cannot test multiplicative-vs-additive at this data shape (LAYS/HLO are embedded in HCI; GDP growth needs its own identification story; the *compounding* thesis is about *future* divergence we can't yet observe). §5.7 is therefore a **joint-distribution characterization**, not a "compounding effect" estimate.
+
+**§6 Discussion connection.** Read §5.7 as a *necessary-but-not-sufficient* signal for the brief's compounding-penalty thesis: the dimensions are positively coupled, the double-excluded cell is densely populated, and the regional concentration in SSA dovetails with the rest of the paper's SSA-coverage findings (§4.7, §5.5). The forward-looking "as AI-driven productivity asymmetries widen, these countries fall further behind" claim is *not* tested in this paper — that's a longitudinal claim that requires several future GARI editions and post-AI-diffusion HCI cycles to evaluate. §6 owns this gap explicitly: the result here is a snapshot of the divergence-vulnerable set, not evidence of the divergence itself.
+
+> *Sources:* `output/tables/compound_ai_penalty_quadrant.{csv,md}`; `output/tables/compound_ai_penalty_bottom20.{csv,md}`; `output/tables/compound_ai_penalty_ssa_crosstab.{csv,md}`; `output/tables/compound_ai_penalty_robustness.{csv,md}`; `output/figures/compound_ai_penalty_scatter.{pdf,png}`; [R/71_compounding_ai_penalty.R](../R/71_compounding_ai_penalty.R); [methodology.md §3.12 Phase-9 implementation](methodology.md); [Oxford Insights lit note](lit/oxford-insights-2026.md); session log: [2026-05-23-23-compounding-ai-penalty.md](session_log/2026-05-23-23-compounding-ai-penalty.md).
+
 ---
 
 ## §6 Discussion candidates
@@ -585,8 +608,8 @@ LAYS reported at median implied EYS (11.57 yr); fan over p10 (7.25 yr) / p50 / p
 **HLO sparsity and the Sandefur (2018) critique.** AAP-2018 robustness shows SSA 88.0% missing vs RoW 79.2% (+8.8pp gap) — the empirical face of pre-2018 thin SACMEQ/PASEC anchors. The primary HCI HLO measure shows SSA *slightly better* than RoW (−3.2pp gap), reflecting the WB Human Capital Project's explicit post-2017 SSA-measurement targeting. The two measures' divergent SSA representation feeds the §6 limits paragraph on outcome-variable uncertainty.
 > *Source:* `output/tables/ssa_hlo_missingness.csv`; [session 04](session_log/2026-05-17-04-hlo.md); [ADR-0004](decisions/0004-hlo-measure.md)
 
-**HCI × AI Readiness compounding penalty.** r = 0.777 across 189 countries. Phase 9 will quantify the count + share of countries in the joint low-HCI ∩ low-GARI quadrant. The compounding-penalty thesis: countries with weak human capital today will fall further behind as AI-driven productivity asymmetries widen.
-> *Source:* §4.6 above; [session 08](session_log/2026-05-17-08-ai-readiness.md)
+**HCI × AI Readiness compounding penalty — locked §5.7 (Phase 9 Session 01, 2026-05-23).** Joint distribution on the 132-country GARI 2025 × HCI 2020 cross-section: 47 of 132 (35.6%) in the low-HCI ∩ low-GARI cell, of which 29 (61.7%) are SSA — a ≈ 2× over-representation. The five most exposed: SSD, CAF, LBR, YEM, TCD. Brief's "no prior paper has done this" hedged in §5.7 (Brookings, World Bank WP 11073, ILO, symbio6.nl all articulate adjacent constructions). The compounding-penalty *thesis* (future divergence) is not tested in this paper; §5.7 is a snapshot of the divergence-vulnerable set.
+> *Source:* §5.7 above; [R/71_compounding_ai_penalty.R](../R/71_compounding_ai_penalty.R); [session 23](session_log/2026-05-23-23-compounding-ai-penalty.md); [Oxford Insights lit note](lit/oxford-insights-2026.md)
 
 ---
 

@@ -306,6 +306,8 @@ Citation: Oxford Insights (2026). *Government AI Readiness Index 2025*. Report v
 
 **Phase-9 preview**: joining with most-recent HCI cycle per country yields 189 country matches; `cor(ai_readiness_score_mean, hci_overall) = 0.777`. Strong positive correlation — the empirical hook for the brief's "Compounding AI Penalty" §9 thesis.
 
+**Phase-9 implementation (2026-05-23, Session 23).** R/71_compounding_ai_penalty.R normalizes GARI to [0,1] via `gari_norm = ai_readiness_score_mean / 100` and constructs `compound_index = hci_hci_overall × gari_norm` on the 132-country GARI 2025 × HCI 2020 cross-section. No new column persisted in the panel — composite is computed at analysis time. Sample-median quadrant split + tercile + HCI-2018 robustness panel. See `methodology.md §3.12 Phase-9 implementation` and `findings.md §5.7`.
+
 ---
 
 ## Production panel (`data/interim/panel.parquet`)
