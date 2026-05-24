@@ -40,6 +40,7 @@ Thumbs.db
 # Quarto
 .quarto/
 drafts/_output/
+drafts/*_files/
 *.aux
 *.log
 *.toc
@@ -51,3 +52,4 @@ drafts/_output/
 .env
 .env.local
 *.pem
+drafts/*.tex

@@ -20,6 +20,7 @@ format:
   docx:
     toc: false
     number-sections: true
+    number-depth: 2
   pdf:
     documentclass: article
     geometry: margin=1in
@@ -27,6 +28,7 @@ format:
     cite-method: citeproc
     toc: false
     number-sections: true
+    number-depth: 2
 ---
 
 # Abstract {.unnumbered}
@@ -53,7 +55,7 @@ The cross-country aid-effectiveness debate, the education-specific aid-and-learn
 
 ## 2.1 Cross-country aid-effectiveness empirics
 
-The canonical question — *does development aid raise growth?* — has been answered in the affirmative, the negative, and conditionally in the same data over the last two-and-a-half decades. The widely cited finding by Burnside and Dollar [-@burnside2000aid] was that aid raises growth only in countries with good fiscal, monetary, and trade policies; their aid × policy interaction term entered cross-country growth regressions with a positive and significant coefficient on an instrumental-variables design. The conditional-effectiveness finding was widely interpreted as policy advice — *target good-policy countries* — and shaped a generation of aid-allocation debate. Easterly, Levine, and Roodman [-@easterly2004aid] subsequently showed that the Burnside-Dollar interaction does not survive extension of the original sample to more countries and years; the result is fragile to sample composition. The two papers together — and the subsequent extensions in the aid-and-growth-in-Africa GMM literature [@asongu2019aid] — left the field with a robust *methodological* finding even where the substantive coefficient remained contested: interaction-effect claims in cross-country aid-effectiveness panels are sensitive to sample, specification, and the choice of instrument. The lesson is one our pre-commitment design takes seriously: in @sec-methods §3 we specify the within-country fixed-effects specification before estimating it, and we report sample and specification sensitivities in §4 rather than searching across them for the most favorable result.
+The canonical question — *does development aid raise growth?* — has been answered in the affirmative, the negative, and conditionally in the same data over the last two-and-a-half decades. The widely cited finding by Burnside and Dollar [-@burnside2000aid] was that aid raises growth only in countries with good fiscal, monetary, and trade policies; their aid × policy interaction term entered cross-country growth regressions with a positive and significant coefficient on an instrumental-variables design. The conditional-effectiveness finding was widely interpreted as policy advice — *target good-policy countries* — and shaped a generation of aid-allocation debate. Easterly, Levine, and Roodman [-@easterly2004aid] subsequently showed that the Burnside-Dollar interaction does not survive extension of the original sample to more countries and years; the result is fragile to sample composition. The two papers together — and the subsequent extensions in the aid-and-growth-in-Africa GMM literature [@asongu2019aid] — left the field with a robust *methodological* finding even where the substantive coefficient remained contested: interaction-effect claims in cross-country aid-effectiveness panels are sensitive to sample, specification, and the choice of instrument. The lesson is one our pre-commitment design takes seriously: in §3 we specify the within-country fixed-effects specification before estimating it, and we report sample and specification sensitivities in §4 rather than searching across them for the most favorable result.
 
 <!--
 EVIDENCE TRACE — §2.1:
@@ -822,13 +824,14 @@ EVIDENCE TRACE — §7 Conclusion (3 paragraphs: contribution, limits, research-
 
 # References {.unnumbered}
 
-<!-- Bibliography rendered automatically by Quarto from drafts/references.bib via citeproc. -->
+::: {#refs}
+:::
 
 # Appendix A: Full regression tables {.unnumbered}
 
 The main-text Tables 1–6 present compressed views of the locked specifications. The full progression of every model — including the spec rows and coefficient columns elided in the main text — is reproduced below from `output/tables/` machine-readable artifacts. All tables use country-clustered SE in Model 2 (panel FE specifications) and HC-robust SE in Model 1 (cross-sectional OLS).
 
-## A.1 ADR inventory
+## A.1 ADR inventory {.unnumbered}
 
 The pre-commitment design referenced throughout §3.2 rests on twelve Architecture Decision Records, summarized below; full ADR documents at `docs/decisions/`.
 
@@ -847,55 +850,55 @@ The pre-commitment design referenced throughout §3.2 rests on twelve Architectu
 | 0011 | Model 5 counterfactual specification | Accepted | Within-support % shocks on locked β; plug-in CI |
 | 0012 | Retirement of UIS multiple imputation | Accepted | MCAR rejection makes MI MAR-untenable; amends ADR-0006 |
 
-## A.2 Model 1 cross-sectional OLS — full 6-spec progression
+## A.2 Model 1 cross-sectional OLS — full 6-spec progression {.unnumbered}
 
 {{< include ../output/tables/model1_ols_baseline.md >}}
 
-## A.3 Model 2 within-country FE — full 7-spec progression
+## A.3 Model 2 within-country FE — full 7-spec progression {.unnumbered}
 
 {{< include ../output/tables/model2_fe_baseline_v2.md >}}
 
-## A.4 Model 3 random effects — spec progression
+## A.4 Model 3 random effects — spec progression {.unnumbered}
 
-{{< include ../output/tables/model3_re_specs.md >}}
+{{< include ../output/tables/_render_includes/model3_re_specs.md >}}
 
-## A.5 Model 5 counterfactual — full 9-scenario grid with LAYS p10/p50/p90 fan
+## A.5 Model 5 counterfactual — full 9-scenario grid with LAYS p10/p50/p90 fan {.unnumbered}
 
-{{< include ../output/tables/model5_counterfactual.md >}}
+{{< include ../output/tables/_render_includes/model5_counterfactual.md >}}
 
-## A.6 Compounding AI penalty — quadrant + robustness
+## A.6 Compounding AI penalty — quadrant + robustness {.unnumbered}
 
-{{< include ../output/tables/compound_ai_penalty_quadrant.md >}}
+{{< include ../output/tables/_render_includes/compound_ai_penalty_quadrant.md >}}
 
-{{< include ../output/tables/compound_ai_penalty_robustness.md >}}
+{{< include ../output/tables/_render_includes/compound_ai_penalty_robustness.md >}}
 
 # Appendix B: Robustness checks {.unnumbered}
 
 The path-c framework treats the robustness exercises below as first-class methodological findings rather than caveats. The treatment-encoding grid (B.1) and the WGI operationalization variants (B.2) establish that the headline within-country coefficient is sign-stable across the encoding choices the literature has historically left unspecified. The China-aid robustness (B.3) confirms the OECD CRS coefficient is unmoved by adding parallel AidData GCDF flows. The HLO measure-fragility (B.4) and UIS-augmented listwise (B.5) document where the headline does not survive sign-agreement — material findings for what cross-country aid-learning panel evidence can rigorously claim at the current measurement frontier. The MCAR test (B.6) provides the empirical ground on which ADR-0012 retires the multiple-imputation robustness. The Dumitrescu-Hurlin Granger pre-test (B.7) documents the small-T limit that forecloses both the GMM remedy and the Granger pre-commit.
 
-## B.1 Treatment-encoding sensitivity (16-cell grid; ADR-0005)
+## B.1 Treatment-encoding sensitivity (16-cell grid; ADR-0005) {.unnumbered}
 
-{{< include ../output/tables/model2_fe_sensitivity.md >}}
+{{< include ../output/tables/_render_includes/model2_fe_sensitivity.md >}}
 
-## B.2 WGI operationalization variants (ADR-0009)
+## B.2 WGI operationalization variants (ADR-0009) {.unnumbered}
 
-{{< include ../output/tables/model2_wgi_specs.md >}}
+{{< include ../output/tables/_render_includes/model2_wgi_specs.md >}}
 
 The PCA loadings supporting the PC1-variance-share claim (76.4% on this sample, single PC1 retained per Kaiser criterion) are at `output/tables/model2_wgi_pca_loadings.csv`.
 
-## B.3 Chinese aid robustness (ADR-0008)
+## B.3 Chinese aid robustness (ADR-0008) {.unnumbered}
 
-{{< include ../output/tables/model2_china_robustness.md >}}
+{{< include ../output/tables/_render_includes/model2_china_robustness.md >}}
 
-## B.4 HLO measure-fragility — AAP-2018 full + overlap (ADR-0004)
+## B.4 HLO measure-fragility — AAP-2018 full + overlap (ADR-0004) {.unnumbered}
 
-{{< include ../output/tables/pass1_hlo_sensitivity.md >}}
+{{< include ../output/tables/_render_includes/pass1_hlo_sensitivity.md >}}
 
-## B.5 UIS-augmented listwise (ADR-0006 Robustness 1)
+## B.5 UIS-augmented listwise (ADR-0006 Robustness 1) {.unnumbered}
 
-{{< include ../output/tables/pass1_uis_listwise.md >}}
+{{< include ../output/tables/_render_includes/pass1_uis_listwise.md >}}
 
-## B.6 Little's MCAR test results
+## B.6 Little's MCAR test results {.unnumbered}
 
 Production-panel MCAR test (`naniar::mcar_test`) rejects MCAR decisively on both the primary-window 6-column subset and the UIS-augmented 7-column subset:
 
@@ -914,9 +917,9 @@ p_value < 10⁻⁶
 
 The MAR assumption multiple imputation requires is therefore not empirically supportable on this data; ADR-0012 retires the MI sub-commitment of ADR-0006 on this basis (in conjunction with the project's no-fabrication discipline; CLAUDE.md).
 
-## B.7 Dumitrescu-Hurlin panel Granger pre-test
+## B.7 Dumitrescu-Hurlin panel Granger pre-test {.unnumbered}
 
-{{< include ../output/tables/pass1_granger_test.md >}}
+{{< include ../output/tables/_render_includes/pass1_granger_test.md >}}
 
 The test requires T > 5 + 3·order = 8 per country at order 1, and is therefore not estimable on the HCI-cycle panel (T_eff ≤ 4). The same small-T limit forecloses the Arellano-Bond difference-GMM remedy committed in ADR-0010 (Bond 2002 minimum T ≥ 5–10).
 
