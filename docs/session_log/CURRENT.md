@@ -1,1 +1,1 @@
-2026-05-24-35-phase11-session10-docx-render.md
+2026-05-24-36-phase11-session11-jargon-strip.md
