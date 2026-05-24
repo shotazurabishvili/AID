@@ -824,30 +824,93 @@ EVIDENCE TRACE — §5.5 ¶2 (snapshot vs trajectory + path-c contribution claim
 
 # 6. Policy Implications
 
+## 6.1 An intervention-type policy marker in the OECD DAC Creditor Reporting System
+
+The OECD DAC Working Party on Development Finance Statistics should add an "education intervention type" voluntary policy marker to the Creditor Reporting System for purpose codes 11110 through 11430, using a controlled vocabulary of six to seven categories derived from the GEEAP 2023 Smart Buys catalog [@geeap2023smart]: structured pedagogy, pedagogical-targeting at instructional level, individualized tutoring, infrastructure and inputs, teacher training and coaching, system-strengthening and policy, and budget support. The marker would be assigned at the project-record creation stage by the reporting agency, on the same 0/1/2 voluntary-to-mandatory model that the DAC has used for the gender-equality marker (introduced 1997, mandatory since 2007), the environment marker, and the Rio biodiversity and climate markers.
+
+The proposal is concrete enough that a DAC delegate from a sympathetic donor — Norway, Sweden, the United Kingdom's FCDO, the Netherlands' DGIS, or a multilateral observer such as the GPE Secretariat — could table it at the next Working Party on Development Finance Statistics meeting. The DAC has an existing template for voluntary-then-mandatory marker introduction; the implementation cost to donor reporting workflows is low because the marker infrastructure already exists; and the 39 percent inter-method agreement on the intervention-typology classifier reported in §4.4 is the kind of empirical evidence a working-party paper can cite as the binding-constraint case. The typology-axis lacuna documented in §5.2 is not a problem the field can solve from the demand side: it requires the supply-side intervention of recording intervention type at project-record creation, and the DAC is the only body with the authority to make that recording happen across the donor universe.
+
 <!--
-Phase 11 Session 08 target. ~800 words. Three implications, each grounded
-in a specific paper finding:
+EVIDENCE TRACE — §6.1 (CRS intervention-type policy marker):
+- §5.2 typology-axis lacuna basis → manuscript §5.2 (Session 06)
+- §4.4 39% inter-method agreement basis → manuscript §4.4 ¶1 (Session 05) + output/tables/typology_method_agreement.md
+- GEEAP 2023 Smart Buys catalog as controlled-vocabulary source → docs/lit/geeap-2023.md + @geeap2023smart bib key
+- Seven-category controlled vocabulary derivation → policy-literature convention (GEEAP + Glewwe-Muralidharan + Vegas-Coffin programmatic intervention categories synthesized; not from a single source)
+- OECD DAC marker mechanism (gender 1997 voluntary → 2007 mandatory; environment + Rio markers) → OECD DAC reporting directives, general practitioner knowledge (the marker dates are documented in OECD DAC public materials)
+- Concrete donors named (Norway, Sweden, FCDO, DGIS, GPE Secretariat) → general practitioner knowledge of DAC delegation politics — author flagged for verification at Session 09
+- Hedge level: MEDIUM (DAC delegation-politics specifics are practitioner-knowledge claims; OECD marker-history dates are documented but no direct citation here; author-review at Session 09 should verify Norway/Sweden/FCDO/DGIS framing)
+-->
 
-(a) Donor-reporting standards (from §5.2 lacuna): what CRS would need to
-    record to enable intervention-type analyses at panel scale.
+## 6.2 Auditable measurement infrastructure for cross-country learning outcomes
 
-(b) Cross-country panel evidence claims in the aid-effectiveness discourse
-    (from §5.3 measure-fragility): the kinds of policy claims that survive
-    measure-fragility checks vs the kinds that don't.
+The cross-country panel literature on aid-to-learning operates on two harmonized measures whose linking-anchor decisions and harmonization assumptions are not publicly auditable at the granularity needed to reconstruct or contest the within-country panel coefficient. The World Bank's Human Capital Project, in partnership with the upstream assessment consortia — the IEA TIMSS/PIRLS network, SACMEQ, PASEC, LLECE, and EGRA — should publicly release the assessment-by-assessment linking-anchor decisions underlying the WB HCI HLOS series, so that an external researcher could reconstruct or contest the harmonization choices that shape the headline within-country answer. Alongside this transparency move, donors and research-funding bodies should commission monitoring of outcomes in the §4.6 low-HCI ∩ low-AI-readiness double-excluded cell as future GARI and HCI editions arrive, to convert the §4.6 snapshot into the trajectory observation the path-c framing has flagged as currently untestable.
 
-(c) Compounding penalty + the SSA over-representation (from §4.6): the
-    practical case for measurement-investment + AI-readiness assistance
-    targeted at the double-excluded set.
+Complementing the upstream transparency move, journals publishing cross-country panel evidence on aid effectiveness should expect headline coefficients reported under at least two harmonized measures — *World Development*, the *Journal of Development Studies*, and the *Journal of Development Economics* are the natural sites for this expectation, on the model of the American Economic Association Data Editor's 2019 introduction of data-availability requirements which shifted reproducibility practice across the AEA journals within eighteen months. A more aspirational step would be a funded cross-measure benchmarking exercise — the International Development Research Centre, the United Kingdom's FCDO Research and Evidence Directorate, or the J-PAL Government Partnership Initiative are the natural funders — systematically comparing WB HCI HLOS and AAP-2018 harmonization decisions on a common country set; the §4.7 measure-fragility sensitivity reported in this paper is the empirical case for such a benchmarking exercise.
+
+<!--
+EVIDENCE TRACE — §6.2 (measurement-investment + auditable measurement infrastructure):
+- §5.3 measure-fragility basis → manuscript §5.3 (Session 06)
+- §4.7 sensitivity numbers basis → manuscript §4.7 (Session 06) + output/tables/pass1_hlo_sensitivity.md
+- WB HCI HLOS + AAP-2018 anchor lists (IEA TIMSS/PIRLS, SACMEQ, PASEC, LLECE, EGRA) → docs/methodology.md §3.4 + §3.4.1 (already cited Sessions 04-06)
+- §4.6 compounding-vulnerable-monitoring fold-in → manuscript §4.6 ¶3 + §5.5 ¶2 (Sessions 06-07)
+- AEA Data Editor 2019 introduction of data-availability requirements + 18-month adoption → general field knowledge (documented in AEA Papers and Proceedings, no direct citation here; author-review at Session 09 may add bib entry)
+- Research-funding bodies named (IDRC, FCDO RED, J-PAL GPI) → general practitioner knowledge of the research-funding landscape
+- Hedge level: MEDIUM (funder-landscape and journal-editor specifics are practitioner-knowledge claims; AEA Data Editor precedent is documented but uncited here; author-review at Session 09 may add bib entry for AEA Data Editor or remove the specific 18-month adoption framing if uncertain)
+-->
+
+## 6.3 Missingness-disclosure as a routine condition of cross-country panel publication
+
+Journals publishing cross-country panel evidence in the aid-effectiveness literature should require a structured missingness-disclosure section as a routine condition of econometric-analysis submission. The disclosure section would report three items: the production-panel MCAR test result (Little's test or equivalent) with explicit χ² and p-value; the listwise-deletion robustness against the primary specification, with point estimates and confidence intervals reported alongside the primary; and, if multiple imputation is used, explicit justification for the MAR assumption alongside the MCAR-test evidence. Where MCAR is rejected and MAR cannot be defended on the data, the missingness-disclosure section would document the retirement of MI as a robustness check on those grounds, on the model the §3.4 methodology section and the §5.4 MCAR-MAR-MNAR-triangle framework articulate in this paper.
+
+One journal editor's decision implements this standard. The mechanism-precedent is the American Economic Association Data Editor's 2019 introduction of data-availability requirements: one editor-level decision shifted reproducibility practice across the AEA journal family within eighteen months. *World Development* editorial leadership could add a missingness-disclosure clause to the journal's submission requirements for econometric analyses; the Berkeley Initiative for Transparency in the Social Sciences could adopt the same standard as a Phase-3 TIER protocol expansion. The cost to authors is low — the MCAR test is one command in any major statistical package — and the gain is that the field stops carrying MI-based estimates whose validity depends on assumptions the data refute, an asymmetric improvement in evidence quality at near-zero implementation friction.
+
+<!--
+EVIDENCE TRACE — §6.3 (missingness-disclosure as routine condition):
+- §5.4 MCAR-MAR-MNAR triangle basis → manuscript §5.4 (Session 07)
+- §3.4 methodology MCAR-test framing → docs/methodology.md §3.4 + §3.4.1 (Phase 10 updates)
+- Little's MCAR test reference → standard statistical methodology (Little 1988 JASA); no first-time bib entry in this draft; optional Session 09 polish add of @little1988test if author elects
+- AEA Data Editor 2019 + 18-month adoption → re-cite from §6.2 EVIDENCE TRACE (general field knowledge; no direct citation here)
+- World Development editorial mechanism → publicly available editorial-policy materials; no direct citation
+- BITSS TIER protocol → Berkeley Initiative for Transparency in the Social Sciences public documentation
+- ADR-0012 path-c framework articulation → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
+- Hedge level: LOW (path-c framework + journal-editor mechanism + AEA precedent are documented; only the forward-looking journal-editor-decision claim is speculative)
+-->
+
+## 6.4 Structural determinants in donor allocation models
+
+The headline within-country coefficient on aid disbursement is hedged in this paper to the WB HCI HLOS specification on the 2010-2020 panel, but the coefficients on the structural variables — conflict-exposure intensity, governance-quality measured by the WGI Principal-Component-1, early-childhood public investment, and the OECD-DAC Sectoral Concentration index — are more robust across the alternative specifications reported in §4.2 and the AAP-2018 sensitivity in §4.7. Donor allocation models that ignore these structural determinants under-perform predictive benchmarks of learning-outcome variation even where the aid-on-learning relationship is itself contested. Multilateral and bilateral aid agencies should give the structural-determinant variables explicit weight in country-allocation decisions, on the recognition that the structural variables are the more stable predictor signal in the cross-country panel even when the aid-flow signal is hedged.
+
+This recommendation is offered in chastened form. The paper does not establish a causal pathway from any one structural determinant to learning outcomes; the §4.2 coefficients are associational, identified off cross-country variation under a fixed-effects panel design that ADR-0010 acknowledges is identification-strategy-of-last-resort at this data shape. The recommendation is that donor allocation models *include* the structural variables, not that they *act on* them in any prescriptive direction. A country with low governance-quality is not therefore an unsuitable aid recipient — just one where the donor model would benefit from acknowledging that governance is a primary predictor of the outcome the aid is trying to affect, rather than treating learning-outcome variation as residual after the standard income-and-enrollment controls.
+
+<!--
+EVIDENCE TRACE — §6.4 (structural determinants in donor allocation models):
+- §4.2 structural-determinant coefficients (WGI PC1, conflict-exposure, ECD investment, OECD-DAC Sectoral Concentration) → manuscript §4.2 (Session 04) + output/tables/model2_fe_baseline_v2.md
+- §4.7 AAP-2018 sensitivity (structural-determinant coefficients remain more robust than ODA coefficient across the AAP-2018 alternative specifications) → manuscript §4.7 (Session 06) + output/tables/pass1_hlo_sensitivity.md
+- Brief original thesis hook "structural variables systematically ignored by donor allocation models" → docs/brief.md core-thesis statement (chastened form here: "include" rather than "act on")
+- §4.2 coefficients associational, not causal → ADR-0010 (small-T identification limit precludes GMM)
+- Chastened caveat (associational, not prescriptive) → general epistemic discipline + path-c framing (manuscript §5.1 thesis)
+- Hedge level: MEDIUM-HIGH (the "more robust across alternative specifications" claim depends on §4.2 + §4.7 coefficient stability that author should verify at Session 09 author-review; flagged for review)
 -->
 
 # 7. Conclusion
 
+This paper contributes three findings to the cross-country aid-learning literature. The first is empirical: the §4.6 Compounding AI Penalty operationalizes the country-level human-capital-and-AI-readiness joint distribution at the 2020-2025 cross-section, quantifying a roughly two-fold over-representation of sub-Saharan Africa in the low-HCI ∩ low-AI-readiness double-excluded cell that no prior peer-reviewed paper has constructed at this exact resolution. The second is the path-c methodological framework articulated explicitly in §1, §3.4, and §5: pre-commit the analytical decisions in writing, execute the specifications as committed, and report the failures of those pre-commitments as findings for the field rather than as caveats to the analyst's preferred result — the methodological-reflection tradition [@sandefur2018harmonized; @vivalt2020generalize; @deaton2018rcts] taken seriously as a working discipline rather than as a closing-paragraph caveat. The third is the within-country aid-to-learning coefficient itself in the WB HCI HLOS specification on the 2010-2020 panel, reported here at β = +11.14 (p ≈ 0.05) alongside the full sensitivity battery against the AAP-2018 alternative measure [@altinok2018global] that documents the coefficient's measure-dependence.
+
+This paper does not establish causal identification of the aid-to-learning relationship. The static fixed-effects specification on a small-T panel (T_eff ≤ 4) is the identification strategy available at this data shape; the Arellano-Bond difference-GMM the brief Statistical Layer pre-committed to is not feasible per Dumitrescu-Hurlin's threshold for the Z̃ Granger variant, and the Pass 1 audit doc closes that pre-commitment honestly rather than pretending the alternative spec ran. The within-country positive coefficient is hedged to its primary specification: the AAP-2018 alternative measure sign-reverses the coefficient in both the full coverage window and the overlap window restricted to 2010 onward. The §4.6 Compounding AI Penalty is a snapshot characterization of the divergence-vulnerable set, not a longitudinal estimate of the compounding-divergence effect itself; the latter would require several future Oxford GARI editions paired with post-AI-diffusion HCI cycles before it becomes empirically tractable.
+
+Each of these limits points to a concrete research-infrastructure recommendation articulated in §6. The OECD DAC Creditor Reporting System needs an intervention-type policy marker if the field's compositional questions are to become answerable at panel scale. The World Bank HCI HLOS series needs its linking-anchor decisions publicly auditable if the within-country measure-fragility documented in §4.7 is to be resolvable. Cross-country panel evidence journals need a routine missingness-disclosure standard if MI-based estimates are to be assessed against the MAR assumption their validity depends on. Donor allocation models need structural-determinant weighting if the more robust predictor signal in the panel is to inform country-level decisions even where the aid-flow coefficient is hedged. The path-c framework's contribution is that each of these is a finding for the field, not a caveat for the author — and that the calibrated map of what cross-country aid-effectiveness panel evidence can and cannot rigorously claim at the current data frontier is what this paper has spent ten thousand words drawing.
+
 <!--
-Phase 11 Session 08 target. ~500 words. Brief restatement of the four findings;
-the path-c thesis (calibrated map of what the literature can claim); the methodological
-contribution as a model for the next paper attempting similar work; explicit
-limit-acknowledgment (T_eff ≤ 4; no GMM available; positionality of practitioner-
-researcher authorship).
+EVIDENCE TRACE — §7 Conclusion (3 paragraphs: contribution, limits, research-infrastructure implication):
+- ¶1 §4.6 Compounding AI Penalty operationalization → manuscript §4.6 (Session 06) + output/tables/compound_ai_penalty_quadrant.md
+- ¶1 Path-c methodological framework + methodological-reflection tradition citations → manuscript §1 + §3.4 + §5 (Sessions 01-07) + CLAUDE.md branching strategy + [@sandefur2018harmonized; @vivalt2020generalize; @deaton2018rcts] (all already cited in §1 + §2.3, no new bib entries)
+- ¶1 β = +11.14 primary specification + AAP-2018 sensitivity → manuscript §4.2 + §4.7 + findings.md §5.2 + §5.8 + [@altinok2018global] (already cited §4.2 + §4.7, no new bib entry)
+- ¶2 T_eff ≤ 4 small-T limit → ADR-0010 small-T identification limit + manuscript §4.7 ¶3 (Session 06)
+- ¶2 Arellano-Bond difference-GMM not feasible per Dumitrescu-Hurlin threshold → ADR-0010 + brief Statistical Layer pre-commitment + output/pass1_statistical_validity_audit.md
+- ¶2 §4.6 snapshot-not-trajectory caveat → manuscript §4.6 ¶3 + §5.5 ¶2 (Sessions 06-07)
+- ¶3 §6 recommendations restated as research-infrastructure agenda → manuscript §6.1-§6.4 (this session above)
+- ¶3 "calibrated map of what the literature can rigorously claim" framing → manuscript §1 abstract + §5.1 thesis (Sessions 01 + 06)
+- Hedge level: LOW (all elements re-cite earlier manuscript sections + ADRs; no new claims introduced in §7 that aren't established upstream)
 -->
 
 # References {.unnumbered}
