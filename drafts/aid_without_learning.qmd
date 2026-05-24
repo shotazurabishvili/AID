@@ -760,6 +760,67 @@ EVIDENCE TRACE — §5.3 (measure-fragility in cross-country learning research):
 - Hedge level: LOW (Sandefur is primary-read; AAP and WB HCI technical notes are documented project-internal sources)
 -->
 
+## 5.4 The MCAR-MAR-MNAR triangle in donor-reporting data
+
+The Rubin missingness taxonomy distinguishes three regimes: *Missing Completely At Random* (MCAR — independent of both observed and unobserved values), *Missing At Random* (MAR — independent of the unobserved conditional on the observed), and *Missing Not At Random* (MNAR — depending on the unobserved values themselves). Listwise deletion is unbiased under MCAR and biased under MAR or MNAR; multiple imputation requires MAR. Donor-reporting data sits at the triangle's hardest vertex. The UIS schooling-finance indicators that anchor the most policy-relevant control variable in cross-country aid-learning panels are missing on 91.8 percent of the sub-Saharan-African country-years on this panel against single-digit percentages in OECD countries. The missingness *is* the data: which countries report depends on administrative capacity, which depends on the development conditions the panel is trying to explain.
+
+<!--
+EVIDENCE TRACE — §5.4 ¶1 (Rubin missingness triangle + donor-reporting hardest vertex):
+- Rubin missingness taxonomy (MCAR/MAR/MNAR) → standard statistical-methodology vocabulary; no first-time bib citation required for vocabulary use. (If author elects to add @rubin1976inference at Session 09 bib polish, that's a one-line addition.)
+- "MI requires MAR; listwise unbiased under MCAR only" → standard missing-data textbook result (e.g., Schafer & Graham 2002, Annual Review of Psychology)
+- UIS private-expenditure 91.8% SSA missing → docs/decisions/0006-uis-missingness-strategy.md Context block + output/tables/missingness_by_region_v2.csv
+- "Missingness IS the data" framing → path-c thesis articulation, docs/findings.md §5.7 + CLAUDE.md branching strategy
+- Hedge level: LOW (project-internal ADR + methodology + standard vocabulary)
+-->
+
+The pre-commit missingness ADR (ADR-0006, Phase 2) locked listwise-with-UIS-dropped as the production strategy with two complementary robustness specifications: UIS-augmented listwise (Robustness 1) and UIS-augmented multiple imputation (Robustness 2). The Pass 1 audit executed Robustness 1 and returned β = −1.97 (SE 4.40, N = 41 post-singleton, p > 0.05) — weak robustness, with CI [−10.59, 6.66] partially overlapping the primary [0.32, 21.95] rather than contradicting it. Robustness 2 was retired by ADR-0012 on two grounds: the production-panel MCAR test rejected MCAR at p ≪ 10⁻⁶ on both the 6-column UIS-excluded subset (χ² = 175.80) and the 7-column UIS-augmented subset (χ² = 341.90), empirically refuting the MAR-sufficiency assumption multiple imputation requires; and the project's no-fabrication discipline treats imputed values as fabrications that hide as real observations, in conflict with the standing pre-commitment that every value trace to a downloadable raw source.
+
+<!--
+EVIDENCE TRACE — §5.4 ¶2 (empirical case: listwise R1 + ADR-0012 MI retirement):
+- ADR-0006 pre-commit (listwise-primary + R1 listwise + R2 MI) → docs/decisions/0006-uis-missingness-strategy.md
+- Listwise β=-1.97, SE=4.40, N=41 → output/tables/pass1_uis_listwise.md (verified Session 04 + Session 06 §4.7 ¶3 EVIDENCE TRACE)
+- CI overlap: primary [0.32, 21.95] vs listwise [-10.59, 6.66] → findings.md §5.8 table row 4
+- MCAR rejection χ²=175.80 (6-col) + χ²=341.90 (7-col) at p<10⁻⁶ → output/tables/production_mcar_test_result.txt + production_mcar_with_uis.txt; ADR-0012 reason 1
+- CLAUDE.md no-fabrication block + "every value must trace to a downloadable raw source" → CLAUDE.md Conventions block "No fabrication" rule
+- ADR-0012 retirement of R2 MI → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
+- Hedge level: LOW (all project-internal Phase 10 audit + ADR + CLAUDE.md)
+-->
+
+Cross-country aid-learning panel work that reports MI-based estimates without a published MCAR test makes an assumption — MAR — that the only existing MCAR test in this paper's adjacent literature empirically refutes. The path-c contribution is to surface the MCAR/MAR/MNAR triangle as a first-class diagnostic step the field has under-engaged with: when donor-reporting-layer missingness is itself a function of the development conditions the panel is trying to explain, listwise and multiple imputation are not interchangeable robustness directions, and reporting both alongside an explicit MCAR result is the minimal methodological discipline. §6 takes this up as a donor-reporting-architecture policy implication.
+
+<!--
+EVIDENCE TRACE — §5.4 ¶3 (field-level implication + path-c contribution claim):
+- "Cross-country aid-learning panel work that reports MI-based estimates without a published MCAR test" → general field observation, no specific paper cited (reads as honest description of common practice, not a specific allegation against any particular paper)
+- Path-c contribution claim ("the field has under-engaged with") → CLAUDE.md branching strategy + §5.1 thesis frame (manuscript)
+- "Listwise and multiple imputation are not interchangeable robustness directions" → docs/decisions/0012-retirement-of-uis-multiple-imputation.md reason 3 ("If MI and listwise both ran and agreed, the result would be doubly robust; if they disagreed, MI's MAR assumption would be the obvious suspect")
+- §6 forward-reference for donor-reporting-architecture policy implication
+- Hedge level: MEDIUM (the "field has under-engaged" framing is the to-flag-for-Session-09-author-review claim per Session 07 plan; downstream rephrasing possible)
+-->
+
+## 5.5 Compounding-divergence in concrete terms
+
+The compounding-divergence thesis — that AI diffusion will widen rather than narrow the human-capital gap between countries already on different development trajectories — has been articulated at country and employment level by Brookings/UNDP [@muthukrishna2025divergence], the World Bank's *Beyond the AI Divide* working paper [@mandon2025beyond], and the joint ILO–World Bank background study for *World Development Report 2026* [@ilo2026disruption]. The §4.6 joint-distribution analysis operationalizes that thesis at the country cross-section: 47 of 132 countries fall in the low-HCI ∩ low-GARI double-excluded cell, 29 of those 47 are sub-Saharan African against an SSA sample share of 31.8 percent — a roughly two-fold over-representation. Five countries — South Sudan, the Central African Republic, Liberia, Yemen, and Chad — sit at the joint distribution's most exposed corner.
+
+<!--
+EVIDENCE TRACE — §5.5 ¶1 (compounding-divergence thesis + §4.6 operationalization):
+- @muthukrishna2025divergence, @mandon2025beyond, @ilo2026disruption → drafts/references.bib (all verified Session 02 + first-cited in §2.3 + re-cited in §4.6 ¶3 Session 06)
+- Brookings/UNDP, WBG, ILO-WBG WDR 2026 articulation of compounding-divergence thesis → docs/lit/oxford-insights-2026.md + docs/lit/mandon-2025.md + docs/lit/ilo-wbg-2026.md (all populated Session 02)
+- §4.6 quadrant counts: 47/132 double-excluded; 29/47 SSA in double-excluded cell; SSA sample share 31.8% (42/132); 5 most exposed (SSD, CAF, LBR, YEM, TCD) → output/tables/compound_ai_penalty_quadrant.md + output/tables/compound_ai_penalty_bottom20.md + manuscript §4.6 ¶1-¶2 (Session 06)
+- "Two-fold over-representation" arithmetic → 29/47=61.7% double-excluded SSA share ÷ 42/132=31.8% sample SSA share ≈ 1.94×; rounded "roughly two-fold" per findings.md §5.7 phrasing
+- Hedge level: LOW (re-citation of §2.3 + §4.6 sources; §4.6 numbers already verified)
+-->
+
+The two-fold SSA over-representation is a snapshot, not a trajectory. The longitudinal compounding-divergence claim — that countries in the double-excluded cell *fall further behind* as AI-driven productivity asymmetries widen — would require several future GARI editions paired with post-AI-diffusion HCI cycles to evaluate, and is not testable on a 2020/2025 cross-section. The path-c contribution here is empirical operationalization at a specific resolution: this paper is not aware of a prior peer-reviewed paper that constructs the explicit HCI × GARI joint composite at this country cross-section and quantifies the regional concentration. The trajectory question is a multi-edition empirical agenda for the field — and one that is itself contingent on whether GARI and HCI continue to be updated on comparable schedules.
+
+<!--
+EVIDENCE TRACE — §5.5 ¶2 (snapshot vs trajectory + path-c contribution claim):
+- Snapshot-vs-trajectory distinction → docs/findings.md §5.7 line 583 ("§5.7 is therefore a joint-distribution characterization, not a 'compounding effect' estimate") + line 585 ("The forward-looking 'as AI-driven productivity asymmetries widen' claim is NOT tested in this paper")
+- Path-c contribution claim ("not aware of a prior peer-reviewed paper that constructs the joint composite at this exact country cross-section") → docs/lit/oxford-insights-2026.md lit-note audit verdict + findings.md §5.7 line 581 (lifted into §4.6 ¶3 Session 06; redundancy with §4.6 acceptable per APA discussion-elaboration convention)
+- "Multi-edition empirical agenda for the field, contingent on whether GARI and HCI continue to be updated on comparable schedules" → docs/findings.md §5.7 line 585 + Oxford Insights lit-note GARI cadence section
+- §6 forward-reference implicit (no explicit hand-off needed; trajectory-question framing closes §5 narrative arc and transitions naturally into §6)
+- Hedge level: LOW (re-statement of §4.6 ¶3 hedge per APA convention; trajectory caveat verbatim from findings.md §5.7)
+-->
+
 
 # 6. Policy Implications
 
