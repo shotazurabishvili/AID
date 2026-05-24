@@ -1,1 +1,1 @@
-2026-05-24-36-phase11-session11-jargon-strip.md
+2026-05-24-37-phase11-session12-submission-ready.md

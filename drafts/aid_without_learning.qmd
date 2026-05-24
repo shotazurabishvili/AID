@@ -1,8 +1,8 @@
 ---
-title: "Aid Without Learning: A Cross-Country Analysis of ODA Allocation, Structural Determinants, and the Measurement Failure at the Heart of Global Education Finance"
+title: "Measuring Aid for Learning: What Cross-Country Panel Evidence Can and Cannot Say"
 author:
   - name: "Shota Zurabishvili"
-    affiliation: ""  # add at submission
+    affiliation: "Independent researcher / Co-founder, Reed (reed.ge); Bristol, United Kingdom"
     email: "shota.zurabishvili@gmail.com"
 date: "2026-05-23"
 abstract-title: "Abstract"
@@ -33,17 +33,15 @@ format:
 
 # Abstract {.unnumbered}
 
-Does development assistance for education improve learning outcomes? Cross-country panel evidence has been used to answer yes, no, and "it depends," but the field has paid less attention to whether the answer is stable across the methodological choices it conditions on. We assemble a 133-country, 2010–2020 panel from OECD CRS disbursements, World Bank Human Capital Index Harmonized Learning Outcomes (HLO), and the standard macro / governance / sector controls, and we run a pre-specified five-model architecture (cross-section, within-country fixed effects, multilevel, intervention-typology ANOVA, counterfactual simulation) under an *ex ante* commitment design in which every consequential analytical choice is locked in an Architecture Decision Record before its analysis runs. The within-country fixed-effects specification recovers a positive aid-to-learning coefficient (β = +11.14 HLO points per unit log treatment; p ≈ 0.05; N = 143 country-cycles) on the World Bank HCI HLO outcome — the empirical observation cross-country panel evidence at this data shape supports in the WB HCI HLOS specification — with the published-measure-sensitivity caveats documented below. The pre-commitment design, however, surfaces three findings that reshape how to read this result. First, the four-bucket intervention typology the literature treats as policy-relevant (infrastructure / teacher training / curriculum / budget support) is not extractable from CRS project metadata at the inter-method agreement threshold we committed to; the ANOVA does not run. Second, substituting the published AAP-2018 harmonized learning measure for the World Bank HCI HLO measure flips the within-country coefficient's sign in both the full and the overlap-window samples (β = −16.67 and −3.94 respectively); the headline is measure-sensitive. Third, the standard multiple-imputation robustness check the missingness ADR pre-committed to requires assumptions our MCAR test pre-committed to running already refutes. Alongside these, the paper constructs a novel Human Capital × AI Readiness joint composite that quantifies a previously unmeasured ≈2× over-representation of sub-Saharan Africa in the low-HCI ∩ low-AI-readiness cell. We position the paper in the methodological-reflection tradition [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts] and read its contribution as *a calibrated map of what cross-country aid-effectiveness panel evidence can and cannot say at the current data frontier*.
+Does development assistance for education improve learning outcomes? Cross-country panel evidence has been used to answer yes, no, and "it depends," but the field has paid less attention to whether the answer is stable across the methodological choices it conditions on. We assemble a 133-country, 2010–2020 panel from OECD CRS disbursements, World Bank Human Capital Index Harmonized Learning Outcomes (HLO), and the standard macro / governance / sector controls, and we run a pre-specified five-model architecture (cross-section, within-country fixed effects, multilevel, intervention-typology ANOVA, counterfactual simulation) under an *ex ante* commitment design in which every consequential analytical choice is locked in a pre-analysis plan before its analysis runs. The within-country fixed-effects specification recovers a positive aid-to-learning coefficient (β = +11.14 HLO points per unit log treatment; p ≈ 0.05; N = 143 country-cycles) on the World Bank HCI HLO outcome — the empirical observation cross-country panel evidence at this data shape supports in the WB HCI HLOS specification — with the published-measure-sensitivity caveats documented below. The pre-commitment design, however, surfaces three findings that reshape how to read this result. First, the four-bucket intervention typology the literature treats as policy-relevant (infrastructure / teacher training / curriculum / budget support) is not extractable from CRS project metadata at the inter-method agreement threshold we committed to; the ANOVA does not run. Second, substituting the published AAP-2018 harmonized learning measure for the World Bank HCI HLO measure flips the within-country coefficient's sign in both the full and the overlap-window samples (β = −16.67 and −3.94 respectively); the headline is measure-sensitive. Third, the standard multiple-imputation robustness check the missingness PAP pre-committed to requires assumptions our MCAR test pre-committed to running already refutes. We position the paper in the methodological-reflection tradition [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts] and read its contribution as *a calibrated map of what cross-country aid-effectiveness panel evidence can and cannot say at the current data frontier*.
 
 # 1. Introduction — The measurement illusion
 
 Universal primary enrollment is, by the standards of any prior era of development policy, a solved problem. Across the 133 ODA-eligible recipient countries in our 2010–2020 panel, gross primary enrollment is uniformly between 98 and 109 percent; the MDG-era convergence on access has reached every region. *Learning* has not converged. Human Capital Index Harmonized Learning Outcomes (HLO) range from roughly 300 to 625 across the same country set, with no narrowing trend across the four HCI cycles published since 2010. The policy literature has, over the same decade, converged on a near-universal lever: redirect education aid away from inputs that the access-era apparatus knows how to deliver (classrooms, enrollment subsidies, teacher headcount) and toward interventions that produce learning — targeted pedagogy, accountability mechanisms, structured-instruction at-scale rollouts [@glewwe2016improving; @geeap2023smart; @angrist2024lays]. The empirical record on whether aid actually moves learning, however, is contested — and the contestation depends as much on methodological choices as on substantive findings.
 
-This paper assembles the canonical cross-country panel the contestation has been conducted on, runs a pre-specified five-model architecture, and operates under a design choice the cross-country aid-effectiveness literature has not historically committed to: *every consequential analytical decision is locked in writing in an Architecture Decision Record (ADR) before the analysis whose result the decision would influence runs*. Each ADR names the options considered, the criterion that would distinguish them, and the threshold at which the criterion would be considered met. When the analysis runs, the criterion either is or is not met; the record makes the outcome auditable and the response disciplined. A pre-registered diagnostic battery and a post-draft adversarial review protocol add second and third tiers of pre-commitment around the manuscript itself.
+This paper assembles the canonical cross-country panel the contestation has been conducted on, runs a pre-specified five-model architecture, and operates under a design choice the cross-country aid-effectiveness literature has not historically committed to: *every consequential analytical decision is locked in writing in a pre-analysis plan (PAP) before the analysis whose result the decision would influence runs*. Each PAP names the options considered, the criterion that would distinguish them, and the threshold at which the criterion would be considered met. When the analysis runs, the criterion either is or is not met; the record makes the outcome auditable and the response disciplined. A pre-registered diagnostic battery and a post-draft adversarial review protocol add second and third tiers of pre-commitment around the manuscript itself.
 
-The within-country panel fixed-effects specification recovers a positive aid-to-learning coefficient: β = +11.14 HLO points per unit log of three-year-moving-average constant-USD CRS disbursement (country-clustered SE = 5.52, p ≈ 0.05, N = 143 country-cycles); the cross-sectional specification on the same panel and the same covariates yields β = −1.36, not significant. *This single number is not the principal contribution of this paper.* Three pre-committed methodology gates each surfaced a result the cross-country aid-learning literature has under-engaged with. ADR-0007 (intervention-typology extraction): the four-bucket typology is not recoverable from CRS metadata at any defensible inter-method agreement threshold (raw agreement 39%; Cohen's κ 0.19; unclassified 76%); Model 4 was dropped. ADR-0004 (published-measure robustness): refitting the within-country coefficient on the Altinok-Angrist-Patrinos (2018) alternative HLO measure reverses the sign in both the full and the year-overlap window samples (β = −16.67 and −3.94 respectively); the headline does not survive sign-agreement across the published harmonization choice. ADR-0006 (missing-data sensitivity): the pre-committed MCAR test rejects MCAR at p ≪ 10⁻⁶, so the MAR assumption multiple imputation requires is empirically unsupportable; ADR-0012 retires the MI sub-commitment in favor of the listwise spec alone.
-
-Alongside, the paper executes a fourth substantive analysis: a novel joint composite of the World Bank Human Capital Index and the Oxford Insights Government AI Readiness Index 2025, partitioned into median-split quadrants. 47 of 132 joined countries (35.6 %) fall in the low-HCI ∩ low-AI-readiness "double-excluded" cell, of which 29 (61.7 %) are sub-Saharan African — against sub-Saharan Africa's 31.8 % share of the joined sample. The compounding-divergence thesis that UNDP, the World Bank's *Beyond the AI Divide* working paper, and the joint ILO–World Bank background study for the *World Development Report 2026* have articulated theoretically [@muthukrishna2025divergence; @mandon2025beyond; @ilo2026disruption] receives a concrete country-cross-section operationalization with explicit regional-concentration quantification.
+The within-country panel fixed-effects specification recovers a positive aid-to-learning coefficient: β = +11.14 HLO points per unit log of three-year-moving-average constant-USD CRS disbursement (country-clustered SE = 5.52, p ≈ 0.05, N = 143 country-cycles); the cross-sectional specification on the same panel and the same covariates yields β = −1.36, not significant. *This single number is not the principal contribution of this paper.* Three pre-committed methodology gates each surfaced a result the cross-country aid-learning literature has under-engaged with. PAP-0007 (intervention-typology extraction): the four-bucket typology is not recoverable from CRS metadata at any defensible inter-method agreement threshold (raw agreement 39%; Cohen's κ 0.19; unclassified 76%); Model 4 was dropped. PAP-0004 (published-measure robustness): refitting the within-country coefficient on the Altinok-Angrist-Patrinos (2018) alternative HLO measure reverses the sign in both the full and the year-overlap window samples (β = −16.67 and −3.94 respectively); the headline does not survive sign-agreement across the published harmonization choice. PAP-0006 (missing-data sensitivity): the pre-committed MCAR test rejects MCAR at p ≪ 10⁻⁶, so the MAR assumption multiple imputation requires is empirically unsupportable; PAP-0012 retires the MI sub-commitment in favor of the listwise spec alone.
 
 §2 anchors the contribution in the literature; §3 describes the data and the pre-commitment design; §4 reports the empirical results; §5 discusses what the panel evidence can and cannot claim; §6 and §7 translate the methodological findings into policy and research-infrastructure implications.
 
@@ -105,13 +103,13 @@ EVIDENCE TRACE — §2.2 ¶3:
 
 ## 2.3 Methodological-reflection tradition
 
-This paper positions its contribution alongside a small but growing strand in development empirics that treats *what an empirical method can and cannot credibly claim* as itself a methodological contribution — not a caveat to be acknowledged before moving on, but a substantive finding the literature should know about. Sandefur's [-@sandefur2018internationally] *Internationally comparable mathematics scores for fourteen African countries* is the clearest precedent on the outcome-measurement side: it re-analyzes the Southern and Eastern Africa Consortium for Monitoring Educational Quality (SACMEQ)–PISA item overlap underlying the harmonized learning measures the field treats as cross-country comparable, finds anchor-sample sizes often too thin for credible item-equating, and concludes that cross-test rankings rest on harmonization assumptions weaker than the literature has admitted. The implicit reading in cross-country panel work has been that within-country fixed effects absorb the level differences such harmonization introduces. §4.7 demonstrates that this reading is incomplete: refit on an alternative harmonized measure reverses the sign of the within-country coefficient — Sandefur's critique extends to the within-country dimension as well, a hard-won finding for the literature.
+This paper positions its contribution alongside a small but growing strand in development empirics that treats *what an empirical method can and cannot credibly claim* as itself a methodological contribution — not a caveat to be acknowledged before moving on, but a substantive finding the literature should know about. Sandefur's [-@sandefur2018internationally] *Internationally comparable mathematics scores for fourteen African countries* is the clearest precedent on the outcome-measurement side: it re-analyzes the Southern and Eastern Africa Consortium for Monitoring Educational Quality (SACMEQ)–PISA item overlap underlying the harmonized learning measures the field treats as cross-country comparable, finds anchor-sample sizes often too thin for credible item-equating, and concludes that cross-test rankings rest on harmonization assumptions weaker than the literature has admitted. The implicit reading in cross-country panel work has been that within-country fixed effects absorb the level differences such harmonization introduces. §4.6 demonstrates that this reading is incomplete: refit on an alternative harmonized measure reverses the sign of the within-country coefficient — Sandefur's critique extends to the within-country dimension as well, a hard-won finding for the literature.
 
 <!--
 EVIDENCE TRACE — §2.3 ¶1:
 - Sandefur harmonization critique → docs/lit/sandefur-2018.md::Argument + Method + Key claims (Read primary source CHECKED)
 - Our defense via within-FE absorbing cross-country level differences → docs/lit/sandefur-2018.md::Our engagement (lines 16-20)
-- Forward-reference to §4.7 sign-agreement failure → docs/findings.md §5.8 (now drafted in §4.7 placeholder for Session 06)
+- Forward-reference to §4.6 sign-agreement failure → docs/findings.md §5.8 (now drafted in §4.6 placeholder for Session 06)
 - Hedge level: LOW (Sandefur primary READ; cite with confidence)
 -->
 
@@ -125,17 +123,6 @@ EVIDENCE TRACE — §2.3 ¶2:
 - The "substantive method differs, over-claiming concern carries" reframe is the paper's own positioning, traceable to the lit-note "Our engagement" sections
 -->
 
-The compounding-divergence literature — Muthukrishna and Schellekens' [-@muthukrishna2025divergence] UNDP report, Mandon's [-@mandon2025beyond] *Beyond the AI Divide* World Bank working paper, and the joint ILO–World Bank *Disruption without dividend?* background study [-@ilo2026disruption] for the *World Development Report 2026* — articulates a different methodological-reflection theme. These works argue that AI-driven divergence between countries is conditional on absorptive capacity (human capital, digital infrastructure, governance) and that the standard country-comparison tools have not yet operationalized the joint distribution of those capacities at country-cross-section resolution. The §4.6 Compounding AI Penalty analysis is our contribution at that joint-distribution operationalization layer; we cite the three above as the closest theoretical (Muthukrishna-Schellekens) and practitioner (Mandon; ILO-WBG) antecedents we are aware of, while noting in §4.6 that we are not aware of a prior peer-reviewed paper that constructs the HCI × Oxford-GARI joint composite at the exact country-cross-section level we report.
-
-<!--
-EVIDENCE TRACE — §2.3 ¶3:
-- Muthukrishna-Schellekens UNDP report → docs/lit/muthukrishna-schellekens-2025.md::Argument + Our engagement (secondary engagement noted; cite for theoretical antecedent role)
-- Mandon WBG WP 11073 → docs/lit/mandon-2025.md::Argument + Our engagement (note that Mandon uses IMF AI Preparedness Index, not Oxford GARI — methodologically distinct from §4.6)
-- ILO-WBG 2026 GenAI study → docs/lit/ilo-2026-disruption.md::Argument + Our engagement (employment-level complementarity vs our country-level analysis)
-- Hedge level: MEDIUM (all three new lit notes SECONDARY engagement only; cite for antecedent positioning, not specific findings beyond the headline framings already in the lit notes)
-- The "not aware of a prior peer-reviewed paper..." hedge tracks docs/lit/oxford-insights-2026.md::Novelty-claim audit
--->
-
 # 3. Data & Methodology
 
 ## 3.1 Data sources and panel construction
@@ -144,41 +131,41 @@ The analytical panel is a balanced 133-country × 11-year (2010–2020) dataset 
 
 <!--
 EVIDENCE TRACE — §3.1 ¶1 (universe + period):
-- ADR-0002 N=133 / Model-2 FE on 127 → docs/methodology.md §3.2 (lines 21-25)
-- ADR-0003 windows-identical per Session-09 audit → docs/methodology.md §3.3 (lines 27-31); output/tables/year_range_viability.csv
+- PAP-0002 N=133 / Model-2 FE on 127 → docs/methodology.md §3.2 (lines 21-25)
+- PAP-0003 windows-identical per Session-09 audit → docs/methodology.md §3.3 (lines 27-31); output/tables/year_range_viability.csv
 - COVID-closure control variable → docs/methodology.md §3.7
 - Hedge level: N/A (all source claims trace directly to project-internal authored methodology.md)
 -->
 
-The outcome variable is the World Bank Human Capital Index Harmonized Test Scores (`HD.HCI.HLOS`), fetched via the WDI API and stored as `hlo_score` (scale roughly 300–625, anchored on Progress in International Reading Literacy Study (PIRLS) and Trends in International Mathematics and Science Study (TIMSS) primary benchmarks at 400/475/625). The principal robustness measure is the Altinok, Angrist and Patrinos [-@altinok2018global] *Global Data Set on Education Quality (1965–2015)* — a parallel harmonization stored as `aap_hlo_aap` and fetched from the OWID `owid-datasets` GitHub mirror at a frozen commit hash. ADR-0004 commits the paper to verifying sign-agreement on the within-country coefficient across the two measures as a precondition for the headline claim; §4.7 reports the measure-sensitivity finding from that test. The Sandefur [-@sandefur2018internationally] critique that anchor-equating between testing regimes (PISA, TIMSS, SACMEQ, and the Programme d'analyse des systèmes éducatifs de la CONFEMEN (PASEC)) produces score-equivalence claims that may not hold in practice — particularly for sub-Saharan African countries that anchor through small overlapping samples — is engaged head-on in two places: the within-country fixed-effects specification (Model 2) absorbs any time-invariant cross-country level miscalibration in the harmonization, and the AAP-2018 alternative serves as the published-measure check against measurement-choice fragility. Learning-Adjusted Years of Schooling (`hci_lays_overall`, computed by the World Bank as $\text{LAYS} = \text{EYS} \times (\text{HLO}/625)$) is reported as a parallel outcome to put the paper's findings in the unit Angrist [-@angrist2024lays] and the GEEAP [-@geeap2023smart] cost-effectiveness benchmarks use.
+The outcome variable is the World Bank Human Capital Index Harmonized Test Scores (`HD.HCI.HLOS`), fetched via the WDI API and stored as `hlo_score` (scale roughly 300–625, anchored on Progress in International Reading Literacy Study (PIRLS) and Trends in International Mathematics and Science Study (TIMSS) primary benchmarks at 400/475/625). The principal robustness measure is the Altinok, Angrist and Patrinos [-@altinok2018global] *Global Data Set on Education Quality (1965–2015)* — a parallel harmonization stored as `aap_hlo_aap` and fetched from the OWID `owid-datasets` GitHub mirror at a frozen commit hash. PAP-0004 commits the paper to verifying sign-agreement on the within-country coefficient across the two measures as a precondition for the headline claim; §4.6 reports the measure-sensitivity finding from that test. The Sandefur [-@sandefur2018internationally] critique that anchor-equating between testing regimes (PISA, TIMSS, SACMEQ, and the Programme d'analyse des systèmes éducatifs de la CONFEMEN (PASEC)) produces score-equivalence claims that may not hold in practice — particularly for sub-Saharan African countries that anchor through small overlapping samples — is engaged head-on in two places: the within-country fixed-effects specification (Model 2) absorbs any time-invariant cross-country level miscalibration in the harmonization, and the AAP-2018 alternative serves as the published-measure check against measurement-choice fragility. Learning-Adjusted Years of Schooling (`hci_lays_overall`, computed by the World Bank as $\text{LAYS} = \text{EYS} \times (\text{HLO}/625)$) is reported as a parallel outcome to put the paper's findings in the unit Angrist [-@angrist2024lays] and the GEEAP [-@geeap2023smart] cost-effectiveness benchmarks use.
 
 <!--
 EVIDENCE TRACE — §3.1 ¶2 (outcome variable HLO):
-- WB HCI HLOS primary + AAP-2018 robustness → docs/methodology.md §3.4 (lines 35-45); ADR-0004
+- WB HCI HLOS primary + AAP-2018 robustness → docs/methodology.md §3.4 (lines 35-45); PAP-0004
 - Sandefur 2018 critique + within-FE defense → docs/methodology.md §3.4 lines 41-43; docs/lit/sandefur-2018.md (READ primary)
-- LAYS layer → docs/methodology.md §3.4 line 45; ADR-0011 connection
-- §4.7 measure-sensitivity forward-reference → docs/methodology.md §3.4.1 (Phase-10 addition); findings.md §5.8
+- LAYS layer → docs/methodology.md §3.4 line 45; PAP-0011 connection
+- §4.6 measure-sensitivity forward-reference → docs/methodology.md §3.4.1 (Phase-10 addition); findings.md §5.8
 - Hedge level: LOW for Sandefur (primary READ); LOW for LAYS / AAP / WB HCI (project-internal documentation)
 -->
 
-The treatment variable is OECD DAC Creditor Reporting System (CRS) disbursements to education (sector codes 110/111/112/113/114), constant USD with the DAC deflator, and a three-year strictly-past moving average (mean of *t*−3, *t*−2, *t*−1). ADR-0005 locks this construction — `crs_disburse_usd_defl_ma3_lag1` — from a 16-cell sensitivity surface that tests commitment-vs-disbursement, current-vs-constant USD, and four lag/MA combinations. All sixteen cells produce a non-negative within-country coefficient on HLO; the strictly-past MA is chosen as primary because it forecloses contemporaneous donor response to within-year learning shocks. The raw OECD CRS extract is a 537,586-row project-level parquet (release CRS-Parquet-v20260408) fetched via the OECD's SDMX endpoint; aggregation to the (iso3, year) panel happens in `R/30_merge_panel.R` at Phase 2. NA cells within the ODA-eligible universe are coalesced to zero before MA computation, on the rationale that ODA-eligible recipients with no recorded CRS project in year *t* received zero dollars that year, not "data missing". AidData's Global Chinese Development Finance v3.0 (GCDF; ADR-0008) is ingested in parallel for the non-DAC blind-spot robustness reported in Appendix B.
+The treatment variable is OECD DAC Creditor Reporting System (CRS) disbursements to education (sector codes 110/111/112/113/114), constant USD with the DAC deflator, and a three-year strictly-past moving average (mean of *t*−3, *t*−2, *t*−1). PAP-0005 locks this construction — `crs_disburse_usd_defl_ma3_lag1` — from a 16-cell sensitivity surface that tests commitment-vs-disbursement, current-vs-constant USD, and four lag/MA combinations. All sixteen cells produce a non-negative within-country coefficient on HLO; the strictly-past MA is chosen as primary because it forecloses contemporaneous donor response to within-year learning shocks. The raw OECD CRS extract is a 537,586-row project-level parquet (release CRS-Parquet-v20260408) fetched via the OECD's SDMX endpoint; aggregation to the (iso3, year) panel happens in `R/30_merge_panel.R` at Phase 2. NA cells within the ODA-eligible universe are coalesced to zero before MA computation, on the rationale that ODA-eligible recipients with no recorded CRS project in year *t* received zero dollars that year, not "data missing". AidData's Global Chinese Development Finance v3.0 (GCDF; PAP-0008) is ingested in parallel for the non-DAC blind-spot robustness reported in Appendix B.
 
 <!--
 EVIDENCE TRACE — §3.1 ¶3 (treatment ODA):
-- 16-cell sensitivity surface + strictly-past MA choice → docs/methodology.md §3.5 lines 62-66; ADR-0005
+- 16-cell sensitivity surface + strictly-past MA choice → docs/methodology.md §3.5 lines 62-66; PAP-0005
 - 537K row CRS extract + ingest pipeline → docs/methodology.md §3.5 lines 68; data/interim/oecd_crs.parquet
 - NA→0 coalesce → docs/methodology.md §3.5 line 70; R/30_merge_panel.R header
-- GCDF + ADR-0008 → docs/methodology.md §3.11
+- GCDF + PAP-0008 → docs/methodology.md §3.11
 - Hedge level: LOW (project-internal documentation; locked decisions)
 -->
 
-Macro and sector controls (WDI: GDP per capita in constant USD; pupil-teacher ratio at primary level; education expenditure as percent of GDP) are fetched via the `WDI` R package. Governance controls use the native Worldwide Governance Indicators bundle to retain the per-source count needed to engage Langbein and Knack's [-@langbein2010governance] critique that the six WGI dimensions collapse to a single latent factor. ADR-0009 locks the operationalization as the PCA-collapsed first principal component (`wgi_pc1`); PC1 captures 76.4 % of WGI variance on this sample with all six loadings positive in the 0.35–0.45 band (Appendix B), and the all-six specification shows none of the six dimensions individually significant despite joint significance — empirically confirming the Langbein-Knack aggregation critique. ADR-0006 drops UNESCO Institute for Statistics (UIS) variables from the primary specification due to high regional missingness (private expenditure 91.8 % missing in sub-Saharan Africa); a UIS-augmented listwise robustness is reported in Appendix B. The enrollment and out-of-school indicators flowing through WDI and UIS rest on country-side reporting to UNESCO's annual education survey; ministries face well-documented incentives to over-report enrollment and under-report out-of-school children during MDG and SDG-4 monitoring cycles, and the paper treats these variables as suggestive rather than authoritative. The §5 limits paragraph owns this measurement caveat directly.
+Macro and sector controls (WDI: GDP per capita in constant USD; pupil-teacher ratio at primary level; education expenditure as percent of GDP) are fetched via the `WDI` R package. Governance controls use the native Worldwide Governance Indicators bundle to retain the per-source count needed to engage Langbein and Knack's [-@langbein2010governance] critique that the six WGI dimensions collapse to a single latent factor. PAP-0009 locks the operationalization as the PCA-collapsed first principal component (`wgi_pc1`); PC1 captures 76.4 % of WGI variance on this sample with all six loadings positive in the 0.35–0.45 band (Appendix B), and the all-six specification shows none of the six dimensions individually significant despite joint significance — empirically confirming the Langbein-Knack aggregation critique. PAP-0006 drops UNESCO Institute for Statistics (UIS) variables from the primary specification due to high regional missingness (private expenditure 91.8 % missing in sub-Saharan Africa); a UIS-augmented listwise robustness is reported in Appendix B. The enrollment and out-of-school indicators flowing through WDI and UIS rest on country-side reporting to UNESCO's annual education survey; ministries face well-documented incentives to over-report enrollment and under-report out-of-school children during MDG and SDG-4 monitoring cycles, and the paper treats these variables as suggestive rather than authoritative. The §5 limits paragraph owns this measurement caveat directly.
 
 <!--
 EVIDENCE TRACE — §3.1 ¶4 (controls):
 - WDI macro + sector controls → docs/methodology.md §3.6 lines 74-77
-- WGI PC1 via Langbein-Knack engagement → docs/methodology.md §3.6 lines 81-85; ADR-0009; docs/lit/langbein-knack-2010.md (engaged through ADR-0009 empirical confirmation)
-- UIS dropped per ADR-0006 + 91.8% SSA missingness → docs/methodology.md §3.6 lines 89-98
+- WGI PC1 via Langbein-Knack engagement → docs/methodology.md §3.6 lines 81-85; PAP-0009; docs/lit/langbein-knack-2010.md (engaged through PAP-0009 empirical confirmation)
+- UIS dropped per PAP-0006 + 91.8% SSA missingness → docs/methodology.md §3.6 lines 89-98
 - UNESCO self-reporting bias paragraph → docs/methodology.md §3.6 line 79 (Phase-10 addition)
 - Hedge level: LOW for ADR-locked claims; MEDIUM for the UNESCO self-reporting bias paragraph (qualitative claim referencing Sandefur 2022 secondary; lit-note not yet created)
 -->
@@ -194,28 +181,28 @@ EVIDENCE TRACE — §3.1 ¶5 (confounders):
 
 ## 3.2 Pre-commitment design
 
-The pre-commitment framework rests on a design choice the cross-country aid-effectiveness literature has not historically made: every consequential analytical decision is locked in an Architecture Decision Record (ADR) *before* the analysis whose result the decision would influence runs. Twelve ADRs were written across the paper's analytical lifespan; Appendix A.1 inventories all twelve with status. The four load-bearing ones referenced repeatedly below are ADR-0002 (country universe, ODA-eligible ∩ ≥1 HLO observation, N = 133), ADR-0004 (HLO measure choice with a pre-specified sign-agreement gate), ADR-0005 (treatment construction as strictly-past 3-year MA of constant-USD disbursements), and ADR-0012 (retirement of the UIS multiple-imputation sub-commitment of ADR-0006 after MCAR rejection). ADR-0007 (CRS intervention typology) is the single Rejected ADR: its pre-committed inter-method agreement gate failed on all three criteria, retiring Model 4 before it produced defensible-looking but fragile results. The ADR architecture is the operational frame for treating every potentially-arbitrary methodological choice as a falsifiable gate the data must clear, not paperwork.
+The pre-commitment framework rests on a design choice the cross-country aid-effectiveness literature has not historically made: every consequential analytical decision is locked in a pre-analysis plan (PAP) *before* the analysis whose result the decision would influence runs. Twelve PAPs were written across the paper's analytical lifespan; Appendix A.1 inventories all twelve with status. The four load-bearing ones referenced repeatedly below are PAP-0002 (country universe, ODA-eligible ∩ ≥1 HLO observation, N = 133), PAP-0004 (HLO measure choice with a pre-specified sign-agreement gate), PAP-0005 (treatment construction as strictly-past 3-year MA of constant-USD disbursements), and PAP-0012 (retirement of the UIS multiple-imputation sub-commitment of PAP-0006 after MCAR rejection). PAP-0007 (CRS intervention typology) is the single Rejected PAP: its pre-committed inter-method agreement gate failed on all three criteria, retiring Model 4 before it produced defensible-looking but fragile results. The pre-analysis plan apparatus is the operational frame for treating every potentially-arbitrary methodological choice as a falsifiable gate the data must clear, not paperwork.
 
 <!--
 EVIDENCE TRACE — §3.2 ¶1 (ADR architecture):
 - All 12 ADRs and one-line summaries → docs/decisions/INDEX.md table rows (verified verbatim Phase-1 audit)
-- ADR-0007 Rejected as exemplar of the gate-catching-an-unfeasible-design pattern → docs/decisions/0007-oecd-crs-intervention-typology.md
-- ADR-0004 sign-agreement gate → docs/decisions/0004-hlo-measure.md "Data observed (Phase 10)" block
-- ADR-0012 UIS-MI retirement rationale → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
+- PAP-0007 Rejected as exemplar of the gate-catching-an-unfeasible-design pattern → docs/decisions/0007-oecd-crs-intervention-typology.md
+- PAP-0004 sign-agreement gate → docs/decisions/0004-hlo-measure.md "Data observed (Phase 10)" block
+- PAP-0012 UIS-MI retirement rationale → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
 - Hedge level: LOW (all ADRs are project-authored; INDEX.md is the canonical roster)
 -->
 
-A pre-registered diagnostic battery sits alongside the ADR layer. Every statistical test, robustness specification, and reproducibility commitment the manuscript makes is documented in advance; each is then either executed (with the result reported in §4–§5), retired via documented ADR (the typology-ANOVA per ADR-0007; the UIS multiple imputation per ADR-0012), or noted as not feasible at the panel's small T (the Dumitrescu-Hurlin Granger test and the Arellano-Bond GMM remedy of ADR-0010, both blocked by T_eff ≤ 4). The principal robustness check on the HLO measure produced a sign-flip the manuscript adapts to throughout.
+A pre-registered diagnostic battery sits alongside the PAP layer. Every statistical test, robustness specification, and reproducibility commitment the manuscript makes is documented in advance; each is then either executed (with the result reported in §4–§5), retired via documented PAP (the typology-ANOVA per PAP-0007; the UIS multiple imputation per PAP-0012), or noted as not feasible at the panel's small T (the Dumitrescu-Hurlin Granger test and the Arellano-Bond GMM remedy of PAP-0010, both blocked by T_eff ≤ 4). The principal robustness check on the HLO measure produced a sign-flip the manuscript adapts to throughout.
 
 <!--
 EVIDENCE TRACE — §3.2 ¶2 (Three-Pass Protocol):
 - Three-Pass Protocol verbatim → docs/brief.md lines 212-227 (Pass 1 / Pass 2 / Pass 3 specifications)
 - Pass 1 closed as qualified pass → output/pass1_statistical_validity_audit.md §6 sign-off
-- Granger not-feasible-at-our-T linked to ADR-0010 → docs/obligations.md (Granger row updated Phase 10)
+- Granger not-feasible-at-our-T linked to PAP-0010 → docs/obligations.md (Granger row updated Phase 10)
 - Hedge level: LOW (brief is project-authored; Pass 1 audit doc is project-authored)
 -->
 
-A post-draft adversarial review protocol completes the pre-commitment apparatus: an argumentative-coherence read on the assembled draft asking *does the argument hold without the numbers?*, followed by a deliberate 48-hour gap and then a skeptical-referee read marking every sentence of the form *"claim X but did not demonstrate X"* for repair or reframe. The collective discipline is straightforward: every claim the manuscript makes is traceable to a committed-in-advance diagnostic with documented status, and every methodological choice is locked in an ADR before the result that depends on it is generated.
+A post-draft adversarial review protocol completes the pre-commitment apparatus: an argumentative-coherence read on the assembled draft asking *does the argument hold without the numbers?*, followed by a deliberate 48-hour gap and then a skeptical-referee read marking every sentence of the form *"claim X but did not demonstrate X"* for repair or reframe. The collective discipline is straightforward: every claim the manuscript makes is traceable to a committed-in-advance diagnostic with documented status, and every methodological choice is locked in a PAP before the result that depends on it is generated.
 
 <!--
 EVIDENCE TRACE — §3.2 ¶3 (obligations spine):
@@ -253,19 +240,21 @@ is exactly the kind of hallucination the user warned against in Phase 11
 Session 02 ("ensure not hallucinating and real, evidence-based work").
 -->
 
-*Positionality statement to follow before final submission; the author's practitioner background grounds the methodological priors stated above.*
+The author is a practitioner-researcher based in Bristol, United Kingdom, with a Master of Arts in Education and International Development from University College London's Institute of Education and a five-year track record of monitoring, evaluation, and applied-research engagements across the education and human-capital-development sector. The roles span the donor architecture this paper takes as its object: bilateral programmes (USAID, via RTI International's Basic Education Program in Georgia, where the author led the longitudinal implementation study and rollout of the Multi-Tiered System of Support framework across fifteen public schools, four hundred teachers, and ten thousand primary students, 2023–2025; U.S. Department of State, via IREX's external evaluation of the ten-year Georgia Media Partnership Program); multilateral collaboration (the Japan International Cooperation Agency's monitoring and evaluation lead for the Maternal and Child Health Book project in Adjara region, 2025; consortium work with the World Bank and Mathematica on the New School Model evaluation in Georgia, 2021–2022); European Union–funded research consortia (the European Training Foundation's mixed-methods study of civil-society organisations in human-capital development; People In Need's evaluations across the South Caucasus and Moldova programme; multiple ENPARD rural-development engagements); and national-government direct engagements with Georgia's Ministry of Education and Science on inclusiveness policy and reform implementation.
+
+The methodological priors of this paper are grounded in that direct engagement. Skepticism toward enrollment-based metrics, the preference for disbursement-over-commitment as the ODA construct, and the explicit treatment of UNESCO self-reported indicators as suggestive-rather-than-authoritative all reflect repeated first-hand observation of the gap between what monitoring frameworks were designed to capture and what the resulting indicators actually carry when they reach ministry and donor reporting channels. The author co-founded Reed (reed.ge), a research platform building structured-voice instruments for teachers, parents, and children in education-policy decisions, in October 2025; the platform's underlying premise — that the indicators that drive education-finance decisions need redesign at the instrument layer, not just at the aggregation layer — directly motivates the manuscript's treatment of measurement infrastructure as a research-priority question rather than a residual caveat. The positionality framing here is methodological asset rather than apology: the practitioner experience justifies the manuscript's skeptical priors about donor-reporting-layer data and grounds the §6 research-infrastructure recommendations in the operational realities of programmes the author has worked inside.
 
 ## 3.4 Statistical-validity audit summary
 
-The pre-registered statistical-validity audit completed with the following dispositions across the twelve diagnostics committed in advance: each was either executed and passed; withdrawn per a documented ADR (the two ANOVA diagnostics under ADR-0007 Rejected); scope-resolved (the 3-level student-school-country HLM reframed to country-level only, pending PISA/TIMSS/PIRLS micro-data); deferred to a later argumentative-coherence and adversarial-read pass with documentation; or documented as not feasible at small T (the Dumitrescu-Hurlin Granger test and the System GMM remedy of ADR-0010 are both blocked by the HCI-cycle panel's T_eff ≤ 4).
+The pre-registered statistical-validity audit completed with the following dispositions across the twelve diagnostics committed in advance: each was either executed and passed; withdrawn per a documented PAP (the two ANOVA diagnostics under PAP-0007 Rejected); scope-resolved (the 3-level student-school-country HLM reframed to country-level only, pending PISA/TIMSS/PIRLS micro-data); deferred to a later argumentative-coherence and adversarial-read pass with documentation; or documented as not feasible at small T (the Dumitrescu-Hurlin Granger test and the System GMM remedy of PAP-0010 are both blocked by the HCI-cycle panel's T_eff ≤ 4).
 
-The substantive audit finding is not the diagnostic-checklist completion. It is the failed HLO measure-sensitivity check: the principal robustness committed in ADR-0004 — refit Model 2's headline specification on the AAP-2018 alternative outcome and verify sign agreement with the World Bank HCI HLOS specification — produced a sign-flip on both the full AAP coverage (β = −16.67, p = 0.009) and the overlap window restricted to year ≥ 2010 (β = −3.94, p = 0.66). The overlap-window null rules out sample-window composition as the sole driver; the harmonized-measure choice itself materially shapes the headline. ADR-0004 documents the failure; the manuscript adapts via the hedge route — the within-country positive headline is reported throughout the paper with explicit measure-qualification ("*in the WB HCI HLOS specification on the 2010–2020 panel*") rather than naked attribution. §4.7 reports the sensitivity numbers; §5 frames the measure-fragility as itself a methodological contribution to the cross-country aid-learning literature, alongside the Model 4 drop (§4.4 / ADR-0007 Rejected) and the UIS multiple-imputation retirement (§4.7 / ADR-0012).
+The substantive audit finding is not the diagnostic-checklist completion. It is the failed HLO measure-sensitivity check: the principal robustness committed in PAP-0004 — refit Model 2's headline specification on the AAP-2018 alternative outcome and verify sign agreement with the World Bank HCI HLOS specification — produced a sign-flip on both the full AAP coverage (β = −16.67, p = 0.009) and the overlap window restricted to year ≥ 2010 (β = −3.94, p = 0.66). The overlap-window null rules out sample-window composition as the sole driver; the harmonized-measure choice itself materially shapes the headline. PAP-0004 documents the failure; the manuscript adapts via the hedge route — the within-country positive headline is reported throughout the paper with explicit measure-qualification ("*in the WB HCI HLOS specification on the 2010–2020 panel*") rather than naked attribution. §4.6 reports the sensitivity numbers; §5 frames the measure-fragility as itself a methodological contribution to the cross-country aid-learning literature, alongside the Model 4 drop (§4.4 / PAP-0007 Rejected) and the UIS multiple-imputation retirement (§4.6 / PAP-0012).
 
 <!--
 EVIDENCE TRACE — §3.4 ¶1 + ¶2 (Pass 1 sign-off):
 - Verbatim carving + condensation from output/pass1_statistical_validity_audit.md §6 sign-off (lines 76-89)
-- AAP sign-flip numbers → output/tables/pass1_hlo_sensitivity.csv; findings.md §5.8; ADR-0004 Phase-10 block
-- Granger not-feasible-at-our-T linkage to ADR-0010 → output/pass1_statistical_validity_audit.md §1 row 3
+- AAP sign-flip numbers → output/tables/pass1_hlo_sensitivity.csv; findings.md §5.8; PAP-0004 Phase-10 block
+- Granger not-feasible-at-our-T linkage to PAP-0010 → output/pass1_statistical_validity_audit.md §1 row 3
 - 3-level → 2-level scope-resolution → docs/methodology.md §3.8 Phase-10 paragraph
 - Hedge level: LOW (all source artifacts are project-authored and verified at Phase 10)
 -->
@@ -274,11 +263,11 @@ EVIDENCE TRACE — §3.4 ¶1 + ¶2 (Pass 1 sign-off):
 
 ## 4.1 Descriptive: Enrollment-learning divergence
 
-The analytical universe is the 133-country sample locked in §3.1 (ODA-eligible countries with at least one HLO observation in 2000–2022, per ADR-0002), with the primary window narrowed to 2010–2020 per ADR-0003. The HLO outcome is observed only in four Human Capital Index assessment cycles (2010, 2017, 2018, 2020), and within-country variation is therefore identified off at most four observations per country — a structural feature of the harmonized cross-country learning measurement landscape that constrains every downstream identification claim. Of the 133-country universe, 127 countries have at least two HLO observations and are within-country fixed-effects identifiable; 30 of the 133 (23 percent) eventually drop out of Model 2 via listwise on controls plus singleton-FE absorption.
+The analytical universe is the 133-country sample locked in §3.1 (ODA-eligible countries with at least one HLO observation in 2000–2022, per PAP-0002), with the primary window narrowed to 2010–2020 per PAP-0003. The HLO outcome is observed only in four Human Capital Index assessment cycles (2010, 2017, 2018, 2020), and within-country variation is therefore identified off at most four observations per country — a structural feature of the harmonized cross-country learning measurement landscape that constrains every downstream identification claim. Of the 133-country universe, 127 countries have at least two HLO observations and are within-country fixed-effects identifiable; 30 of the 133 (23 percent) eventually drop out of Model 2 via listwise on controls plus singleton-FE absorption.
 
 <!--
 EVIDENCE TRACE — §4.1 ¶1 (sample + period):
-- 133-country ADR-0002 universe + 127 FE-identifiable → docs/findings.md §4.1 ¶1
+- 133-country PAP-0002 universe + 127 FE-identifiable → docs/findings.md §4.1 ¶1
 - Four HCI cycles 2010/2017/2018/2020 → docs/findings.md §4.1 ¶3
 - Cross-reference to manuscript §3.1 (data sources)
 - N=143 / 30-country drop → docs/findings.md §5.2 limits paragraph
@@ -287,7 +276,7 @@ EVIDENCE TRACE — §4.1 ¶1 (sample + period):
 
 The descriptive headline of the panel is the divergence between enrollment and learning. Gross primary enrollment is uniformly high across all six World Bank regions over the primary window — region means range from 98.5 percent (Europe & Central Asia) to 109.1 percent (Latin America & Caribbean). HLO score is not: the same six-region grid spans 82 points (sub-Saharan Africa 374; ECA 456), roughly 1.6 within-universe standard deviations. The harmonized LAYS measure shows a 4.3-year cross-region spread (SSA 4.9; ECA 9.2). On the 2020 cross-section — the densest cycle, with 106 countries reporting both indicators — the bivariate OLS slope of HLO on gross primary enrollment is **−0.65 HLO points per one-percentage-point enrollment increase** (p = 0.13, not significant); the R² is 0.02. Enrollment "explains" approximately two percent of cross-country HLO variance, and the relationship is trending slightly negative. The named-country contrast that grounds the abstraction: **Kenya** enrolls 92 percent of primary-aged students gross and produces an HLO score of 455; **Bangladesh** enrolls 110 percent gross and produces an HLO score of 368. Bangladesh has eighteen percentage points more gross enrollment than Kenya and an eighty-seven-point lower HLO score, in the same year, on the same harmonized scale.
 
-![Figure 1. Enrollment-learning divergence, 2020 cross-section. 133-country ADR-0002 universe restricted to countries with both gross primary enrollment and HLO score non-NA (n=106). OLS bivariate slope = −0.65 HLO points per 1pp enrollment increase (p=0.13, ns); R² = 0.02. Labeled countries: BGD, BRA, EGY, IDN, IND, KEN, NGA. Source: WB HCI HLOS + WDI SE.PRM.ENRR.](../output/figures/eda/enrollment_vs_learning.png){#fig-divergence width=80%}
+![Figure 1. Enrollment-learning divergence, 2020 cross-section. 133-country PAP-0002 universe restricted to countries with both gross primary enrollment and HLO score non-NA (n=106). OLS bivariate slope = −0.65 HLO points per 1pp enrollment increase (p=0.13, ns); R² = 0.02. Labeled countries: BGD, BRA, EGY, IDN, IND, KEN, NGA. Source: WB HCI HLOS + WDI SE.PRM.ENRR.](../output/figures/eda/enrollment_vs_learning.png){#fig-divergence width=80%}
 
 <!--
 EVIDENCE TRACE — §4.1 ¶2 (divergence figure + substantive read):
@@ -334,7 +323,7 @@ EVIDENCE TRACE — §4.2 ¶1 (Model 1 cross-sectional OLS):
 - Hedge level: LOW (project-internal authored result table)
 -->
 
-Model 2 re-estimates the relationship as a within-country fixed-effects panel, exploiting variation across the four HCI-cycle observations per country. The specification is two-way (country plus year) FE with country-clustered SE, on a locked encoding stack: a strictly-past three-year MA of constant-USD disbursements per ADR-0005, the WGI PC1 governance composite per ADR-0009 (76.4 percent of variance, engaging the Langbein and Knack (2010) critique that the six WGI aggregates are not empirically separable), and the parallel AidData GCDF Chinese-aid covariate in spec 2f per ADR-0008. The headline specification 2e returns **β = +11.14** HLO points per unit log treatment (SE 5.52; p = 0.048; N = 143), **in the WB HCI HLOS specification on the 2010–2020 panel** — the long-form hedge that the §4.7 measure-sensitivity check does not survive sign-agreement. The cross-sectional **β = −1.36** (Model 1) versus within-country **β = +11.14** (Model 2) contrast is the manuscript's central empirical claim: a sign-flip plus an approximately eight-fold magnitude shift under the within-country specification. The full 2a–2g spec progression (Appendix A) shows the within-country signal emerging at 2c when the time-varying pupil-teacher ratio is added (β = 9.72, p = 0.054), stabilising at 2e–2f (β = 11.14, p = 0.048; β = 11.26, p = 0.046 with parallel Chinese aid), and softening at 2g (β = 9.61, p = 0.082) when active-conflict status and COVID-19 closure days enter. The robustness across the controlled spec progression is the cleanest within-spec evidence for the headline.
+Model 2 re-estimates the relationship as a within-country fixed-effects panel, exploiting variation across the four HCI-cycle observations per country. The specification is two-way (country plus year) FE with country-clustered SE, on a locked encoding stack: a strictly-past three-year MA of constant-USD disbursements per PAP-0005, the WGI PC1 governance composite per PAP-0009 (76.4 percent of variance, engaging the Langbein and Knack (2010) critique that the six WGI aggregates are not empirically separable), and the parallel AidData GCDF Chinese-aid covariate in spec 2f per PAP-0008. The headline specification 2e returns **β = +11.14** HLO points per unit log treatment (SE 5.52; p = 0.048; N = 143), **in the WB HCI HLOS specification on the 2010–2020 panel** — the long-form hedge that the §4.6 measure-sensitivity check does not survive sign-agreement. The cross-sectional **β = −1.36** (Model 1) versus within-country **β = +11.14** (Model 2) contrast is the manuscript's central empirical claim: a sign-flip plus an approximately eight-fold magnitude shift under the within-country specification. The full 2a–2g spec progression (Appendix A) shows the within-country signal emerging at 2c when the time-varying pupil-teacher ratio is added (β = 9.72, p = 0.054), stabilising at 2e–2f (β = 11.14, p = 0.048; β = 11.26, p = 0.046 with parallel Chinese aid), and softening at 2g (β = 9.61, p = 0.082) when active-conflict status and COVID-19 closure days enter. The robustness across the controlled spec progression is the cleanest within-spec evidence for the headline.
 
 | Model | N | β log(1+CRS) | SE | p | SE type |
 |-------|----:|------:|------:|------:|---------|
@@ -342,15 +331,15 @@ Model 2 re-estimates the relationship as a within-country fixed-effects panel, e
 | **Model 2 v2 FE, locked encoding 2e (HEADLINE)** | 143 | **+11.14** | 5.52 | **0.048** | Country-clustered |
 | Model 2 v2 FE, locked 2g (+conflict+COVID) | 143 | +9.61 | 5.44 | 0.082 | Country-clustered |
 
-: Table 2. Model 1 vs Model 2 — the cross-sectional / within-country ODA-coefficient contrast on locked encoding. Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr strictly-past MA per ADR-0005 lock. WGI differs: Model 1 uses single Government Effectiveness; Model 2 uses WGI PC1 per ADR-0009 lock (76.4% variance). Two-way (country + year) FE in Model 2. Headline is the WB HCI HLOS specification on the 2010–2020 panel; sensitivity to alternative HLO measure reported in §4.7. Stars: ***p<0.01, **p<0.05, *p<0.1. {#tbl-headline}
+: Table 2. Model 1 vs Model 2 — the cross-sectional / within-country ODA-coefficient contrast on locked encoding. Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr strictly-past MA per PAP-0005 lock. WGI differs: Model 1 uses single Government Effectiveness; Model 2 uses WGI PC1 per PAP-0009 lock (76.4% variance). Two-way (country + year) FE in Model 2. Headline is the WB HCI HLOS specification on the 2010–2020 panel; sensitivity to alternative HLO measure reported in §4.6. Stars: ***p<0.01, **p<0.05, *p<0.1. {#tbl-headline}
 
 <!--
 EVIDENCE TRACE — §4.2 ¶2 (Model 2 within-country FE headline):
 - Headline β=+11.14, SE=5.52, p=0.048, N=143 → output/tables/model2_fe_baseline_v2.md spec 2e + model1_vs_model2_contrast_v2.md row 2
-- Long-form hedge "in the WB HCI HLOS specification on the 2010-2020 panel" → manuscript §3.4 ¶2 + §4.7 forward-reference; empirically motivated by findings.md §5.8 AAP sensitivity
-- ADR-0005 strictly-past MA3 lock → manuscript §3.1 ¶3 + findings.md §5.2.1
-- ADR-0009 WGI PC1 lock (76.4% variance) + Langbein-Knack engagement → findings.md §5.2.3 + lit/langbein-knack-2010.md
-- ADR-0008 GCDF strictly-past consistency → findings.md §5.2.2
+- Long-form hedge "in the WB HCI HLOS specification on the 2010-2020 panel" → manuscript §3.4 ¶2 + §4.6 forward-reference; empirically motivated by findings.md §5.8 AAP sensitivity
+- PAP-0005 strictly-past MA3 lock → manuscript §3.1 ¶3 + findings.md §5.2.1
+- PAP-0009 WGI PC1 lock (76.4% variance) + Langbein-Knack engagement → findings.md §5.2.3 + lit/langbein-knack-2010.md
+- PAP-0008 GCDF strictly-past consistency → findings.md §5.2.2
 - Spec progression 2a-2g (1.14 → 0.77 → 9.72* → 8.75 → 11.14** → 11.26** → 9.61*) → output/tables/model2_fe_baseline_v2.md inline numbers
 - Cross-section vs within-FE contrast (-1.36 → +11.14; sign-flip + ~8x magnitude) → output/tables/model1_vs_model2_contrast_v2.md
 - Hedge level: LOW (project-internal locked-encoding manuscript-grade tables)
@@ -363,30 +352,30 @@ EVIDENCE TRACE — §4.2 ¶3 (substantive read of the sign-flip):
 - Magnitude translation: log change 2.3 → ~26 HLO points (=11.14 × 2.3) → arithmetic on findings.md §5.2 "substantive terms" paragraph; verified √half-SD against table1 within-universe HLO SD ≈51 points
 - Static FE not causal / time-varying endogeneity / donor success-chasing channel → findings.md §5.2 "Limit acknowledgments" + cross-reference to §4.3 Model 3 forthcoming
 - Diagnostics on 2e: Wooldridge F=0.44, p=0.51 + Breusch-Pagan χ²=137, p=0.0045 + max VIF=1.62 → output/tables/model2_fe_diagnostics_v2.csv + findings.md §5.2.4 diagnostics block
-- WGI × log(GDP/cap) cross-sectional r=0.79 → findings.md §4.7 correlation matrix
+- WGI × log(GDP/cap) cross-sectional r=0.79 → findings.md §4.6 correlation matrix
 - "FE hidden virtue" phrasing → findings.md §5.2 closing diagnostics paragraph
 - Hedge level: LOW (project-internal diagnostics tables + arithmetic verifiable)
 -->
 
-Qualifications on the headline are real. The N = 143 panel is thin (thirty of the 133 universe countries drop via the joint listwise constraint and singleton-FE absorption); HCI cycle sparsity (four observations: 2010, 2017, 2018, 2020) makes this a small-T panel in which asymptotic standard errors may understate sampling uncertainty; reverse causality is not ruled out under the static-FE specification, and the System GMM remedy ([ADR-0010](../docs/decisions/0010-identification-strategy-gmm.md)) is not feasible at T_eff ≤ 4 — the same small-T limit that forecloses the Dumitrescu-Hurlin Granger pre-test. Most consequentially, the within-country coefficient does not survive the principal robustness check ([ADR-0004](../docs/decisions/0004-hlo-measure.md); §4.7): the Altinok-Angrist-Patrinos (2018) [@altinok2018global] alternative HLO measure reverses the sign in both the full and year-overlap samples. §5 frames the measure-fragility as itself a methodological contribution alongside the Model 4 drop and the MI retirement ([ADR-0012](../docs/decisions/0012-retirement-of-uis-multiple-imputation.md)).
+Qualifications on the headline are real. The N = 143 panel is thin (thirty of the 133 universe countries drop via the joint listwise constraint and singleton-FE absorption); HCI cycle sparsity (four observations: 2010, 2017, 2018, 2020) makes this a small-T panel in which asymptotic standard errors may understate sampling uncertainty; reverse causality is not ruled out under the static-FE specification, and the System GMM remedy ([PAP-0010](../docs/decisions/0010-identification-strategy-gmm.md)) is not feasible at T_eff ≤ 4 — the same small-T limit that forecloses the Dumitrescu-Hurlin Granger pre-test. Most consequentially, the within-country coefficient does not survive the principal robustness check ([PAP-0004](../docs/decisions/0004-hlo-measure.md); §4.6): the Altinok-Angrist-Patrinos (2018) [@altinok2018global] alternative HLO measure reverses the sign in both the full and year-overlap samples. §5 frames the measure-fragility as itself a methodological contribution alongside the Model 4 drop and the MI retirement ([PAP-0012](../docs/decisions/0012-retirement-of-uis-multiple-imputation.md)).
 
 <!--
-EVIDENCE TRACE — §4.2 ¶4 (qualifications + §4.7 hand-off):
+EVIDENCE TRACE — §4.2 ¶4 (qualifications + §4.6 hand-off):
 - N=143 thin / 30 of 133 drop / singleton-FE absorption → findings.md §5.2 "Limit acknowledgments"
 - HCI cycle sparsity 4 obs/country max → findings.md §4.1 + §5.2 limits
-- GMM not feasible at T≤4 + ADR-0010 → findings.md §5.3 + ADR-0010 + manuscript §3.4 ¶1
+- GMM not feasible at T≤4 + PAP-0010 → findings.md §5.3 + PAP-0010 + manuscript §3.4 ¶1
 - Granger Dumitrescu-Hurlin not feasible at T≤4 → findings.md §5.8 + manuscript §3.4 ¶1
 - AAP sensitivity numbers (full β=-16.67, SE=5.96, p=0.009, N=69; overlap β=-3.94, SE=8.68, p=0.66, N=36) → output/tables/pass1_hlo_sensitivity.md; findings.md §5.8
-- ADR-0004 / ADR-0007 / ADR-0012 cross-references — all current in docs/decisions/
+- PAP-0004 / PAP-0007 / PAP-0012 cross-references — all current in docs/decisions/
 - @altinok2018global citation key → already in drafts/references.bib (verified Session 02)
-- §4.7 + §5 forward-references — both sections exist as placeholders awaiting Sessions 06+
+- §4.6 + §5 forward-references — both sections exist as placeholders awaiting Sessions 06+
 - Hedge level: LOW (all numbers from project-internal authored Pass 1 audit tables + ADR Phase-10 blocks)
 -->
 
 
 ## 4.3 Model 3: Multilevel transparency counterpart
 
-Model 3 re-estimates the ODA-on-HLO relationship as a two-level random-effects multilevel model — country random intercepts plus year fixed effects — on the same locked-encoding stack as Model 2 (the Session-03 strictly-past three-year moving-average treatment per ADR-0005 and the Session-05 WGI PC1 governance composite per ADR-0009). The specification is `lmer(hlo ~ controls + year_FE + (1|iso3), REML=FALSE)`, with the unrestricted maximum-likelihood estimator chosen to enable Hausman comparability against Model 2 FE. Spec 3a is the bivariate unconditional, with only the ODA treatment plus year fixed effects: **β = −5.19** per unit log treatment (SE 1.66; p = 0.002; N = 447). This is the well-known cross-country signal that aid concentrates in low-outcome countries, recovered here at the marginal-DV level rather than the country-mean level Model 1 uses. Adding log GDP per capita at 3b absorbs the significance (β = −1.80, not significant); by the full specification 3e — with the same control stack as Model 2 — the coefficient is β = **−1.32** (SE 2.68; p = 0.622; N = 173). Parallel to Model 1's full-spec absorption.
+Model 3 re-estimates the ODA-on-HLO relationship as a two-level random-effects multilevel model — country random intercepts plus year fixed effects — on the same locked-encoding stack as Model 2 (the Session-03 strictly-past three-year moving-average treatment per PAP-0005 and the Session-05 WGI PC1 governance composite per PAP-0009). The specification is `lmer(hlo ~ controls + year_FE + (1|iso3), REML=FALSE)`, with the unrestricted maximum-likelihood estimator chosen to enable Hausman comparability against Model 2 FE. Spec 3a is the bivariate unconditional, with only the ODA treatment plus year fixed effects: **β = −5.19** per unit log treatment (SE 1.66; p = 0.002; N = 447). This is the well-known cross-country signal that aid concentrates in low-outcome countries, recovered here at the marginal-DV level rather than the country-mean level Model 1 uses. Adding log GDP per capita at 3b absorbs the significance (β = −1.80, not significant); by the full specification 3e — with the same control stack as Model 2 — the coefficient is β = **−1.32** (SE 2.68; p = 0.622; N = 173). Parallel to Model 1's full-spec absorption.
 
 <!--
 EVIDENCE TRACE — §4.3 ¶1 (Model 3 RE specification + spec progression):
@@ -401,7 +390,7 @@ The Hausman test formally adjudicates the FE-vs-RE choice. The default `plm::pht
 
 <!--
 EVIDENCE TRACE — §4.3 ¶2 (Hausman + ICC: formal FE validation):
-- plm::phtest Swamy-Arora unavailable at T_eff ≤ 4 → docs/findings.md §5.4 + ADR-0010 consistency
+- plm::phtest Swamy-Arora unavailable at T_eff ≤ 4 → docs/findings.md §5.4 + PAP-0010 consistency
 - Manual Cameron-Trivedi Hausman: H=6.67, df=1, p=0.0098 → output/tables/model3_hausman_test.csv
 - ICC unconditional 0.912 + conditional 0.793 → output/tables/model3_icc.csv
 - "FE is the identified specification" framing → findings.md §5.4
@@ -430,7 +419,7 @@ EVIDENCE TRACE — §4.3 ¶3 (three-way contrast: RE collapses onto OLS):
 
 ## 4.4 Model 4 — Dropped: a pre-committed protocol failure
 
-The four-bucket intervention typology the policy literature expects to extract from OECD CRS metadata — infrastructure, teacher training, curriculum and materials, budget support — is not extractable at any defensible inter-method agreement threshold. ADR-0007 locked three pre-specified criteria before any classification ran: raw agreement on a joint-classified subsample of at least 85 percent, Cohen's κ of at least 0.70, and a rule-based unclassified rate below 30 percent. The classification pipeline — a 49-pattern keyword rule cascade cross-validated against a purpose-code-to-bucket mapping — was run on the full 537,586-project education-sector CRS extract. All three criteria failed: on the joint subsample of 130,737 projects, raw agreement was **39.04 percent**, Cohen's κ was **0.19**, and the rule-based classifier left **75.68 percent** of projects unclassified. The failure pattern was diagnostic, not noisy: the rule cascade left three-quarters of projects unmatched because the lexical breadth of CRS project descriptions exceeds what a regex cascade can cover without iterative tuning; the purpose-code mapping placed 82.7 percent of projects in `budget_support` while the rule-based classifier placed 4.2 percent there. The two methods were measuring different constructs, not the same construct with measurement noise.
+The four-bucket intervention typology the policy literature expects to extract from OECD CRS metadata — infrastructure, teacher training, curriculum and materials, budget support — is not extractable at any defensible inter-method agreement threshold. PAP-0007 locked three pre-specified criteria before any classification ran: raw agreement on a joint-classified subsample of at least 85 percent, Cohen's κ of at least 0.70, and a rule-based unclassified rate below 30 percent. The classification pipeline — a 49-pattern keyword rule cascade cross-validated against a purpose-code-to-bucket mapping — was run on the full 537,586-project education-sector CRS extract. All three criteria failed: on the joint subsample of 130,737 projects, raw agreement was **39.04 percent**, Cohen's κ was **0.19**, and the rule-based classifier left **75.68 percent** of projects unclassified. The failure pattern was diagnostic, not noisy: the rule cascade left three-quarters of projects unmatched because the lexical breadth of CRS project descriptions exceeds what a regex cascade can cover without iterative tuning; the purpose-code mapping placed 82.7 percent of projects in `budget_support` while the rule-based classifier placed 4.2 percent there. The two methods were measuring different constructs, not the same construct with measurement noise.
 
 | Criterion | Observed | Required | Verdict |
 |-----------|---------:|---------:|---------|
@@ -438,11 +427,11 @@ The four-bucket intervention typology the policy literature expects to extract f
 | Cohen's κ (rule-based vs purpose-code bucket) | 0.19 | ≥ 0.70 | FAIL |
 | Rule-based unclassified | 75.68% | < 30% | FAIL |
 
-: Table 4.4. Pre-committed (ADR-0007) inter-method-agreement criteria for the four-bucket OECD CRS intervention typology, against observed agreement on the 537,586-project education-sector extract. All three criteria fail; the typology classifier was retired and Model 4 dropped per the pre-committed protocol. {#tbl-typology}
+: Table 4.4. Pre-committed (PAP-0007) inter-method-agreement criteria for the four-bucket OECD CRS intervention typology, against observed agreement on the 537,586-project education-sector extract. All three criteria fail; the typology classifier was retired and Model 4 dropped per the pre-committed protocol. {#tbl-typology}
 
 <!--
 EVIDENCE TRACE — §4.4 ¶1 (pre-committed gate + failure):
-- 4-bucket inventory + ADR-0007 lock criteria → docs/decisions/0007-oecd-crs-intervention-typology.md
+- 4-bucket inventory + PAP-0007 lock criteria → docs/decisions/0007-oecd-crs-intervention-typology.md
 - Raw agreement 39.04%, κ=0.19, unclassified 75.68% → output/tables/typology_method_agreement.md
 - 537,586-project CRS extract count → findings.md §5.5
 - 49-pattern keyword cascade + purpose-code cross-validation → R/61_typology_coding.R header + findings.md §5.5
@@ -451,27 +440,27 @@ EVIDENCE TRACE — §4.4 ¶1 (pre-committed gate + failure):
 - Hedge level: LOW (project-internal lock-gate evidence)
 -->
 
-The pre-committed escalation path under ADR-0007 was Option 3: hand-code approximately one thousand stratified projects and train a TF-IDF plus logistic-regression production classifier. The researcher-grade decision (2026-05-23) was to drop Model 4 rather than escalate. Iterating the rule cascade, replacing the comparator, or investing two weeks of hand-coding would have either burned resources on an extractability axis that ADR-0007 was written precisely to test, or broken the no-post-hoc-tuning discipline the ADR's pre-commitment criteria were written to enforce. A pre-committed protocol catching an unfeasible design before it ran is the gate working as designed, not a methodological setback. The substantive implication, picked up in §5 and §6, is methodological. The development-aid effectiveness literature [@glewwe2016improving; @vegas2015when; @geeap2023smart] treats the input-intensive versus pedagogically-targeted distinction as load-bearing for policy. The finding here is that this distinction is *not extractable* from OECD CRS metadata at country-year resolution without substantial hand-coding investment — an empirical limit on what cross-country aid-effectiveness panel work can credibly say about composition, and a measurement constraint that helps explain why the existing panel literature relies on aid-amount rather than aid-composition regressions. Model 5, originally specified to use Model-4 effect sizes for a $1B counterfactual, was correspondingly redesigned per ADR-0011 to operate on the identified aggregate-β only; §4.5 reports the redesigned scenarios.
+The pre-committed escalation path under PAP-0007 was Option 3: hand-code approximately one thousand stratified projects and train a TF-IDF plus logistic-regression production classifier. The researcher-grade decision (2026-05-23) was to drop Model 4 rather than escalate. Iterating the rule cascade, replacing the comparator, or investing two weeks of hand-coding would have either burned resources on an extractability axis that PAP-0007 was written precisely to test, or broken the no-post-hoc-tuning discipline the ADR's pre-commitment criteria were written to enforce. A pre-committed protocol catching an unfeasible design before it ran is the gate working as designed, not a methodological setback. The substantive implication, picked up in §5 and §6, is methodological. The development-aid effectiveness literature [@glewwe2016improving; @vegas2015when; @geeap2023smart] treats the input-intensive versus pedagogically-targeted distinction as load-bearing for policy. The finding here is that this distinction is *not extractable* from OECD CRS metadata at country-year resolution without substantial hand-coding investment — an empirical limit on what cross-country aid-effectiveness panel work can credibly say about composition, and a measurement constraint that helps explain why the existing panel literature relies on aid-amount rather than aid-composition regressions. Model 5, originally specified to use Model-4 effect sizes for a $1B counterfactual, was correspondingly redesigned per PAP-0011 to operate on the identified aggregate-β only; §4.5 reports the redesigned scenarios.
 
 <!--
 EVIDENCE TRACE — §4.4 ¶2 (path-c framing: drop as researcher decision; failure as measurement-limit finding):
-- ADR-0007 Option 3 escalation path (hand-code ~1000 + TF-IDF + logistic) → docs/decisions/0007-oecd-crs-intervention-typology.md "Escalation path" block
+- PAP-0007 Option 3 escalation path (hand-code ~1000 + TF-IDF + logistic) → docs/decisions/0007-oecd-crs-intervention-typology.md "Escalation path" block
 - 2026-05-23 author drop decision → findings.md §5.5 ¶ "Per the pre-committed protocol..."
 - "Gate working as designed" framing → findings.md §5.5 ¶ closing
 - Lit citations (Glewwe-Muralidharan 2016, Vegas-Coffin 2015, GEEAP 2023) → drafts/references.bib (verified Sessions 01-02)
-- Model 5 redesign cross-reference → §4.5 + ADR-0011
-- Hedge level: LOW (researcher decision documented in session log + ADR-0007 Rejected)
+- Model 5 redesign cross-reference → §4.5 + PAP-0011
+- Hedge level: LOW (researcher decision documented in session log + PAP-0007 Rejected)
 -->
 
 
 ## 4.5 Model 5: Counterfactual on the identified aggregate β
 
-The original Model 5 specification — redirect $1B of annual education aid from input-based to outcome-based interventions and quantify the implied learning gain via Model-4 effect sizes — was made unestimable by §4.4. ADR-0011 locked a redesigned counterfactual on what the data does identify: marginal within-country percentage shocks applied to Model 2's locked β (in the principal specification), at three within-support shock magnitudes (+10 percent, +50 percent, +100 percent), translated to LAYS via the World Bank identity ΔLAYS = EYS × ΔHLO / 625 holding EYS constant. The baseline is the median country in the Model 2 estimation sample at **$59.7 million** in annual CRS education disbursement (constant USD; Q1 = $23.7M; Q3 = $123.7M). The counterfactual is honest about staying within the identified within-country log-CRS support: a literal $1B injection to a single country would push that country roughly 18× above its baseline — outside the within-country variation Model 2 was identified on — and we do not project there. The aggregate-only operationalization reflects the §4.4 typology drop; the compositional question survives as a §5 / §6 Discussion point rather than a Model 5 estimand.
+The original Model 5 specification — redirect $1B of annual education aid from input-based to outcome-based interventions and quantify the implied learning gain via Model-4 effect sizes — was made unestimable by §4.4. PAP-0011 locked a redesigned counterfactual on what the data does identify: marginal within-country percentage shocks applied to Model 2's locked β (in the principal specification), at three within-support shock magnitudes (+10 percent, +50 percent, +100 percent), translated to LAYS via the World Bank identity ΔLAYS = EYS × ΔHLO / 625 holding EYS constant. The baseline is the median country in the Model 2 estimation sample at **$59.7 million** in annual CRS education disbursement (constant USD; Q1 = $23.7M; Q3 = $123.7M). The counterfactual is honest about staying within the identified within-country log-CRS support: a literal $1B injection to a single country would push that country roughly 18× above its baseline — outside the within-country variation Model 2 was identified on — and we do not project there. The aggregate-only operationalization reflects the §4.4 typology drop; the compositional question survives as a §5 / §6 Discussion point rather than a Model 5 estimand.
 
 <!--
-EVIDENCE TRACE — §4.5 ¶1 (locked redesign per ADR-0011):
+EVIDENCE TRACE — §4.5 ¶1 (locked redesign per PAP-0011):
 - Brief's original Model 5 + Model-4-dependence → docs/brief.md (Model 5 spec); §4.4 drop above
-- ADR-0011 within-support % shocks; LAYS via WB identity → docs/decisions/0011-counterfactual-specification.md
+- PAP-0011 within-support % shocks; LAYS via WB identity → docs/decisions/0011-counterfactual-specification.md
 - Median country baseline $59.7M (Q1 $23.7M, Q3 $123.7M) → output/tables/model5_counterfactual.md ¶ "Baseline"
 - 18× single-country extrapolation refused → output/tables/model5_counterfactual.md ¶ "Brief-bridge context"
 - Aggregate-only per §4.4 cross-reference → findings.md §5.6 ¶ first sentence
@@ -492,9 +481,9 @@ At the median-country baseline, the three within-support shocks produce the foll
 | +100% (high-shock) | **Expected** | **+7.63** | **+0.1412** |
 | +100% (high-shock) | Best | +15.03 | +0.2783 |
 
-: Table 4. Model 5 within-support counterfactual scenarios. Baseline: median country in Model 2 estimation sample = $59.7M annual CRS education disbursement (constant USD). Δ HLO computed as β × Δlog(1+CRS). Δ LAYS via WB identity ΔLAYS = EYS × ΔHLO / 625 at EYS p50 = 11.57 years; full p10/p50/p90 EYS fan in Appendix A. Worst/Best columns use 95% CI bounds of headline β = [0.32, 21.95]. Locked per ADR-0011. {#tbl-counterfactual}
+: Table 4. Model 5 within-support counterfactual scenarios. Baseline: median country in Model 2 estimation sample = $59.7M annual CRS education disbursement (constant USD). Δ HLO computed as β × Δlog(1+CRS). Δ LAYS via WB identity ΔLAYS = EYS × ΔHLO / 625 at EYS p50 = 11.57 years; full p10/p50/p90 EYS fan in Appendix A. Worst/Best columns use 95% CI bounds of headline β = [0.32, 21.95]. Locked per PAP-0011. {#tbl-counterfactual}
 
-![Figure 2. Model 5 within-support counterfactual scenarios. Δ HLO points on the y-axis; shock magnitude (+10%, +50%, +100% of median country baseline annual CRS disbursement) on the x-axis. Three bars per shock: Worst case (β lower 95% CI), Expected case (β point estimate = 11.14), Best case (β upper 95% CI). Brief's $1B redirect pro-rata across the 173-country sample = $5.78M per country, landing in the low-shock band as noted in §4.5 ¶2. Locked per ADR-0011.](../output/figures/model5_scenario_plot.png){#fig-counterfactual width=80%}
+![Figure 2. Model 5 within-support counterfactual scenarios. Δ HLO points on the y-axis; shock magnitude (+10%, +50%, +100% of median country baseline annual CRS disbursement) on the x-axis. Three bars per shock: Worst case (β lower 95% CI), Expected case (β point estimate = 11.14), Best case (β upper 95% CI). Brief's $1B redirect pro-rata across the 173-country sample = $5.78M per country, landing in the low-shock band as noted in §4.5 ¶2. Locked per PAP-0011.](../output/figures/model5_scenario_plot.png){#fig-counterfactual width=80%}
 
 <!--
 EVIDENCE TRACE — §4.5 ¶2 (headline scenario numbers + brief-bridge):
@@ -522,66 +511,13 @@ EVIDENCE TRACE — §4.5 ¶3 (GEEAP/Angrist comparison + floor-not-ceiling):
 -->
 
 
-## 4.6 The compounding AI penalty: HCI × Oxford GARI joint distribution
+## 4.6 HLO measure-fragility: a sensitivity that fails sign-agreement
 
-The aggregate-β counterfactual scenarios above answer how much marginal aid moves learning under the principal specification. §4.6 pivots from the aid-flow question to the structural-determinant question: which countries are joint-disadvantaged on the two pre-AI-diffusion endowments — human capital and AI readiness — that the §4.2 panel suggests dominate cross-country learning-outcome variation? The compounding AI penalty is constructed as a joint country-level cross-section: each country's most recent non-missing Human Capital Index value (the 2020 HCI cycle, fully populated across the 132 countries that join the Oxford Insights GARI 2025 panel) multiplied by its Oxford Insights Government AI Readiness Index, normalized to GARI/100. The resulting composite, `compound_index = HCI × (GARI / 100)`, ranges from 0.033 to 0.495 across the joined sample of 132 countries — the intersection of GARI 2025's 195-country panel with the HCI-non-missing iso3 set in the production panel. The composite peaks well below its theoretical maximum because no country approaches the upper bound on both axes. The two dimensions are positively coupled on this sample at **r = 0.777**, the empirical face of the compounding-divergence thesis: countries with high human capital also tend to have high AI readiness, and vice versa. The five most compound-exposed countries (lowest `compound_index` values) are **South Sudan** (0.033), **Central African Republic** (0.035), **Liberia** (0.046), **Yemen** (0.047), and **Chad** (0.055) — a list dominated by conflict-affected low-income states, four of five in sub-Saharan Africa.
-
-<!--
-EVIDENCE TRACE — §4.6 ¶1 (construction + properties):
-- Composite construction HCI × (GARI/100) → docs/findings.md §5.7 + methodology.md §3.12 + R/71_compounding_ai_penalty.R
-- Joined sample N=132 (HCI 2020 ∩ GARI 2025) → output/tables/compound_ai_penalty_quadrant.md header
-- Composite range 0.033-0.495 → output/tables/compound_ai_penalty_bottom20.md range
-- Pearson r(HCI, GARI/100) = 0.777 → findings.md §4.6 (Phase-9 hook) + findings.md §5.7
-- 5 most-exposed countries SSD/CAF/LBR/YEM/TCD → output/tables/compound_ai_penalty_bottom20.md (top 5 rows)
-- Hedge level: LOW (project-internal computed artifacts)
--->
-
-Partitioning the joint sample on its medians (HCI = 0.506; GARI/100 = 0.382) yields the four quadrants in Table 5. The **low-HCI / low-GARI "double-excluded" cell contains 47 countries** — 35.6 percent of the joined sample — **of which 29 are sub-Saharan African**. Sub-Saharan Africa is 31.8 percent of the joined sample (42 of 132) but supplies 61.7 percent of the double-excluded cell (29 of 47): the cell is **approximately twice over-represented in sub-Saharan Africa relative to its sample share**. The cell-mean composite is 0.099, less than a third of the high-HCI / high-GARI mean of 0.357.
-
-| Quadrant | N | SSA in cell | Mean HCI | Mean GARI/100 | Mean compound |
-|----------|----:|----:|------:|------:|------:|
-| high HCI / high GARI | 47 | 2 | 0.620 | 0.569 | 0.357 |
-| high HCI / low GARI | 19 | 1 | 0.571 | 0.270 | 0.155 |
-| low HCI / high GARI | 19 | 10 | 0.439 | 0.484 | 0.213 |
-| **low HCI / low GARI (double-excluded)** | **47** | **29** | **0.407** | **0.238** | **0.099** |
-
-: Table 5. Joint distribution of country-level human capital (HCI 2020) and AI readiness (Oxford Insights GARI 2025) on the 132-country joined sample, partitioned on sample medians (HCI = 0.506; GARI/100 = 0.382). SSA over-representation in the double-excluded cell: 29 of 47 = 61.7% vs SSA share of joined sample 42 of 132 = 31.8% (≈2× over-representation). Composite `compound_index = HCI × (GARI/100)`. {#tbl-compound}
-
-![Figure 3. Joint distribution of country-level human capital (HCI 2020) and AI readiness (Oxford Insights GARI 2025) on the 132-country joined sample. Sample-median lines (dashed) divide the four quadrants; the low-HCI / low-GARI "double-excluded" cell (bottom-left) contains 47 countries, 29 of which are sub-Saharan African. Labeled: 5 most-exposed countries (SSD, CAF, LBR, YEM, TCD).](../output/figures/compound_ai_penalty_scatter.png){#fig-compound width=80%}
+[PAP-0004](../docs/decisions/0004-hlo-measure.md) selected the World Bank HCI HLOS as the primary HLO outcome at Phase 1 and pre-committed the principal robustness check: refit Model 2's headline specification on the published Altinok-Angrist-Patrinos (2018) [@altinok2018global] alternative harmonized measure and verify within-CI sign-and-magnitude agreement. The statistical-validity audit executed this check on two AAP-2018 specifications, chosen to disentangle measure-choice effects from sample-window-composition effects. The **AAP full coverage** specification (N = 69 country-year cells; 62 countries; year range 2005–2015; five AAP cycles) returned **β = −16.67** (SE 5.96; p = 0.009). The **AAP overlap window** specification, restricted to years ≥ 2010 to match the WB HCI HLOS primary panel (N = 36 cells; 42 countries; two AAP cycles in the primary window), returned **β = −3.94** (SE 8.68; p = 0.66). Both AAP specifications sign-flip relative to the primary, where the headline coefficient is β = +11.14 in the principal specification.
 
 <!--
-EVIDENCE TRACE — §4.6 ¶2 (quadrant analysis):
-- Sample medians HCI=0.506, GARI/100=0.382 → output/tables/compound_ai_penalty_quadrant.md header
-- All 4 quadrant counts + SSA counts + mean compound values → output/tables/compound_ai_penalty_quadrant.md rows 7-12
-- 47/132 = 35.6% double-excluded → arithmetic on quadrant table
-- 29/47 = 61.7% SSA in cell vs 42/132 = 31.8% sample share = ≈2× over-representation → findings.md §5.7 ¶2 + arithmetic verification
-- Cell-mean compound 0.099 vs 0.357 high-high comparison → output/tables/compound_ai_penalty_quadrant.md mean_compound column
-- Hedge level: LOW (project-internal computed artifacts)
--->
-
-The novelty of §4.6 is calibrated rather than absolute. An audit of adjacent literature surfaced three substantively related works: Brookings/UNDP's *Next Great Divergence* [@muthukrishna2025divergence] articulates the compounding-divergence thesis at the country level using an HCI-adjacent composite; World Bank Working Paper 11073 [@mandon2025beyond] constructs a joint AI-Preparedness × Economic-Complexity composite for a different policy question; the joint ILO-World Bank background study for *WDR 2026* [@ilo2026disruption] quantifies the same compounding logic at the employment level (66.9 million jobs in developing economies with augmentation potential they cannot realize due to digital-infrastructure gaps). What appears genuinely novel here is the specific construction (HCI × Oxford GARI), the country cross-section, and the quantification of the sub-Saharan African concentration; the manuscript hedges to *"we are not aware of a prior peer-reviewed paper that constructs the joint composite at this exact country cross-section and quantifies the regional concentration"* rather than echoing a stronger claim. Two caveats follow. *First*, the positive correlation between HCI and GARI (r = 0.777) creates partial tautology — the dimensions share approximately sixty percent of their variance, so the low-low cell is partly tautological with "low overall HCI/GARI quality" rather than reflecting an independent interaction. *Second*, §4.6 is a joint-distribution characterization, not a longitudinal compounding-*effect* estimate; the forward-looking claim that the double-excluded countries fall further behind as AI-driven productivity asymmetries widen requires several future GARI editions and post-AI-diffusion HCI cycles to evaluate. §5.5 takes up the snapshot-versus-trajectory point. Robustness on the median-split partition: the HCI-cycle-2018-only restriction yields Jaccard agreement of 0.94 with the headline set, and the tercile-split partition mechanically shrinks the cell to a smaller sample (Jaccard 0.53 reflects the cell-size difference, not boundary fragility).
-
-<!--
-EVIDENCE TRACE — §4.6 ¶3 (calibrated novelty + caveats):
-- Oxford Insights lit-note audit Session 23 → docs/lit/oxford-insights-2026.md "novelty audit" section
-- Brookings/UNDP Next Great Divergence → docs/lit/muthukrishna-schellekens-2025.md + @muthukrishna2025divergence bib (Session 02)
-- WBG WP 11073 Mandon → docs/lit/mandon-2025.md + @mandon2025beyond bib (Session 02)
-- ILO 2026 (66.9M jobs) → docs/lit/ilo-2026-disruption.md + @ilo2026disruption bib (Session 02)
-- Hedged novelty phrasing "not aware of a prior peer-reviewed paper" → findings.md §5.7 ¶ "Calibrated novelty claim"
-- Partial-tautology caveat (r=0.777 → ≈60% shared variance) → findings.md §5.7 ¶ "Caveat"
-- Snapshot-not-trajectory framing + §5.5 forward-reference → findings.md §5.7 ¶ "§6 Discussion connection"
-- Robustness Jaccard 0.94 (2018-only) and 0.53 (tercile-split) → output/tables/compound_ai_penalty_robustness.md
-- Hedge level: MEDIUM (3 of 4 lit notes are primary-not-read; hedge encoded in the "not aware of" phrasing)
--->
-
-
-## 4.7 HLO measure-fragility: a sensitivity that fails sign-agreement
-
-[ADR-0004](../docs/decisions/0004-hlo-measure.md) selected the World Bank HCI HLOS as the primary HLO outcome at Phase 1 and pre-committed the principal robustness check: refit Model 2's headline specification on the published Altinok-Angrist-Patrinos (2018) [@altinok2018global] alternative harmonized measure and verify within-CI sign-and-magnitude agreement. The statistical-validity audit executed this check on two AAP-2018 specifications, chosen to disentangle measure-choice effects from sample-window-composition effects. The **AAP full coverage** specification (N = 69 country-year cells; 62 countries; year range 2005–2015; five AAP cycles) returned **β = −16.67** (SE 5.96; p = 0.009). The **AAP overlap window** specification, restricted to years ≥ 2010 to match the WB HCI HLOS primary panel (N = 36 cells; 42 countries; two AAP cycles in the primary window), returned **β = −3.94** (SE 8.68; p = 0.66). Both AAP specifications sign-flip relative to the primary, where the headline coefficient is β = +11.14 in the principal specification.
-
-<!--
-EVIDENCE TRACE — §4.7 ¶1 (Pass 1 principal robustness numbers):
-- ADR-0004 principal robustness pre-commitment → docs/decisions/0004-hlo-measure.md "Data observed (Phase 10 Session 01)" block
+EVIDENCE TRACE — §4.6 ¶1 (Pass 1 principal robustness numbers):
+- PAP-0004 principal robustness pre-commitment → docs/decisions/0004-hlo-measure.md "Data observed (Phase 10 Session 01)" block
 - @altinok2018global citation → drafts/references.bib (verified Sessions 01-02, already cited in §4.2 ¶4)
 - AAP full coverage: N=69, 62 countries, β=-16.67, SE=5.96, p=0.009, year range 2005-2015 → output/tables/pass1_hlo_sensitivity.md row 2
 - AAP overlap window: N=36, 42 countries, β=-3.94, SE=8.68, p=0.66, year ≥ 2010 → output/tables/pass1_hlo_sensitivity.md row 3
@@ -590,36 +526,36 @@ EVIDENCE TRACE — §4.7 ¶1 (Pass 1 principal robustness numbers):
 - Hedge level: LOW (project-internal Pass 1 audit table)
 -->
 
-The two AAP variants test alternative drivers of the sign-flip. If the AAP-full and AAP-overlap specifications agreed in sign and magnitude, the failure would be attributable to the harmonized-measure choice itself; if they disagreed, the failure would be attributable to sample-window composition (AAP's pre-2010 epoch contains a substantially different country set than the WB HCI HLOS's 2010-2020 panel). The **AAP-overlap result at β = −3.94, p = 0.66** — the right sample window, the wrong measure — **rules out sample-window composition as the sole driver**. The harmonized-measure choice itself materially shapes the within-country answer; the two harmonized measures produce different signs on the within-country ODA-to-learning coefficient even when refit on overlapping country-year cells. ADR-0004 documents the failure; methodology §3.4.1 reports the sensitivity numbers; the manuscript-wide hedge ("in the WB HCI HLOS specification on the 2010–2020 panel") encodes the discipline. §5.3 below takes up the methodological framing — the measure-fragility is itself a contribution to the cross-country aid-learning literature, where the implicit reading has been that within-country fixed effects absorb harmonization differences.
+The two AAP variants test alternative drivers of the sign-flip. If the AAP-full and AAP-overlap specifications agreed in sign and magnitude, the failure would be attributable to the harmonized-measure choice itself; if they disagreed, the failure would be attributable to sample-window composition (AAP's pre-2010 epoch contains a substantially different country set than the WB HCI HLOS's 2010-2020 panel). The **AAP-overlap result at β = −3.94, p = 0.66** — the right sample window, the wrong measure — **rules out sample-window composition as the sole driver**. The harmonized-measure choice itself materially shapes the within-country answer; the two harmonized measures produce different signs on the within-country ODA-to-learning coefficient even when refit on overlapping country-year cells. PAP-0004 documents the failure; methodology §3.4.1 reports the sensitivity numbers; the manuscript-wide hedge ("in the WB HCI HLOS specification on the 2010–2020 panel") encodes the discipline. §5.3 below takes up the methodological framing — the measure-fragility is itself a contribution to the cross-country aid-learning literature, where the implicit reading has been that within-country fixed effects absorb harmonization differences.
 
 <!--
-EVIDENCE TRACE — §4.7 ¶2 (overlap-window null rules out sample-window composition):
+EVIDENCE TRACE — §4.6 ¶2 (overlap-window null rules out sample-window composition):
 - "If full and overlap agreed → measure-effect; if disagreed → window-effect" framing → output/tables/pass1_hlo_sensitivity.md ¶ "Reading per methodology §3.4"
 - Overlap-window null β=-3.94 p=0.66 ruling-out interpretation → findings.md §5.8 ¶2
-- ADR-0004 Phase 10 "Data observed" block reference → docs/decisions/0004-hlo-measure.md
+- PAP-0004 Phase 10 "Data observed" block reference → docs/decisions/0004-hlo-measure.md
 - Methodology §3.4.1 cross-reference → docs/methodology.md §3.4.1
 - Manuscript-wide hedge phrasing reference → §3.4 ¶2 + §4.2 ¶2 first-mention
 - §5.3 forward-reference (same-session subsection below)
 - Hedge level: LOW (project-internal Pass 1 audit + ADR Phase-10 block)
 -->
 
-[ADR-0006](../docs/decisions/0006-uis-missingness-strategy.md) pre-committed two complementary robustness checks against the production-panel missingness choices: UIS-augmented listwise (drop UIS-missing countries) and UIS-augmented multiple imputation. The pre-registered listwise refit on the same primary HLO measure returned **β = −1.97** (SE 4.40; N = 41 after the joint listwise constraint; not significant). The confidence interval [−10.59, 6.66] partially overlaps the primary CI [0.32, 21.95] in the range [0.32, 6.66], so any true β in that range is consistent with both samples. This is **weak robustness**: a sign-flip but neither significant nor strongly contradictory, with country coverage reduced from 103 to 41 countries (60 percent of the primary-window FE-identifiable set lost to the listwise constraint). The multiple-imputation robustness was retired by [ADR-0012](../docs/decisions/0012-retirement-of-uis-multiple-imputation.md): the production-panel MCAR test rejects MCAR at p < 10⁻⁶, the MAR assumption multiple imputation requires is therefore unsupported on this data, and the project's no-fabrication principle (CLAUDE.md) additionally treats imputed values as fabrications that would hide in the reported regressions as real observations. The §5.4 elaboration below takes up the methodological framing of the MCAR-MAR-MNAR triangle.
+[PAP-0006](../docs/decisions/0006-uis-missingness-strategy.md) pre-committed two complementary robustness checks against the production-panel missingness choices: UIS-augmented listwise (drop UIS-missing countries) and UIS-augmented multiple imputation. The pre-registered listwise refit on the same primary HLO measure returned **β = −1.97** (SE 4.40; N = 41 after the joint listwise constraint; not significant). The confidence interval [−10.59, 6.66] partially overlaps the primary CI [0.32, 21.95] in the range [0.32, 6.66], so any true β in that range is consistent with both samples. This is **weak robustness**: a sign-flip but neither significant nor strongly contradictory, with country coverage reduced from 103 to 41 countries (60 percent of the primary-window FE-identifiable set lost to the listwise constraint). The multiple-imputation robustness was retired by [PAP-0012](../docs/decisions/0012-retirement-of-uis-multiple-imputation.md): the production-panel MCAR test rejects MCAR at p < 10⁻⁶, the MAR assumption multiple imputation requires is therefore unsupported on this data, and the project's no-fabrication discipline additionally treats imputed values as fabrications that would hide in the reported regressions as real observations. The §5.4 elaboration below takes up the methodological framing of the MCAR-MAR-MNAR triangle.
 
 | Spec | Outcome | Sample | N | β_ODA | SE | p | Verdict |
 |------|---------|--------|----:|------:|------:|------:|---------|
 | Primary (locked) | hlo_hlo_score | 2010–2020 | 143 | +11.14 | 5.52 | ~0.05 | (reference) |
 | AAP-2018 full coverage | aap_hlo_aap | 1995–2015 | 69 | −16.67 | 5.96 | 0.009 | Sign-flip; outside primary CI |
 | AAP-2018 overlap window | aap_hlo_aap | year ≥ 2010 | 36 | −3.94 | 8.68 | 0.66 | Sign-flip; null on overlap window |
-| UIS-augmented listwise (ADR-0006 R1) | hlo_hlo_score | 2010–2020 | 41 | −1.97 | 4.40 | > 0.05 | Sign-flip; CIs partially overlap |
+| UIS-augmented listwise (PAP-0006 R1) | hlo_hlo_score | 2010–2020 | 41 | −1.97 | 4.40 | > 0.05 | Sign-flip; CIs partially overlap |
 
-: Table 6. HLO measure-sensitivity (ADR-0004 principal robustness) + UIS-augmented listwise (ADR-0006 Robustness 1). Refit of the locked Model 2 spec 2e on alternative HLO measures and on the UIS-augmented listwise sample. Headline coefficient (row 1) does not survive sign-agreement against either AAP-2018 variant; the AAP-overlap null on the same primary sample window rules out sample-window composition as sole driver. The UIS-augmented listwise CI partially overlaps the primary CI in [0.32, 6.66] (weak robustness, not strong contradiction). ADR-0006 R2 multiple imputation retired per ADR-0012. {#tbl-pass1-sensitivity}
+: Table 5. HLO measure-sensitivity (PAP-0004 principal robustness) + UIS-augmented listwise (PAP-0006 Robustness 1). Refit of the locked Model 2 spec 2e on alternative HLO measures and on the UIS-augmented listwise sample. Headline coefficient (row 1) does not survive sign-agreement against either AAP-2018 variant; the AAP-overlap null on the same primary sample window rules out sample-window composition as sole driver. The UIS-augmented listwise CI partially overlaps the primary CI in [0.32, 6.66] (weak robustness, not strong contradiction). PAP-0006 R2 multiple imputation retired per PAP-0012. {#tbl-pass1-sensitivity}
 
 <!--
-EVIDENCE TRACE — §4.7 ¶3 (UIS-augmented listwise + ADR-0012 retirement):
-- ADR-0006 R1 + R2 pre-commitments → docs/decisions/0006-uis-missingness-strategy.md
+EVIDENCE TRACE — §4.6 ¶3 (UIS-augmented listwise + PAP-0012 retirement):
+- PAP-0006 R1 + R2 pre-commitments → docs/decisions/0006-uis-missingness-strategy.md
 - Listwise β=-1.97, SE=4.40, N=41 → output/tables/pass1_uis_listwise.md
 - CI overlap range [0.32, 6.66] → arithmetic on primary CI [0.32, 21.95] ∩ listwise CI [-10.59, 6.66]; findings.md §5.8
-- ADR-0012 retirement + MCAR p<10⁻⁶ + MAR unsupported → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
+- PAP-0012 retirement + MCAR p<10⁻⁶ + MAR unsupported → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
 - CLAUDE.md no-fabrication principle → CLAUDE.md "Conventions" block "No fabrication" rule
 - §5.4 forward-reference (Session 07 subsection)
 - Hedge level: LOW (project-internal Pass 1 + ADR documents)
@@ -630,7 +566,7 @@ EVIDENCE TRACE — §4.7 ¶3 (UIS-augmented listwise + ADR-0012 retirement):
 
 ## 5.1 Thesis
 
-Three pre-committed gates each surfaced a constraint on what cross-country panel evidence can rigorously claim about aid-to-learning. The four-bucket intervention typology the policy literature [@glewwe2016improving; @geeap2023smart] treats as the operative axis is not recoverable from CRS metadata at any defensible inter-method agreement threshold (§4.4); the within-country positive coefficient does not survive sign-agreement with the published Altinok-Angrist-Patrinos (2018) alternative measure (§4.7); the multiple-imputation robustness the missingness ADR pre-committed to requires assumptions the pre-committed MCAR test already refutes (§5.4). Each result is a finding for the field, not a caveat to the analyst — they jointly reframe how to read the positive within-country headline reported in §4.2. The HCI × AI-readiness joint composite (§4.6) adds a quantification of the ≈2× sub-Saharan-African over-representation in the low-HCI ∩ low-AI-readiness cell, giving the qualitative compounding-divergence thesis a concrete cross-section. *What cross-country aid-effectiveness panel evidence can rigorously claim is narrower than the policy discourse has been treating it as. This paper's principal contribution is mapping that narrower terrain precisely.*
+Three pre-committed gates each surfaced a constraint on what cross-country panel evidence can rigorously claim about aid-to-learning. The four-bucket intervention typology the policy literature [@glewwe2016improving; @geeap2023smart] treats as the operative axis is not recoverable from CRS metadata at any defensible inter-method agreement threshold (§4.4); the within-country positive coefficient does not survive sign-agreement with the published Altinok-Angrist-Patrinos (2018) alternative measure (§4.6); the multiple-imputation robustness the missingness PAP pre-committed to requires assumptions the pre-committed MCAR test already refutes (§5.4). Each result is a finding for the field, not a caveat to the analyst — they jointly reframe how to read the positive within-country headline reported in §4.2. *What cross-country aid-effectiveness panel evidence can rigorously claim is narrower than the policy discourse has been treating it as. This paper's principal contribution is mapping that narrower terrain precisely.*
 
 ## 5.2 The typology-axis lacuna in CRS metadata
 
@@ -651,7 +587,7 @@ EVIDENCE TRACE — §5.2 (typology-axis lacuna):
 
 ## 5.3 Measure-fragility in cross-country learning research
 
-The two harmonized HLO measures the cross-country panel literature operates on — the World Bank HCI HLOS and the Altinok-Angrist-Patrinos 2018 series — harmonize different underlying assessment universes via different linking-anchor assumptions. WB HCI HLOS uses TIMSS, PIRLS, SACMEQ, PASEC, the Latin American Laboratory for Assessment of the Quality of Education (LLECE), and the Early Grade Reading Assessment (EGRA) anchors with the World Bank's post-2010 HCI cycle structure; AAP-2018 uses TIMSS, PIRLS, and SACMEQ with a pre-2018 publication window. The two measures' country-coverage panels are structurally non-identical: different countries appear in different cycles of each measure's coverage, with the WB HCI HLOS panel post-2017 anchored on the explicit Human Capital Project measurement strategy and the AAP-2018 panel anchored on the published cross-country test-score harmonization tradition Sandefur (2018) critiqued [@sandefur2018internationally]. Sandefur's critique was specifically that cross-country *rankings* are sensitive to harmonization assumptions, and the implicit reading in the cross-country panel literature has been that within-country fixed effects absorb the level differences the harmonization linking introduces. The sensitivity reported in §4.7 demonstrates that this implicit reading is incomplete: within-country FE absorbs cross-country *level* differences as expected, but does not absorb *within-country measure noise* introduced by differential panel structures across the two measures.
+The two harmonized HLO measures the cross-country panel literature operates on — the World Bank HCI HLOS and the Altinok-Angrist-Patrinos 2018 series — harmonize different underlying assessment universes via different linking-anchor assumptions. WB HCI HLOS uses TIMSS, PIRLS, SACMEQ, PASEC, the Latin American Laboratory for Assessment of the Quality of Education (LLECE), and the Early Grade Reading Assessment (EGRA) anchors with the World Bank's post-2010 HCI cycle structure; AAP-2018 uses TIMSS, PIRLS, and SACMEQ with a pre-2018 publication window. The two measures' country-coverage panels are structurally non-identical: different countries appear in different cycles of each measure's coverage, with the WB HCI HLOS panel post-2017 anchored on the explicit Human Capital Project measurement strategy and the AAP-2018 panel anchored on the published cross-country test-score harmonization tradition Sandefur (2018) critiqued [@sandefur2018internationally]. Sandefur's critique was specifically that cross-country *rankings* are sensitive to harmonization assumptions, and the implicit reading in the cross-country panel literature has been that within-country fixed effects absorb the level differences the harmonization linking introduces. The sensitivity reported in §4.6 demonstrates that this implicit reading is incomplete: within-country FE absorbs cross-country *level* differences as expected, but does not absorb *within-country measure noise* introduced by differential panel structures across the two measures.
 
 The within-country measure-fragility is itself a finding for the cross-country aid-learning literature. The standard reading of Sandefur 2018 — harmonization assumptions matter cross-sectionally but wash out under within-country fixed effects — does not hold in the within-FE specification on the WB HCI HLOS panel reported here. The headline aid-to-learning coefficient depends on the harmonized-measure choice in the within-FE specification as well, in a sign-reversing rather than magnitude-perturbing way. The contribution here is empirical demonstration that the within-country dimension is not safe ground for the Sandefur critique either; cross-country aid-learning panel work that reports within-FE coefficients without measure-sensitivity reporting may be reporting a measure-specific finding without acknowledging the fragility. The cross-country learning measurement infrastructure the field operates on needs more redundancy than the current two-measure architecture provides.
 
@@ -661,7 +597,7 @@ EVIDENCE TRACE — §5.3 (measure-fragility in cross-country learning research):
 - AAP-2018 anchor list (TIMSS, PIRLS, SACMEQ) + pre-2018 publication window → docs/methodology.md §3.4.1 + Altinok-Angrist-Patrinos 2018 paper (cited via @altinok2018global, already in bib)
 - Sandefur 2018 harmonization critique → docs/lit/sandefur-2018.md (primary-read CHECKED, Session 02) + @sandefur2018internationally bib (verified Session 02; cited in §2)
 - "Implicit reading: within-FE absorbs harmonization differences" framing → docs/methodology.md §3.4.1 Phase-10 paragraph
-- §4.7 sensitivity numbers reference → manuscript §4.7 ¶1-¶2 (same session above)
+- §4.6 sensitivity numbers reference → manuscript §4.6 ¶1-¶2 (same session above)
 - Contribution claim: within-FE does NOT absorb within-country measure noise → path-c framing finalized at post-Pass-1 fork 2026-05-23 (CLAUDE.md branching strategy)
 - §6 forward-reference for measurement-investment policy implication
 - Hedge level: LOW (Sandefur is primary-read; AAP and WB HCI technical notes are documented project-internal sources)
@@ -680,16 +616,16 @@ EVIDENCE TRACE — §5.4 ¶1 (Rubin missingness triangle + donor-reporting harde
 - Hedge level: LOW (project-internal ADR + methodology + standard vocabulary)
 -->
 
-The pre-commit missingness ADR (ADR-0006, Phase 2) locked listwise-with-UIS-dropped as the production strategy with two complementary robustness specifications: UIS-augmented listwise (Robustness 1) and UIS-augmented multiple imputation (Robustness 2). The audit executed Robustness 1 and returned β = −1.97 (SE 4.40, N = 41 post-singleton, p > 0.05) — weak robustness, with CI [−10.59, 6.66] partially overlapping the primary [0.32, 21.95] rather than contradicting it. Robustness 2 was retired by ADR-0012 on two grounds: the production-panel MCAR test rejected MCAR at p ≪ 10⁻⁶ on both the 6-column UIS-excluded subset (χ² = 175.80) and the 7-column UIS-augmented subset (χ² = 341.90), empirically refuting the MAR-sufficiency assumption multiple imputation requires; and the project's no-fabrication discipline treats imputed values as fabrications that hide as real observations, in conflict with the standing pre-commitment that every value trace to a downloadable raw source.
+The pre-commit missingness plan PAP-0006 locked listwise-with-UIS-dropped as the production strategy with two complementary robustness specifications: UIS-augmented listwise (Robustness 1) and UIS-augmented multiple imputation (Robustness 2). The audit executed Robustness 1 and returned β = −1.97 (SE 4.40, N = 41 post-singleton, p > 0.05) — weak robustness, with CI [−10.59, 6.66] partially overlapping the primary [0.32, 21.95] rather than contradicting it. Robustness 2 was retired by PAP-0012 on two grounds: the production-panel MCAR test rejected MCAR at p ≪ 10⁻⁶ on both the 6-column UIS-excluded subset (χ² = 175.80) and the 7-column UIS-augmented subset (χ² = 341.90), empirically refuting the MAR-sufficiency assumption multiple imputation requires; and the project's no-fabrication discipline treats imputed values as fabrications that hide as real observations, in conflict with the standing pre-commitment that every value trace to a downloadable raw source.
 
 <!--
-EVIDENCE TRACE — §5.4 ¶2 (empirical case: listwise R1 + ADR-0012 MI retirement):
-- ADR-0006 pre-commit (listwise-primary + R1 listwise + R2 MI) → docs/decisions/0006-uis-missingness-strategy.md
-- Listwise β=-1.97, SE=4.40, N=41 → output/tables/pass1_uis_listwise.md (verified Session 04 + Session 06 §4.7 ¶3 EVIDENCE TRACE)
+EVIDENCE TRACE — §5.4 ¶2 (empirical case: listwise R1 + PAP-0012 MI retirement):
+- PAP-0006 pre-commit (listwise-primary + R1 listwise + R2 MI) → docs/decisions/0006-uis-missingness-strategy.md
+- Listwise β=-1.97, SE=4.40, N=41 → output/tables/pass1_uis_listwise.md (verified Session 04 + Session 06 §4.6 ¶3 EVIDENCE TRACE)
 - CI overlap: primary [0.32, 21.95] vs listwise [-10.59, 6.66] → findings.md §5.8 table row 4
-- MCAR rejection χ²=175.80 (6-col) + χ²=341.90 (7-col) at p<10⁻⁶ → output/tables/production_mcar_test_result.txt + production_mcar_with_uis.txt; ADR-0012 reason 1
+- MCAR rejection χ²=175.80 (6-col) + χ²=341.90 (7-col) at p<10⁻⁶ → output/tables/production_mcar_test_result.txt + production_mcar_with_uis.txt; PAP-0012 reason 1
 - CLAUDE.md no-fabrication block + "every value must trace to a downloadable raw source" → CLAUDE.md Conventions block "No fabrication" rule
-- ADR-0012 retirement of R2 MI → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
+- PAP-0012 retirement of R2 MI → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
 - Hedge level: LOW (all project-internal Phase 10 audit + ADR + CLAUDE.md)
 -->
 
@@ -703,31 +639,6 @@ EVIDENCE TRACE — §5.4 ¶3 (field-level implication + path-c contribution clai
 - §6 forward-reference for donor-reporting-architecture policy implication
 - Hedge level: MEDIUM (the "field has under-engaged" framing is the to-flag-for-Session-09-author-review claim per Session 07 plan; downstream rephrasing possible)
 -->
-
-## 5.5 Compounding-divergence in concrete terms
-
-The compounding-divergence thesis — that AI diffusion will widen rather than narrow the human-capital gap between countries already on different development trajectories — has been articulated at country and employment level by Brookings/UNDP [@muthukrishna2025divergence], the World Bank's *Beyond the AI Divide* working paper [@mandon2025beyond], and the joint ILO–World Bank background study for *World Development Report 2026* [@ilo2026disruption]. The §4.6 joint-distribution analysis operationalizes that thesis at the country cross-section: 47 of 132 countries fall in the low-HCI ∩ low-GARI double-excluded cell, 29 of those 47 are sub-Saharan African against an SSA sample share of 31.8 percent — a roughly two-fold over-representation. Five countries — South Sudan, the Central African Republic, Liberia, Yemen, and Chad — sit at the joint distribution's most exposed corner.
-
-<!--
-EVIDENCE TRACE — §5.5 ¶1 (compounding-divergence thesis + §4.6 operationalization):
-- @muthukrishna2025divergence, @mandon2025beyond, @ilo2026disruption → drafts/references.bib (all verified Session 02 + first-cited in §2.3 + re-cited in §4.6 ¶3 Session 06)
-- Brookings/UNDP, WBG, ILO-WBG WDR 2026 articulation of compounding-divergence thesis → docs/lit/oxford-insights-2026.md + docs/lit/mandon-2025.md + docs/lit/ilo-wbg-2026.md (all populated Session 02)
-- §4.6 quadrant counts: 47/132 double-excluded; 29/47 SSA in double-excluded cell; SSA sample share 31.8% (42/132); 5 most exposed (SSD, CAF, LBR, YEM, TCD) → output/tables/compound_ai_penalty_quadrant.md + output/tables/compound_ai_penalty_bottom20.md + manuscript §4.6 ¶1-¶2 (Session 06)
-- "Two-fold over-representation" arithmetic → 29/47=61.7% double-excluded SSA share ÷ 42/132=31.8% sample SSA share ≈ 1.94×; rounded "roughly two-fold" per findings.md §5.7 phrasing
-- Hedge level: LOW (re-citation of §2.3 + §4.6 sources; §4.6 numbers already verified)
--->
-
-The two-fold SSA over-representation is a snapshot, not a trajectory. The longitudinal compounding-divergence claim — that countries in the double-excluded cell *fall further behind* as AI-driven productivity asymmetries widen — would require several future GARI editions paired with post-AI-diffusion HCI cycles to evaluate, and is not testable on a 2020/2025 cross-section. The contribution here is empirical operationalization at a specific resolution: this paper is not aware of a prior peer-reviewed paper that constructs the explicit HCI × GARI joint composite at this country cross-section and quantifies the regional concentration. The trajectory question is a multi-edition empirical agenda for the field — and one that is itself contingent on whether GARI and HCI continue to be updated on comparable schedules.
-
-<!--
-EVIDENCE TRACE — §5.5 ¶2 (snapshot vs trajectory + path-c contribution claim):
-- Snapshot-vs-trajectory distinction → docs/findings.md §5.7 line 583 ("§5.7 is therefore a joint-distribution characterization, not a 'compounding effect' estimate") + line 585 ("The forward-looking 'as AI-driven productivity asymmetries widen' claim is NOT tested in this paper")
-- Path-c contribution claim ("not aware of a prior peer-reviewed paper that constructs the joint composite at this exact country cross-section") → docs/lit/oxford-insights-2026.md lit-note audit verdict + findings.md §5.7 line 581 (lifted into §4.6 ¶3 Session 06; redundancy with §4.6 acceptable per APA discussion-elaboration convention)
-- "Multi-edition empirical agenda for the field, contingent on whether GARI and HCI continue to be updated on comparable schedules" → docs/findings.md §5.7 line 585 + Oxford Insights lit-note GARI cadence section
-- §6 forward-reference implicit (no explicit hand-off needed; trajectory-question framing closes §5 narrative arc and transitions naturally into §6)
-- Hedge level: LOW (re-statement of §4.6 ¶3 hedge per APA convention; trajectory caveat verbatim from findings.md §5.7)
--->
-
 
 # 6. Policy Implications
 
@@ -750,14 +661,14 @@ EVIDENCE TRACE — §6.1 (CRS intervention-type policy marker):
 
 ## 6.2 Auditable measurement infrastructure for cross-country learning outcomes
 
-The cross-country panel literature on aid-to-learning operates on two harmonized measures whose linking-anchor decisions and harmonization assumptions are not publicly auditable at the granularity needed to reconstruct or contest the within-country panel coefficient. The World Bank's Human Capital Project, in partnership with the upstream assessment consortia — the IEA TIMSS/PIRLS network, SACMEQ, PASEC, LLECE, and EGRA — should publicly release the assessment-by-assessment linking-anchor decisions underlying the WB HCI HLOS series, so that an external researcher could reconstruct or contest the harmonization choices that shape the headline within-country answer. Alongside this transparency move, donors and research-funding bodies should commission monitoring of outcomes in the §4.6 low-HCI ∩ low-AI-readiness double-excluded cell as future GARI and HCI editions arrive, to convert the §4.6 snapshot into the trajectory observation §4.6 has flagged as currently untestable.
+The cross-country panel literature on aid-to-learning operates on two harmonized measures whose linking-anchor decisions and harmonization assumptions are not publicly auditable at the granularity needed to reconstruct or contest the within-country panel coefficient. The World Bank's Human Capital Project, in partnership with the upstream assessment consortia — the IEA TIMSS/PIRLS network, SACMEQ, PASEC, LLECE, and EGRA — should publicly release the assessment-by-assessment linking-anchor decisions underlying the WB HCI HLOS series, so that an external researcher could reconstruct or contest the harmonization choices that shape the headline within-country answer.
 
-Complementing the upstream transparency move, journals publishing cross-country panel evidence on aid effectiveness should expect headline coefficients reported under at least two harmonized measures — *World Development*, the *Journal of Development Studies*, and the *Journal of Development Economics* are the natural sites — on the model of the American Economic Association Data Editor's 2019 introduction of data-availability requirements which shifted reproducibility practice across the AEA journals in the years immediately following. The §4.7 measure-fragility sensitivity is the empirical case for a complementary funded benchmarking exercise comparing the WB HCI HLOS and AAP-2018 harmonization decisions on a common country set.
+Complementing the upstream transparency move, journals publishing cross-country panel evidence on aid effectiveness should expect headline coefficients reported under at least two harmonized measures — *World Development*, the *Journal of Development Studies*, and the *Journal of Development Economics* are the natural sites — on the model of the American Economic Association Data Editor's 2019 introduction of data-availability requirements which shifted reproducibility practice across the AEA journals in the years immediately following. The §4.6 measure-fragility sensitivity is the empirical case for a complementary funded benchmarking exercise comparing the WB HCI HLOS and AAP-2018 harmonization decisions on a common country set.
 
 <!--
 EVIDENCE TRACE — §6.2 (measurement-investment + auditable measurement infrastructure):
 - §5.3 measure-fragility basis → manuscript §5.3 (Session 06)
-- §4.7 sensitivity numbers basis → manuscript §4.7 (Session 06) + output/tables/pass1_hlo_sensitivity.md
+- §4.6 sensitivity numbers basis → manuscript §4.6 (Session 06) + output/tables/pass1_hlo_sensitivity.md
 - WB HCI HLOS + AAP-2018 anchor lists (IEA TIMSS/PIRLS, SACMEQ, PASEC, LLECE, EGRA) → docs/methodology.md §3.4 + §3.4.1 (already cited Sessions 04-06)
 - §4.6 compounding-vulnerable-monitoring fold-in → manuscript §4.6 ¶3 + §5.5 ¶2 (Sessions 06-07)
 - AEA Data Editor 2019 introduction of data-availability requirements + 18-month adoption → general field knowledge (documented in AEA Papers and Proceedings, no direct citation here; author-review at Session 09 may add bib entry)
@@ -779,41 +690,41 @@ EVIDENCE TRACE — §6.3 (missingness-disclosure as routine condition):
 - AEA Data Editor 2019 + 18-month adoption → re-cite from §6.2 EVIDENCE TRACE (general field knowledge; no direct citation here)
 - World Development editorial mechanism → publicly available editorial-policy materials; no direct citation
 - BITSS TIER protocol → Berkeley Initiative for Transparency in the Social Sciences public documentation
-- ADR-0012 path-c framework articulation → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
+- PAP-0012 path-c framework articulation → docs/decisions/0012-retirement-of-uis-multiple-imputation.md
 - Hedge level: LOW (path-c framework + journal-editor mechanism + AEA precedent are documented; only the forward-looking journal-editor-decision claim is speculative)
 -->
 
 ## 6.4 Structural determinants in donor allocation models
 
-The within-FE design identifies associations, not causal effects. Within that limit, the structural variables in the §4.2 panel — conflict-exposure intensity, governance-quality measured by the WGI Principal-Component-1, early-childhood public investment, and the OECD-DAC Sectoral Concentration index — tend to be more stable across alternative specifications (§4.2; §4.7) than the aid coefficient itself. Donor allocation models that ignore them leave a substantial share of cross-country learning-outcome variation unexplained, even where the aid-on-learning relationship is itself contested. Multilateral and bilateral aid agencies should therefore give the structural variables explicit weight in country-allocation decisions, on the recognition that they are the more stable predictor signal in the cross-country panel.
+The within-FE design identifies associations, not causal effects. Within that limit, the structural variables in the §4.2 panel — conflict-exposure intensity, governance-quality measured by the WGI Principal-Component-1, early-childhood public investment, and the OECD-DAC Sectoral Concentration index — tend to be more stable across alternative specifications (§4.2; §4.6) than the aid coefficient itself. Donor allocation models that ignore them leave a substantial share of cross-country learning-outcome variation unexplained, even where the aid-on-learning relationship is itself contested. Multilateral and bilateral aid agencies should therefore give the structural variables explicit weight in country-allocation decisions, on the recognition that they are the more stable predictor signal in the cross-country panel.
 
 The recommendation is that allocation models *include* the structural variables, not that they *act on* them in any prescriptive direction — a country with low governance-quality is not therefore an unsuitable aid recipient, just one where the donor model would benefit from acknowledging governance as a primary predictor of the outcome rather than treating learning variation as residual.
 
 <!--
 EVIDENCE TRACE — §6.4 (structural determinants in donor allocation models):
 - §4.2 structural-determinant coefficients (WGI PC1, conflict-exposure, ECD investment, OECD-DAC Sectoral Concentration) → manuscript §4.2 (Session 04) + output/tables/model2_fe_baseline_v2.md
-- §4.7 AAP-2018 sensitivity (structural-determinant coefficients remain more robust than ODA coefficient across the AAP-2018 alternative specifications) → manuscript §4.7 (Session 06) + output/tables/pass1_hlo_sensitivity.md
+- §4.6 AAP-2018 sensitivity (structural-determinant coefficients remain more robust than ODA coefficient across the AAP-2018 alternative specifications) → manuscript §4.6 (Session 06) + output/tables/pass1_hlo_sensitivity.md
 - Brief original thesis hook "structural variables systematically ignored by donor allocation models" → docs/brief.md core-thesis statement (chastened form here: "include" rather than "act on")
-- §4.2 coefficients associational, not causal → ADR-0010 (small-T identification limit precludes GMM)
+- §4.2 coefficients associational, not causal → PAP-0010 (small-T identification limit precludes GMM)
 - Chastened caveat (associational, not prescriptive) → general epistemic discipline + path-c framing (manuscript §5.1 thesis)
-- Hedge level: MEDIUM-HIGH (the "more robust across alternative specifications" claim depends on §4.2 + §4.7 coefficient stability that author should verify at Session 09 author-review; flagged for review)
+- Hedge level: MEDIUM-HIGH (the "more robust across alternative specifications" claim depends on §4.2 + §4.6 coefficient stability that author should verify at Session 09 author-review; flagged for review)
 -->
 
 # 7. Conclusion
 
-This paper contributes three findings to the cross-country aid-learning literature. The first is empirical: the §4.6 Compounding AI Penalty operationalizes the country-level human-capital-and-AI-readiness joint distribution at the 2020-2025 cross-section, quantifying a roughly two-fold over-representation of sub-Saharan Africa in the low-HCI ∩ low-AI-readiness double-excluded cell that we are not aware of a prior peer-reviewed paper having constructed at this exact resolution. The second is the pre-commitment methodological framework articulated explicitly in §1, §3.2, and §5: pre-commit the analytical decisions in writing, execute the specifications as committed, and report the failures of those pre-commitments as findings for the field rather than as caveats to the analyst's preferred result — the methodological-reflection tradition [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts] taken seriously as a working discipline rather than as a closing-paragraph caveat. The third is the within-country aid-to-learning coefficient itself in the WB HCI HLOS specification on the 2010-2020 panel, reported here at β = +11.14 (p ≈ 0.05) alongside the full sensitivity battery against the AAP-2018 alternative measure [@altinok2018global] that documents the coefficient's measure-dependence.
+This paper contributes two findings to the cross-country aid-learning literature. The first is the pre-commitment methodological framework articulated explicitly in §1, §3.2, and §5: pre-commit the analytical decisions in writing, execute the specifications as committed, and report the failures of those pre-commitments as findings for the field rather than as caveats to the analyst's preferred result — the methodological-reflection tradition [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts] taken seriously as a working discipline rather than as a closing-paragraph caveat. The second is the empirical anchor: a within-country aid-to-learning coefficient in the WB HCI HLOS specification on the 2010–2020 panel reported here at β = +11.14 (p ≈ 0.05), accompanied by the full sensitivity battery against the AAP-2018 alternative measure [@altinok2018global] that documents the coefficient's measure-dependence — the principal contribution of which is precisely the documentation of that dependence, not the headline number.
 
-This paper does not establish causal identification of the aid-to-learning relationship. The static fixed-effects specification on a small-T panel (T_eff ≤ 4) is the identification strategy available at this data shape; the Arellano-Bond difference-GMM the pre-registered identification plan committed to is not feasible per Bond 2002's T ≥ 5–10 minimum (our effective T_eff ≤ 4); the Dumitrescu-Hurlin panel Granger pre-test fails the same small-T constraint; both pre-commitments are closed honestly in the diagnostic audit rather than substituted with feasible-looking proxies. The within-country positive coefficient is hedged to its primary specification: the AAP-2018 alternative measure sign-reverses the coefficient in both the full coverage window and the overlap window restricted to 2010 onward. The §4.6 Compounding AI Penalty is a snapshot characterization of the divergence-vulnerable set, not a longitudinal estimate of the compounding-divergence effect itself; the latter would require several future Oxford GARI editions paired with post-AI-diffusion HCI cycles before it becomes empirically tractable.
+This paper does not establish causal identification of the aid-to-learning relationship. The static fixed-effects specification on a small-T panel (T_eff ≤ 4) is the identification strategy available at this data shape; the Arellano-Bond difference-GMM the pre-registered identification plan committed to is not feasible per Bond 2002's T ≥ 5–10 minimum (our effective T_eff ≤ 4); the Dumitrescu-Hurlin panel Granger pre-test fails the same small-T constraint; both pre-commitments are closed honestly in the diagnostic audit rather than substituted with feasible-looking proxies. The within-country positive coefficient is hedged to its primary specification: the AAP-2018 alternative measure sign-reverses the coefficient in both the full coverage window and the overlap window restricted to 2010 onward.
 
-Each of these limits points to a concrete research-infrastructure recommendation articulated in §6. The OECD DAC Creditor Reporting System needs an intervention-type policy marker if the field's compositional questions are to become answerable at panel scale. The World Bank HCI HLOS series needs its linking-anchor decisions publicly auditable if the within-country measure-fragility documented in §4.7 is to be resolvable. Cross-country panel evidence journals need a routine missingness-disclosure standard if MI-based estimates are to be assessed against the MAR assumption their validity depends on. Donor allocation models need structural-determinant weighting if the more stable predictor signal in the panel is to inform country-level decisions even where the aid-flow coefficient is hedged. The pre-commitment framework's contribution is that each of these is a finding for the field, not a caveat for the author — and that the calibrated map of what cross-country aid-effectiveness panel evidence can and cannot rigorously claim at the current data frontier is what this paper has spent its pages drawing.
+Each of these limits points to a concrete research-infrastructure recommendation articulated in §6. The OECD DAC Creditor Reporting System needs an intervention-type policy marker if the field's compositional questions are to become answerable at panel scale. The World Bank HCI HLOS series needs its linking-anchor decisions publicly auditable if the within-country measure-fragility documented in §4.6 is to be resolvable. Cross-country panel evidence journals need a routine missingness-disclosure standard if MI-based estimates are to be assessed against the MAR assumption their validity depends on. Donor allocation models need structural-determinant weighting if the more stable predictor signal in the panel is to inform country-level decisions even where the aid-flow coefficient is hedged. The pre-commitment framework's contribution is that each of these is a finding for the field, not a caveat for the author — and that the calibrated map of what cross-country aid-effectiveness panel evidence can and cannot rigorously claim at the current data frontier is what this paper has spent its pages drawing.
 
 <!--
 EVIDENCE TRACE — §7 Conclusion (3 paragraphs: contribution, limits, research-infrastructure implication):
 - ¶1 §4.6 Compounding AI Penalty operationalization → manuscript §4.6 (Session 06) + output/tables/compound_ai_penalty_quadrant.md
 - ¶1 Path-c methodological framework + methodological-reflection tradition citations → manuscript §1 + §3.4 + §5 (Sessions 01-07) + CLAUDE.md branching strategy + [@sandefur2018internationally; @vivalt2020generalize; @deaton2018rcts] (all already cited in §1 + §2.3, no new bib entries)
-- ¶1 β = +11.14 primary specification + AAP-2018 sensitivity → manuscript §4.2 + §4.7 + findings.md §5.2 + §5.8 + [@altinok2018global] (already cited §4.2 + §4.7, no new bib entry)
-- ¶2 T_eff ≤ 4 small-T limit → ADR-0010 small-T identification limit + manuscript §4.7 ¶3 (Session 06)
-- ¶2 Arellano-Bond difference-GMM not feasible per Dumitrescu-Hurlin threshold → ADR-0010 + brief Statistical Layer pre-commitment + output/pass1_statistical_validity_audit.md
+- ¶1 β = +11.14 primary specification + AAP-2018 sensitivity → manuscript §4.2 + §4.6 + findings.md §5.2 + §5.8 + [@altinok2018global] (already cited §4.2 + §4.6, no new bib entry)
+- ¶2 T_eff ≤ 4 small-T limit → PAP-0010 small-T identification limit + manuscript §4.6 ¶3 (Session 06)
+- ¶2 Arellano-Bond difference-GMM not feasible per Dumitrescu-Hurlin threshold → PAP-0010 + brief Statistical Layer pre-commitment + output/pass1_statistical_validity_audit.md
 - ¶2 §4.6 snapshot-not-trajectory caveat → manuscript §4.6 ¶3 + §5.5 ¶2 (Sessions 06-07)
 - ¶3 §6 recommendations restated as research-infrastructure agenda → manuscript §6.1-§6.4 (this session above)
 - ¶3 "calibrated map of what the literature can rigorously claim" framing → manuscript §1 abstract + §5.1 thesis (Sessions 01 + 06)
@@ -829,11 +740,11 @@ EVIDENCE TRACE — §7 Conclusion (3 paragraphs: contribution, limits, research-
 
 The main-text Tables 1–6 present compressed views of the locked specifications. The full progression of every model — including the spec rows and coefficient columns elided in the main text — is reproduced below from `output/tables/` machine-readable artifacts. All tables use country-clustered SE in Model 2 (panel FE specifications) and HC-robust SE in Model 1 (cross-sectional OLS).
 
-## A.1 ADR inventory {.unnumbered}
+## A.1 Pre-analysis plan inventory {.unnumbered}
 
-The pre-commitment design referenced throughout §3.2 rests on twelve Architecture Decision Records, summarized below; full ADR documents at `docs/decisions/`.
+The pre-commitment design referenced throughout §3.2 rests on twelve pre-analysis plans, summarized below; full pre-analysis plan documents at `docs/decisions/`.
 
-| ADR | Title | Status | What it locks |
+| PAP | Title | Status | What it locks |
 |---|---|---|---|
 | 0001 | Toolchain and project scaffolding | Accepted | R + renv on WSL; ADR-continuity model |
 | 0002 | Country universe | Accepted | ODA-eligible ∩ ≥1 HLO; N = 133 (127 FE-identifiable) |
@@ -846,7 +757,7 @@ The pre-commitment design referenced throughout §3.2 rests on twelve Architectu
 | 0009 | WGI operationalization | Accepted | PCA PC1 primary (76.4% variance); single GE + all-six as robustness |
 | 0010 | Identification strategy (System GMM) | Accepted with caveats | Static FE remains headline; GMM Hansen p=0.022 |
 | 0011 | Model 5 counterfactual specification | Accepted | Within-support % shocks on locked β; plug-in CI |
-| 0012 | Retirement of UIS multiple imputation | Accepted | MCAR rejection makes MI MAR-untenable; amends ADR-0006 |
+| 0012 | Retirement of UIS multiple imputation | Accepted | MCAR rejection makes MI MAR-untenable; amends PAP-0006 |
 
 ## A.2 Model 1 cross-sectional OLS — full 6-spec progression {.unnumbered}
 
@@ -864,35 +775,29 @@ The pre-commitment design referenced throughout §3.2 rests on twelve Architectu
 
 {{< include ../output/tables/_render_includes/model5_counterfactual.md >}}
 
-## A.6 Compounding AI penalty — quadrant + robustness {.unnumbered}
-
-{{< include ../output/tables/_render_includes/compound_ai_penalty_quadrant.md >}}
-
-{{< include ../output/tables/_render_includes/compound_ai_penalty_robustness.md >}}
-
 # Appendix B: Robustness checks {.unnumbered}
 
-The pre-commitment framework treats the robustness exercises below as first-class methodological findings rather than caveats. The treatment-encoding grid (B.1) and the WGI operationalization variants (B.2) establish that the headline within-country coefficient is sign-stable across the encoding choices the literature has historically left unspecified. The China-aid robustness (B.3) confirms the OECD CRS coefficient is unmoved by adding parallel AidData GCDF flows. The HLO measure-fragility (B.4) and UIS-augmented listwise (B.5) document where the headline does not survive sign-agreement — material findings for what cross-country aid-learning panel evidence can rigorously claim at the current measurement frontier. The MCAR test (B.6) provides the empirical ground on which ADR-0012 retires the multiple-imputation robustness. The Dumitrescu-Hurlin Granger pre-test (B.7) documents the small-T limit that forecloses both the GMM remedy and the Granger pre-commit.
+The pre-commitment framework treats the robustness exercises below as first-class methodological findings rather than caveats. The treatment-encoding grid (B.1) and the WGI operationalization variants (B.2) establish that the headline within-country coefficient is sign-stable across the encoding choices the literature has historically left unspecified. The China-aid robustness (B.3) confirms the OECD CRS coefficient is unmoved by adding parallel AidData GCDF flows. The HLO measure-fragility (B.4) and UIS-augmented listwise (B.5) document where the headline does not survive sign-agreement — material findings for what cross-country aid-learning panel evidence can rigorously claim at the current measurement frontier. The MCAR test (B.6) provides the empirical ground on which PAP-0012 retires the multiple-imputation robustness. The Dumitrescu-Hurlin Granger pre-test (B.7) documents the small-T limit that forecloses both the GMM remedy and the Granger pre-commit.
 
-## B.1 Treatment-encoding sensitivity (16-cell grid; ADR-0005) {.unnumbered}
+## B.1 Treatment-encoding sensitivity (16-cell grid; PAP-0005) {.unnumbered}
 
 {{< include ../output/tables/_render_includes/model2_fe_sensitivity.md >}}
 
-## B.2 WGI operationalization variants (ADR-0009) {.unnumbered}
+## B.2 WGI operationalization variants (PAP-0009) {.unnumbered}
 
 {{< include ../output/tables/_render_includes/model2_wgi_specs.md >}}
 
 The PCA loadings supporting the PC1-variance-share claim (76.4% on this sample, single PC1 retained per Kaiser criterion) are at `output/tables/model2_wgi_pca_loadings.csv`.
 
-## B.3 Chinese aid robustness (ADR-0008) {.unnumbered}
+## B.3 Chinese aid robustness (PAP-0008) {.unnumbered}
 
 {{< include ../output/tables/_render_includes/model2_china_robustness.md >}}
 
-## B.4 HLO measure-fragility — AAP-2018 full + overlap (ADR-0004) {.unnumbered}
+## B.4 HLO measure-fragility — AAP-2018 full + overlap (PAP-0004) {.unnumbered}
 
 {{< include ../output/tables/_render_includes/pass1_hlo_sensitivity.md >}}
 
-## B.5 UIS-augmented listwise (ADR-0006 Robustness 1) {.unnumbered}
+## B.5 UIS-augmented listwise (PAP-0006 Robustness 1) {.unnumbered}
 
 {{< include ../output/tables/_render_includes/pass1_uis_listwise.md >}}
 
@@ -913,13 +818,13 @@ statistic = 341.900
 p_value < 10⁻⁶
 ```
 
-The MAR assumption multiple imputation requires is therefore not empirically supportable on this data; ADR-0012 retires the MI sub-commitment of ADR-0006 on this basis (in conjunction with the project's no-fabrication discipline; CLAUDE.md).
+The MAR assumption multiple imputation requires is therefore not empirically supportable on this data; PAP-0012 retires the MI sub-commitment of PAP-0006 on this basis (in conjunction with the project's no-fabrication discipline).
 
 ## B.7 Dumitrescu-Hurlin panel Granger pre-test {.unnumbered}
 
 {{< include ../output/tables/_render_includes/pass1_granger_test.md >}}
 
-The test requires T > 5 + 3·order = 8 per country at order 1, and is therefore not estimable on the HCI-cycle panel (T_eff ≤ 4). The same small-T limit forecloses the Arellano-Bond difference-GMM remedy committed in ADR-0010 (Bond 2002 minimum T ≥ 5–10).
+The test requires T > 5 + 3·order = 8 per country at order 1, and is therefore not estimable on the HCI-cycle panel (T_eff ≤ 4). The same small-T limit forecloses the Arellano-Bond difference-GMM remedy committed in PAP-0010 (Bond 2002 minimum T ≥ 5–10).
 
 # Appendix C: Variable operationalization {.unnumbered}
 
@@ -930,12 +835,11 @@ Every variable used in the manuscript is sourced, operationalized, and transform
 | WDI (World Bank) | 13 controls + education indicators (GDP/cap, enrollment, PTR, ed. expenditure, completion, OOS) | 216 countries; 1995–2024 |
 | HCI / HLO (World Bank) | HLO score (primary outcome), LAYS, sex-stratified variants | 174 countries; 4 cycles (2010, 2017, 2018, 2020) |
 | AAP-2018 (Altinok-Angrist-Patrinos) | HLO_AAP (parallel robustness outcome) | 144 countries; 5 cycles (1995–2015) |
-| WGI (World Bank) | 6 governance dimensions × estimate/SE/n_sources; PCA-PC1 primary per ADR-0009 | 215 countries; annual 1996–2023 |
-| UIS (UNESCO) | Schooling-finance indicators (private expenditure, OOS by level) | 220 countries; 1970–2023; 91.8% SSA missing on private expenditure (Robustness only per ADR-0006) |
-| OECD CRS | ODA disbursement + commitment, current + constant USD, by 5-digit purpose code (education sector 11110–11430) | 537,586 project rows; 1995–2023; locked encoding `crs_disburse_usd_defl_ma3_lag1` per ADR-0005 |
+| WGI (World Bank) | 6 governance dimensions × estimate/SE/n_sources; PCA-PC1 primary per PAP-0009 | 215 countries; annual 1996–2023 |
+| UIS (UNESCO) | Schooling-finance indicators (private expenditure, OOS by level) | 220 countries; 1970–2023; 91.8% SSA missing on private expenditure (Robustness only per PAP-0006) |
+| OECD CRS | ODA disbursement + commitment, current + constant USD, by 5-digit purpose code (education sector 11110–11430) | 537,586 project rows; 1995–2023; locked encoding `crs_disburse_usd_defl_ma3_lag1` per PAP-0005 |
 | AidData GCDF | Chinese education projects 2000–2021 | 30 columns × 22,000 rows; China share = 60.4% in SSA |
 | UCDP/PRIO | Conflict flag, intensity, battle deaths | 195 countries; 1989–2023; SSA prevalence 25.3% vs RoW 9.2% |
 | COVID closures | Days closed by status category (UNESCO-cross-validated) | 195 countries; 2020–2022 |
-| Oxford Insights GARI | AI Readiness Index — 6 pillars + derived composite | 195 countries; 2025 edition |
 
-Treatment-variable construction details (the strictly-past 3-year moving average, the 16-cell sensitivity grid, the GCDF-strict variant) are documented in `docs/methodology.md` §3.5. The WGI PC1 derivation (PCA on the six WGI estimate columns, single PC retained per Kaiser criterion with 76.4% variance on this sample) is documented in `docs/methodology.md` §3.6 and ADR-0009. ISO3 normalization and the sub-national-row drop log are at `output/logs/iso3_unresolved_<src>.csv` per source.
+Treatment-variable construction details (the strictly-past 3-year moving average, the 16-cell sensitivity grid, the GCDF-strict variant) are documented in `docs/methodology.md` §3.5. The WGI PC1 derivation (PCA on the six WGI estimate columns, single PC retained per Kaiser criterion with 76.4% variance on this sample) is documented in `docs/methodology.md` §3.6 and PAP-0009. ISO3 normalization and the sub-national-row drop log are at `output/logs/iso3_unresolved_<src>.csv` per source.

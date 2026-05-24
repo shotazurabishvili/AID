@@ -1,0 +1,96 @@
+---
+title: "The compounding AI penalty: a country-level operationalization of joint human-capital and AI-readiness exclusion"
+author:
+  - name: "Shota Zurabishvili"
+    affiliation: "Independent researcher / Co-founder, reed.ge"
+    email: "shota.zurabishvili@gmail.com"
+date: "2026-05-24"
+abstract-title: "Abstract"
+keywords:
+  - human capital index
+  - AI readiness
+  - compounding divergence
+  - cross-country composite
+  - sub-Saharan Africa
+bibliography: references.bib
+csl: apa.csl
+format:
+  docx:
+    toc: false
+    number-sections: true
+    number-depth: 2
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    fontsize: 11pt
+    cite-method: citeproc
+    toc: false
+    number-sections: true
+    number-depth: 2
+---
+
+<!--
+WORKING DRAFT — extracted Session 12 (2026-05-24) from the main
+"Aid Without Learning" paper as part of the reviewer-recommended
+split (three-papers-in-a-trenchcoat critique).
+
+Status: starter draft only. The §3 Results and §4 Discussion below
+are the §4.6 + §5.5 prose lifted verbatim from the main paper. The
+abstract, introduction, methodology, and conclusion below are stubs
+to be drafted before this paper is submitted anywhere.
+
+Target outlets: World Development Sketches; Economics Letters; or
+working-paper deposit (NBER, IZA, CGD WP).
+
+Not currently rendered. To render: cd drafts && quarto render
+compounding_divergence_short.qmd --to docx
+-->
+
+# Abstract {.unnumbered}
+
+*[STUB — to be drafted. ~150w. Key claims: novel country-level composite of HCI × Oxford GARI; quantifies sub-Saharan African concentration in the low-low cell at approximately 2× over-representation relative to sample share; positions the operationalization alongside the Brookings/UNDP, World Bank, and joint ILO–World Bank theoretical antecedents at the compounding-divergence frontier; honest about snapshot-vs-trajectory limits.]*
+
+# 1. Introduction
+
+*[STUB — to be drafted. ~250-300w. The compounding-divergence thesis (AI diffusion widens human-capital gaps along pre-AI endowments) has been articulated at country and employment level by Brookings/UNDP [@muthukrishna2025divergence], the World Bank's *Beyond the AI Divide* working paper [@mandon2025beyond], and the joint ILO–World Bank background study for *World Development Report 2026* [@ilo2026disruption]. The empirical-operationalization layer at the country cross-section level remains thin. This paper constructs the HCI × Oxford GARI joint composite and quantifies the cross-country joint distribution, with explicit focus on sub-Saharan African concentration in the joint-low cell.]*
+
+# 2. Data and methodology
+
+*[STUB — to be drafted. ~200-250w. Coverage:*
+- *Data sources: World Bank Human Capital Index (most recent non-missing per country, primarily the 2020 cycle); Oxford Insights Government AI Readiness Index 2025.*
+- *Joined sample: 132 countries (intersection of GARI 2025's 195-country panel with the HCI-non-missing iso3 set).*
+- *Composite construction: `compound_index = HCI × (GARI / 100)`, ranging 0.033 to 0.495 on this sample.*
+- *Partitioning: sample-median split (HCI median = 0.506; GARI/100 median = 0.382) into four quadrants.*
+- *Robustness: HCI-cycle-2018-only restriction (Jaccard agreement 0.94 with headline set); tercile-split partition (Jaccard 0.53 reflects cell-size mechanical shrinkage).]*
+
+# 3. Results
+
+The compounding AI penalty is constructed as a joint country-level cross-section: each country's most recent non-missing Human Capital Index value (the 2020 HCI cycle, fully populated across the 132 countries that join the Oxford Insights GARI 2025 panel) multiplied by its Oxford Insights Government AI Readiness Index, normalized to GARI/100. The resulting composite, `compound_index = HCI × (GARI / 100)`, ranges from 0.033 to 0.495 across the joined sample of 132 countries — the intersection of GARI 2025's 195-country panel with the HCI-non-missing iso3 set in the production panel. The composite peaks well below its theoretical maximum because no country approaches the upper bound on both axes. The two dimensions are positively coupled on this sample at **r = 0.777**, the empirical face of the compounding-divergence thesis: countries with high human capital also tend to have high AI readiness, and vice versa. The five most compound-exposed countries (lowest `compound_index` values) are **South Sudan** (0.033), **Central African Republic** (0.035), **Liberia** (0.046), **Yemen** (0.047), and **Chad** (0.055) — a list dominated by conflict-affected low-income states, four of five in sub-Saharan Africa.
+
+Partitioning the joint sample on its medians (HCI = 0.506; GARI/100 = 0.382) yields the four quadrants in Table 1. The **low-HCI / low-GARI "double-excluded" cell contains 47 countries** — 35.6 percent of the joined sample — **of which 29 are sub-Saharan African**. Sub-Saharan Africa is 31.8 percent of the joined sample (42 of 132) but supplies 61.7 percent of the double-excluded cell (29 of 47): the cell is **approximately twice over-represented in sub-Saharan Africa relative to its sample share**. The cell-mean composite is 0.099, less than a third of the high-HCI / high-GARI mean of 0.357.
+
+| Quadrant | N | SSA in cell | Mean HCI | Mean GARI/100 | Mean compound |
+|----------|----:|----:|------:|------:|------:|
+| high HCI / high GARI | 47 | 2 | 0.620 | 0.569 | 0.357 |
+| high HCI / low GARI | 19 | 1 | 0.571 | 0.270 | 0.155 |
+| low HCI / high GARI | 19 | 10 | 0.439 | 0.484 | 0.213 |
+| **low HCI / low GARI (double-excluded)** | **47** | **29** | **0.407** | **0.238** | **0.099** |
+
+: Table 1. Joint distribution of country-level human capital (HCI 2020) and AI readiness (Oxford Insights GARI 2025) on the 132-country joined sample, partitioned on sample medians (HCI = 0.506; GARI/100 = 0.382). SSA over-representation in the double-excluded cell: 29 of 47 = 61.7% vs SSA share of joined sample 42 of 132 = 31.8% (≈2× over-representation). Composite `compound_index = HCI × (GARI/100)`. {#tbl-compound}
+
+![Figure 1. Joint distribution of country-level human capital (HCI 2020) and AI readiness (Oxford Insights GARI 2025) on the 132-country joined sample. Sample-median lines (dashed) divide the four quadrants; the low-HCI / low-GARI "double-excluded" cell (bottom-left) contains 47 countries, 29 of which are sub-Saharan African. Labeled: 5 most-exposed countries (SSD, CAF, LBR, YEM, TCD).](../output/figures/compound_ai_penalty_scatter.png){#fig-compound width=80%}
+
+# 4. Discussion
+
+The novelty of this operationalization is calibrated rather than absolute. An audit of adjacent literature surfaced three substantively related works: Brookings/UNDP's *Next Great Divergence* [@muthukrishna2025divergence] articulates the compounding-divergence thesis at the country level using an HCI-adjacent composite; World Bank Working Paper 11073 [@mandon2025beyond] constructs a joint AI-Preparedness × Economic-Complexity composite for a different policy question; the joint ILO-World Bank background study for *WDR 2026* [@ilo2026disruption] quantifies the same compounding logic at the employment level (66.9 million jobs in developing economies with augmentation potential they cannot realize due to digital-infrastructure gaps). What appears genuinely novel here is the specific construction (HCI × Oxford GARI), the country cross-section, and the quantification of the sub-Saharan African concentration; we hedge to *"we are not aware of a prior peer-reviewed paper that constructs the joint composite at this exact country cross-section and quantifies the regional concentration"* rather than echoing a stronger claim. Two caveats follow. *First*, the positive correlation between HCI and GARI (r = 0.777) creates partial tautology — the dimensions share approximately sixty percent of their variance, so the low-low cell is partly tautological with "low overall HCI/GARI quality" rather than reflecting an independent interaction. *Second*, the analysis is a joint-distribution characterization, not a longitudinal compounding-*effect* estimate; the forward-looking claim that the double-excluded countries fall further behind as AI-driven productivity asymmetries widen requires several future GARI editions and post-AI-diffusion HCI cycles to evaluate.
+
+The two-fold SSA over-representation is therefore a snapshot, not a trajectory. The longitudinal compounding-divergence claim — that countries in the double-excluded cell *fall further behind* as AI-driven productivity asymmetries widen — would require several future GARI editions paired with post-AI-diffusion HCI cycles to evaluate, and is not testable on a 2020/2025 cross-section. The contribution here is empirical operationalization at a specific resolution: we are not aware of a prior peer-reviewed paper that constructs the explicit HCI × GARI joint composite at this country cross-section and quantifies the regional concentration. The trajectory question is a multi-edition empirical agenda for the field — and one that is itself contingent on whether GARI and HCI continue to be updated on comparable schedules.
+
+# 5. Conclusion
+
+*[STUB — to be drafted. ~150w. Key beats: (1) the joint composite gives the compounding-divergence thesis a concrete cross-section operationalization at the country level; (2) the ≈2× sub-Saharan African over-representation in the joint-low cell is a quantification worth tracking forward; (3) honest acknowledgment that this is a snapshot whose trajectory implications need multi-edition data the field does not yet have; (4) a research-infrastructure ask: donors and research-funding bodies could commission longitudinal monitoring of the double-excluded set as future GARI and HCI editions arrive.]*
+
+# References {.unnumbered}
+
+::: {#refs}
+:::
