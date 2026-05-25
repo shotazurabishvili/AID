@@ -1,4 +1,4 @@
-#### Model 2 FE — Chinese aid robustness (ADR-0008 lock)
+#### Model 2 FE — Chinese aid robustness
 
 Within-country two-way FE (iso3 + year). Country-clustered SE. Controls: log(GDP/cap), PTR primary, ed_exp_%GDP, WGI gov effectiveness. Primary window 2010-2020. Treatment columns enter as `log(1 + x)`; all use Session-03 lock encoding (strictly-past 3-yr MA, constant USD).
 
