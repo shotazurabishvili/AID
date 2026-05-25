@@ -13,7 +13,7 @@ Generative AI is set to reshape labor markets globally, but with uneven impacts 
 - Joint ILO–World Bank construction; background study for *World Development Report 2026*
 
 ## Our engagement
-**Comparator for §4.6 country-level Compounding AI Penalty analysis at the employment-level.** Our §4.6 quantifies country-level double-exclusion on HCI × AI readiness; the ILO–WBG study quantifies employment-level double-exclusion on task-exposure × digital infrastructure. Different units of analysis (country vs job-task), same underlying compounding logic, complementary findings. Cite at §1 (Introduction, ¶5) and §2 strand (c) Lit Review as the most directly parallel concurrent operationalization at the employment level.
+**Comparator for §4.6 country-level HCI–GARI composite analysis at the employment-level.** Our §4.6 quantifies country-level double-exclusion on HCI × AI readiness; the ILO–WBG study quantifies employment-level double-exclusion on task-exposure × digital infrastructure. Different units of analysis (country vs job-task), same underlying compounding logic, complementary findings. Cite at §1 (Introduction, ¶5) and §2 strand (c) Lit Review as the most directly parallel concurrent operationalization at the employment level.
 
 ## Key claims to engage or cite
 - GenAI exposure × digital-infrastructure-access creates compounding disadvantage at the employment level
@@ -24,6 +24,6 @@ Generative AI is set to reshape labor markets globally, but with uneven impacts 
 *(populate when reading primary; secondary engagement at ILO publications page only)*
 
 ## Status
-- [ ] Read primary source — *secondary engagement only (ILO publications page + WBR coverage of the report). Reviewed for citation-direction purposes during Phase 11 Session 02 (2026-05-23). Cite for the country-vs-employment-level complementarity; do not assert specific employment-exposure figures beyond the headline 441.8M / 66.9M without reading the report.*
+- [ ] Read primary source — *secondary engagement only (ILO publications page + WBR coverage of the report). Reviewed for citation-direction purposes during . Cite for the country-vs-employment-level complementarity; do not assert specific employment-exposure figures beyond the headline 441.8M / 66.9M without reading the report.*
 - [x] Notes summarized above (from ILO publications page + Digital Watch Observatory + BusinessWorld Online coverage of the report)
 - [x] Engaged in our manuscript (Intro paragraph 5; §2 strand c)

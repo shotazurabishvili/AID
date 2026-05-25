@@ -1,8 +1,8 @@
 # R/10_ingest_ai_readiness.R
 #
 # Source: Oxford Insights Government AI Readiness Index 2025 (GARI).
-# Brief reference: Data Stack; methodology.md §3.12 (supplementary measures);
-#                   feeds the Phase-9 "Compounding AI Penalty" section.
+# Reference: Data Stack; the manuscript methodology section (supplementary measures);
+#                   feeds the the HCI–GARI composite supplementary analysis.
 # Methodology cite: Oxford Insights (2026). Government AI Readiness Index 2025.
 #                   Report version dated 2026-01-29.
 #
@@ -270,7 +270,7 @@ update_catalog(
     "Resilience). No overall composite published in source; ",
     "ai_readiness_score_mean is OUR DERIVED equally-weighted mean of the 6 pillars ",
     "(Oxford's official weighting may differ; transparent and reproducible). ",
-    "Feeds Phase 9 'Compounding AI Penalty' section (HCI × GARI composite per brief)."
+    "Feeds the HCI × GARI composite analysis."
   )
 )
 

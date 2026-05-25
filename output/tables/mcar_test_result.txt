@@ -1,4 +1,4 @@
-naniar::mcar_test() on 2010-2020 ∩ ADR-0002 Option-1 (n=1463 rows, 6 cols)
+naniar::mcar_test() on 2010-2020 ∩ the analytical universe (n=1463 rows, 6 cols)
 
 statistic = 1213.559
 df = 68

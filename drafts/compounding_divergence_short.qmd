@@ -30,7 +30,7 @@ format:
 ---
 
 <!--
-WORKING DRAFT — extracted Session 12 (2026-05-24) from the main
+WORKING DRAFT — extracted from the main
 "Aid Without Learning" paper as part of the reviewer-recommended
 split (three-papers-in-a-trenchcoat critique).
 

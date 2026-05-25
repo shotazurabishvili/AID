@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Extract all tables from a PDF into per-table CSV files.
 
-Used by R/10_ingest_ai_readiness.R (Session 08) for the Oxford Insights GARI
+Used by R/10_ingest_ai_readiness.R for the Oxford Insights GARI
 2025 report. The PDF ships only as a registration-gated PDF without a CSV
 export; pdfplumber's heuristic table extraction handles the country-ranking
 table well enough for the ingest.

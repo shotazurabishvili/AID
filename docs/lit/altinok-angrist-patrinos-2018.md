@@ -11,7 +11,7 @@ Cross-country, cross-time test-score data are not directly comparable because th
 - Produce a single HLO value per country per assessment year
 
 ## Our engagement
-**Source paper for our outcome variable.** Cited in §3 (Data & Methodology) and again in §3.4 specifically. We use the **WB current-release `HD.HCI.HLOS`** as the primary outcome (an operationalization within the HCI framework that draws on the AAP methodology) and report the original AAP-2018 dataset as robustness — see [ADR-0004](../decisions/0004-hlo-measure.md).
+**Source paper for our outcome variable.** Cited in §3 (Data & Methodology) and again in §3.4 specifically. We use the **WB current-release `HD.HCI.HLOS`** as the primary outcome (an operationalization within the HCI framework that draws on the AAP methodology) and report the original AAP-2018 dataset as robustness — see [PAP-0004](../decisions/0004-hlo-measure.md).
 
 Must engage the Sandefur (2018) critique of HLO harmonization in §3.4.
 
@@ -24,6 +24,6 @@ Must engage the Sandefur (2018) critique of HLO harmonization in §3.4.
 *(populate when reading primary)*
 
 ## Status
-- [x] Read primary source — Session 04 (2026-05-17): WP 8314 + OWID datapackage description reviewed; harmonization methodology pooling subjects (math/reading/science) and levels (primary/secondary) confirmed; threshold definitions (400/475/625 anchored on PIRLS/TIMSS) noted
+- [x] Read primary source — : WP 8314 + OWID datapackage description reviewed; harmonization methodology pooling subjects (math/reading/science) and levels (primary/secondary) confirmed; threshold definitions (400/475/625 anchored on PIRLS/TIMSS) noted
 - [x] Notes summarized above
-- [ ] Engaged in our manuscript (Methodology §3.4) — *engaged in `docs/methodology.md § 3.4` (proto-§3); flip this box once §3 lives in the Quarto draft (Phase 11)*
+- [ ] Engaged in our manuscript (Methodology §3.4) — *engaged in `docs/the manuscript methodology section § 3.4` (proto-§3); flip this box once §3 lives in the Quarto draft ()*

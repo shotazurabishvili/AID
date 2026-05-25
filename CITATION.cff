@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the manuscript below."
+title: "Measuring Aid for Learning: What Cross-Country Panel Evidence Can and Cannot Say"
+authors:
+  - family-names: Zurabishvili
+    given-names: Shota
+    email: shota.zurabishvili@gmail.com
+    affiliation: "Independent researcher; Co-founder, Reed (reed.ge), Bristol, United Kingdom"
+abstract: >
+  A 133-country, 2010–2020 cross-country panel analysis of whether development
+  assistance to education predicts learning outcomes, under a pre-analysis-plan-
+  disciplined design in which every consequential analytical decision is fixed in
+  writing before the analysis it governs is run. The within-country fixed-effects
+  specification returns a positive aid-to-learning coefficient on the World Bank
+  Harmonized Learning Outcomes measure (β = +11.14, p = 0.048, N = 143) that four
+  pre-specified checks then break: the coefficient is sub-regional (carried by
+  sub-Saharan Africa), measure-specific (sign-reverses on the Altinok-Angrist-
+  Patrinos 2018 alternative), governance-specific (significant under only one of
+  four pre-specified governance operationalisations), and sub-detectable in
+  precision. Two further pre-specified commitments bite alongside these four.
+keywords:
+  - education aid
+  - learning outcomes
+  - cross-country panel
+  - fixed effects
+  - pre-analysis plan
+  - methodological discipline
+  - sub-Saharan Africa
+license: CC-BY-4.0
+license-url: "https://creativecommons.org/licenses/by/4.0/"
+repository-code: "https://github.com/shotazurabishvili/AID"
+date-released: 2026-05-25
+version: "submission-v1"
+type: software

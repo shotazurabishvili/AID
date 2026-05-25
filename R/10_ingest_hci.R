@@ -1,12 +1,12 @@
 # R/10_ingest_hci.R
 #
 # Source: Human Capital Index (HCI)
-# Brief reference: Data Stack, line 68
+# Reference: Data Stack, line 68
 # Methodology: World Bank Human Capital Project (Patrinos et al.)
 #
 # === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================
 # NOTE: HD.HCI.HLOS (Harmonized Test Scores) is *not* included here — it is the
-# headline learning outcome variable, ingested separately in Session 04 (HLO source).
+# headline learning outcome variable, ingested separately in the corresponding step (HLO source).
 #
 #   HD.HCI.OVRL      Human Capital Index, overall
 #   HD.HCI.OVRL.FE   HCI, female

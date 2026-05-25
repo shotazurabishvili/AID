@@ -1,9 +1,9 @@
 # R/50_model1_ols.R
 #
-# Phase 4 Session 01: Model 1 — Cross-sectional OLS baseline.
+# Model 1 — Cross-sectional OLS baseline.
 #
 # Purpose: establish the naive between-country association between education
-# ODA and learning outcomes. This is the coefficient that Phase 5 Model 2
+# ODA and learning outcomes. This is the coefficient that the analysis Model 2
 # (within-country FE) will challenge — the β_OLS vs β_FE contrast is the
 # headline empirical story of the paper.
 #
@@ -19,7 +19,7 @@
 #
 # SE: HC robust (one observation per country → cluster-robust = HC robust).
 # VIF: parallel lm() fit; expect VIF > 5 on log(GDP/cap) + Gov_effect per
-# Session 12's r = 0.79 finding.
+# r = 0.79 finding.
 #
 # Inputs:  data/interim/panel.parquet
 # Outputs: output/tables/model1_ols_baseline.{csv,md}        (HLO outcome)
@@ -27,8 +27,8 @@
 #          output/tables/model1_vif.csv                     (VIF per spec)
 #          output/figures/eda/model1_coefficient_plot.{pdf,png}
 #
-# ADR linkage: ADR-0002 universe, ADR-0003 primary window, ADR-0005 (Pending,
-# disburse_defl primary intent), ADR-0006 (UIS controls dropped — Option 3).
+# ADR linkage: PAP-0002 universe, PAP-0003 primary window, PAP-0005 (Pending,
+# disburse_defl primary intent), PAP-0006 (UIS controls dropped — Option 3).
 
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -170,10 +170,10 @@ gm <- tibble::tribble(
 
 note_text <- paste0(
   "HC-robust SE in parentheses. Stars: ***p<0.01, **p<0.05, *p<0.1. ",
-  "Sample: 133-country ADR-0002 universe, primary window 2010-2020 (ADR-0003); ",
+  "Sample: 133-country PAP-0002 universe, primary window 2010-2020 (PAP-0003); ",
   "country-level means across primary window. N varies by listwise completeness. ",
   sprintf("Max VIF across specs 1b-1f: %.2f.", max_vif),
-  if (max_vif > 5) " VIF > 5 on log(GDP/cap) × Gov effectiveness (Pearson r = 0.79; Session 12); ADR-0009 will lock WGI operationalization in Phase 5." else ""
+  if (max_vif > 5) " VIF > 5 on log(GDP/cap) × Gov effectiveness (Pearson r = 0.79; ); PAP-0009 governs WGI operationalization." else ""
 )
 
 # HLO outcome table — write directly to files via modelsummary's output arg

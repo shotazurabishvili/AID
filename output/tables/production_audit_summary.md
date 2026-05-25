@@ -6,7 +6,7 @@ Panel: `data/interim/panel.parquet` — 3059 rows × 79 cols, 133 countries, yea
 Primary-window (2010-2020) rows: 1463
 Countries with ≥2 HLO obs (FE-identifiable): 127
 
-## MCAR test — 6-col (ADR-0006 lock primary input)
+## MCAR test — 6-col
 
 ```
 [production 6-col primary-window] naniar::mcar_test() (n=1463 rows, 6 cols)

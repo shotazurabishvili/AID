@@ -1,6 +1,6 @@
-# ADR-0008: Chinese aid inclusion in the primary ODA series
+# PAP-0008: Chinese aid inclusion in the primary ODA series
 
-**Status:** Accepted (2026-05-19, Phase 5 Session 04)
+**Status:** Accepted (2026-05-19, )
 **Date:** Locked 2026-05-19
 **Phase:** 5 — Model 2 (Fixed Effects panel)
 
@@ -20,14 +20,14 @@ But: Chinese aid is methodologically harder to compare. GCDF uses TUFF methodolo
 
 ## Decision
 
-**Option 2 confirmed by empirical evidence.** OECD CRS disbursement remains the primary treatment (locked spec from ADR-0005: `crs_disburse_usd_defl_ma3_lag1`). GCDF reported as a parallel robustness panel, not added to primary.
+**Option 2 confirmed by empirical evidence.** OECD CRS disbursement remains the primary treatment (locked spec from PAP-0005: `crs_disburse_usd_defl_ma3_lag1`). GCDF reported as a parallel robustness panel, not added to primary.
 
 Reasoning:
 - Allows direct comparison with the prior literature (Burnside-Dollar, Easterly-Levine-Roodman, all OECD-CRS-based).
 - The robustness check tells the China story without contaminating the primary.
 - Avoids TUFF/CRS methodology conflation in the headline coefficient.
 
-### Empirical evidence (Phase 5 Session 04)
+### Empirical evidence 
 
 Four-spec × two-outcome × two-sample sensitivity (`output/tables/model2_china_robustness.csv`). All specs use the Session-03 locked encoding (strictly-past 3-yr MA, constant USD) with the full Session-14 2e control stack (log GDP/cap + PTR primary + ed_exp_%GDP + WGI gov effectiveness), two-way FE, country-clustered SE, primary window 2010-2020. SSA classification via `countrycode::codelist`.
 
@@ -64,7 +64,7 @@ Three claims supported by the table:
 - §6 Discussion: addresses the non-DAC blind spot as documented, but with the empirical caveat that the blind spot does not visibly bias the within-country coefficient in this sample.
 - AidDataCore (frozen 2013) deferred indefinitely — GCDF v3.0 alone provides the China-aid robustness evidence the paper needs.
 
-### Data observed (Phase 1 Session 06)
+### Data observed 
 
 Empirical GCDF v3.0 coverage of education aid from `data/interim/aiddata_gcdf.parquet` (2,654 project-level rows × 30 columns × 138 countries × 2000–2021, filtered to `Sector Name = EDUCATION` + `Recommended For Aggregates = Yes`):
 
@@ -82,7 +82,7 @@ Empirical GCDF v3.0 coverage of education aid from `data/interim/aiddata_gcdf.pa
 - Rest of world: **32.7%**
 - Gap: **+13.1 pp** — China systematically concentrates education aid in SSA more than elsewhere
 
-**Substantive implications for Phase 5 (with/without-China Model 2):**
+**Substantive implications for (with/without-China Model 2):**
 - The non-DAC blind spot is structurally largest in SSA. Dropping GCDF from the primary spec (Option 2) means the OECD-CRS-only Model 2 systematically under-counts education aid received by 47 SSA countries.
 - The robustness check (Model 2 + GCDF flows added) becomes the substantively interesting comparison — not a courtesy sensitivity. If the within-country ODA coefficient changes sign or magnitude when GCDF is added, the OECD-only headline is biased; if it doesn't, the OECD-only result is robust to the non-DAC blind spot.
 - §6 Discussion cites these numbers, not generalities. "China funds education in 47 of 48 SSA countries with $5.61 B in commitments over 2000–2021" is the empirical face of the structural measurement-failure argument.
@@ -92,7 +92,7 @@ AidData Core Research Release v3.1 is **not** ingested this session (frozen at 2
 ## Consequences
 
 - Robustness Table will include an "with-China" and "without-China" column.
-- The Discussion section §6 explicitly addresses the non-DAC blind spot as a structural feature of the global aid monitoring architecture — connects to the brief's "measurement failure" framing.
+- The Discussion section §6 explicitly addresses the non-DAC blind spot as a structural feature of the global aid monitoring architecture — connects to "measurement failure" framing.
 - AidDataCore (which includes some non-DAC flows pre-2014) provides an additional sensitivity check.
 
 ## How a referee might attack this

@@ -1,16 +1,16 @@
 # R/56_model2_lock_encoding_tables.R
 #
-# Phase 5 Session 06: refresh the manuscript headline tables (Session-14 spec
+# refresh the manuscript headline tables (Session-14 spec
 # progression 2a-2g + Model-1-vs-Model-2 contrast) on the post-lock encoding.
 # Three substantive changes from Session-14 baseline (R/51_model2_fe.R):
 #
-#   1. Treatment (Session-03 lock, ADR-0005): `crs_disburse_usd_defl_ma3` →
+#   1. Treatment (Session-03 lock, PAP-0005): `crs_disburse_usd_defl_ma3` →
 #      `crs_disburse_usd_defl_ma3_lag1` (strictly-past 3-yr MA).
-#   2. WGI control in 2e/2f/2g (Session-05 lock, ADR-0009): `wgi_ge_est` →
+#   2. WGI control in 2e/2f/2g (Session-05 lock, PAP-0009): `wgi_ge_est` →
 #      `wgi_pc1` (first PC of all six WGI dims, scaled, sign-flipped so GE
 #      loads positive — same construction as R/55).
-#   3. GCDF in 2f (methodological consistency with ADR-0005 strictly-past
-#      reasoning; column added in Session 04, ADR-0008):
+#   3. GCDF in 2f (methodological consistency with PAP-0005 strictly-past
+#      reasoning; column added in the corresponding step, PAP-0008):
 #      `gcdf_amount_const2021_ma3` → `gcdf_amount_const2021_ma3_lag1`.
 #
 # Model 1 (cross-sectional OLS, country means) uses single-GE for prior-
@@ -69,7 +69,7 @@ d$wgi_pc1[complete_rows] <- pca$x[, "PC1"]
 message(sprintf("[m2-v2] PC1 attached: %d / %d rows with all-6 WGI present (var=%.3f)",
                 sum(complete_rows), nrow(d), (pca$sdev^2)[1] / sum(pca$sdev^2)))
 
-# COVID NA→0 recode for pre-2020 years (same as Session 14)
+# COVID NA→0 recode for pre-2020 years (same as )
 d <- d |> mutate(
   covid_days_recode = ifelse(year < 2020 & is.na(covid_days_closed),
                               0, covid_days_closed),
@@ -296,9 +296,9 @@ gm <- tibble::tribble(
 
 diag_note <- paste0(
   "Two-way (country + year) FE; country-clustered SE. ",
-  "Treatment: log(1 + CRS_disburse_defl_ma3_lag1) — Session-03 lock (ADR-0005). ",
-  "WGI: PC1 of six aggregates (76.4% variance) — Session-05 lock (ADR-0009). ",
-  "GCDF in 2f: strictly-past MA3 — methodological consistency with ADR-0005. ",
+  "Treatment: log(1 + CRS_disburse_defl_ma3_lag1) — Session-03 lock (PAP-0005). ",
+  "WGI: PC1 of six aggregates (76.4% variance) — Session-05 lock (PAP-0009). ",
+  "GCDF in 2f: strictly-past MA3 — methodological consistency with PAP-0005. ",
   if (!is.null(hausman_res)) sprintf("Hausman χ²=%.1f (p=%s). ",
                                      hausman_res$statistic, format.pval(hausman_res$p.value)) else "",
   if (!is.null(wooldridge_res)) sprintf("Wooldridge AR(1) F=%.1f (p=%s). ",
@@ -395,7 +395,7 @@ contrast_md <- c(
   "Stars: ***p<0.01, **p<0.05, *p<0.1.",
   paste0("Model 1 spec: HLO_i = β0 + β1 log(1+CRS)_i + β2 log(GDP/cap)_i + β3 PTR_i + β4 EdExp_i + β5 WGI_GE_i + ε_i."),
   paste0("Model 2 v2 spec: HLO_it = β1 log(1+CRS_ma3_lag1)_it + β2 log(GDP/cap)_it + β3 PTR_it + β4 EdExp_it + β5 WGI_PC1_it + α_i + λ_t + ε_it."),
-  paste0("Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr strictly-past MA (mean of t-3,t-2,t-1) per ADR-0005 lock. WGI differs: Model 1 uses single Government Effectiveness (prior-literature comparability); Model 2 uses PC1 of six WGI dimensions per ADR-0009 lock (76.4% variance; Langbein-Knack engagement).")
+  paste0("Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr strictly-past MA (mean of t-3,t-2,t-1) per PAP-0005 lock. WGI differs: Model 1 uses single Government Effectiveness (prior-literature comparability); Model 2 uses PC1 of six WGI dimensions per PAP-0009 lock (76.4% variance; Langbein-Knack engagement).")
 )
 writeLines(contrast_md, OUT_CONTRAST_MD)
 message(sprintf("[m2-v2] wrote %s and %s", OUT_CONTRAST_CSV, OUT_CONTRAST_MD))

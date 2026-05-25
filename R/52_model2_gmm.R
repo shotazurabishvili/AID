@@ -1,6 +1,6 @@
 # R/52_model2_gmm.R
 #
-# Phase 5 Session 02: System GMM headline robustness + ADR-0010 lock.
+# System GMM headline robustness + PAP-0010 lock.
 #
 # Purpose: triangulate the static-FE Model 2 result (β_FE = +10.95***, Session
 # 14) against dynamic-panel identification strategies that address potential
@@ -18,12 +18,12 @@
 # Time index: CYCLE INDEX (1=2010, 2=2017, 3=2018, 4=2020), not calendar year.
 # Reason: HCI cycle spacing (2010→2017 = 7 yr; 2017→2018 = 1 yr) makes
 # calendar-year lags meaningless. Cycle index treats each HCI cycle as the
-# fundamental measurement period. Documented in findings.md §5.3.
+# fundamental measurement period. Documented in the manuscript.
 #
 # Identification status (set at session end based on what runs):
-#   Path 1: GMM clean   → ADR-0010 = Option 1 (System GMM as headline robustness)
-#   Path 2: GMM ran but diagnostics fail → ADR-0010 = Option 1 with caveats
-#   Path 3: GMM infeasible → ADR-0010 = Option 4 modified (static FE + Bond floor)
+#   Path 1: GMM clean   → PAP-0010 = Option 1 (System GMM as headline robustness)
+#   Path 2: GMM ran but diagnostics fail → PAP-0010 = Option 1 with caveats
+#   Path 3: GMM infeasible → PAP-0010 = Option 4 modified (static FE + Bond floor)
 #
 # Outputs:
 #   output/tables/model2_bond_consistency.csv          (always)
@@ -246,11 +246,11 @@ if (any(!is.na(gmm_results$beta[3:4]))) {
 # === 5. Triangulation table ===================================================
 message("\n[gmm] building identification triangulation table")
 
-# Static FE results from Session 14 (hardcoded for reference; can re-fit if needed)
+# Static FE results from the corresponding step (hardcoded for reference; can re-fit if needed)
 static_fe <- tribble(
   ~estimator,                                ~beta,  ~se,   ~p,     ~n,    ~hansen_p, ~ar1_p, ~ar2_p, ~status,
-  "Static FE Model 2 (Session 14, full 2e)", 10.95,  3.60,  0.003, 143L,  NA_real_,  NA_real_, NA_real_, "estimated",
-  "Static FE Model 2 (Session 14, +conf/COV)", 10.83,  4.03,  0.009, 143L,  NA_real_,  NA_real_, NA_real_, "estimated"
+  "Static FE Model 2 (full 2e)", 10.95,  3.60,  0.003, 143L,  NA_real_,  NA_real_, NA_real_, "estimated",
+  "Static FE Model 2 (+conf/COV)", 10.83,  4.03,  0.009, 143L,  NA_real_,  NA_real_, NA_real_, "estimated"
 )
 
 # Combine Bond bounds + static FE + GMM
@@ -267,7 +267,7 @@ readr::write_csv(triangulation, "output/tables/model2_identification_triangulati
 
 # Markdown version
 tri_md <- c(
-  "**Table 5. Model 2 -Identification triangulation (ADR-0010 evidence).**",
+  "**Table 5. Model 2 -Identification triangulation (PAP-0010 evidence).**",
   "",
   "Coefficient on `log(1 + CRS_disburse_defl_MA3)` across estimators. All on cycle-indexed HCI panel.",
   "",
@@ -316,8 +316,8 @@ ggsave("output/figures/eda/model2_gmm_coefficient_plot.pdf", p, width = 10, heig
 ggsave("output/figures/eda/model2_gmm_coefficient_plot.png", p, width = 10, height = 6, dpi = 150)
 message("[gmm] wrote model2_gmm_coefficient_plot.{pdf,png}")
 
-# === 7. ADR-0010 path determination ===========================================
-message("\n[gmm] determining ADR-0010 lock path")
+# === 7. PAP-0010 path determination ===========================================
+message("\n[gmm] determining PAP-0010 lock path")
 
 clean_gmm_count <- sum(gmm_results$status == "estimated" &
                         !is.na(gmm_results$hansen_p) &
@@ -327,7 +327,7 @@ clean_gmm_count <- sum(gmm_results$status == "estimated" &
                         gmm_results$ar2_p > 0.10, na.rm = TRUE)
 estimated_count <- sum(gmm_results$status == "estimated", na.rm = TRUE)
 
-cat("\n=== ADR-0010 lock evidence ===\n")
+cat("\n=== PAP-0010 lock evidence ===\n")
 cat("GMM specifications that ran:", estimated_count, "of 4\n")
 cat("GMM specs passing diagnostic targets (Hansen ∈ (0.10, 0.99) AND AR(2) > 0.10):", clean_gmm_count, "\n")
 
@@ -338,10 +338,10 @@ if (clean_gmm_count >= 2) {
 } else {
   adr_path <- "Path 3: GMM infeasible -Option 4 modified (static FE + Bond floor as identification defense)"
 }
-cat("→ ADR-0010 lock path:", adr_path, "\n")
+cat("→ PAP-0010 lock path:", adr_path, "\n")
 
 # Print headline numbers
-cat("\n=== Headline triangulation numbers (for findings.md §5.3) ===\n")
+cat("\n=== Headline triangulation numbers (for the manuscript) ===\n")
 print(triangulation |> select(estimator, beta, se, p, hansen_p, ar2_p))
 
 message("\n[gmm] complete.")

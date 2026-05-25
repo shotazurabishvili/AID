@@ -1,7 +1,7 @@
 # R/10_ingest_covid_closures.R
 #
 # Source: UNESCO Global Monitoring of COVID-19 School Closures.
-# Brief reference: Data Stack; methodology.md §3.7 (Confounders — conflict and COVID).
+# Reference: Data Stack; the manuscript methodology section (Confounders — conflict and COVID).
 # Methodology cite: UNESCO Institute for Statistics — Global Monitoring of School Closures.
 #
 # Two source files from HDX mirror (cleaner direct download than UNESCO's dashboard portal):
@@ -244,7 +244,7 @@ update_catalog(
     "per (iso3, year): days_closed (Status='Closed due to COVID-19'), days_partial ",
     "(Partially open), days_open (Fully open), days_break (Academic break). ",
     "Scope: 2020-2022 active monitoring window. Cited as UNESCO Global Monitoring ",
-    "of School Closures. Feeds Model 2 (Phase 5) as a time-varying confounder."
+    "of School Closures. Feeds Model 2 as a time-varying confounder."
   )
 )
 

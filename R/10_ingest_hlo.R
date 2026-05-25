@@ -6,7 +6,7 @@
 #                fetched via the OWID `owid-datasets` GitHub mirror (subject/level pooled).
 #                Original paper: documents1.worldbank.org/.../WPS8314.pdf
 #
-# Brief reference: Data Stack, line 69 (HLO). Decision: ADR-0004.
+# Reference: Data Stack, line 69 (HLO). Decision: PAP-0004.
 #
 # === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================
 # Primary (WDI):
@@ -164,7 +164,7 @@ cov_aap <- coverage_summary(cleaned_aap, SRC_AAP)
 print(cov_aap)
 coverage_heatmap(cleaned_aap, SRC_AAP)
 
-# SSA universe — identical to UIS Session 03
+# SSA universe — identical to UIS 
 ssa_iso3 <- countrycode::codelist |>
   filter(region == "Sub-Saharan Africa") |>
   pull(iso3c) |>
@@ -198,7 +198,7 @@ p_ssa <- ggplot(ssa_long, aes(x = reorder(indicator, missing_pct),
   scale_fill_manual(values = c("Sub-Saharan Africa" = "#d95f02",
                                "Rest of world"      = "#7570b3")) +
   labs(title = "HLO missingness: SSA vs rest of world",
-       subtitle = "Phase 1 Session 04 - feeds ADR-0004",
+       subtitle = "the corresponding analytical step - feeds PAP-0004",
        x = NULL, y = "Missing %", fill = NULL) +
   theme_minimal(base_size = 11) +
   theme(legend.position = "bottom")
@@ -231,7 +231,7 @@ update_catalog(
     list(code = names(INDICATORS_PRIMARY)[i], name = unname(INDICATORS_PRIMARY)[i])
   }),
   notes = paste(
-    "Headline outcome variable. Primary specification per ADR-0004.",
+    "Headline outcome variable. Primary specification per PAP-0004.",
     "Robustness slug `hlo_aap2018`.",
     "SSA missingness contrast at output/tables/ssa_hlo_missingness.csv."
   )
@@ -253,7 +253,7 @@ update_catalog(
   raw_files        = list(list(name = basename(raw_aap), sha256 = raw_sha_aap)),
   variables        = list(list(code = "AAP2018.HLO", name = "hlo_aap")),
   notes = paste(
-    "Robustness measure per ADR-0004. WB Policy Research WP 8314.",
+    "Robustness measure per PAP-0004. WB Policy Research WP 8314.",
     "Fetched via OWID owid-datasets GitHub mirror (subjects/levels pre-pooled by OWID).",
     "Threshold-share columns dropped — single score is sufficient for Phase-5 sensitivity.",
     "5-year intervals (2000, 2005, 2010, 2015 within our YEAR_RANGE)."

@@ -1,11 +1,11 @@
-**Table 5. Model 2 -Identification triangulation (ADR-0010 evidence).**
+**Table 5. Model 2 -Identification triangulation.**
 
 Coefficient on `log(1 + CRS_disburse_defl_MA3)` across estimators. All on cycle-indexed HCI panel.
 
 |Estimator                                    |      β|    SE|      p|   N| Hansen p| AR(1) p| AR(2) p|status             |
 |:--------------------------------------------|------:|-----:|------:|---:|--------:|-------:|-------:|:------------------|
-|Static FE Model 2 (Session 14, full 2e)      | 10.950|  3.60| 0.0030| 143|       NA|      NA|      NA|estimated          |
-|Static FE Model 2 (Session 14, +conf/COV)    | 10.830|  4.03| 0.0090| 143|       NA|      NA|      NA|estimated          |
+|Static FE Model 2 (full 2e)      | 10.950|  3.60| 0.0030| 143|       NA|      NA|      NA|estimated          |
+|Static FE Model 2 (+conf/COV)    | 10.830|  4.03| 0.0090| 143|       NA|      NA|      NA|estimated          |
 |(A) Pooled OLS w/ lagged DV -MIN spec        |  0.000|  0.00| 0.8705| 437|       NA|      NA|      NA|estimated          |
 |(A) Pooled OLS w/ lagged DV -FULL spec       |  0.000|  0.00| 0.9616| 143|       NA|      NA|      NA|estimated          |
 |(B) Within FE w/ lagged DV (LSDV) -MIN spec  |  0.000|  0.00| 0.9422| 437|       NA|      NA|      NA|estimated          |

@@ -2,7 +2,7 @@
 
 > *Canonical reference for every variable in the project's interim parquets. Updated as ingestion scripts complete. The machine-readable version is `data/catalog.yml::variables[]` per source; this file is the human-facing rendering.*
 >
-> *Last updated: 2026-05-18 (Session 10 close — production panel constructed; CRS column matrix + flags documented)*
+> *Last updated: 2026-05-18 (production panel constructed; CRS column matrix + flags documented)*
 
 ---
 
@@ -41,7 +41,7 @@
 
 6 variables; 2277 rows; 207 countries; years 2010–2020. Sparse by design (HCI published in HCI-release years only: 2010, 2017, 2018, 2020).
 
-**Excludes `HD.HCI.HLOS` (Harmonized Test Scores)** — that is the headline outcome variable, ingested separately as `hlo` in Session 04.
+**Excludes `HD.HCI.HLOS` (Harmonized Test Scores)** — that is the headline outcome variable, ingested separately as `hlo` in .
 
 | Variable | Source code | Definition | Units | Transform | Missing % |
 |---|---|---|---|---|---|
@@ -58,7 +58,7 @@
 
 ## HLO — Harmonized Learning Outcomes, primary (`data/interim/hlo.parquet`)
 
-1 indicator; 2277 rows; 207 countries; years 2010–2020. Sparse by design (the HCI publishes in cycles: 2010, 2017, 2018, 2020). This is the **headline outcome variable** of the paper. Decision: [ADR-0004](decisions/0004-hlo-measure.md) (Accepted 2026-05-17). See `methodology.md § 3.4`.
+1 indicator; 2277 rows; 207 countries; years 2010–2020. Sparse by design (the HCI publishes in cycles: 2010, 2017, 2018, 2020). This is the **headline outcome variable** of the paper. Decision: [PAP-0004](decisions/0004-hlo-measure.md) (Accepted 2026-05-17). See `the manuscript methodology section § 3.4`.
 
 | Variable | Source code | Definition | Units | Transform | Missing % |
 |---|---|---|---|---|---|
@@ -71,7 +71,7 @@
 
 ## HLO — AAP 2018 robustness (`data/interim/hlo_aap2018.parquet`)
 
-1 indicator; 486 rows; 137 countries; years 1995–2015 at 5-year intervals (2000, 2005, 2010, 2015 within our YEAR_RANGE). Used as the **principal robustness measure** for the headline outcome variable per [ADR-0004](decisions/0004-hlo-measure.md). Source: Altinok, Angrist & Patrinos (2018) *Global data set on education quality (1965–2015)*, WB Policy Research WP 8314, fetched via the OWID `owid-datasets` GitHub mirror (raw CSV pinned by commit hash).
+1 indicator; 486 rows; 137 countries; years 1995–2015 at 5-year intervals (2000, 2005, 2010, 2015 within our YEAR_RANGE). Used as the **principal robustness measure** for the headline outcome variable per [PAP-0004](decisions/0004-hlo-measure.md). Source: Altinok, Angrist & Patrinos (2018) *Global data set on education quality (1965–2015)*, WB Policy Research WP 8314, fetched via the OWID `owid-datasets` GitHub mirror (raw CSV pinned by commit hash).
 
 | Variable | Source code | Definition | Units | Transform | Missing % |
 |---|---|---|---|---|---|
@@ -82,7 +82,7 @@
 **Dropped sub-national rows** (logged to `output/logs/iso3_unresolved_hlo_aap2018.csv`): `Canada (British Colombia)`, `England`, `Scotland`, `United States (Indiana State)`, `Zanzibar` — sub-national entities AAP reports separately from the national rows for harmonization comparison; excluded from the country-year panel.
 
 **SSA-specific missingness** on the full-joined HLO panel (`output/tables/ssa_hlo_missingness.csv`):
-- `hlo_aap`: SSA 88.02% missing vs Rest 79.23% — gap **+8.75 pp** (SSA worse — empirical face of the Sandefur 2018 critique; see `methodology.md § 3.4`)
+- `hlo_aap`: SSA 88.02% missing vs Rest 79.23% — gap **+8.75 pp** (SSA worse — empirical face of the Sandefur 2018 critique; see `the manuscript methodology section § 3.4`)
 
 ---
 
@@ -90,7 +90,7 @@
 
 18 variables; 5112 rows; 213 countries; years 1996–2022. Biennial 1996–2002 (gaps in 1997, 1999, 2001), annual since 2002.
 
-Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engagement in `methodology.md § 3.6`). For each of six dimensions, three metrics are retained: estimate, standard error, number of underlying sources. Percentile-rank columns dropped (collinear with estimate).
+Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engagement in `the manuscript methodology section § 3.6`). For each of six dimensions, three metrics are retained: estimate, standard error, number of underlying sources. Percentile-rank columns dropped (collinear with estimate).
 
 | Variable | Source code | Definition | Units | Transform | Missing % |
 |---|---|---|---|---|---|
@@ -115,7 +115,7 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 | `cc_se` | CC StdErr | CC — standard error | numeric | none | 3.8% |
 | `cc_n_src` | CC NumSrc | CC — n sources | count | none | 3.8% |
 
-**Scope note:** WGI also publishes per-source detail (one file per source organization: EIU, BTI, V-Dem, Freedom House, etc.). Phase 1 ingests only the aggregates. Per-source values are a Phase-5 dependency tied to [ADR-0009](decisions/0009-wgi-operationalization.md): if the Phase-5 decision selects a reconstructed-from-sources approach, that ingestion runs then.
+**Scope note:** WGI also publishes per-source detail (one file per source organization: EIU, BTI, V-Dem, Freedom House, etc.). the panel-build ingests only the aggregates. Per-source values are a the pipeline dependency tied to [PAP-0009](decisions/0009-wgi-operationalization.md): if the the pipeline decision selects a reconstructed-from-sources approach, that ingestion runs then.
 
 ---
 
@@ -141,7 +141,7 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 | `oos_rate_upper_sec` | ROFST.3.CP | OOS rate, upper secondary, both sexes | % | none | 54.8% |
 
 **SSA-specific missingness pattern** (`output/tables/ssa_uis_missingness.csv`):
-- Private expenditure: **91.8% missing in SSA vs 80.3% rest of world** (+11.6pp gap) — variable is effectively unusable for SSA-inclusive models; informs [ADR-0006](decisions/0006-uis-missingness-strategy.md)
+- Private expenditure: **91.8% missing in SSA vs 80.3% rest of world** (+11.6pp gap) — variable is effectively unusable for SSA-inclusive models; informs [PAP-0006](decisions/0006-uis-missingness-strategy.md)
 - Lower / upper secondary OOS: SSA worse by +10.9 / +13.3 pp
 - Primary OOS rates: surprisingly SSA has **slightly better** coverage than rest of world (likely reflects UN priority focus on universal primary)
 
@@ -151,11 +151,11 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 
 38 columns; **537,586 rows** (project-level); 172 recipient countries × 125 donor identities; years 1995–2024. Bulk parquet release **CRS-Parquet-v20260408** fetched via dynamic SDMX file-ID discovery (see `R/10_ingest_oecd_crs.R` header for the SDMX endpoint + marker regex). Schema is the legacy **CRS dotStat format**: commitments and disbursements are SEPARATE wide columns (NOT long-format rows on a measure dimension).
 
-**Sector filter at ingest:** `sector_code %in% c(110, 111, 112, 113, 114)` (education sector group). 5-digit `purpose_code` retained (originally for Phase-7 typology granularity; see ADR-0007 note below). 10.6% of pre-filter rows were on regional/unspecified aggregates (logged in `output/logs/iso3_unresolved_oecd_crs.csv`) and dropped from the country panel.
+**Sector filter at ingest:** `sector_code %in% c(110, 111, 112, 113, 114)` (education sector group). 5-digit `purpose_code` retained (originally for the pipeline typology granularity; see PAP-0007 note below). 10.6% of pre-filter rows were on regional/unspecified aggregates (logged in `output/logs/iso3_unresolved_oecd_crs.csv`) and dropped from the country panel.
 
-**ADR-0007 note (2026-05-23):** the four description-text columns marked *ADR-0007 typology source* below were ingested specifically to feed Phase-7 typology coding. That coding was attempted on 2026-05-19, failed the pre-committed lock gate, and Model 4 was dropped on 2026-05-23 ([ADR-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected; see `findings.md §5.5`). The columns are retained on disk for raw-data fidelity and reproducibility-package completeness but **no longer feed an active analysis path**. Two derived artifacts (`data/interim/oecd_crs_typology.parquet`, `data/interim/typology_country_year.parquet`) are kept as negative-evidence artifacts.
+**PAP-0007 note (2026-05-23):** the four description-text columns marked *PAP-0007 typology source* below were ingested specifically to feed the pipeline typology coding. That coding was attempted on 2026-05-19, failed the pre-committed lock gate, and Model 4 was dropped on 2026-05-23 ([PAP-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected; see `the manuscript`). The columns are retained on disk for raw-data fidelity and reproducibility-package completeness but **no longer feed an active analysis path**. Two derived artifacts (`data/interim/oecd_crs_typology.parquet`, `data/interim/typology_country_year.parquet`) are kept as negative-evidence artifacts.
 
-**Resolution note:** project-level rows. Aggregation to ISO3 × year (sum across donors per recipient; 3-year MA per ADR-0005) happens in `R/30_merge_panel.R` at Phase 2. Do not aggregate in ingest.
+**Resolution note:** project-level rows. Aggregation to ISO3 × year (sum across donors per recipient; 3-year MA per PAP-0005) happens in `R/30_merge_panel.R` at . Do not aggregate in ingest.
 
 | Variable | Definition | Type | Notes |
 |---|---|---|---|
@@ -167,20 +167,20 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 | `recipient_code`, `recipient_name` | OECD area code + label | numeric/char | OECD uses ITS OWN code system (Nigeria=261, not ISO numeric 566) — that's why iso3 is derived from `recipient_name` |
 | `region_name`, `incomegroup_name` | OECD region + WB income-group labels | char | for descriptives |
 | `sector_code`, `sector_name` | 3-digit sector group (110-114 = education) | int32/char | filter applied at ingest |
-| `purpose_code`, `purpose_name` | 5-digit purpose code (11110, 11220, …) | int32/char | finer typology for ADR-0007 |
+| `purpose_code`, `purpose_name` | 5-digit purpose code (11110, 11220, …) | int32/char | finer typology for PAP-0007 |
 | `flow_code`, `flow_name` | Flow type (ODA grants, ODA loans, OOF, etc.) | int/char | — |
 | `bi_multi` | Bilateral vs multilateral indicator | int | — |
 | `category`, `finance_t`, `aid_t` | OECD category / finance type / aid type | int | grant/loan distinction; modality |
 | `channel_code`, `channel_name`, `parent_channel_code` | Implementing channel | int/char | — |
-| `usd_commitment`, `usd_commitment_defl` | Commitment, current and constant USD millions | numeric | **ADR-0005 candidate column** |
-| `usd_disbursement`, `usd_disbursement_defl` | Disbursement, current and constant USD millions | numeric | **ADR-0005 candidate column** (working-preference primary) |
+| `usd_commitment`, `usd_commitment_defl` | Commitment, current and constant USD millions | numeric | **PAP-0005 candidate column** |
+| `usd_disbursement`, `usd_disbursement_defl` | Disbursement, current and constant USD millions | numeric | **PAP-0005 candidate column** (working-preference primary) |
 | `usd_received`, `usd_received_defl` | Received, current and constant USD | numeric | special cases |
 | `usd_grant_equiv`, `usd_grant_equiv_defl` | Grant equivalent (post-2018 ODA methodology) | numeric | only populated 2015+; 68% missing in the panel |
 | `currency_code` | Currency the donor reported in | char | — |
-| `project_title` | Title text | char | **ADR-0007 typology source** |
-| `short_description` | Short project description | char | **ADR-0007 typology source** |
-| `long_description` | Long project description | char | **ADR-0007 typology source** |
-| `keywords` | Keyword tags | char | **ADR-0007 typology source** |
+| `project_title` | Title text | char | **PAP-0007 typology source** |
+| `short_description` | Short project description | char | **PAP-0007 typology source** |
+| `long_description` | Long project description | char | **PAP-0007 typology source** |
+| `keywords` | Keyword tags | char | **PAP-0007 typology source** |
 
 **SSA missingness contrast** on (iso3, year) availability of *any* observation per measure (`output/tables/ssa_oecd_crs_missingness.csv`):
 - `has_commitment`:   SSA 0.00% missing vs Rest 1.27% — gap **−1.27 pp** (SSA modestly better)
@@ -193,7 +193,7 @@ Excellent SSA coverage parity for the headline commitment and disbursement measu
 
 ## AidData GCDF v3.0 — Chinese development finance (`data/interim/aiddata_gcdf.parquet`)
 
-30 columns; **2,654 rows** (project-level, education sector only); 138 recipient countries; years 2000–2021. Source: AidData Global Chinese Development Finance Dataset v3.0, TUFF methodology (Custer, Strange, Dreher, Tierney et al.). Bulk release xlsx dated 2024-06-17 (per zip mtime); fetched from `https://docs.aiddata.org/ad4/datasets/AidDatas_Global_Chinese_Development_Finance_Dataset_Version_3_0.zip`. Feeds [ADR-0008](decisions/0008-china-aid-inclusion.md) (Pending → Phase 5 lock).
+30 columns; **2,654 rows** (project-level, education sector only); 138 recipient countries; years 2000–2021. Source: AidData Global Chinese Development Finance Dataset v3.0, TUFF methodology (Custer, Strange, Dreher, Tierney et al.). Bulk release xlsx dated 2024-06-17 (per zip mtime); fetched from `https://docs.aiddata.org/ad4/datasets/AidDatas_Global_Chinese_Development_Finance_Dataset_Version_3_0.zip`. Feeds [PAP-0008](decisions/0008-china-aid-inclusion.md) (Pending → lock).
 
 **Filters at ingest:**
 - `Sector Name == "EDUCATION"` (1 of 24 sector values in GCDF — note: GCDF uses string-named sectors, NOT CRS purpose codes)
@@ -202,7 +202,7 @@ Excellent SSA coverage parity for the headline commitment and disbursement measu
 
 5 rows on regional aggregates ("Africa, regional", "Asia, regional", etc.) logged to `output/logs/iso3_unresolved_aiddata_gcdf.csv` and dropped.
 
-**Resolution note:** project-level rows. Aggregation to (iso3, year) sum-of-amounts happens in `R/30_merge_panel.R` at Phase 2. GCDF and OECD CRS interim parquets are NOT directly stackable on sector dimension (different taxonomies); they're stacked on (iso3, year) value totals.
+**Resolution note:** project-level rows. Aggregation to (iso3, year) sum-of-amounts happens in `R/30_merge_panel.R` at . GCDF and OECD CRS interim parquets are NOT directly stackable on sector dimension (different taxonomies); they're stacked on (iso3, year) value totals.
 
 | Variable | Definition | Type | Notes |
 |---|---|---|---|
@@ -211,19 +211,19 @@ Excellent SSA coverage parity for the headline commitment and disbursement measu
 | `AidData Record ID` | Project identifier | char | uniqueness within (year, recipient) |
 | `Recommended For Aggregates` | Always "Yes" in cleaned panel (codebook filter applied) | char | — |
 | `Recipient`, `Recipient ISO-3`, `Recipient Region` | Recipient identity + AidData region label | char | — |
-| `Commitment Year`, `Implementation Start Year`, `Completion Year` | Year columns (Commitment is primary; others retained for Phase 5 timing analyses) | int/numeric | — |
+| `Commitment Year`, `Implementation Start Year`, `Completion Year` | Year columns (Commitment is primary; others retained for timing analyses) | int/numeric | — |
 | `Status` | Project status (Completion / Implementation / etc.) | char | — |
 | `Intent` | Project intent classification | char | — |
 | `Sector Code`, `Sector Name` | GCDF sector taxonomy (24 string-named sectors; we keep only EDUCATION) | int/char | — |
 | `Infrastructure`, `COVID` | GCDF flags (Yes/No) | char | — |
 | `Flow Type`, `Flow Type Simplified`, `Flow Class` | Concessional vs non-concessional classifications | char | — |
 | `OECD ODA Concessionality Threshold` | Whether project meets OECD ODA concessionality criteria | char | direct bridge to OECD's ODA definition |
-| `Funding Agencies`, `Funding Agencies Type` | Chinese financiers (e.g., China Development Bank, MOFCOM) | char | analytically loaded for ADR-0008 sub-question |
+| `Funding Agencies`, `Funding Agencies Type` | Chinese financiers (e.g., China Development Bank, MOFCOM) | char | analytically loaded for PAP-0008 sub-question |
 | `Direct Receiving Agencies`, `Direct Receiving Agencies Type` | Recipient-side agencies | char | — |
-| `Amount (Constant USD 2021)` | **Primary value column** — total commitment in constant USD 2021 | numeric | for Phase-2 panel construction |
+| `Amount (Constant USD 2021)` | **Primary value column** — total commitment in constant USD 2021 | numeric | for the pipeline panel construction |
 | `Amount (Original Currency)`, `Original Currency` | Commitment in original currency | numeric/char | — |
 | `Amount (Nominal USD)` | Commitment in current USD | numeric | — |
-| `Title`, `Description` | Project title + free-text description | char | could supplement ADR-0007 typology coding |
+| `Title`, `Description` | Project title + free-text description | char | could supplement PAP-0007 typology coding |
 
 **SSA-coverage contrast** on (iso3, year) presence of any Chinese education project (`output/tables/ssa_aiddata_gcdf_coverage.csv`) — **NOT missingness**: GCDF only contains Chinese-funded projects, so absence ≠ missing data, it means "China didn't fund there".
 
@@ -231,13 +231,13 @@ Excellent SSA coverage parity for the headline commitment and disbursement measu
 |---|---|---|---|
 | `has_china_edu_project` | **45.8%** | 32.7% | **+13.1 pp** |
 
-China systematically concentrates education aid in SSA more than elsewhere. **Headline volume**: 1,131 SSA education projects across 47 of 48 SSA countries, worth $5.61 B constant USD 2021. Empirical hook for ADR-0008 Data Observed; will inform §6 Discussion paragraph on the non-DAC blind spot.
+China systematically concentrates education aid in SSA more than elsewhere. **Headline volume**: 1,131 SSA education projects across 47 of 48 SSA countries, worth $5.61 B constant USD 2021. Empirical hook for PAP-0008 Data Observed; will inform §6 Discussion paragraph on the non-DAC blind spot.
 
 ---
 
 ## UCDP/PRIO Armed Conflict v25.1 (`data/interim/ucdp.parquet`)
 
-10 columns; **7,470 rows** (country-year panel, balanced); 249 countries; years 1995–2024. Aggregated from UCDP/PRIO ACD v25.1 (`ucdp-prio-acd-251-csv.zip`, 44 KB; 2,752 conflict-year rows × 28 cols, 1946-2024) + UCDP BRD v25.1 conflict-level (`ucdp-brd-conf-251-csv.zip`, 38 KB; 1,586 rows × 25 cols, 1989-2024). Citation: Pettersson, Davies et al. (annual UCDP release). Feeds Model 2 (Phase 5) as time-varying confounder per methodology §3.7.
+10 columns; **7,470 rows** (country-year panel, balanced); 249 countries; years 1995–2024. Aggregated from UCDP/PRIO ACD v25.1 (`ucdp-prio-acd-251-csv.zip`, 44 KB; 2,752 conflict-year rows × 28 cols, 1946-2024) + UCDP BRD v25.1 conflict-level (`ucdp-brd-conf-251-csv.zip`, 38 KB; 1,586 rows × 25 cols, 1989-2024). Citation: Pettersson, Davies et al. (annual UCDP release). Feeds Model 2 () as time-varying confounder per methodology §3.7.
 
 **Aggregation method:** multi-country conflicts have comma-space-separated Gleditsch-Ward codes in `gwno_loc` (verified — e.g., `"651, 666"` = Egypt+Yemen). Expanded via `strsplit(gwno_loc, ", *")` and converted to ISO3 via `countrycode(origin="gwn")` with manual overrides for GW 678 ("Yemen (North Yemen)" → YEM, captures post-unification state) and GW 345 ("Serbia (Yugoslavia)" → SRB, captures the Kosovo war 1998-1999). Panel filled with 0s for country-years with no conflict observation (NA-as-zero for `in_conflict` / `n_conflicts` / `bd_*`; `intensity_max` stays NA when no conflict).
 
@@ -256,13 +256,13 @@ China systematically concentrates education aid in SSA more than elsewhere. **He
 | `bd_low` | Sum of BRD `bd_low` (lower-bound estimate) | numeric | — |
 | `bd_high` | Sum of BRD `bd_high` (upper-bound estimate) | numeric | — |
 
-**SSA conflict prevalence:** 25.3% of SSA country-years had active conflict 1995-2024, vs 9.2% of non-SSA — gap **+16.1 pp**. This is the well-established SSA over-representation in armed-conflict literature; documented for Phase-5 reading.
+**SSA conflict prevalence:** 25.3% of SSA country-years had active conflict 1995-2024, vs 9.2% of non-SSA — gap **+16.1 pp**. This is the well-established SSA over-representation in armed-conflict literature; documented for the pipeline reading.
 
 ---
 
 ## UNESCO COVID-19 School Closures (`data/interim/covid_closures.parquet`)
 
-8 columns; **630 rows** (country-year totals); 210 countries; years 2020–2022. Derived from the UNESCO daily Status time-series on HDX (`covid_impact_education.csv`, 169,051 rows; Feb 2020 – Mar 2022). Citation: UNESCO Institute for Statistics — Global Monitoring of School Closures. Feeds Model 2 (Phase 5) as time-varying confounder per methodology §3.7.
+8 columns; **630 rows** (country-year totals); 210 countries; years 2020–2022. Derived from the UNESCO daily Status time-series on HDX (`covid_impact_education.csv`, 169,051 rows; Feb 2020 – Mar 2022). Citation: UNESCO Institute for Statistics — Global Monitoring of School Closures. Feeds Model 2 () as time-varying confounder per methodology §3.7.
 
 **Derivation method:** count days per Status category per (iso3, year). Date parsed via `lubridate::dmy()` (European DD/MM/YYYY format). Status takes exactly 4 values in the source CSV: "Closed due to COVID-19", "Partially open", "Fully open", "Academic break". Mapped to four count columns. **Transparent operationalization** — counts derived from daily data, not relying on UNESCO's pre-aggregation method.
 
@@ -287,7 +287,7 @@ Median country had 116 days fully closed across 2020-2022 (max 556 days). Scope:
 
 10 columns; **195 rows** (all GARI-ranked countries; 0 unresolved labels); single year 2025 (cross-sectional source). Extracted from Oxford Insights *Government AI Readiness Index 2025* PDF report (release dated 2026-01-29, ~8 MB) via `.venv-tools/bin/python scripts/extract_pdf_table.py` (pdfplumber). The 195-country score table is split across PDF pages 59–68; the script concatenates all 8-column tables and promotes the header row from page 59. **No machine-readable export exists** at the source; PDF extraction is the only path.
 
-**Important: no overall composite is published in the source.** The 8 source columns are Country, Rank, and 6 pillar scores. Our `ai_readiness_score_mean` is **DERIVED** as the equally-weighted mean of the 6 pillars (clearly labeled in the column name; documented in catalog notes). Oxford's official composite weighting may differ — our derivation is transparent and reproducible; Phase-9 reading should treat the composite as our construction, not Oxford's.
+**Important: no overall composite is published in the source.** The 8 source columns are Country, Rank, and 6 pillar scores. Our `ai_readiness_score_mean` is **DERIVED** as the equally-weighted mean of the 6 pillars (clearly labeled in the column name; documented in catalog notes). Oxford's official composite weighting may differ — our derivation is transparent and reproducible; the pipeline reading should treat the composite as our construction, not Oxford's.
 
 Citation: Oxford Insights (2026). *Government AI Readiness Index 2025*. Report v01_26.
 
@@ -304,19 +304,19 @@ Citation: Oxford Insights (2026). *Government AI Readiness Index 2025*. Report v
 | `ai_pillar_resilience` | Resilience pillar | numeric | — |
 | `ai_readiness_score_mean` | **DERIVED** equally-weighted mean of the 6 pillars | numeric (10.28–87.68 observed) | Use for §9 HCI×GARI composite; document the derivation when cited |
 
-**Phase-9 preview**: joining with most-recent HCI cycle per country yields 189 country matches; `cor(ai_readiness_score_mean, hci_overall) = 0.777`. Strong positive correlation — the empirical hook for the brief's "Compounding AI Penalty" §9 thesis.
+**the pipeline preview**: joining with most-recent HCI cycle per country yields 189 country matches; `cor(ai_readiness_score_mean, hci_overall) = 0.777`. Strong positive correlation — the empirical hook for the brief's "HCI–GARI composite" §9 thesis.
 
-**Phase-9 implementation (2026-05-23, Session 23).** R/71_compounding_ai_penalty.R normalizes GARI to [0,1] via `gari_norm = ai_readiness_score_mean / 100` and constructs `compound_index = hci_hci_overall × gari_norm` on the 132-country GARI 2025 × HCI 2020 cross-section. No new column persisted in the panel — composite is computed at analysis time. Sample-median quadrant split + tercile + HCI-2018 robustness panel. See `methodology.md §3.12 Phase-9 implementation` and `findings.md §5.7`.
+**the pipeline implementation (2026-05-23, ).** R/71_compounding_ai_penalty.R normalizes GARI to [0,1] via `gari_norm = ai_readiness_score_mean / 100` and constructs `compound_index = hci_hci_overall × gari_norm` on the 132-country GARI 2025 × HCI 2020 cross-section. No new column persisted in the panel — composite is computed at analysis time. Sample-median quadrant split + tercile + HCI-2018 robustness panel. See `the manuscript methodology section the pipeline implementation` and `the manuscript`.
 
 ---
 
 ## Production panel (`data/interim/panel.parquet`)
 
-3,059 rows; 79 columns; 133 countries × 23 years (2000–2022); built by `R/30_merge_panel.R` (Phase 2 Session 01).
+3,059 rows; 79 columns; 133 countries × 23 years (2000–2022); built by `R/30_merge_panel.R` ().
 
-The production panel is a balanced (iso3, year) frame derived from 10 interim parquets (GARI excluded — cross-sectional 2025; Phase 9 re-joins separately). Country universe is locked at the ADR-0002 Option-1 set; year storage range is the widest robustness window per ADR-0003. All source-native columns from the 10 ingest parquets are carried forward with source-slug prefixes (`wdi_*`, `hci_*`, `wgi_*`, `uis_*`, `hlo_*`, `aap_*`, `ucdp_*`, `covid_*`, `crs_*`, `gcdf_*`); see per-source sections above for those definitions. Below: only the columns *added or transformed* during the production merge.
+The production panel is a balanced (iso3, year) frame derived from 10 interim parquets (GARI excluded — cross-sectional 2025; re-joins separately). Country universe is locked at the PAP-0002 Option-1 set; year storage range is the widest robustness window per PAP-0003. All source-native columns from the 10 ingest parquets are carried forward with source-slug prefixes (`wdi_*`, `hci_*`, `wgi_*`, `uis_*`, `hlo_*`, `aap_*`, `ucdp_*`, `covid_*`, `crs_*`, `gcdf_*`); see per-source sections above for those definitions. Below: only the columns *added or transformed* during the production merge.
 
-### Production CRS column matrix (per ADR-0005 deferred choice)
+### Production CRS column matrix (per PAP-0005 deferred choice)
 
 | Variable | Definition | Units | Transform | NA % within universe |
 |---|---|---|---|---|
@@ -330,14 +330,14 @@ The production panel is a balanced (iso3, year) frame derived from 10 interim pa
 | `crs_commit_usd_defl_ma3` | Same, constant-USD | USD (constant) | as above | ~9% |
 | `crs_disburse_usd_ma3` | Same, disbursement, current-USD | USD (current) | as above | ~9% |
 | `crs_disburse_usd_defl_ma3` | 3-yr trailing-inclusive MA of constant-USD disbursement. Pre-Session-03 production primary intent; Session-14 working spec. | USD (constant) | as above | ~9% |
-| `crs_commit_usd_lag1` | 1-year lag of `crs_commit_usd_sum` (added Session 03 for ADR-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% (first year per country) |
+| `crs_commit_usd_lag1` | 1-year lag of `crs_commit_usd_sum` (added for PAP-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% (first year per country) |
 | `crs_commit_usd_defl_lag1` | 1-year lag of `crs_commit_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% |
-| `crs_disburse_usd_lag1` | 1-year lag of `crs_disburse_usd_sum` (added Session 03 for ADR-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% |
+| `crs_disburse_usd_lag1` | 1-year lag of `crs_disburse_usd_sum` (added for PAP-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% |
 | `crs_disburse_usd_defl_lag1` | 1-year lag of `crs_disburse_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% |
-| `crs_commit_usd_ma3_lag1` | 3-yr **strictly-past** MA of current-USD commitment: `mean(t-3, t-2, t-1)`. Added Session 03 for ADR-0005 grid. | USD (current) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
+| `crs_commit_usd_ma3_lag1` | 3-yr **strictly-past** MA of current-USD commitment: `mean(t-3, t-2, t-1)`. Added for PAP-0005 grid. | USD (current) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
 | `crs_commit_usd_defl_ma3_lag1` | Same, constant-USD | USD (constant) | as above | ~13% |
 | `crs_disburse_usd_ma3_lag1` | 3-yr strictly-past MA of current-USD disbursement | USD (current) | as above | ~13% |
-| `crs_disburse_usd_defl_ma3_lag1` | **ADR-0005 LOCK (2026-05-19)**: primary treatment column. 3-yr strictly-past MA of constant-USD disbursement; forecloses contemporaneous reverse-causation. | USD (constant) | as above | ~13% |
+| `crs_disburse_usd_defl_ma3_lag1` | **PAP-0005 LOCK (2026-05-19)**: primary treatment column. 3-yr strictly-past MA of constant-USD disbursement; forecloses contemporaneous reverse-causation. | USD (constant) | as above | ~13% |
 
 ### Production GCDF columns
 
@@ -346,29 +346,29 @@ The production panel is a balanced (iso3, year) frame derived from 10 interim pa
 | `gcdf_amount_const2021_sum` | Sum of `Amount (Constant USD 2021)` across GCDF projects | USD (constant 2021) | aggregate; coalesce NA→0 within universe | 0% |
 | `gcdf_n_projects` | Count of GCDF project rows in (iso3, year) | integer | aggregate; coalesce NA→0 | 0% |
 | `gcdf_amount_const2021_ma3` | 3-year trailing-inclusive MA: `mean(t-2, t-1, t)` | USD (constant 2021) | `slider::slide_dbl` within iso3 | ~9% |
-| `gcdf_amount_const2021_ma3_lag1` | 3-year strictly-past MA: `mean(t-3, t-2, t-1)`. Added Session 04 for ADR-0008 grid symmetry with the Session-03 OECD lock. | USD (constant 2021) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
+| `gcdf_amount_const2021_ma3_lag1` | 3-year strictly-past MA: `mean(t-3, t-2, t-1)`. Added for PAP-0008 grid symmetry with the Session-03 OECD lock. | USD (constant 2021) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
 | `gcdf_amount_const2021_lag1` | 1-year lag | USD (constant 2021) | `dplyr::lag` within iso3 | ~4% |
 
 ### Window + identification flags
 
 | Variable | Definition | Type | Notes |
 |---|---|---|---|
-| `in_primary_window` | `year %in% 2010:2020` (ADR-0003 primary window) | logical | Use `filter(in_primary_window)` for the primary spec |
-| `in_robust_2005_2020` | `year %in% 2005:2020` (ADR-0003 robustness window) | logical | Use for the second robustness spec; the 2000-2022 window is the full panel (no flag needed) |
+| `in_primary_window` | `year %in% 2010:2020` (PAP-0003 primary window) | logical | Use `filter(in_primary_window)` for the primary spec |
+| `in_robust_2005_2020` | `year %in% 2005:2020` (PAP-0003 robustness window) | logical | Use for the second robustness spec; the 2000-2022 window is the full panel (no flag needed) |
 | `has_2plus_hlo` | TRUE for the 127 countries with ≥2 non-NA `hlo_hlo_score` observations in 2000-2022 | logical | Model-2 within-country FE requires ≥2 observations to identify a slope; filter on this for Model 2 |
 
 ### NA → 0 convention (FLOW columns only)
 
-Aid-flow columns (CRS + GCDF) are coalesced NA → 0 within the 133-country ADR-0002 universe. Rationale: ODA-eligible recipients with no CRS or GCDF project recorded in year *t* received $0 aid that year, not "data missing". This enables clean trailing MAs without leading NA propagation.
+Aid-flow columns (CRS + GCDF) are coalesced NA → 0 within the 133-country PAP-0002 universe. Rationale: ODA-eligible recipients with no CRS or GCDF project recorded in year *t* received $0 aid that year, not "data missing". This enables clean trailing MAs without leading NA propagation.
 
 **Outcome and control columns are NOT coalesced.** HLO, HLO_AAP, WGI, UIS, WDI, HCI, COVID closures — NA in these means "not measured / not reported", which is structurally different from $0. Their NA fractions are preserved (see per-source sections above for source-native missing %s; the production panel filtered to a smaller universe + window has slightly different observed %s).
 
-UCDP is a special case: its country-year panel was filled with 0s during ingest (Session 07) for non-conflict cells, because UCDP records only ≥25-deaths conflicts. That ingest-time fill is retained.
+UCDP is a special case: its country-year panel was filled with 0s during ingest () for non-conflict cells, because UCDP records only ≥25-deaths conflicts. That ingest-time fill is retained.
 
 ---
 
 ## Pending sources (to be populated)
-- **AidData Core v3.1** — *DEFERRED* (Session 06 author decision): 1947–2013 only; ~4-year overlap with HLO window (2010+) is marginal. Possible §6 historical-context ingest later if needed.
+- **AidData Core v3.1** — *DEFERRED* (author decision): 1947–2013 only; ~4-year overlap with HLO window (2010+) is marginal. Possible §6 historical-context ingest later if needed.
 
 ---
 
@@ -378,4 +378,4 @@ UCDP is a special case: its country-year panel was filled with 0s during ingest 
 - **Year:** always integer; merged on `(iso3, year)`.
 - **Units:** preserve upstream units in interim; any rescaling (e.g., log GDP) happens in `R/30_merge_panel.R` or downstream model scripts, never in ingestion.
 - **Snake_case:** all column names are snake_case English; mapping to upstream codes lives in the script header and `catalog.yml::variables[]`.
-- **Missing values:** NA (R native); never sentinel values like -9 or 999. Imputation happens in Phase 2, not ingestion.
+- **Missing values:** NA (R native); never sentinel values like -9 or 999. Imputation happens in not ingestion.

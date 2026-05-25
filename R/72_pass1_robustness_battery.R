@@ -1,6 +1,6 @@
 # R/72_pass1_robustness_battery.R
 #
-# Phase 10 Session 01: Pass 1 Statistical Validity — gap-closing robustness battery.
+# Statistical Validity — gap-closing robustness battery.
 #
 # Three diagnostics/robustness specs, all on the locked Model 2 spec 2e encoding:
 #
@@ -9,14 +9,14 @@
 #     Pre-tests for reverse causality on the within-country panel.
 #     Caveat: T_eff ≤ 4 HCI cycles per country; interpret as exploratory.
 #
-#  2. HLO measure sensitivity (ADR-0004 principal robustness) —
+#  2. HLO measure sensitivity (PAP-0004 principal robustness) —
 #     refit Model 2 spec 2e using `aap_hlo_aap` (Altinok-Angrist-Patrinos 2018)
 #     as outcome instead of `hlo_hlo_score`. Use AAP's full coverage
 #     (1995-2015, 5 cycles) rather than restricting to the 2010-2020 primary
 #     window (which has only 2 AAP cycles). Success criterion per
 #     methodology §3.4: sign + within-CI agreement with primary β=11.14.
 #
-#  3. UIS-augmented listwise (ADR-0006 Robustness 1) —
+#  3. UIS-augmented listwise (PAP-0006 Robustness 1) —
 #     refit Model 2 spec 2e with uis_priv_exp_pct_gdp added to the regressor
 #     stack. Listwise-complete sample (expected N ≈ 69 per Phase-2 MCAR).
 #     Comparison to primary β=11.14.
@@ -138,7 +138,7 @@ if (!is.null(granger_result)) {
 
 readr::write_csv(granger_tbl, OUT_GRANGER_CSV)
 writeLines(c(
-  "# Pass 1 — Granger causality test (panel)",
+  "# — Granger causality test (panel)",
   "",
   "**Direction:** `log_crs_strict → hlo_hlo_score` (one-cycle lag).",
   "**Test:** Dumitrescu-Hurlin (2012) Z-tilde panel Granger (`plm::pgrangertest`).",
@@ -194,7 +194,7 @@ m_aap_overlap <- if (length(unique(d_aap_overlap$year)) >= 2 &&
   )
 } else NULL
 
-# Use the FULL AAP spec as the primary AAP sensitivity (per ADR-0004 framing);
+# Use the FULL AAP spec as the primary AAP sensitivity (per PAP-0004 framing);
 # overlap is the supporting evidence on window-vs-measure decomposition.
 m_aap <- m_aap_full
 d_aap <- d_aap_full
@@ -237,7 +237,7 @@ hlo_tbl <- tibble(
 
 readr::write_csv(hlo_tbl, OUT_HLO_CSV)
 writeLines(c(
-  "# Pass 1 — HLO measure sensitivity (ADR-0004 principal robustness)",
+  "# — HLO measure sensitivity (PAP-0004 principal robustness)",
   "",
   "Refit of Model 2 spec 2e (locked encoding: log_crs_strict + log_gdp_pc + wdi_ptr_primary + wdi_edu_exp_pct_gdp + wgi_pc1; two-way FE country + year; country-clustered SE) with the AAP-2018 harmonized learning outcome (`aap_hlo_aap`) substituted for the WB primary measure.",
   "",
@@ -261,7 +261,7 @@ writeLines(c(
 ), OUT_HLO_MD)
 message(sprintf("[m10] wrote %s and %s", OUT_HLO_CSV, OUT_HLO_MD))
 
-# === 4. UIS-augmented listwise (ADR-0006 Robustness 1) =======================
+# === 4. UIS-augmented listwise (PAP-0006 Robustness 1) =======================
 message("\n[m10] refitting Model 2 spec 2e + UIS private expenditure (listwise)")
 
 d_uis <- d_primary |>
@@ -298,7 +298,7 @@ uis_cov_se   <- unname(sqrt(diag(vcov(m_uis)))["uis_priv_exp_pct_gdp"])
 uis_cov_p    <- unname(fixest::pvalue(m_uis)["uis_priv_exp_pct_gdp"])
 
 uis_tbl <- tibble(
-  spec        = c("Primary (UIS dropped, ADR-0006 Option 3)", "Robustness 1 (UIS-augmented listwise)"),
+  spec        = c("Primary (UIS dropped, PAP-0006 Option 3)", "Robustness 1 (UIS-augmented listwise)"),
   N           = c(PRIMARY_N, uis_n),
   beta_ODA    = round(c(PRIMARY_BETA, uis_beta), 4),
   se_ODA      = round(c(PRIMARY_SE,   uis_se), 4),
@@ -312,9 +312,9 @@ uis_tbl <- tibble(
 
 readr::write_csv(uis_tbl, OUT_UIS_CSV)
 writeLines(c(
-  "# Pass 1 — UIS-augmented listwise (ADR-0006 Robustness 1)",
+  "# — UIS-augmented listwise (PAP-0006 Robustness 1)",
   "",
-  "Refit of Model 2 spec 2e with `uis_priv_exp_pct_gdp` added to the regressor stack. Listwise-complete subset on the 2010-2020 primary window. Per ADR-0006, this is *Robustness 1* of three originally committed (Robustness 2 = MI, now retired per ADR-0012; Robustness 3 = the primary UIS-dropped spec).",
+  "Refit of Model 2 spec 2e with `uis_priv_exp_pct_gdp` added to the regressor stack. Listwise-complete subset on the 2010-2020 primary window. Per PAP-0006, this is *Robustness 1* of three originally committed (Robustness 2 = MI, now retired per PAP-0012; Robustness 3 = the primary UIS-dropped spec).",
   "",
   sprintf("**UIS-augmented listwise N = %d** vs primary N = %d (~%.0f%% sample loss adding UIS).",
           uis_n, PRIMARY_N, 100 * (1 - uis_n / PRIMARY_N)),
@@ -324,7 +324,7 @@ writeLines(c(
   sprintf("**ODA-coefficient sign agreement:** %s", ifelse(uis_sign_agree, "✓ same sign", "✗ DIFFERENT SIGN — investigate")),
   sprintf("**ODA-coefficient within-CI agreement:** %s", ifelse(uis_within_ci, "✓ within-CI", "✗ outside-CI — investigate")),
   "",
-  "**Reading per ADR-0006:** if primary, listwise-UIS, and (former) MI-UIS all give the same sign and within-CI magnitude, the result is robust to the UIS-inclusion choice. With MI retired by ADR-0012, the listwise vs primary comparison carries the full robustness burden in that direction."
+  "**Reading per PAP-0006:** if primary, listwise-UIS, and (former) MI-UIS all give the same sign and within-CI magnitude, the result is robust to the UIS-inclusion choice. With MI retired by PAP-0012, the listwise vs primary comparison carries the full robustness burden in that direction."
 ), OUT_UIS_MD)
 message(sprintf("[m10] wrote %s and %s", OUT_UIS_CSV, OUT_UIS_MD))
 
@@ -335,7 +335,7 @@ signoff_tbl <- tibble(
   spec         = c("Primary (locked Model 2 spec 2e)",
                    "Granger pre-test (DH Z-tilde, order=1)",
                    "HLO sensitivity (AAP-2018)",
-                   "UIS-augmented listwise (ADR-0006 Rob 1)"),
+                   "UIS-augmented listwise (PAP-0006 Rob 1)"),
   source       = c("output/tables/model2_fe_baseline_v2.csv",
                    "pass1_granger_test.csv",
                    "pass1_hlo_sensitivity.csv",
@@ -363,18 +363,18 @@ signoff_tbl <- tibble(
 
 readr::write_csv(signoff_tbl, OUT_SIGNOFF_CSV)
 writeLines(c(
-  "# Pass 1 — Combined robustness sign-off",
+  "# — Combined robustness sign-off",
   "",
-  "Three sensitivity specs run as Phase 10 Session 01 gap-closing battery, each compared to the locked Model 2 spec 2e primary (β = 11.14, SE = 5.52, N = 143). Sign + within-CI agreement is the success criterion.",
+  "Three sensitivity specs run as the corresponding analytical step gap-closing battery, each compared to the locked Model 2 spec 2e primary (β = 11.14, SE = 5.52, N = 143). Sign + within-CI agreement is the success criterion.",
   "",
   knitr::kable(signoff_tbl, format = "pipe"),
   "",
-  "**Overall sign-off:** the Pass 1 robustness battery is reported in `findings.md §5.8` and consolidates into the `output/pass1_statistical_validity_audit.md` gate document. Remaining obligations not requiring code (UNESCO bias note; 3-level HLM scope decision) are documented in methodology §3.6 and §3.8 respectively."
+  "**Overall sign-off:** the robustness battery is reported in `the manuscript` and consolidates into the `output/pass1_statistical_validity_audit.md` gate document. Remaining obligations not requiring code (UNESCO bias note; 3-level HLM scope decision) are documented in methodology §3.6 and §3.8 respectively."
 ), OUT_SIGNOFF_MD)
 message(sprintf("[m10] wrote %s and %s", OUT_SIGNOFF_CSV, OUT_SIGNOFF_MD))
 
 # === 6. stdout summary =======================================================
-cat("\n=== Phase 10 Session 01 summary ===\n")
+cat("\n=== the corresponding analytical step summary ===\n")
 cat(sprintf("Primary (locked): β=%.4f, SE=%.4f, N=%d, 95%% CI [%.4f, %.4f]\n",
             PRIMARY_BETA, PRIMARY_SE, PRIMARY_N, PRIMARY_LO, PRIMARY_HI))
 

@@ -13,7 +13,7 @@ AI, like past general-purpose technologies (steam, electricity, computing), risk
 - Historical-analogue argumentation (Industrial Revolution as the prior great divergence)
 
 ## Our engagement
-**Theoretical antecedent for §4.6 Compounding AI Penalty empirical operationalization.** Muthukrishna-Schellekens articulate the *compounding-divergence thesis* in qualitative-theoretical terms; our §4.6 provides a concrete country-cross-section operationalization (HCI × Oxford GARI joint composite; ≈2× SSA over-representation in the double-excluded cell). Engaged at §1 (Introduction, ¶5) and §2 strand (c) Lit Review.
+**Theoretical antecedent for §4.6 HCI–GARI composite empirical operationalization.** Muthukrishna-Schellekens articulate the *compounding-divergence thesis* in qualitative-theoretical terms; our §4.6 provides a concrete country-cross-section operationalization (HCI × Oxford GARI joint composite; ≈2× SSA over-representation in the double-excluded cell). Engaged at §1 (Introduction, ¶5) and §2 strand (c) Lit Review.
 
 This is one of three sources we cite for the compounding-divergence theoretical frame, alongside the World Bank's Mandon (2025) AI Divide working paper and the joint ILO–World Bank GenAI exposure study (ILO, 2026).
 
@@ -26,6 +26,6 @@ This is one of three sources we cite for the compounding-divergence theoretical 
 *(populate when reading primary; secondary engagement at UNDP page + Brookings article URL only)*
 
 ## Status
-- [ ] Read primary source — *secondary engagement only (UNDP publication page + Brookings article URL; not read in depth). Reviewed for citation-direction purposes during Phase 11 Session 02 (2026-05-23). Cite as theoretical antecedent; do not assert specific projection numbers or methodological details without reading the report.*
+- [ ] Read primary source — *secondary engagement only (UNDP publication page + Brookings article URL; not read in depth). Reviewed for citation-direction purposes during . Cite as theoretical antecedent; do not assert specific projection numbers or methodological details without reading the report.*
 - [x] Notes summarized above (from UNDP publication page abstract + Brookings article framing)
 - [x] Engaged in our manuscript (Intro paragraph 5; §2 strand c)

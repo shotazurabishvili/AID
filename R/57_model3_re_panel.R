@@ -1,7 +1,7 @@
 # R/57_model3_re_panel.R
 #
-# Phase 6 Session 01: Model 3 — 2-level country random intercepts + time FE.
-# Per methodology.md §3.8 (Phase-2 external-review reframe): NOT the brief's
+# Model 3 — 2-level country random intercepts + time FE.
+# Per the manuscript methodology section after external-review reframe: NOT the project brief's
 # original 3-level student-school-country HLM (requires PISA/TIMSS/PIRLS micro-
 # data, deferred). Reframed as a 2-level country RE + year FE specification
 # whose purpose is to (a) formally justify Model 2's FE choice via Hausman test
@@ -428,7 +428,7 @@ ggsave(OUT_PLOT_PNG, p_coef, width = 10, height = 5, dpi = 150)
 message(sprintf("[m3] wrote %s and %s", OUT_PLOT_PDF, OUT_PLOT_PNG))
 
 # === 8. Stdout summary =======================================================
-cat("\n=== Phase 6 Session 01 summary ===\n")
+cat("\n=== the corresponding analytical step summary ===\n")
 cat(sprintf("Model 1 OLS 1e:     β=%.3f, SE=%.3f, p=%.4f, N=%d\n",
             coef(m1_full)["log_crs"], sqrt(diag(vcov(m1_full)))["log_crs"],
             fixest::pvalue(m1_full)["log_crs"], m1_full$nobs))

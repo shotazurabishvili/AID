@@ -23,6 +23,6 @@ Empirically tests external validity in development RCTs. Meta-analysis of 635 im
 *(populate when reading primary; secondary engagement at WebSearch level only)*
 
 ## Status
-- [ ] Read primary source — *secondary engagement only (JEEA page + abstract); reviewed for citation-direction purposes during Phase 11 Session 02 (2026-05-23). Cite for directional claims; do not assert specific coefficient figures without reading the paper.*
+- [ ] Read primary source — *secondary engagement only (JEEA page + abstract); reviewed for citation-direction purposes during . Cite for directional claims; do not assert specific coefficient figures without reading the paper.*
 - [x] Notes summarized above (from JEEA abstract + the paper's wide secondary footprint in the development-econometrics methods literature)
 - [x] Engaged in our manuscript (Intro paragraph 4; §2 strand c)

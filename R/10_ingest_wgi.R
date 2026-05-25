@@ -1,15 +1,15 @@
 # R/10_ingest_wgi.R
 #
 # Source: Worldwide Governance Indicators (WGI) — native bundle
-# Brief reference: Data Stack, line 66; Self-Review § Data Integrity Checks (Langbein-Knack)
+# Reference: Data Stack, line 66; Self-Review § Data Integrity Checks (Langbein-Knack)
 # Methodology: Kaufmann, Kraay & Mastruzzi (annual WGI release)
 # Engaged critique: Langbein & Knack (2010) — see docs/lit/langbein-knack-2010.md
 #
 # This script fetches the native WGI multi-sheet Excel bundle (NOT via the WDI R
 # package), which retains the n_sources count per country-year — the minimum
 # information needed to acknowledge the Langbein-Knack aggregation critique in
-# Phase 1. Full per-source values (one file per source organization like EIU,
-# BTI, V-Dem) are NOT ingested here; that's deferred to Phase 5 if ADR-0009
+# First-pass ingestion. Full per-source values (one file per source organization like EIU,
+# BTI, V-Dem) are NOT ingested here; that's deferred to the analysis if PAP-0009
 # selects an option requiring source-level reconstruction.
 #
 # === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================

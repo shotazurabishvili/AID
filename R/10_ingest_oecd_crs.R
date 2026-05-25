@@ -2,7 +2,7 @@
 #
 # Source: OECD DAC Creditor Reporting System (CRS) — the **treatment variable**
 #   (ODA flows to education) anchoring the headline regression.
-# Brief reference: Data Stack; methodology.md §3.5
+# Reference: Data Stack; the manuscript methodology section
 # Methodology cite: OECD DAC (annual CRS release)
 #
 # Bulk-download mechanism (discovered from ONEcampaign/oda_reader source):
@@ -10,20 +10,20 @@
 #   2. Regex the response for `CRS-Parquet-v` marker and extract the IDFile GUID
 #   3. Download from stats.oecd.org/wbos/fileview2.aspx?IDFile=<GUID>
 #      → ~1 GB zip containing the full CRS microdata as parquet
-# At Session 05 (2026-05-17) the current release is CRS-Parquet-v20260408,
+# At the prior step (2026-05-17) the current release is CRS-Parquet-v20260408,
 # IDFile=50f0355e-8f61-4230-85f3-90b4db45bfc9. The script rediscovers on each
 # stale-cache run so the next release is picked up automatically.
 #
 # Pending ADRs this ingest preserves (no locks this session):
-#   - ADR-0005 (commitment vs disbursement)  → both measures retained
-#   - ADR-0007 (intervention typology)       → project_title / short_description / long_description retained
-#   - ADR-0008 (Chinese aid inclusion)       → OECD CRS is DAC-only; GCDF (Session 06) covers China
+#   - PAP-0005 (commitment vs disbursement)  → both measures retained
+#   - PAP-0007 (intervention typology)       → project_title / short_description / long_description retained
+#   - PAP-0008 (Chinese aid inclusion)       → OECD CRS is DAC-only; GCDF  covers China
 #
 # === Pinned column list (PHASE 1 LOCK — modify only via ADR) ========================
 # Actual schema: legacy CRS dotStat format (NOT SDMX-dimensioned). Commitment and
 # disbursement are SEPARATE wide columns, not long-format rows. Deflated (constant-USD)
-# variants live alongside current-USD measures. ADR-0005 becomes a column-choice question;
-# ADR-0007 typology coding reads project_title + short_description + long_description.
+# variants live alongside current-USD measures. PAP-0005 becomes a column-choice question;
+# PAP-0007 typology coding reads project_title + short_description + long_description.
 KEEP_COLS <- c(
   # Time
   "year",
@@ -39,13 +39,13 @@ KEEP_COLS <- c(
   # Flow / finance type / channel
   "flow_code", "flow_name", "bi_multi", "category", "finance_t", "aid_t",
   "channel_code", "channel_name", "parent_channel_code",
-  # Value columns (ADR-0005: keep ALL measure variants + deflated counterparts)
+  # Value columns (PAP-0005: keep ALL measure variants + deflated counterparts)
   "usd_commitment",   "usd_commitment_defl",     # commitments (current + constant USD)
   "usd_disbursement", "usd_disbursement_defl",   # disbursements (current + constant USD)
   "usd_received",     "usd_received_defl",       # received (special cases)
   "usd_grant_equiv",  "usd_grant_equiv_defl",    # grant equivalent (post-2018 ODA methodology)
   "currency_code",
-  # Description text (ADR-0007 typology source)
+  # Description text (PAP-0007 typology source)
   "project_title", "short_description", "long_description", "keywords"
 )
 # ====================================================================================
@@ -287,7 +287,7 @@ p_ssa <- ggplot(ssa_long, aes(x = reorder(indicator, missing_pct),
   scale_fill_manual(values = c("Sub-Saharan Africa" = "#d95f02",
                                "Rest of world"      = "#7570b3")) +
   labs(title = "OECD CRS missingness: SSA vs rest of world",
-       subtitle = "Phase 1 Session 05 - feeds ADRs 0002 / 0005",
+       subtitle = "the corresponding analytical step - feeds ADRs 0002 / 0005",
        x = NULL, y = "Missing %", fill = NULL) +
   theme_minimal(base_size = 11) +
   theme(legend.position = "bottom")
@@ -331,10 +331,10 @@ update_catalog(
     "5-digit purpose_code retained for Phase-7 typology granularity. ",
     "Schema: legacy CRS dotStat format (commitments + disbursements + grant-equivalent ",
     "are SEPARATE wide columns with paired _defl constant-USD variants). ",
-    "Project-level resolution preserved; country-year aggregation + 3-year MA at R/30_merge_panel.R (Phase 2). ",
+    "Project-level resolution preserved; country-year aggregation in R/30_merge_panel.R. ",
     "Pending ADRs preserved: 0005 (commitment vs disbursement = column choice), ",
     "0007 (intervention typology - project_title + short/long_description + keywords retained), ",
-    "0008 (China inclusion - DAC-only here; GCDF Session 06 complements). ",
+    "0008 (China inclusion - DAC-only here; GCDF the prior step complements). ",
     "Discovered IDFile=", sdmx_file_id, ". ",
     n_regional, " rows (", round(100*n_regional/n_pre, 1), "%) on regional/unspecified aggregates dropped. ",
     "SSA missingness contrast at output/tables/ssa_oecd_crs_missingness.csv."

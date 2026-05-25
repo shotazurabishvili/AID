@@ -1,8 +1,8 @@
-# ADR-0004: HLO score harmonization
+# PAP-0004: HLO score harmonization
 
 **Status:** Accepted
 **Date:** 2026-05-17
-**Phase:** 1 — Data Ingestion & Audit, Session 04
+**Phase:** 1 — Data Ingestion & Audit, 
 
 ## Context
 
@@ -31,7 +31,7 @@ Choosing one shapes (a) the sample size, (b) the reference cohort age, (c) the c
 
 AAP-2018 is fetched via the OWID `owid-datasets` GitHub mirror (raw CSV at a frozen commit hash) rather than the OpenKnowledge Repository PDF. The OWID release retains a single "Average harmonised learning outcome score" already pooled across subjects (math/reading/science) and levels (primary/secondary) per the methodology of the source paper — this matches the one-number-per-country-year semantics of `HD.HCI.HLOS` exactly. Both raw files are SHA-256 hashed and version-pinned in `data/catalog.yml`.
 
-### Data observed (Phase 1 Session 04)
+### Data observed 
 
 Empirical lock of the two HLO measures from `data/interim/hlo.parquet` and `data/interim/hlo_aap2018.parquet`:
 
@@ -50,7 +50,7 @@ SSA missingness contrast on the full-joined panel (`output/tables/ssa_hlo_missin
 **Substantive implications for §3.4 (Methodology):**
 - The HCI-derived primary measure shows *slightly better* SSA coverage than rest-of-world — likely reflects the WB HCI's explicit donor-priority targeting of low-income measurement gaps post-2017.
 - The AAP-2018 robustness measure shows the **opposite** pattern (+8.75 pp worse in SSA), which is the empirical face of Sandefur (2018)'s SSA-coverage critique: pre-2018 harmonization depends on thin SACMEQ/PASEC anchors that miss many SSA country-years.
-- The within-country FE defense (Model 2) absorbs both patterns: the level-comparability concern Sandefur raises is precisely what `αᵢ` controls for. We will report both measures' results in Phase 5 and discuss the cross-measure consistency of the within-country coefficient.
+- The within-country FE defense (Model 2) absorbs both patterns: the level-comparability concern Sandefur raises is precisely what `αᵢ` controls for. We will report both measures' results in and discuss the cross-measure consistency of the within-country coefficient.
 
 ## Consequences
 
@@ -69,9 +69,9 @@ Response: Agreed — and that is exactly why Model 2 (within-country fixed effec
 
 ---
 
-## Data observed (Phase 10 Session 01, 2026-05-23) — Sensitivity check did not confirm sign agreement
+## Data observed (, 2026-05-23) — Sensitivity check did not confirm sign agreement
 
-The principal robustness check committed in this ADR was executed at Phase 10 Pass 1: refit Model 2 spec 2e using `aap_hlo_aap` as outcome instead of `hlo_hlo_score`. Two specifications, to disentangle measure-choice from sample-window:
+The principal robustness check committed in this ADR was executed at : refit Model 2 spec 2e using `aap_hlo_aap` as outcome instead of `hlo_hlo_score`. Two specifications, to disentangle measure-choice from sample-window:
 
 | Spec | Outcome | Sample window | N (post-singleton) | β_ODA | SE | p |
 |---|---|---|---|---|---|---|
@@ -79,7 +79,7 @@ The principal robustness check committed in this ADR was executed at Phase 10 Pa
 | AAP full | `aap_hlo_aap` (AAP-2018) | 1995–2015 | 69 | **−16.67** | 5.96 | **0.009** |
 | AAP overlap | `aap_hlo_aap` | year ≥ 2010 only | 36 | **−3.94** | 8.68 | 0.66 |
 
-Source: `output/tables/pass1_hlo_sensitivity.{csv,md}`. Evidence and full detail in `findings.md §5.8` and the Pass 1 audit doc `output/pass1_statistical_validity_audit.md`.
+Source: `output/tables/pass1_hlo_sensitivity.{csv,md}`. Evidence and full detail in `the manuscript` and the audit doc `output/pass1_statistical_validity_audit.md`.
 
 **The methodology §3.4 commitment "the within-country coefficient must be the same sign and within-CI magnitude across the primary and AAP-2018 specifications for the headline claim to stand" is not met.** Sign agreement fails on both the full AAP coverage (1995–2015) and the overlap-window restriction (year ≥ 2010). The overlap-window null result rules out *sample-window composition* as the sole driver of the failure: the HLO measure choice itself materially affects the headline.
 
@@ -87,4 +87,4 @@ Source: `output/tables/pass1_hlo_sensitivity.{csv,md}`. Evidence and full detail
 
 The alternative responses considered and rejected at the same decision point:
 - *Defend WB HCI HLOS as preferred via Sandefur (2018) critique of AAP* — would require relegating the failed robustness check to a footnote rather than honoring methodology §3.4's prior commitment.
-- *Drop the within-country positive headline entirely* — too strong; the WB-specification result is real and the paper has other empirical pillars (§5.7 Compounding AI Penalty, Model 5 counterfactual) that don't depend on it; the hedge route preserves the headline while owning the limit.
+- *Drop the within-country positive headline entirely* — too strong; the WB-specification result is real and the paper has other empirical pillars (§5.7 HCI–GARI composite, Model 5 counterfactual) that don't depend on it; the hedge route preserves the headline while owning the limit.

@@ -1,7 +1,7 @@
 # R/10_ingest_aiddata_gcdf.R
 #
 # Source: AidData GCDF v3.0 — Chinese development finance (TUFF methodology).
-# Brief reference: Data Stack; methodology.md §3.11.
+# Reference: Data Stack; the manuscript methodology section.
 # Methodology cite: Custer, Strange, Dreher, Tierney et al. (AidData TUFF 3.0).
 #
 # Bulk file: 28 MB zip from AidData's CloudFront. Contains:
@@ -13,7 +13,7 @@
 # Standard Deflate zip (no Deflate64). Base unzip() works.
 #
 # Pending ADRs this ingest preserves (no locks):
-#   - ADR-0008 (China inclusion): Phase 5 lock. Working preference Option 2 —
+#   - PAP-0008 (China inclusion): the analysis lock. Working preference Option 2 —
 #     OECD CRS only as primary; GCDF as headline robustness.
 #
 # === Pinned column list (PHASE 1 LOCK — modify only via ADR) ========================
@@ -241,7 +241,7 @@ p_ssa <- ggplot(ssa_long, aes(x = reorder(indicator, coverage_pct),
   scale_fill_manual(values = c("Sub-Saharan Africa" = "#d95f02",
                                "Rest of world"      = "#7570b3")) +
   labs(title = "China's geographic reach in education aid (GCDF v3.0)",
-       subtitle = "Phase 1 Session 06 - feeds ADR-0008",
+       subtitle = "the corresponding analytical step - feeds PAP-0008",
        x = NULL, y = "Coverage %  (share of country-year cells with >=1 Chinese education project)",
        fill = NULL) +
   theme_minimal(base_size = 11) +
@@ -250,7 +250,7 @@ p_ssa <- ggplot(ssa_long, aes(x = reorder(indicator, coverage_pct),
 ggsave("output/figures/coverage/ssa_aiddata_gcdf_coverage.pdf", p_ssa, width = 9, height = 4)
 ggsave("output/figures/coverage/ssa_aiddata_gcdf_coverage.png", p_ssa, width = 9, height = 4, dpi = 150)
 
-# Headline metric for session log + possible ADR-0008 Data Observed
+# Headline metric for session log + possible PAP-0008 Data Observed
 ssa_d <- cleaned |> filter(iso3 %in% ssa_iso3)
 total_usd_ssa <- sum(ssa_d$`Amount (Constant USD 2021)`, na.rm = TRUE)
 message(sprintf("[aiddata_gcdf] HEADLINE: SSA Chinese education projects: %d across %d countries; total constant-USD: $%.2f B",
@@ -283,11 +283,11 @@ update_catalog(
     "Sector Name = EDUCATION + Recommended For Aggregates = Yes ",
     "(per AidData codebook; avoids umbrella double-counting). ",
     "Year filter on Commitment Year in ", min(YEAR_RANGE), "-", max(YEAR_RANGE), ". ",
-    "Project-level resolution preserved; country-year aggregation at Phase 2. ",
+    "Project-level resolution preserved; country-year country-year aggregation in the panel-build step. ",
     sprintf("SSA headline: %d projects across %d countries; $%.2f B constant-USD. ",
             nrow(ssa_d), n_distinct(ssa_d$iso3), total_usd_ssa / 1e9),
     "SSA-coverage contrast at output/tables/ssa_aiddata_gcdf_coverage.csv (coverage, NOT missingness). ",
-    "Feeds ADR-0008 (Phase 5 lock). AidData Core v3.1 deferred per Session-06 author decision."
+    "Feeds PAP-0008 (the analysis lock). AidData Core v3.1 deferred per Session-06 author decision."
   )
 )
 

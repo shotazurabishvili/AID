@@ -1,6 +1,6 @@
 # R/53_model2_lock_diagnostics.R
 #
-# Phase 5 Session 03: diagnostics on ADR-0005 lock candidate only.
+# diagnostics on PAP-0005 lock candidate only.
 # Lock spec (per session decision):
 #   HLO ~ log(1 + crs_disburse_usd_defl_ma3_lag1) + log(GDP/cap) + PTR primary +
 #         ed_exp_%GDP + WGI gov effectiveness  |  iso3 + year
@@ -30,7 +30,7 @@ suppressPackageStartupMessages({
 PANEL_PATH  <- "data/interim/panel.parquet"
 OUT_CSV     <- "output/tables/model2_fe_sensitivity_diagnostics.csv"
 
-TREATMENT_COL <- "crs_disburse_usd_defl_ma3_lag1"  # ADR-0005 lock candidate
+TREATMENT_COL <- "crs_disburse_usd_defl_ma3_lag1"  # PAP-0005 lock candidate
 
 # === 1. Setup ================================================================
 message("[model2-lock] loading panel + applying lock spec")

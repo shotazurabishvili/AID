@@ -1,4 +1,4 @@
-# Model 2 FE — Treatment-encoding sensitivity (ADR-0005 lock)
+# Model 2 FE — Treatment-encoding sensitivity
 
 Within-country two-way FE (iso3 + year). Country-clustered SE. Controls: log(GDP/cap), PTR primary, ed_exp_%GDP, WGI gov effectiveness. Primary window 2010-2020.
 

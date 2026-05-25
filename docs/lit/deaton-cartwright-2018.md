@@ -23,6 +23,6 @@ RCTs are over-interpreted across applied economics and the policy community. The
 *(populate when reading primary; secondary engagement at WebSearch level only)*
 
 ## Status
-- [ ] Read primary source — *secondary engagement only (PubMed abstract + the paper's widely-cited methodological essay format). Reviewed for citation-direction purposes during Phase 11 Session 02 (2026-05-23). Cite for the over-claiming argument and the lineage-positioning move; do not assert specific re-analyses without reading the paper.*
+- [ ] Read primary source — *secondary engagement only (PubMed abstract + the paper's widely-cited methodological essay format). Reviewed for citation-direction purposes during . Cite for the over-claiming argument and the lineage-positioning move; do not assert specific re-analyses without reading the paper.*
 - [x] Notes summarized above (from the paper's secondary footprint in the methodological-reflection literature)
 - [x] Engaged in our manuscript (Intro paragraph 4; §2 strand c)

@@ -1,4 +1,4 @@
-# ADR-0002: Country universe
+# PAP-0002: Country universe
 
 **Status:** Accepted
 **Date:** 2026-05-18
@@ -20,7 +20,7 @@ The natural restriction is **ODA recipients**: high-income countries don't recei
 
 **Option 1: countries that are ODA-eligible at any point in 1995–2024 ∩ have ≥1 HLO observation.** Locked 2026-05-18 with the empirical count below.
 
-### Data observed (Phase 1 Session 09)
+### Data observed 
 
 Empirical enumeration from `data/interim/_panel_audit.parquet` (audit-grade merge of all 11 interim parquets) and recorded in `output/tables/country_universe_candidates.csv`:
 
@@ -29,7 +29,7 @@ Empirical enumeration from `data/interim/_panel_audit.parquet` (audit-grade merg
 | Total ISO3 in the union of all sources | **250** |
 | ODA-eligible (received any positive OECD CRS commitment in 1995–2024) | **171** |
 | Has ≥1 non-NA HLO observation (`hlo_score` in any year) | **169** |
-| **ADR-0002 Option 1 (∩): 133** | **133** |
+| **PAP-0002 Option 1 (∩): 133** | **133** |
 | ... of which with **≥2 HLO observations** (Model-2 within-country FE identifiable) | **127** |
 
 **Final country universe locked: 133 countries** for descriptive use and Model-1 (cross-sectional OLS). The Model-2 FE panel will use the 127-country subset where within-country variation is identifiable (a slope can't be estimated with only one observation). The 6-country difference (countries with exactly 1 HLO observation) is reported in the Methodology footnote.
@@ -38,7 +38,7 @@ ODA-eligibility is derived empirically from OECD CRS (any recipient with a posit
 
 ## Consequences
 
-- Final N feeds directly into the brief's Table 1 (descriptives) and the panel size in Models 1–5.
+- Final N feeds directly into Table 1 (descriptives) and the panel size in Models 1–5.
 - High-income aid-eligible-then-graduated countries (e.g., Chile, South Korea pre-2000) need clear handling — likely included if they appear in the window.
 - Sample restriction is justified in the paper's §3 (Methodology) with an explicit table of exclusions and reasons.
 

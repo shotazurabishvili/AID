@@ -1,8 +1,8 @@
 # R/41_eda_descriptives.R
 #
-# Phase 3 Session 01: paper §4.1 descriptive Table 1.
+# paper §4.1 descriptive Table 1.
 # Stratifies the 17 key analytical variables by WB region across the 133-country
-# ADR-0002 universe within the 2010-2020 ADR-0003 primary window.
+# PAP-0002 universe within the 2010-2020 PAP-0003 primary window.
 #
 # Aggregation strategy: country-level mean over primary window first, then
 # region-level summary (mean + SD across countries). This avoids over-weighting
@@ -145,8 +145,8 @@ message(sprintf("[table1] wrote %s", OUT_CSV))
 
 # Write Markdown
 caption <- paste0(
-  "**Table 1.** Descriptive statistics of the 133-country analytical universe (ADR-0002), ",
-  "primary window 2010–2020 (ADR-0003), stratified by World Bank region. ",
+  "**Table 1.** Descriptive statistics of the 133-country analytical universe (PAP-0002), ",
+  "primary window 2010–2020 (PAP-0003), stratified by World Bank region. ",
   "Cells show mean (SD) across countries within region (country-level means computed first across primary window). ",
   "`In active conflict` row reports the share of country-years with any active armed conflict (UCDP). ",
   "`COVID-19 school closure days` reflects 2020 only (within primary window). ",

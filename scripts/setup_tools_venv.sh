@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Set up the .venv-tools/ Python venv with helpers the R ingest scripts shell
 # out to. Currently used for:
-#   - Deflate64 zip extraction (OECD CRS bulk, Session 05)
-#   - PDF table extraction (Oxford Insights GARI 2025, Session 08)
+#   - Deflate64 zip extraction (OECD CRS bulk)
+#   - PDF table extraction (Oxford Insights GARI 2025)
 #
 # Idempotent. Run once per fresh machine, or after deleting .venv-tools/.
 

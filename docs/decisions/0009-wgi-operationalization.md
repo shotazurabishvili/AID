@@ -1,6 +1,6 @@
-# ADR-0009: WGI operationalization in models
+# PAP-0009: WGI operationalization in models
 
-**Status:** Accepted (2026-05-19, Phase 5 Session 05)
+**Status:** Accepted (2026-05-19, )
 **Date:** Locked 2026-05-19
 **Phase:** 5 — Model 2
 
@@ -8,14 +8,14 @@
 
 Worldwide Governance Indicators ship six aggregate dimensions (VA, PV, GE, RQ, RL, CC) plus underlying per-source detail. Langbein & Knack (2010) argue the six aggregates collapse to essentially one underlying factor, so including all six as separate controls is statistically redundant and may inflate VIF.
 
-Phase 1 Session 02 ingests the aggregate dataset (with `n_sources` per country-year as a quality indicator). Source-level data is available from the WGI website but not ingested in Phase 1 — that ingestion is a Phase-5 dependency on this ADR.
+ ingests the aggregate dataset (with `n_sources` per country-year as a quality indicator). Source-level data is available from the WGI website but not ingested in — that ingestion is a dependency on this ADR.
 
 ## Options considered
 
 1. **Use a single principal-component score** collapsed from the six dimensions. One degree of freedom; defensible re: Langbein-Knack; loses dimension-specific interpretation.
 2. **Use a single composite dimension** (e.g., Government Effectiveness `GE` only, justified as most relevant to public-service delivery including education). Defensible per L-K; conceptually parsimonious; loses information from other dimensions.
 3. **Use all six aggregates with VIF audit** and report a sensitivity check that uses only the principal-component. Most informative but adds collinearity concerns.
-4. **Reconstruct from selected underlying sources** (e.g., EIU, BTI, V-Dem) for the dimensions where source-level variation matters most. Highest rigor but requires the source-level ingestion deferred from Phase 1.
+4. **Reconstruct from selected underlying sources** (e.g., EIU, BTI, V-Dem) for the dimensions where source-level variation matters most. Highest rigor but requires the source-level ingestion deferred.
 
 ## Decision
 
@@ -23,7 +23,7 @@ Phase 1 Session 02 ingests the aggregate dataset (with `n_sources` per country-y
 
 **Primary spec:** Model 2 FE includes `wgi_pc1` (first principal component of the six WGI estimates, scaled, sign-flipped so the Government Effectiveness loading is positive). PC1 is computed inline in `R/55_model2_wgi_operationalization.R` via `stats::prcomp(scale. = TRUE)` on rows with all six WGI dimensions present (1462 of 1463 primary-window rows, near-universal joint availability).
 
-### Empirical evidence (Phase 5 Session 05)
+### Empirical evidence 
 
 Four-spec × two-outcome sensitivity on the Session-03 locked treatment `crs_disburse_usd_defl_ma3_lag1`, full controls (log GDP/cap + PTR primary + ed_exp_%GDP), two-way FE, country-clustered SE, primary window 2010-2020.
 
@@ -33,7 +33,7 @@ Four-spec × two-outcome sensitivity on the Session-03 locked treatment `crs_dis
 |---|---|---|---|---|---|
 | A | Single GE (Session-03 baseline) | 8.17 | 4.91 | 0.102 |   |
 | B | All six WGI aggregates | 10.3 | 5.21 | 0.052 | * |
-| **C** | **PC1 (Option 1, ADR-0009 lock)** | **11.1** | **5.52** | **0.048** | ** |
+| **C** | **PC1 (Option 1, PAP-0009 lock)** | **11.1** | **5.52** | **0.048** | ** |
 | D | No WGI control | 8.75 | 5.32 | 0.105 |   |
 
 **Lock criterion verification:**
@@ -90,7 +90,7 @@ Response: We do not use the all-six spec as primary. The primary uses PC1, which
 
 *"You used a principal component — why not a single dimension for comparability with prior literature?"*
 
-Response: Single Government Effectiveness is reported alongside (robustness column 2e-GE). Sign and magnitude band are preserved; only the conventional-significance threshold differs (PC1 at p=0.048 vs single-GE at p=0.10). The PC1 choice is principled (pre-specified in ADR-0009 Option 1) rather than data-mined.
+Response: Single Government Effectiveness is reported alongside (robustness column 2e-GE). Sign and magnitude band are preserved; only the conventional-significance threshold differs (PC1 at p=0.048 vs single-GE at p=0.10). The PC1 choice is principled (pre-specified in PAP-0009 Option 1) rather than data-mined.
 
 *"Why not the underlying source indicators (EIU, BTI, V-Dem)?"*
 

@@ -1,8 +1,8 @@
-# ADR-0010: Identification strategy — System GMM as headline robustness
+# PAP-0010: Identification strategy — System GMM as headline robustness
 
-**Status:** Accepted with caveats — System GMM attempted Phase 5 Session 02; reported but Hansen overid rejects instrument validity (small-T limitation); static FE remains headline; Bond (2002) bounds also degenerate on T=4 HCI cycles; identification defense relies on transparent §3 acknowledgment of small-T limits.
+**Status:** Accepted with caveats — System GMM attempted ; reported but Hansen overid rejects instrument validity (small-T limitation); static FE remains headline; Bond (2002) bounds also degenerate on T=4 HCI cycles; identification defense relies on transparent §3 acknowledgment of small-T limits.
 **Date:** 2026-05-19
-**Phase:** 5 — Model 2 (Session 02)
+**Phase:** 5 — Model 2 
 
 ## Context
 
@@ -14,20 +14,20 @@ The headline regression in Model 2 is the within-country effect of education ODA
 
 The directly comparable *World Development* paper ([Asongu, Tchamyou & Acha-Anyi 2019](../lit/)) and the dynamic-panel literature (Yogo 2017; the broader Arellano-Bond / Blundell-Bond aid-effectiveness thread) all use IV or GMM. A static-FE-only specification will draw the predictable referee critique: *"How do you address the fact that ODA responds to learning shortfalls?"*
 
-Phase 1 Session 09 external review flagged this as the "defensible weak flank". Author decision (this ADR): close it by adding System GMM as headline robustness — not bolt-on, full Roodman apparatus.
+ external review flagged this as the "defensible weak flank". Author decision (this ADR): close it by adding System GMM as headline robustness — not bolt-on, full Roodman apparatus.
 
 ## Options considered
 
-1. **System GMM as headline robustness, locked via this ADR** — `plm::pgmm` or `pdynmc` in R. Two-step robust SE, instrument-count management (collapse vs full matrix), full Roodman diagnostics: Hansen overid, Difference-in-Hansen, AR(1) and AR(2) on residuals. Builds on the production panel's ADR-0005 column matrix (lagged ODA columns are pre-built).
+1. **System GMM as headline robustness, locked via this ADR** — `plm::pgmm` or `pdynmc` in R. Two-step robust SE, instrument-count management (collapse vs full matrix), full Roodman diagnostics: Hansen overid, Difference-in-Hansen, AR(1) and AR(2) on residuals. Builds on the production panel's PAP-0005 column matrix (lagged ODA columns are pre-built).
 2. **Difference GMM (Arellano-Bond)** instead of system — simpler but less efficient when the dependent variable is persistent (learning scores are highly persistent).
 3. **External IV** (e.g., Galiani-style IDA-graduation thresholds; Dreher-style donor characteristics) — cleaner exclusion restriction in principle, but defending it for *education* aid is harder than for *total* aid.
 4. **Descriptive-FE with measurement-failure lean** — own the identification limit in §3; lean on the measurement-architecture thesis as the headline claim. Lower cost; probably aims at IJED rather than *World Development*.
 
 ## Decision
 
-**Option 1 with caveats: System GMM attempted and reported, but identification defense rests primarily on static FE + transparent acknowledgment of small-T limits. Locked 2026-05-19 (Phase 5 Session 02) with the empirical evidence below.**
+**Option 1 with caveats: System GMM attempted and reported, but identification defense rests primarily on static FE + transparent acknowledgment of small-T limits. Locked 2026-05-19  with the empirical evidence below.**
 
-### Data observed (Phase 5 Session 02)
+### Data observed 
 
 Empirical evidence from `R/52_model2_gmm.R` on the cycle-indexed HCI panel (T = 4 effective cycles: 2010, 2017, 2018, 2020; N = 127 FE-identifiable countries; full-control sample collapses to T=3 × 61 countries):
 
@@ -35,8 +35,8 @@ Empirical evidence from `R/52_model2_gmm.R` on the cycle-indexed HCI panel (T = 
 
 | Estimator | β | SE | p | Hansen p | AR(2) p |
 |---|---|---|---|---|---|
-| **Static FE Model 2 (Session 14, full 2e)** | **+10.95** | 3.60 | **0.003** | — | — |
-| Static FE Model 2 (Session 14, +conflict+COVID) | +10.83 | 4.03 | 0.009 | — | — |
+| **Static FE Model 2 (full 2e)** | **+10.95** | 3.60 | **0.003** | — | — |
+| Static FE Model 2 (+conflict+COVID) | +10.83 | 4.03 | 0.009 | — | — |
 | (A) Pooled OLS w/ lagged DV — MIN spec | 0.000 | 0.000 | 0.870 | — | — |
 | (A) Pooled OLS w/ lagged DV — FULL spec | 0.000 | 0.000 | 0.962 | — | — |
 | (B) Within FE w/ lagged DV (LSDV) — MIN spec | 0.000 | 0.000 | 0.942 | — | — |
@@ -58,23 +58,23 @@ Empirical evidence from `R/52_model2_gmm.R` on the cycle-indexed HCI panel (T = 
 
 5. **The brief's identification-via-GMM requirement is not feasible on this panel.** Asongu (2019) and Yogo (2017) GMM-aid-effectiveness applications use 20+ year annual panels (T ≥ 15-20); our HCI-cycle-only outcome provides T ≤ 4. This is the small-T panel problem Bond (2002) explicitly warns about. The data simply does not support the GMM machinery cleanly.
 
-**Locked decision:** Option 1 with caveats. We attempted System GMM per the brief's requirement and the Phase-2 external review commitment. The results are reported transparently in `findings.md § 5.3` and `output/tables/model2_identification_triangulation.{csv,md}`. The static-FE result (β = +10.95***, Session 14) remains the headline empirical claim. The manuscript § 3 (Methodology) acknowledges the small-T limitation honestly: GMM machinery is the field's identification gold standard but does not apply at our outcome's measurement frequency. The substantive identification defense rests on:
+**Locked decision:** Option 1 with caveats. We attempted System GMM per requirement and the . The results are reported transparently in `the manuscript § 5.3` and `output/tables/model2_identification_triangulation.{csv,md}`. The static-FE result (β = +10.95***) remains the headline empirical claim. The manuscript § 3 (Methodology) acknowledges the small-T limitation honestly: GMM machinery is the field's identification gold standard but does not apply at our outcome's measurement frequency. The substantive identification defense rests on:
 
-- Country + year two-way FE (Session 14)
-- Country-clustered SE (Session 14)
-- HC-robust Breusch-Pagan-adjusted inference (Session 14)
+- Country + year two-way FE 
+- Country-clustered SE 
+- HC-robust Breusch-Pagan-adjusted inference 
 - Transparent reporting of attempted dynamic-panel methods + their failure modes (this session)
-- Phase-5 robustness chain across Sessions 03 (commit vs disburse + lag), 04 (China-aid), 05 (WGI operationalization) — sign-and-magnitude consistency across all robustness specs is the identification claim
+- robustness chain across Sessions 03 (commit vs disburse + lag), 04 (China-aid), 05 (WGI operationalization) — sign-and-magnitude consistency across all robustness specs is the identification claim
 
-If a *World Development* referee asks "how do you address reverse causality?", the answer is: (a) within-country FE absorbs time-invariant donor preferences; (b) we attempted GMM honestly per Bond/Roodman; (c) the small-T HCI panel makes GMM diagnostics fail; (d) the falsification thesis from the brief is satisfied at static FE with the explicit thin-data caveat; (e) Phase-5 robustness chain provides the alternative defense.
+If a *World Development* referee asks "how do you address reverse causality?", the answer is: (a) within-country FE absorbs time-invariant donor preferences; (b) we attempted GMM honestly per Bond/Roodman; (c) the small-T HCI panel makes GMM diagnostics fail; (d) the falsification thesis from  is satisfied at static FE with the explicit thin-data caveat; (e) robustness chain provides the alternative defense.
 
 ## Consequences
 
-- Phase 5 expands from ~2 sessions to ~4-5 (one for Model 2 static FE baseline, one for System GMM, one for diagnostics + sensitivity to instrument-set choices, one for Hausman/Wooldridge/Breusch-Pagan + IV robustness).
-- Adds a new package dependency: `plm::pgmm` is already in renv (via fixest's dependency graph) but `pdynmc` may need install. Verify in Phase 5 Session 1.
+- expands from ~2 sessions to ~4-5 (one for Model 2 static FE baseline, one for System GMM, one for diagnostics + sensitivity to instrument-set choices, one for Hausman/Wooldridge/Breusch-Pagan + IV robustness).
+- Adds a new package dependency: `plm::pgmm` is already in renv (via fixest's dependency graph) but `pdynmc` may need install. Verify in .
 - §3.8 Empirical strategy adds a System-GMM specification alongside Model 2. §3.x or §3.8 footnote explains the instrument set and diagnostics.
 - Table 2 in the manuscript adds 1-2 columns for the GMM specification.
-- ADR-0005 (commit vs disburse + lag structure) is constrained by GMM's identification logic: lagged ODA is now an instrument, so the choice of which lag to use as RHS regressor vs instrument matters.
+- PAP-0005 (commit vs disburse + lag structure) is constrained by GMM's identification logic: lagged ODA is now an instrument, so the choice of which lag to use as RHS regressor vs instrument matters.
 
 ## How a referee might attack this
 
@@ -90,8 +90,8 @@ Response: Triangulation with Difference GMM (Option 2) reported alongside. AR(2)
 
 Response: Defensible exclusion restrictions for *education* aid (vs total aid) are weak — donor-side characteristics affect education-sector allocation through the same channels they affect learning (governance, alignment with donor priorities). System GMM uses the panel structure itself for identification; we defend this choice in §3 explicitly.
 
-## Implementation notes (for Phase 5 Session 1)
+## Implementation notes (for )
 
-- Production panel `data/interim/panel.parquet` already carries `crs_disburse_usd_defl_sum`, `crs_disburse_usd_defl_lag1`, `crs_disburse_usd_defl_ma3`. Phase 5 chooses RHS regressor + instruments from this set.
+- Production panel `data/interim/panel.parquet` already carries `crs_disburse_usd_defl_sum`, `crs_disburse_usd_defl_lag1`, `crs_disburse_usd_defl_ma3`. chooses RHS regressor + instruments from this set.
 - `has_2plus_hlo` flag identifies the 127-country FE-identifiable subset; GMM further requires variation across t per country, so the effective sample may be smaller.
 - Hold the strict-past lag vs trailing-inclusive MA decision for GMM separately — the MA-based regressors are less natural for GMM (which prefers single-period regressors with clean lag structure for instruments).

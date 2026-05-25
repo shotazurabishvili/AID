@@ -1,6 +1,6 @@
-# ADR-0005: ODA — commitment vs disbursement (+ lag structure)
+# PAP-0005: ODA — commitment vs disbursement (+ lag structure)
 
-**Status:** Accepted (2026-05-19, Phase 5 Session 03)
+**Status:** Accepted (2026-05-19, )
 **Date:** Locked 2026-05-19
 **Phase:** 5 — Model 2 (Fixed Effects panel)
 
@@ -28,7 +28,7 @@ For education ODA the commitment-disbursement gap can be 30–50% of commitment 
 - `crs_commit_usd_defl_ma3_lag1` (commitment, strictly-past 3-yr MA) — alternative measure
 - Full 16-cell sensitivity table available at `output/tables/model2_fe_sensitivity.csv`
 
-### Empirical evidence (Phase 5 Session 03)
+### Empirical evidence 
 
 A 16-cell sensitivity grid was estimated: 2 (commit vs disburse) × 2 (current vs constant USD) × 4 (raw, 1-yr lag, trailing-inclusive 3-yr MA, strictly-past 3-yr MA). Model 2 FE (iso3 + year), country-clustered SE, full controls (log GDP/cap, PTR primary, ed_exp_%GDP, WGI gov effectiveness), primary window 2010-2020. Dual outcomes: HLO and LAYS. N=143 (HLO) / 139 (LAYS) across all cells — FE-singleton drops dominate the strictly-past MA NA pattern, so N-comparability is essentially perfect.
 
@@ -58,8 +58,8 @@ Constant-USD (DAC deflator-adjusted) removes secular inflation drift over the 20
 ## Consequences
 
 - Coefficient interpretation: the locked spec is a within-country effect of a 3-yr-prior moving average of education ODA disbursement on HLO. β=8.17 means a 100% increase in 3-yr lagged disbursement is associated with an 8.2-point increase in HLO, at p=0.10.
-- **The "ODA does not predict learning" framing in pre-Session-03 notes is incorrect** under this lock: all 16 cells show β ≥ 0, half significant at conventional thresholds. The corrected manuscript framing is: *"ODA → learning has a positive within-country association that varies in significance with treatment encoding, from p=0.10 (theoretically cleanest spec) to p<0.01 (working-preference trailing-inclusive spec)."* This reframing is a Session 04+ task.
-- The 1-yr-lag specs are universally weak (p>0.10), supporting the choice of 3-yr window over single-year lag in the brief's pre-specified menu. Obligation `docs/obligations.md:48` (1-yr vs 3-yr MA) closed in favor of 3-yr.
+- **The "ODA does not predict learning" framing in pre-Session-03 notes is incorrect** under this lock: all 16 cells show β ≥ 0, half significant at conventional thresholds. The corrected manuscript framing is: *"ODA → learning has a positive within-country association that varies in significance with treatment encoding, from p=0.10 (theoretically cleanest spec) to p<0.01 (working-preference trailing-inclusive spec)."* This reframing is a + task.
+- The 1-yr-lag specs are universally weak (p>0.10), supporting the choice of 3-yr window over single-year lag in pre-specified menu. Obligation `docs/the deposited diagnostic register:48` (1-yr vs 3-yr MA) closed in favor of 3-yr.
 
 ## How a referee might attack this
 

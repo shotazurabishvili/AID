@@ -1,8 +1,8 @@
 # R/42_eda_divergence.R
 #
-# Phase 3 Session 01: paper §4.1 headline visualization — "Enrollment without
+# paper §4.1 headline visualization — "Enrollment without
 # learning." 2020 cross-sectional scatter of gross primary enrollment vs HLO
-# score across the 133-country ADR-0002 universe.
+# score across the 133-country PAP-0002 universe.
 #
 # Why 2020: all 133 universe countries have a 2020 HLO observation (the most
 # recent HCI cycle). Allows a clean single-year cross-section without the
@@ -77,7 +77,7 @@ p <- ggplot(d, aes(x = wdi_enroll_prim_gross, y = hlo_hlo_score)) +
   scale_color_brewer(palette = "Set2") +
   scale_size_continuous(range = c(1.6, 6), guide = "none") +
   labs(title = "Enrollment without learning: 2020 cross-section",
-       subtitle = sprintf("Gross primary enrollment vs harmonized learning outcomes; 133-country analytical universe (ADR-0002); n = %d with both indicators observed", nrow(d)),
+       subtitle = sprintf("Gross primary enrollment vs harmonized learning outcomes; 133-country analytical universe (PAP-0002); n = %d with both indicators observed", nrow(d)),
        x = "Gross primary enrollment (%)",
        y = "Harmonized Learning Outcome score (HCI HLOS)",
        color = "World Bank region",
@@ -97,7 +97,7 @@ message(sprintf("[divergence] wrote %s and %s", OUT_PDF, OUT_PNG))
 
 # Summary file
 summary_lines <- c(
-  "Divergence figure summary — paper §4.1 (Phase 3 Session 01)",
+  "Divergence figure summary — paper §4.1 (the corresponding analytical step)",
   sprintf("Date: %s", Sys.Date()),
   sprintf("Input panel: %s (production)", PANEL_PATH),
   "",
@@ -118,7 +118,7 @@ summary_lines <- c(
   "Substantive interpretation:",
   sprintf("  R^2 = %.2f: enrollment explains ~%.0f%% of cross-country HLO variance. Most learning",
           r2, r2 * 100),
-  "  variation is NOT captured by enrollment, supporting the brief's divergence thesis.",
+  "  variation is NOT captured by enrollment, supporting the divergence thesis.",
   sprintf("  Slope: %.2f HLO points per 1pp enrollment gain implies a country moving from 80%% to",
           slope),
   sprintf("  100%% gross enrollment would, ON AVERAGE, gain only %.1f HLO points (~%.1f%% of the 305-581",

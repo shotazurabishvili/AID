@@ -1,10 +1,10 @@
 # R/70_model5_counterfactual.R
 #
-# Phase 8 Session 01: Model 5 counterfactual simulation (redesigned).
+# Model 5 counterfactual simulation (redesigned).
 #
-# Per ADR-0011: brief's original "$1B redirect from input-based to outcome-based
+# Per PAP-0011: brief's original "$1B redirect from input-based to outcome-based
 # programs using Model-4 effect sizes" cannot be honored after Model 4 was
-# dropped (ADR-0007 Rejected). Two further constraints:
+# dropped (PAP-0007 Rejected). Two further constraints:
 #
 #   (a) Applying a literal +$1B annual shock to a single aid-receiving country
 #       (median baseline ~$10-50M) is a 20-100x increase — wildly outside the
@@ -27,12 +27,12 @@
 # support scenario it most closely corresponds to. Bridge is in the output md,
 # not in the headline scenario table. This is the honest face of the Model-4
 # drop: §5.5 owned that the composition question is unanswerable; §5.6 now
-# owns that the brief's $1B-redirect dollar-amount framing is not faithfully
+# owns that the $1B-redirect dollar-amount framing is not faithfully
 # operationalizable without Model 4 either, and substitutes a within-support
 # % shock that the data actually identifies.
 #
 # Inputs:
-#   data/interim/panel.parquet                — production panel (Phase 2)
+#   data/interim/panel.parquet                — production panel
 #   output/tables/model2_fe_baseline_v2.csv   — locked Model 2 spec 2e β + SE
 #
 # Outputs:
@@ -142,7 +142,7 @@ baseline_q3  <- quantile(baseline_ma, 0.75, na.rm = TRUE) |> unname()
 sample_total_M <- sum(baseline_ma, na.rm = TRUE)  # total annual aid in the sample, USD M
 
 # === 4. Implied EYS distribution from the LAYS identity ======================
-# LAYS = EYS * (HLO/625)  ⇒  EYS = LAYS * 625 / HLO   (per methodology.md §3.4)
+# LAYS = EYS * (HLO/625)  ⇒  EYS = LAYS * 625 / HLO   (per the manuscript methodology section)
 eys_impl <- est_sample |>
   filter(!is.na(hci_lays_overall), hlo_hlo_score > 0) |>
   mutate(eys_impl = hci_lays_overall * HLO_SCALE_MAX / hlo_hlo_score) |>
@@ -212,24 +212,24 @@ main_md <- c(
   sprintf("**Baseline:** median annual CRS disbursement (MA3-lag1, constant USD millions) across the Model 2 estimation sample = **$%.1fM**. Q1 = $%.1fM; Q3 = $%.1fM.",
           baseline_med, baseline_q1, baseline_q3),
   "",
-  "**Shocks:** within-support percentage increases applied to the median country's annual disbursement. These stay near the support of the within-country log-CRS variation Model 2 was estimated on; a literal $1B injection to a single country (~20-50× baseline) would be a wild extrapolation beyond that support — see ADR-0011 and the brief-bridge note below.",
+  "**Shocks:** within-support percentage increases applied to the median country's annual disbursement. These stay near the support of the within-country log-CRS variation Model 2 was estimated on; a literal $1B injection to a single country (~20-50× baseline) would be a wild extrapolation beyond that support — see PAP-0011 and the project brief-bridge note below.",
   "",
   "**LAYS translation** via the WB identity ΔLAYS = EYS × ΔHLO / 625, holding EYS constant. Implied-EYS percentiles on the estimation sample: ",
   sprintf("p10 = %.2f yr; p50 = %.2f yr; p90 = %.2f yr.", eys_p10, eys_p50, eys_p90),
   "",
   knitr::kable(main_out, format = "pipe"),
   "",
-  "## Brief-bridge context: where does the brief's $1B redirect land?",
+  "## Brief-bridge context: where does the $1B redirect land?",
   "",
-  sprintf("A $1B annual increase distributed across the %d-country Model 2 estimation sample = **$%.2fM per country on average**, which is **%.1f%%** of the median baseline ($%.1fM) and **%.2f%%** of the sample's total annual education aid ($%.1fB). This lands in the low-shock band of the headline table; the brief's $1B is *not* well-described by the highest-shock scenarios above. Applying the entire $1B to a single country would push that country %.0f× above its baseline — outside the data support Model 2 was identified on, and we do not project there.",
+  sprintf("A $1B annual increase distributed across the %d-country Model 2 estimation sample = **$%.2fM per country on average**, which is **%.1f%%** of the median baseline ($%.1fM) and **%.2f%%** of the sample's total annual education aid ($%.1fB). This lands in the low-shock band of the headline table; the $1B is *not* well-described by the highest-shock scenarios above. Applying the entire $1B to a single country would push that country %.0f× above its baseline — outside the data support Model 2 was identified on, and we do not project there.",
           nrow(est_sample), mean_per_country_if_1B, pct_of_median_if_1B,
           baseline_med, total_pct_of_sample, sample_total_M / 1000,
           (1000 + baseline_med) / baseline_med),
   "",
-  "## Limits acknowledged (per ADR-0011)",
+  "## Limits acknowledged (per PAP-0011)",
   "",
-  "- **Identification:** Model 2 is static FE on small-T (T_eff ≤ 4 HCI cycles per country); GMM unavailable (ADR-0010). β is identified within-country over time but does not preclude unmeasured time-varying confounding.",
-  "- **Composition:** counterfactual is on aggregate CRS disbursement only. The brief's input-vs-outcome typology question is unanswered (ADR-0007 Rejected; findings.md §5.5).",
+  "- **Identification:** Model 2 is static FE on small-T (T_eff ≤ 4 HCI cycles per country); GMM unavailable (PAP-0010). β is identified within-country over time but does not preclude unmeasured time-varying confounding.",
+  "- **Composition:** counterfactual is on aggregate CRS disbursement only. The brief's input-vs-outcome typology question is unanswered (PAP-0007 Rejected; the manuscript).",
   "- **Single-cycle marginal projection** (one HCI cycle ≈ 5 yr); no inter-temporal discounting; not a steady-state forecast.",
   "- **Plug-in CI propagation** on β only (does not propagate joint regressor covariance) — chosen as the honest match for the static-FE inference base; a full Monte Carlo would overreach.",
   "- **LAYS identity holds EYS constant**, isolating the learning-quality channel; sensitivity to EYS across p10/p50/p90 is reported in-table.",
@@ -350,7 +350,7 @@ ggsave(OUT_PLOT_PNG, combined_plot, width = 10, height = 10, dpi = 150)
 message(sprintf("[m5] wrote %s and %s", OUT_PLOT_PDF, OUT_PLOT_PNG))
 
 # === 8. Stdout summary =======================================================
-cat("\n=== Phase 8 Session 01 summary ===\n")
+cat("\n=== the corresponding analytical step summary ===\n")
 cat(sprintf("Model 2 spec 2e locked: β=%.4f, SE=%.4f, N=%d\n", beta_2e, se_2e, n_2e))
 cat(sprintf("β 95%% CI: [%.4f, %.4f]\n", beta_lo, beta_hi))
 cat(sprintf("Baseline annual CRS (median, MA3-lag1): $%.2fM\n", baseline_med))

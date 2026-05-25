@@ -1,7 +1,7 @@
 # R/51_model2_fe.R
 #
-# Phase 5 Session 01: Model 2 — within-country fixed-effects panel.
-# THE HEADLINE SESSION. The β_OLS vs β_FE contrast (Phase 4 result of −1.36 ns
+# Model 2 — within-country fixed-effects panel.
+# THE HEADLINE SESSION. The β_OLS vs β_FE contrast (the analysis result of −1.36 ns
 # vs the result here) is the manuscript's central empirical claim.
 #
 # Specification (sequential add, mirroring Model 1):
@@ -18,7 +18,7 @@
 # COVID NA→0 recode: covid_days_closed is non-NA only in 2020-2022 (UNESCO).
 # For pre-2020 years (2010-2019) we code 0 — pre-pandemic = no closure exposure.
 # This is a substantive modeling choice extending the production panel's NA→0
-# convention from aid flows to COVID exposure. See findings.md notes.
+# convention from aid flows to COVID exposure. See the manuscript notes.
 #
 # SE: country-clustered. FE: two-way (country + year). feols auto-drops
 # singleton-FE countries (6 countries with 1 HLO obs each).
@@ -220,7 +220,7 @@ if (!is.null(wooldridge_res)) {
     df = unname(wooldridge_res$parameter[1]),
     p_value = format.pval(wooldridge_res$p.value),
     interpretation = ifelse(wooldridge_res$p.value < 0.05,
-                            "AR(1) present; motivates System GMM (Session 02)",
+                            "AR(1) present; motivates System GMM ",
                             "No AR(1) detected")
   )
 }
@@ -400,7 +400,7 @@ contrast_md <- c(
   "Stars: ***p<0.01, **p<0.05, *p<0.1.",
   paste0("Model 1 spec: HLO_i = β0 + β1 log(1+CRS)_i + β2 log(GDP/cap)_i + β3 PTR_i + β4 EdExp_i + β5 WGI_i + ε_i."),
   paste0("Model 2 spec: HLO_it = β1 log(1+CRS_MA3)_it + β2 log(GDP/cap)_it + β3 PTR_it + β4 EdExp_it + β5 WGI_it + α_i + λ_t + ε_it."),
-  paste0("Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr trailing MA of annual values (per ADR-0005 working preference).")
+  paste0("Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr trailing MA of annual values (per PAP-0005 working preference).")
 )
 writeLines(contrast_md, OUT_CONTRAST_MD)
 message(sprintf("[model2] wrote %s and %s", OUT_CONTRAST_CSV, OUT_CONTRAST_MD))

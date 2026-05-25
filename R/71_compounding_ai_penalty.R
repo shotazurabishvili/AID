@@ -1,6 +1,6 @@
 # R/71_compounding_ai_penalty.R
 #
-# Phase 9 Session 01: Compounding AI penalty section (brief §1 line 159).
+# Compounding AI penalty section (brief §1 line 159).
 #
 # Constructed variable per brief: HCI × AI Readiness Index.
 # Joint distribution characterization on the 189-country GARI × HCI intersection:
@@ -20,7 +20,7 @@
 # Maximizes coverage; per-country cycle year reported in bottom-N table.
 #
 # Inputs:
-#   data/interim/panel.parquet           — production panel (Phase 2)
+#   data/interim/panel.parquet           — production panel
 #   data/interim/ai_readiness.parquet    — Oxford Insights GARI 2025
 #
 # Outputs (10 files total):
@@ -364,7 +364,7 @@ ggsave(OUT_PLOT_PNG, p, width = 10, height = 7.5, dpi = 150)
 message(sprintf("[m9] wrote %s and %s", OUT_PLOT_PDF, OUT_PLOT_PNG))
 
 # === 11. stdout summary =======================================================
-cat("\n=== Phase 9 Session 01 summary ===\n")
+cat("\n=== the corresponding analytical step summary ===\n")
 cat(sprintf("Joined sample (HCI latest cycle × GARI 2025): N = %d countries.\n", n_joined))
 cat(sprintf("HCI cycle-year breakdown: %s\n",
             paste(sprintf("%d=%d", as.integer(names(table(d$hci_year))),

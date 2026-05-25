@@ -13,4 +13,4 @@ Effect of `log(1 + CRS_disburse_defl_sum)` (Model 1, country means) and `log(1 +
 Stars: ***p<0.01, **p<0.05, *p<0.1.
 Model 1 spec: HLO_i = β0 + β1 log(1+CRS)_i + β2 log(GDP/cap)_i + β3 PTR_i + β4 EdExp_i + β5 WGI_GE_i + ε_i.
 Model 2 v2 spec: HLO_it = β1 log(1+CRS_ma3_lag1)_it + β2 log(GDP/cap)_it + β3 PTR_it + β4 EdExp_it + β5 WGI_PC1_it + α_i + λ_t + ε_it.
-Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr strictly-past MA (mean of t-3,t-2,t-1) per ADR-0005 lock. WGI differs: Model 1 uses single Government Effectiveness (prior-literature comparability); Model 2 uses PC1 of six WGI dimensions per ADR-0009 lock (76.4% variance; Langbein-Knack engagement).
+Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr strictly-past MA (mean of t-3,t-2,t-1) per the locked encoding. WGI differs: Model 1 uses single Government Effectiveness (prior-literature comparability); Model 2 uses PC1 of six WGI dimensions per the locked encoding (76.4% variance; Langbein-Knack engagement).

@@ -1,9 +1,9 @@
 # R/43_eda_supplementary.R
 #
-# Phase 3 Session 02: supplementary EDA on the production panel. Three sections:
+# supplementary EDA on the production panel. Three sections:
 #   §1 — Pearson correlation matrix on Model-2 candidate variables, with
 #        skewed variables (GDP/cap, population, CRS, GCDF) log-transformed.
-#        Output: heatmap + CSV. Informs Phase 5 VIF prep + ADR-0009.
+#        Output: heatmap + CSV. Informs the analysis VIF prep + PAP-0009.
 #   §2 — Regional mean trajectories 2010-2020. 4-panel figure (HLO, gross
 #        primary enrollment, GDP per capita, CRS disbursement). HLO panel
 #        uses geom_point only (no line; HLO observed at 4 HCI cycles only,
@@ -43,7 +43,7 @@ panel <- arrow::read_parquet(PANEL_PATH) |>
   filter(in_primary_window) |>
   mutate(iso3 = as.character(iso3))
 
-# Region (consistent with Session 11 Table 1)
+# Region (consistent with the prior step Table 1)
 region_map <- countrycode::codelist |>
   filter(!is.na(region), !is.na(iso3c)) |>
   select(iso3 = iso3c, region) |>
@@ -340,8 +340,8 @@ table1_inc <- table1_inc |>
 readr::write_csv(table1_inc, OUT_INC_CSV)
 
 caption <- paste0(
-  "**Table 1B.** Descriptive statistics of the 133-country analytical universe (ADR-0002), ",
-  "primary window 2010-2020 (ADR-0003), stratified by **World Bank income classification** ",
+  "**Table 1B.** Descriptive statistics of the 133-country analytical universe (PAP-0002), ",
+  "primary window 2010-2020 (PAP-0003), stratified by **World Bank income classification** ",
   "(`WDI::WDI_data$country$income`, current-year as of session date). Cells show mean (SD) ",
   "across countries within group (country-level means computed first across primary window). ",
   "`In active conflict` row reports share of country-years with any active armed conflict. ",

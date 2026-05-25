@@ -20,7 +20,6 @@ rsync -a --delete --exclude '.quarto' --exclude '_files' \
 
 # Current session log + plan + brief (for quick reference on Windows)
 rsync -a "$SRC/docs/plan.md"     "$DST/docs/plan.md"
-rsync -a "$SRC/docs/brief.md"    "$DST/docs/brief.md"
 rsync -a --copy-links "$SRC/docs/session_log/CURRENT.md" "$DST/docs/session_log/CURRENT.md" 2>/dev/null || true
 rsync -a "$SRC/docs/session_log/" "$DST/docs/session_log/" --exclude '_template.md'
 

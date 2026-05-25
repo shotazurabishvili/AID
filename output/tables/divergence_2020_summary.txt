@@ -1,4 +1,4 @@
-Divergence figure summary — paper §4.1 (Phase 3 Session 01)
+Divergence figure summary — paper §4.1
 Date: 2026-05-19
 Input panel: data/interim/panel.parquet (production)
 

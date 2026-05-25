@@ -25,6 +25,6 @@ Cite at §1 (Introduction, ¶5) and §2 strand (c) Lit Review as the closest pra
 *(populate when reading primary; secondary engagement at WBG documents page only)*
 
 ## Status
-- [ ] Read primary source — *secondary engagement only (WBG documents page + paper abstract). Reviewed for citation-direction purposes during Phase 11 Session 02 (2026-05-23). Cite for practitioner-context positioning; do not assert specific case-study findings or methodological details without reading the working paper in full.*
+- [ ] Read primary source — *secondary engagement only (WBG documents page + paper abstract). Reviewed for citation-direction purposes during . Cite for practitioner-context positioning; do not assert specific case-study findings or methodological details without reading the working paper in full.*
 - [x] Notes summarized above (from WBG documents page abstract + WebSearch corroboration of method)
 - [x] Engaged in our manuscript (Intro paragraph 5; §2 strand c)

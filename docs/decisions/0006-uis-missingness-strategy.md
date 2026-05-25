@@ -1,8 +1,8 @@
-# ADR-0006: UIS missingness strategy
+# PAP-0006: UIS missingness strategy
 
 **Status:** Accepted
 **Date:** 2026-05-18
-**Phase:** 2 — Panel construction (Session 01)
+**Phase:** 2 — Panel construction 
 
 ## Context
 
@@ -13,7 +13,7 @@ UNESCO UIS data on private education expenditure share and detailed out-of-schoo
 
 The choice between multiple imputation (MI) and listwise deletion is consequential: MI keeps SSA observations but introduces imputation-model assumptions; listwise drops them and risks selection bias.
 
-### Data observed (Phase 1 Session 03)
+### Data observed 
 
 Empirical missingness in `data/interim/uis.parquet`, broken down by SSA vs rest-of-world (`output/tables/ssa_uis_missingness.csv`):
 
@@ -43,9 +43,9 @@ Primary OOS rate has surprisingly *better* coverage in SSA than rest-of-world �
 
 - **Primary spec** uses WDI controls only (`wdi_edu_exp_pct_gdp`, `wdi_ptr_primary`, `wdi_gdp_pc_usd`) + WGI governance.
 - **Robustness 1:** UIS-augmented spec on the listwise-complete UIS subset (smaller N; reported alongside).
-- **Robustness 2 (Phase-5 implementation):** Multiple-imputation UIS-augmented spec on the full sample, with imputation diagnostics + MCAR test reported openly.
+- **Robustness 2 (implementation):** Multiple-imputation UIS-augmented spec on the full sample, with imputation diagnostics + MCAR test reported openly.
 
-### Data observed (Phase 2 Session 01)
+### Data observed 
 
 Production panel (`data/interim/panel.parquet`, 133 countries × 23 years = 3,059 rows; primary window 2010–2020 = 1,463 rows). Little MCAR test (`naniar::mcar_test()`) run twice on the primary-window subset, both confirming MCAR rejected and quantifying the cost of including UIS:
 
@@ -56,15 +56,15 @@ Production panel (`data/interim/panel.parquet`, 133 countries × 23 years = 3,05
 
 The 6-col vs 7-col contrast is the decisive piece of evidence: **including UIS as a control drops the complete-row count from 173 to 69 — a 60% loss of analytical sample.** Both subsets reject MCAR strongly (p ≪ 0.001), so MI assumptions can't be cheaply defended on either; but the 6-col MCAR pattern reflects only HLO sparsity + WDI `ptr_primary` (~43% NA) + small WGI residuals, while the 7-col pattern adds the SSA-biased UIS missingness (85.1% SSA vs 68.1% non-SSA = +16.9 pp gap, `output/tables/production_ssa_panel_missingness.csv`).
 
-CRS and GCDF aid-flow columns show 0% NA within universe by construction — the production merge applies an NA → 0 coalesce within the 133-country ADR-0002 universe (rationale: ODA-eligible recipients with no recorded CRS project in year t had $0 aid that year, not "data missing"). This decision interacts with the missingness story and is documented in `R/30_merge_panel.R` header + data dictionary.
+CRS and GCDF aid-flow columns show 0% NA within universe by construction — the production merge applies an NA → 0 coalesce within the 133-country PAP-0002 universe (rationale: ODA-eligible recipients with no recorded CRS project in year t had $0 aid that year, not "data missing"). This decision interacts with the missingness story and is documented in `R/30_merge_panel.R` header + data dictionary.
 
-Note divergence from the Session-09 audit-panel MCAR run (`output/tables/mcar_test_result.txt`): that run was on the unfiltered 250-country audit panel using `crs_commit_usd_sum` (current-USD commitment); the production run is on the 133-universe within 2010-2020 using `crs_disburse_usd_defl_sum` (production primary intent per [methodology §3.5](../methodology.md)) after NA → 0 coalesce. The two answer different questions; this one is the analytical-pipeline missingness that locks the ADR.
+Note divergence from the Session-09 audit-panel MCAR run (`output/tables/mcar_test_result.txt`): that run was on the unfiltered 250-country audit panel using `crs_commit_usd_sum` (current-USD commitment); the production run is on the 133-universe within 2010-2020 using `crs_disburse_usd_defl_sum` (production primary intent per [methodology §3.5](../the manuscript methodology section)) after NA → 0 coalesce. The two answer different questions; this one is the analytical-pipeline missingness that locks the ADR.
 
 ## Consequences
 
 - The primary Model 2 likely has a larger N than UIS-augmented specs.
 - Sensitivity table in robustness reports both listwise UIS-included and MI UIS-included variants.
-- ADR-0009 may be needed for the imputation model specification if MI is used.
+- PAP-0009 may be needed for the imputation model specification if MI is used.
 
 ## How a referee might attack this
 

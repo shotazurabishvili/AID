@@ -1,6 +1,6 @@
 # R/55_model2_wgi_operationalization.R
 #
-# Phase 5 Session 05: ADR-0009 lock — WGI operationalization sensitivity.
+# PAP-0009 lock — WGI operationalization sensitivity.
 #
 # Four specs × two outcomes = 8 feols fits. All on the Session-03 locked
 # treatment: log(1 + crs_disburse_usd_defl_ma3_lag1). Base controls:
@@ -250,7 +250,7 @@ readr::write_csv(results_round, OUT_SPECS_CSV)
 message(sprintf("\n[m2-wgi] wrote %s", OUT_SPECS_CSV))
 
 md_lines <- c(
-  "# Model 2 FE — WGI operationalization sensitivity (ADR-0009 lock)",
+  "# Model 2 FE — WGI operationalization sensitivity (PAP-0009 lock)",
   "",
   "Within-country two-way FE (iso3 + year). Country-clustered SE. Treatment: `log(1 + crs_disburse_usd_defl_ma3_lag1)` (Session-03 lock). Base controls: log(GDP/cap) + PTR primary + ed_exp_%GDP. WGI varies across specs A-D. Primary window 2010-2020.",
   "",
@@ -307,7 +307,7 @@ p_coef <- ggplot(plot_df,
                    size = 0.5, linewidth = 0.7) +
   scale_color_manual(values = c("HLO" = "#1B7837", "LAYS" = "#762A83")) +
   labs(
-    title    = "ADR-0009 lock: WGI operationalization sensitivity (Model 2 FE)",
+    title    = "PAP-0009 lock: WGI operationalization sensitivity (Model 2 FE)",
     subtitle = "β on log(1+CRS_strict) across 4 WGI specs; 95% CIs (country-clustered SE)",
     x        = "ODA coefficient",
     y        = "WGI representation",

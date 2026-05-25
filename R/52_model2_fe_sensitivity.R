@@ -1,6 +1,6 @@
 # R/52_model2_fe_sensitivity.R
 #
-# Phase 5 Session 03: ADR-0005 lock — sensitivity of Model 2 (within-country FE)
+# PAP-0005 lock — sensitivity of Model 2 (within-country FE)
 # to treatment encoding. Sixteen treatment columns:
 #
 #     commit  | disburse  ×  current USD | constant USD  ×  {raw, lag1, ma3, ma3_lag1}
@@ -144,7 +144,7 @@ message(sprintf("[model2-sens] wrote %s", OUT_CSV))
 
 # Markdown view: 16-row table per outcome
 md_lines <- c(
-  "# Model 2 FE — Treatment-encoding sensitivity (ADR-0005 lock)",
+  "# Model 2 FE — Treatment-encoding sensitivity (PAP-0005 lock)",
   "",
   "Within-country two-way FE (iso3 + year). Country-clustered SE. Controls: log(GDP/cap), PTR primary, ed_exp_%GDP, WGI gov effectiveness. Primary window 2010-2020.",
   "",
@@ -200,7 +200,7 @@ p_coef <- ggplot(plot_df,
   scale_color_manual(values = c("Disbursement" = "#1B7837", "Commitment" = "#762A83")) +
   scale_shape_manual(values = c("Constant USD" = 16, "Current USD" = 1)) +
   labs(
-    title    = "ADR-0005 sensitivity: Model 2 FE coefficient by treatment encoding",
+    title    = "PAP-0005 sensitivity: Model 2 FE coefficient by treatment encoding",
     subtitle = "16 specs per outcome (2 families × 2 USD bases × 4 temporal transforms); 95% CIs (country-clustered SE)",
     x        = "ODA coefficient (HLO points or LAYS years per unit log treatment)",
     y        = NULL,

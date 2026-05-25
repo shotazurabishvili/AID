@@ -1,14 +1,14 @@
 # R/61_typology_coding.R
 #
-# Phase 7 Session 01: ADR-0007 lock — intervention typology coding.
+# PAP-0007 lock — intervention typology coding.
 #
-# RAN: 2026-05-19 23:55. OUTCOME: ADR-0007 REJECTED on 2026-05-23 — all three
+# RAN: 2026-05-19 23:55. OUTCOME: PAP-0007 REJECTED on 2026-05-23 — all three
 # pre-committed lock criteria failed (raw agreement 39.04%, κ=0.19,
 # unclassified 75.68%). Model 4 dropped from the paper rather than escalate
 # to Option 3 (hand-coding). Script + outputs retained as negative-evidence
 # artifacts for the reproducibility package.
 # See: docs/decisions/0007-oecd-crs-intervention-typology.md (Rejected),
-#      docs/findings.md §5.5, docs/session_log/2026-05-23-21-model4-dropped.md.
+#      docs/the manuscript, .
 #
 # Two parallel classifiers on the 537,586-project CRS extract (education sectors
 # 110/111/112/113/114). Both committed to git BEFORE this script runs (no-tuning rule).
@@ -183,7 +183,7 @@ cat(sprintf("Cohen's κ ≥ 0.70:    %.4f %s\n",
 cat(sprintf("Unclassified < 30%%:  %.2f%% %s\n",
             unclassified_pct_rule, ifelse(unclassified_pass, "PASS", "FAIL")))
 cat(sprintf("\nOverall lock decision: %s\n",
-            ifelse(both_pass && unclassified_pass, "LOCK (ADR-0007 → Accepted)",
+            ifelse(both_pass && unclassified_pass, "LOCK (PAP-0007 → Accepted)",
                    "ESCALATE (Option 3 hand-coding required)")))
 
 # === 5. Write agreement table ===============================================
@@ -211,7 +211,7 @@ agree_df <- tibble(
 readr::write_csv(agree_df, OUT_AGREE_CSV)
 
 md_lines <- c(
-  "# Typology classifier agreement (ADR-0007 lock evidence)",
+  "# Typology classifier agreement (PAP-0007 lock evidence)",
   "",
   sprintf("**Joint-classified subsample:** %d projects (%.2f%% of %d total CRS rows)",
           n_joint, 100 * n_joint / nrow(crs), nrow(crs)),
@@ -226,7 +226,7 @@ md_lines <- c(
   sprintf("- Unclassified < 30%%:  %s", ifelse(unclassified_pass, "**PASS**", "**FAIL**")),
   "",
   sprintf("**Decision: %s**",
-          ifelse(both_pass && unclassified_pass, "LOCK ADR-0007 → Accepted",
+          ifelse(both_pass && unclassified_pass, "LOCK PAP-0007 → Accepted",
                  "ESCALATE to Option 3 (hand-coding)")),
   "",
   "## Confusion matrix (rows: rule-based, cols: LLM-via-purpose-code)",
@@ -328,7 +328,7 @@ message(sprintf("[typology] wrote %s", OUT_SHARES))
 message(sprintf("[typology] wrote %s", OUT_BUCKET_DIST))
 
 # === 9. Final stdout summary =================================================
-cat("\n=== Phase 7 Session 01 summary ===\n")
+cat("\n=== the corresponding analytical step summary ===\n")
 cat(sprintf("Rule-based bucket distribution (project-weighted):\n"))
 print(rule_dist)
 cat(sprintf("\nLLM-via-purpose-code bucket distribution:\n"))

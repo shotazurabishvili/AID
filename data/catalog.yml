@@ -136,7 +136,7 @@ hlo:
   url: https://datatopics.worldbank.org/education/
   auth_required: no
   methodology_cite: Patrinos & Angrist (2018); Altinok, Angrist & Patrinos (2018)
-  notes: Headline outcome variable. Primary specification per ADR-0004. Robustness
+  notes: Headline outcome variable. Primary specification per PAP-0004. Robustness
     slug `hlo_aap2018`. SSA missingness contrast at output/tables/ssa_hlo_missingness.csv.
   access_date: '2026-05-17'
   version: WDI API live, fetched 2026-05-17
@@ -162,10 +162,10 @@ oecd_crs:
     5-digit purpose_code retained for Phase-7 typology granularity. Schema: legacy
     CRS dotStat format (commitments + disbursements + grant-equivalent are SEPARATE
     wide columns with paired _defl constant-USD variants). Project-level resolution
-    preserved; country-year aggregation + 3-year MA at R/30_merge_panel.R (Phase 2).
+    preserved; country-year aggregation + 3-year MA at R/30_merge_panel.R ().
     Pending ADRs preserved: 0005 (commitment vs disbursement = column choice), 0007
     (intervention typology - project_title + short/long_description + keywords retained),
-    0008 (China inclusion - DAC-only here; GCDF Session 06 complements). Discovered
+    0008 (China inclusion - DAC-only here; GCDF complements). Discovered
     IDFile=50f0355e-8f61-4230-85f3-90b4db45bfc9. 63452 rows (10.6%) on regional/unspecified
     aggregates dropped. SSA missingness contrast at output/tables/ssa_oecd_crs_missingness.csv.'
   access_date: '2026-05-17'
@@ -273,9 +273,9 @@ aiddata_gcdf:
   notes: 'Chinese development finance only (TUFF methodology). Filtered to Sector
     Name = EDUCATION + Recommended For Aggregates = Yes (per AidData codebook; avoids
     umbrella double-counting). Year filter on Commitment Year in 1995-2024. Project-level
-    resolution preserved; country-year aggregation at Phase 2. SSA headline: 1131
+    resolution preserved; country-year aggregation at . SSA headline: 1131
     projects across 47 countries; $5.61 B constant-USD. SSA-coverage contrast at output/tables/ssa_aiddata_gcdf_coverage.csv
-    (coverage, NOT missingness). Feeds ADR-0008 (Phase 5 lock). AidData Core v3.1
+    (coverage, NOT missingness). Feeds PAP-0008. AidData Core v3.1
     deferred per Session-06 author decision.'
   access_date: '2026-05-17'
   version: GCDF v3.0 (xlsx release 2024-06-17; fetched 2026-05-17)
@@ -358,7 +358,7 @@ uis:
   notes: 'Native SDG bulk (Feb 2026); substitutions from planned codes: FFNTP→FFNTR
     (private exp), ROFST.N→ROFST.N.CP (cumulative %), XGDP.FSGOV.FFNTP→XGDP.FSGOV
     (simple total). SSA missingness pattern at output/tables/ssa_uis_missingness.csv
-    feeds ADR-0006 (Phase 2 lock).'
+    feeds PAP-0006.'
   access_date: '2026-05-17'
   version: SDG bulk 2026-02
   n_rows: 7059
@@ -398,7 +398,7 @@ ucdp:
     for in_conflict / n_conflicts / bd_*; intensity_max remains NA when no conflict).
     BRD 25-deaths threshold: low-intensity violence below 25 battle deaths/conflict-year
     is excluded by UCDP construction (documented behavior, not a bug). Cited as Pettersson,
-    Davies et al. Feeds Model 2 (Phase 5) as a time-varying confounder.'
+    Davies et al. Feeds Model 2 () as a time-varying confounder.'
   access_date: '2026-05-17'
   version: UCDP v25.1 (ACD + BRD-conf, last-modified 2025-06; fetched 2026-05-17)
   n_rows: 7470
@@ -444,7 +444,7 @@ covid_closures:
     only). Days per status category counted per (iso3, year): days_closed (Status=''Closed
     due to COVID-19''), days_partial (Partially open), days_open (Fully open), days_break
     (Academic break). Scope: 2020-2022 active monitoring window. Cited as UNESCO Global
-    Monitoring of School Closures. Feeds Model 2 (Phase 5) as a time-varying confounder.'
+    Monitoring of School Closures. Feeds Model 2 () as a time-varying confounder.'
   access_date: '2026-05-17'
   version: UNESCO daily status CSV (Feb 2020 - Mar 2022); fetched 2026-05-17
   n_rows: 630
@@ -488,7 +488,7 @@ ai_readiness:
     Sector Adoption, Development & Diffusion, Resilience). No overall composite published
     in source; ai_readiness_score_mean is OUR DERIVED equally-weighted mean of the
     6 pillars (Oxford''s official weighting may differ; transparent and reproducible).
-    Feeds Phase 9 ''Compounding AI Penalty'' section (HCI × GARI composite per brief).'
+    Feeds ''HCI–GARI composite'' section (HCI × GARI composite per brief).'
   access_date: '2026-05-18'
   version: GARI 2025 (Oxford Insights, report v01_26 dated 2026-01-29); fetched 2026-05-18
   n_rows: 195
@@ -541,7 +541,7 @@ hlo_aap2018:
   variables:
   - code: AAP2018.HLO
     name: hlo_aap
-  notes: Robustness measure per ADR-0004. WB Policy Research WP 8314. Fetched via
+  notes: Robustness measure per PAP-0004. WB Policy Research WP 8314. Fetched via
     OWID owid-datasets GitHub mirror (subjects/levels pre-pooled by OWID). Threshold-share
     columns dropped — single score is sufficient for Phase-5 sensitivity. 5-year intervals
     (2000, 2005, 2010, 2015 within our YEAR_RANGE).

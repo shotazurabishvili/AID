@@ -39,8 +39,8 @@
 | * p < 0.1, ** p < 0.05, *** p < 0.01                                                                         |
 +=======================================+=========+=========+=========+=========+==========+=========+=========+
 | Two-way (country + year) FE; country-clustered SE. Treatment: log(1 + CRS_disburse_defl_ma3_lag1) —          |
-| Session-03 lock (ADR-0005). WGI: PC1 of six aggregates (76.4% variance) — Session-05 lock (ADR-0009). GCDF   |
-| in 2f: strictly-past MA3 — methodological consistency with ADR-0005. Wooldridge AR(1) F=0.4 (p=0.51).        |
+|  (PAP-0005). WGI: PC1 of six aggregates (76.4% variance) —  (PAP-0009). GCDF   |
+| in 2f: strictly-past MA3 — methodological consistency with PAP-0005. Wooldridge AR(1) F=0.4 (p=0.51).        |
 | Breusch-Pagan χ²=137.2 (p=0.0045). Max VIF (demeaned) = 1.62. Stars: ***p<0.01, **p<0.05, *p<0.1.            |
 | Singleton-FE countries auto-dropped by feols. COVID days recoded NA→0 for pre-2020 years. LAYS = EYS x       |
 | HLO/625; LAYS-FE captures EYS within-country variation in addition to HLO variation.                         |

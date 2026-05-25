@@ -13,4 +13,4 @@ Effect of `log(1 + CRS_disburse_defl_sum)` (Model 1, country means) and `log(1 +
 Stars: ***p<0.01, **p<0.05, *p<0.1.
 Model 1 spec: HLO_i = β0 + β1 log(1+CRS)_i + β2 log(GDP/cap)_i + β3 PTR_i + β4 EdExp_i + β5 WGI_i + ε_i.
 Model 2 spec: HLO_it = β1 log(1+CRS_MA3)_it + β2 log(GDP/cap)_it + β3 PTR_it + β4 EdExp_it + β5 WGI_it + α_i + λ_t + ε_it.
-Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr trailing MA of annual values (per ADR-0005 working preference).
+Treatment differs: Model 1 uses country-mean of annual CRS disbursement; Model 2 uses 3-yr trailing MA of annual values (per the corresponding pre-analysis plan working preference).

@@ -1,7 +1,7 @@
 # R/10_ingest_uis.R
 #
 # Source: UNESCO Institute for Statistics (UIS) — SDG-4 bulk download
-# Brief reference: Data Stack, line 67 (private expenditure + out-of-school rates)
+# Reference: Data Stack, line 67 (private expenditure + out-of-school rates)
 # Methodology: UNESCO Institute for Statistics (annual SDG-4 release)
 #
 # Bulk download structure (Feb 2026 release):
@@ -145,7 +145,7 @@ p <- ggplot(ssa_long, aes(x = reorder(indicator, missing_pct), y = missing_pct, 
   coord_flip() +
   scale_fill_manual(values = c("Sub-Saharan Africa" = "#d95f02", "Rest of world" = "#7570b3")) +
   labs(title = "UIS missingness: SSA vs rest of world",
-       subtitle = "Phase 1 Session 03 — informs ADR-0006",
+       subtitle = "the corresponding analytical step — informs PAP-0006",
        x = NULL, y = "Missing %", fill = NULL) +
   theme_minimal(base_size = 11) +
   theme(legend.position = "bottom")
@@ -178,7 +178,7 @@ update_catalog(
     "Native SDG bulk (Feb 2026); substitutions from planned codes:",
     "FFNTP→FFNTR (private exp), ROFST.N→ROFST.N.CP (cumulative %),",
     "XGDP.FSGOV.FFNTP→XGDP.FSGOV (simple total). SSA missingness pattern at",
-    "output/tables/ssa_uis_missingness.csv feeds ADR-0006 (Phase 2 lock)."
+    "output/tables/ssa_uis_missingness.csv feeds PAP-0006 (the analysis lock)."
   )
 )
 

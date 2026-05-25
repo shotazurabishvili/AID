@@ -1,7 +1,7 @@
 # R/10_ingest_wdi.R
 #
 # Source: World Development Indicators (WDI)
-# Brief reference: Data Stack, line 65 (folds in former EdStats — see plan landmine 5)
+# Reference: Data Stack, line 65 (folds in former EdStats — see plan landmine 5)
 # Methodology: World Bank annual WDI release; queried via the WDI R package
 #
 # === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================

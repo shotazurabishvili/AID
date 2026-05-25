@@ -1,6 +1,6 @@
 # R/54_model2_china_robustness.R
 #
-# Phase 5 Session 04: ADR-0008 lock — Chinese aid (AidData GCDF) inclusion
+# PAP-0008 lock — Chinese aid (AidData GCDF) inclusion
 # sensitivity. Tests whether the Session-03 locked treatment spec
 # (`crs_disburse_usd_defl_ma3_lag1`) is robust to including Chinese
 # development finance.
@@ -166,7 +166,7 @@ message(sprintf("[m2-china] wrote %s", OUT_CSV))
 
 # Markdown view: 1 table per outcome × sample combo
 md_lines <- c(
-  "# Model 2 FE — Chinese aid robustness (ADR-0008 lock)",
+  "# Model 2 FE — Chinese aid robustness (PAP-0008 lock)",
   "",
   "Within-country two-way FE (iso3 + year). Country-clustered SE. Controls: log(GDP/cap), PTR primary, ed_exp_%GDP, WGI gov effectiveness. Primary window 2010-2020. Treatment columns enter as `log(1 + x)`; all use Session-03 lock encoding (strictly-past 3-yr MA, constant USD).",
   "",
@@ -220,7 +220,7 @@ p_coef <- ggplot(plot_df,
   scale_color_manual(values = c("ALL" = "#1B7837", "SSA" = "#762A83")) +
   scale_shape_manual(values = c("ALL" = 16, "SSA" = 17)) +
   labs(
-    title    = "ADR-0008 lock: Chinese aid inclusion sensitivity (Model 2 FE)",
+    title    = "PAP-0008 lock: Chinese aid inclusion sensitivity (Model 2 FE)",
     subtitle = "All vs SSA-only samples; 95% CIs (country-clustered SE). Specs A/B/C/D on Session-03 treatment encoding.",
     x        = "Coefficient (HLO points or LAYS years per unit log treatment)",
     y        = "Coefficient | Spec",

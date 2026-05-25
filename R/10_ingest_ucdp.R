@@ -2,7 +2,7 @@
 #
 # Source: UCDP/PRIO Armed Conflict Dataset v25.1 + UCDP Battle-Related Deaths v25.1
 #   (Uppsala Conflict Data Program / Peace Research Institute Oslo).
-# Brief reference: Data Stack; methodology.md §3.7 (Confounders — conflict and COVID).
+# Reference: Data Stack; the manuscript methodology section (Confounders — conflict and COVID).
 # Methodology cite: Pettersson, Davies et al. (annual UCDP release).
 #
 # Two source files, both tiny CSVs in zip form (44 KB + 38 KB):
@@ -273,7 +273,7 @@ update_catalog(
     "for in_conflict / n_conflicts / bd_*; intensity_max remains NA when no conflict). ",
     "BRD 25-deaths threshold: low-intensity violence below 25 battle deaths/conflict-year ",
     "is excluded by UCDP construction (documented behavior, not a bug). ",
-    "Cited as Pettersson, Davies et al. Feeds Model 2 (Phase 5) as a time-varying confounder."
+    "Cited as Pettersson, Davies et al. Feeds Model 2 as a time-varying confounder."
   )
 )
 

@@ -1,4 +1,4 @@
-# Pass 1 — Granger causality test (panel)
+# Granger causality test (panel)
 
 **Direction:** `log_crs_strict → hlo_hlo_score` (one-cycle lag).
 **Test:** Dumitrescu-Hurlin (2012) Z-tilde panel Granger (`plm::pgrangertest`).

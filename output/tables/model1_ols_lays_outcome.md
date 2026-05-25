@@ -38,10 +38,10 @@
 +====================================+===========+===========+===========+===========+===========+===========+
 | * p < 0.1, ** p < 0.05, *** p < 0.01                                                                       |
 +====================================+===========+===========+===========+===========+===========+===========+
-| HC-robust SE in parentheses. Stars: ***p<0.01, **p<0.05, *p<0.1. Sample: 133-country ADR-0002 universe,    |
-| primary window 2010-2020 (ADR-0003); country-level means across primary window. N varies by listwise       |
+| HC-robust SE in parentheses. Stars: ***p<0.01, **p<0.05, *p<0.1. Sample: 133-country analytical universe (PAP-0002),    |
+| primary window 2010-2020 (PAP-0003); country-level means across primary window. N varies by listwise       |
 | completeness. Max VIF across specs 1b-1f: 5.27. VIF > 5 on log(GDP/cap) × Gov effectiveness (Pearson r =   |
-| 0.79; Session 12); ADR-0009 will lock WGI operationalization in Phase 5. LAYS = EYS x HLO/625 (WB          |
+| 0.79). LAYS = EYS x HLO/625 (WB          |
 | methodology); LAYS-outcome regressions are a metric translation of HLO-outcome results, not independent    |
 | evidence.                                                                                                  |
 +====================================+===========+===========+===========+===========+===========+===========+

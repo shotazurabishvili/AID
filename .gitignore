@@ -53,3 +53,8 @@ drafts/*_files/
 .env.local
 *.pem
 drafts/*.tex
+
+# Working-tree backup files
+*.prereview.qmd
+*.backup.*
+*.bak

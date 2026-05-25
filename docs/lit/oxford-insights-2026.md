@@ -21,9 +21,9 @@ Pillar scores from a mix of public-sector data, internal coding, and proprietary
 
 ## Our use
 
-Ingested at `data/interim/ai_readiness.parquet` from Phase 1 Session 08 via `pdfplumber` (PDF-only release; no machine-readable export). We derive `ai_readiness_score_mean` as the **equally-weighted mean of the six pillar scores** for use as a single aggregate. This derivation is documented at `docs/methodology.md §3.12` ("Supplementary measure: Oxford Insights AI Readiness") and clearly labeled as project-derived (not Oxford's official composite). Phase 9 normalizes this to [0,1] via `gari_norm = ai_readiness_score_mean / 100` and constructs the brief's "HCI × AI Readiness Index" composite as `compound_index = HCI × gari_norm`.
+Ingested at `data/interim/ai_readiness.parquet` from  via `pdfplumber` (PDF-only release; no machine-readable export). We derive `ai_readiness_score_mean` as the **equally-weighted mean of the six pillar scores** for use as a single aggregate. This derivation is documented at `docs/the manuscript methodology section` ("Supplementary measure: Oxford Insights AI Readiness") and clearly labeled as project-derived (not Oxford's official composite). normalizes this to [0,1] via `gari_norm = ai_readiness_score_mean / 100` and constructs the brief's "HCI × AI Readiness Index" composite as `compound_index = HCI × gari_norm`.
 
-## Novelty-claim audit (2026-05-23, Phase 9 Session 01)
+## Novelty-claim audit (2026-05-23, )
 
 The brief asserts (§1 line 159): *"Constructed variable: Human Capital Index × AI Readiness Index. No prior paper has done this."*
 
@@ -46,9 +46,9 @@ Five-minute scholar / web pass surfaces the following adjacent or partially-over
 
 ## Status
 
-- [x] PDF release ingested (Phase 1 Session 08)
-- [x] Pillar derivation documented (methodology.md §3.12)
-- [x] Phase 9 §5.7 empirical writeup
-- [ ] Full Oxford methodology read (pp. 50–55 of the report PDF) — defer to Phase 11 manuscript drafting when §2 Lit Review and §3 Methodology need the technical detail
-- [ ] *Beyond the AI Divide* (WBG WP 11073) read and engaged — Phase 11
-- [ ] Brookings *Next Great Divergence* read and engaged — Phase 11
+- [x] PDF release ingested ()
+- [x] Pillar derivation documented (the manuscript methodology section)
+- [x] §5.7 empirical writeup
+- [ ] Full Oxford methodology read (pp. 50–55 of the report PDF) — defer to manuscript drafting when §2 Lit Review and §3 Methodology need the technical detail
+- [ ] *Beyond the AI Divide* (WBG WP 11073) read and engaged — 
+- [ ] Brookings *Next Great Divergence* read and engaged — 

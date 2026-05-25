@@ -1,20 +1,20 @@
 # R/30_merge_panel.R
 #
-# Phase 2 Session 01: production merge. Replaces the Session-09 audit-grade
+# production merge. Replaces the Session-09 audit-grade
 # minimal merge (which is preserved in git history for reference). This script
 # produces the canonical analytical panel: data/interim/panel.parquet (committed).
 #
 # Differences vs audit-grade:
-#   1. Filter to ADR-0002 universe (133 countries; read from
+#   1. Filter to PAP-0002 universe (133 countries; read from
 #      output/tables/country_universe_candidates.csv) instead of the full
 #      union of 250 ISO3.
-#   2. Year storage range 2000-2022 (widest robustness window per ADR-0003),
-#      not 1995-2025. AI Readiness dropped (cross-sectional 2025; Phase 9
+#   2. Year storage range 2000-2022 (widest robustness window per PAP-0003),
+#      not 1995-2025. AI Readiness dropped (cross-sectional 2025; supplementary
 #      re-joins it separately).
-#   3. CRS column matrix expanded per ADR-0005: commit × disburse × current
+#   3. CRS column matrix expanded per PAP-0005: commit × disburse × current
 #      × constant USD = 4 raw cols, plus 3-yr trailing MA (4 cols), 1-yr lag
 #      (4 cols: defl + current USD), and 3-yr strictly-past MA (4 cols).
-#      Phase 5 Session 03 picks primary from this 16-cell grid (ADR-0005 lock).
+#      the corresponding analytical step picks primary from this 16-cell grid (PAP-0005 lock).
 #   4. NA -> 0 coalesce on CRS + GCDF aid-flow columns within universe.
 #      Rationale: ODA-eligible recipients with no CRS project in year t had
 #      $0 aid that year, not "data missing". This enables clean MAs.
@@ -23,7 +23,7 @@
 #   5. Window + identification flags added: in_primary_window (2010-2020),
 #      in_robust_2005_2020, has_2plus_hlo (FE-identifiable subset).
 #
-# Companion: R/40_eda_audit.R re-runs MCAR on this panel (ADR-0006 lock).
+# Companion: R/40_eda_audit.R re-runs MCAR on this panel (PAP-0006 lock).
 
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -47,7 +47,7 @@ universe <- readr::read_csv(UNIVERSE_CSV, show_col_types = FALSE) |>
   sort()
 
 stopifnot(length(universe) == EXPECTED_N)
-message(sprintf("[merge-prod] ADR-0002 universe: %d countries", length(universe)))
+message(sprintf("[merge-prod] PAP-0002 universe: %d countries", length(universe)))
 
 # 2. Load 10 source parquets (skip AI Readiness) ---------------------
 load_interim <- function(name) {
@@ -165,8 +165,8 @@ message("[merge-prod] coalesced CRS + GCDF flow columns NA -> 0 within universe"
 # Trailing-inclusive MA: .before=2, .after=0, .complete=TRUE returns NA when fewer
 # than 3 obs in window (years 2000-2001 per country).
 # Strictly-past MA (mean of t-3, t-2, t-1): dplyr::lag(ma3, n=1). NA for first
-# 3 years per country. Used in Phase 5 Session 03 to foreclose contemporaneous
-# leakage (ADR-0005 sensitivity grid).
+# 3 years per country. Used in the corresponding analytical step to foreclose contemporaneous
+# leakage (PAP-0005 sensitivity grid).
 # Group by iso3; arrange ensures within-country time order.
 panel <- panel |>
   group_by(iso3) |>
@@ -177,7 +177,7 @@ panel <- panel |>
     crs_commit_usd_defl_ma3   = slide_dbl(crs_commit_usd_defl_sum,   mean, .before = 2, .after = 0, .complete = TRUE),
     crs_disburse_usd_ma3      = slide_dbl(crs_disburse_usd_sum,      mean, .before = 2, .after = 0, .complete = TRUE),
     crs_disburse_usd_defl_ma3 = slide_dbl(crs_disburse_usd_defl_sum, mean, .before = 2, .after = 0, .complete = TRUE),
-    # 1-yr lag (all four USD bases, for ADR-0005 grid symmetry)
+    # 1-yr lag (all four USD bases, for PAP-0005 grid symmetry)
     crs_commit_usd_lag1        = dplyr::lag(crs_commit_usd_sum,        n = 1),
     crs_commit_usd_defl_lag1   = dplyr::lag(crs_commit_usd_defl_sum,   n = 1),
     crs_disburse_usd_lag1      = dplyr::lag(crs_disburse_usd_sum,      n = 1),
@@ -187,7 +187,7 @@ panel <- panel |>
     crs_commit_usd_defl_ma3_lag1   = dplyr::lag(crs_commit_usd_defl_ma3,   n = 1),
     crs_disburse_usd_ma3_lag1      = dplyr::lag(crs_disburse_usd_ma3,      n = 1),
     crs_disburse_usd_defl_ma3_lag1 = dplyr::lag(crs_disburse_usd_defl_ma3, n = 1),
-    # GCDF — trailing-inclusive MA + 1-yr lag (Session 10) + strictly-past MA (Session 04, ADR-0008 grid)
+    # GCDF — trailing-inclusive MA + 1-yr lag  + strictly-past MA (PAP-0008 grid)
     gcdf_amount_const2021_ma3      = slide_dbl(gcdf_amount_const2021_sum, mean, .before = 2, .after = 0, .complete = TRUE),
     gcdf_amount_const2021_lag1     = dplyr::lag(gcdf_amount_const2021_sum, n = 1),
     gcdf_amount_const2021_ma3_lag1 = dplyr::lag(gcdf_amount_const2021_ma3, n = 1)

@@ -1,4 +1,4 @@
-# Pass 1 — HLO measure sensitivity (ADR-0004 principal robustness)
+#  HLO measure sensitivity (PAP-0004 principal robustness)
 
 Refit of Model 2 spec 2e (locked encoding: log_crs_strict + log_gdp_pc + wdi_ptr_primary + wdi_edu_exp_pct_gdp + wgi_pc1; two-way FE country + year; country-clustered SE) with the AAP-2018 harmonized learning outcome (`aap_hlo_aap`) substituted for the WB primary measure.
 
