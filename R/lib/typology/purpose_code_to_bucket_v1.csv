@@ -1,21 +1,21 @@
 purpose_code,purpose_name,bucket,classifier,classifier_date,rationale
-110,Education (level unspecified - 3-digit parent),budget_support,claude-opus-4-7[1m],2026-05-19,3-digit parent code; no intervention-type signal; defaults to catch-all
-111,Education level unspecified,budget_support,claude-opus-4-7[1m],2026-05-19,Level-of-education code; no intervention specifier
-112,Basic education (3-digit parent),budget_support,claude-opus-4-7[1m],2026-05-19,3-digit parent code; no intervention-type signal
-113,Secondary education (3-digit parent),budget_support,claude-opus-4-7[1m],2026-05-19,3-digit parent code; no intervention-type signal
-114,Post-secondary education (3-digit parent),budget_support,claude-opus-4-7[1m],2026-05-19,3-digit parent code; no intervention-type signal
-11110,Education policy and administrative management,budget_support,claude-opus-4-7[1m],2026-05-19,Canonical budget/policy code
-11120,Education facilities and training,infrastructure,claude-opus-4-7[1m],2026-05-19,Facilities dominates the code name; physical capital
-11130,Teacher training,teacher_training,claude-opus-4-7[1m],2026-05-19,Canonical teacher-training code
-11182,Educational research,curriculum,claude-opus-4-7[1m],2026-05-19,Research informs curriculum/assessment design
-11220,Primary education,budget_support,claude-opus-4-7[1m],2026-05-19,Level-of-education code; no intervention specifier
-11230,Basic life skills for youth and adults,budget_support,claude-opus-4-7[1m],2026-05-19,Programmatic level code; defaults to catch-all
-11231,Basic life skills for youth,budget_support,claude-opus-4-7[1m],2026-05-19,Programmatic level code
-11232,Primary education facilities,infrastructure,claude-opus-4-7[1m],2026-05-19,Facilities in code name
-11240,Early childhood education,budget_support,claude-opus-4-7[1m],2026-05-19,Level-of-education code
-11250,School feeding,infrastructure,claude-opus-4-7[1m],2026-05-19,Operational facility/program (kitchens equipment supply chain)
-11260,Lower secondary education,budget_support,claude-opus-4-7[1m],2026-05-19,Level-of-education code
-11320,Secondary education,budget_support,claude-opus-4-7[1m],2026-05-19,Level-of-education code
-11330,Vocational training,budget_support,claude-opus-4-7[1m],2026-05-19,Level/type code (vocational) but no specific intervention; defaults to catch-all
-11420,Higher education,budget_support,claude-opus-4-7[1m],2026-05-19,Level-of-education code; dominant in CRS (150K projects)
-11430,Advanced technical and managerial training,budget_support,claude-opus-4-7[1m],2026-05-19,Level/type code; no specific intervention signal
+110,Education (level unspecified - 3-digit parent),budget_support,pap-0007-purpose-code-mapping,2026-05-19,3-digit parent code; no intervention-type signal; defaults to catch-all
+111,Education level unspecified,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level-of-education code; no intervention specifier
+112,Basic education (3-digit parent),budget_support,pap-0007-purpose-code-mapping,2026-05-19,3-digit parent code; no intervention-type signal
+113,Secondary education (3-digit parent),budget_support,pap-0007-purpose-code-mapping,2026-05-19,3-digit parent code; no intervention-type signal
+114,Post-secondary education (3-digit parent),budget_support,pap-0007-purpose-code-mapping,2026-05-19,3-digit parent code; no intervention-type signal
+11110,Education policy and administrative management,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Canonical budget/policy code
+11120,Education facilities and training,infrastructure,pap-0007-purpose-code-mapping,2026-05-19,Facilities dominates the code name; physical capital
+11130,Teacher training,teacher_training,pap-0007-purpose-code-mapping,2026-05-19,Canonical teacher-training code
+11182,Educational research,curriculum,pap-0007-purpose-code-mapping,2026-05-19,Research informs curriculum/assessment design
+11220,Primary education,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level-of-education code; no intervention specifier
+11230,Basic life skills for youth and adults,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Programmatic level code; defaults to catch-all
+11231,Basic life skills for youth,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Programmatic level code
+11232,Primary education facilities,infrastructure,pap-0007-purpose-code-mapping,2026-05-19,Facilities in code name
+11240,Early childhood education,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level-of-education code
+11250,School feeding,infrastructure,pap-0007-purpose-code-mapping,2026-05-19,Operational facility/program (kitchens equipment supply chain)
+11260,Lower secondary education,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level-of-education code
+11320,Secondary education,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level-of-education code
+11330,Vocational training,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level/type code (vocational) but no specific intervention; defaults to catch-all
+11420,Higher education,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level-of-education code; dominant in CRS (150K projects)
+11430,Advanced technical and managerial training,budget_support,pap-0007-purpose-code-mapping,2026-05-19,Level/type code; no specific intervention signal

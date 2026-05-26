@@ -18,10 +18,11 @@
 #        Priority order: teacher_training > curriculum > infrastructure > budget_support.
 #        Rules at R/lib/typology/keyword_rules_v1.csv.
 #
-#   2. LLM-via-purpose-code (Option 2, robustness):
-#        Each project inherits its 5-digit purpose_code's bucket.
-#        Mapping at R/lib/typology/purpose_code_to_bucket_v1.csv (Claude opus-4-7 [1m]
-#        classification of OECD purpose-code descriptions, stamped 2026-05-19).
+#   2. Purpose-code-mapping (Option 2, robustness):
+#        Each project inherits its 5-digit purpose_code's bucket. Mapping at
+#        R/lib/typology/purpose_code_to_bucket_v1.csv (one-pass classification
+#        of the OECD purpose-code descriptions per PAP-0007, stamped 2026-05-19;
+#        see AI-assistance disclosure for provenance).
 #
 # Agreement: project-level Cohen's κ + raw % on joint-classified subsample
 # (rows where rule-based produced a non-unclassified label).
