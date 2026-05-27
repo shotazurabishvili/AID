@@ -54,7 +54,7 @@ Ten administrative and harmonized-research sources: OECD Creditor Reporting Syst
 ```
 Zurabishvili, S. (2026). Measuring Aid for Learning: What Cross-Country Panel
 Evidence Can and Cannot Say. Manuscript under review at World Development.
-Open Science Framework deposit: [AUTHOR: OSF DOI]
+Open Science Framework deposit: https://doi.org/10.17605/OSF.IO/JRBT8
 ```
 
 A machine-readable [`CITATION.cff`](CITATION.cff) is provided at the repository root.

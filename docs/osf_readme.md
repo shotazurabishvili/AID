@@ -2,8 +2,8 @@
 
 **Author:** Shota Zurabishvili (Independent researcher, Bristol, UK)
 **Manuscript target:** *World Development*
-**Repository (mirrored):** [PENDING — GitHub repo not yet public]
-**OSF deposit DOI:** [PENDING — registration not yet complete]
+**Repository (mirrored):** <https://github.com/shotazurabishvili/AID>
+**OSF deposit DOI:** <https://doi.org/10.17605/OSF.IO/JRBT8>
 
 ## What this deposit contains
 
@@ -115,9 +115,7 @@ If you build on this work, please cite:
 
 > Zurabishvili, S. (2026). Measuring Aid for Learning: What Cross-Country
 > Panel Evidence Can and Cannot Say. [Manuscript and replication archive].
-> OSF. [DOI to add at registration].
-
-A BibTeX entry will be added to the deposit after registration.
+> OSF. https://doi.org/10.17605/OSF.IO/JRBT8
 
 ## Contact
 

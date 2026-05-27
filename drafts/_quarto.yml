@@ -21,7 +21,7 @@ format:
     colorlinks: true
     keep-tex: false
   docx:
-    # reference-doc: journal-template.docx   # add a World Development docx template at submission
+    reference-doc: reference.docx   # Times New Roman body, Gill Sans headings
     cite-method: citeproc
     number-sections: true
 

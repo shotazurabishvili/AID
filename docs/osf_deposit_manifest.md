@@ -1,9 +1,9 @@
 # OSF deposit manifest — Measuring Aid for Learning
 
 **Prepared:** 2026-05-25 ( preflight).
-**Status:** Manifest ready; deposit not yet created. Author runs the OSF flow
-described below; agent then replaces the `[AUTHOR: OSF DOI]` placeholders in
-the manuscript and submission package.
+**Status:** Deposited at OSF (DOI <https://doi.org/10.17605/OSF.IO/JRBT8>);
+`[AUTHOR: OSF DOI]` placeholders swapped into the manuscript and submission
+package on 2026-05-26. Workflow steps below retained for reference.
 
 This manifest lists what to upload to OSF, what to register, and what to keep
 deposit-side vs. repository-side. Designed so that an external reader can
