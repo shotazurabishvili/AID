@@ -1,12 +1,12 @@
 # R/56_model2_lock_encoding_tables.R
 #
-# refresh the manuscript headline tables (Session-14 spec
+# Refresh the manuscript headline tables (the headline spec
 # progression 2a-2g + Model-1-vs-Model-2 contrast) on the post-lock encoding.
-# Three substantive changes from Session-14 baseline (R/51_model2_fe.R):
+# Three substantive changes from the headline baseline (R/51_model2_fe.R):
 #
-#   1. Treatment (Session-03 lock, PAP-0005): `crs_disburse_usd_defl_ma3` →
+#   1. Treatment (the locked encoding, PAP-0005): `crs_disburse_usd_defl_ma3` →
 #      `crs_disburse_usd_defl_ma3_lag1` (strictly-past 3-yr MA).
-#   2. WGI control in 2e/2f/2g (Session-05 lock, PAP-0009): `wgi_ge_est` →
+#   2. WGI control in 2e/2f/2g (the WGI PC1 lock, PAP-0009): `wgi_ge_est` →
 #      `wgi_pc1` (first PC of all six WGI dims, scaled, sign-flipped so GE
 #      loads positive — same construction as R/55).
 #   3. GCDF in 2f (methodological consistency with PAP-0005 strictly-past
@@ -16,9 +16,9 @@
 # Model 1 (cross-sectional OLS, country means) uses single-GE for prior-
 # literature comparability + raw annual disburse country means (no lag
 # structure on a cross-section). Model 1 result expected to reproduce
-# Phase-4 Session-13 exactly: β=-1.36, ns.
+# the prior baseline exactly: β=-1.36, ns.
 #
-# DOES NOT modify R/51_model2_fe.R — preserves Session-14 reproducibility for
+# DOES NOT modify R/51_model2_fe.R — preserves headline reproducibility for
 # audit. Outputs use `_v2` suffix.
 #
 # Outputs (manuscript-grade):
@@ -56,7 +56,7 @@ WGI_DIMS <- c("wgi_va_est", "wgi_pv_est", "wgi_ge_est",
 message("[m2-v2] loading production panel")
 d <- arrow::read_parquet(PANEL_PATH) |> filter(in_primary_window)
 
-# Compute PC1 with the same convention as R/55 (Session-05 lock).
+# Compute PC1 with the same convention as R/55 (the WGI PC1 lock).
 wgi_mat <- d |> select(all_of(WGI_DIMS)) |> as.matrix()
 complete_rows <- complete.cases(wgi_mat)
 pca <- prcomp(wgi_mat[complete_rows, ], scale. = TRUE, center = TRUE)
@@ -73,9 +73,9 @@ message(sprintf("[m2-v2] PC1 attached: %d / %d rows with all-6 WGI present (var=
 d <- d |> mutate(
   covid_days_recode = ifelse(year < 2020 & is.na(covid_days_closed),
                               0, covid_days_closed),
-  log_crs_disb_strict = log1p(crs_disburse_usd_defl_ma3_lag1),  # Session-03 lock
+  log_crs_disb_strict = log1p(crs_disburse_usd_defl_ma3_lag1),  # the locked encoding
   log_gdp_pc          = log(wdi_gdp_pc_usd),
-  log_gcdf_strict     = log1p(gcdf_amount_const2021_ma3_lag1)   # Session-04 column, strictly-past
+  log_gcdf_strict     = log1p(gcdf_amount_const2021_ma3_lag1)   # the GCDF column, strictly-past
 )
 
 message(sprintf("[m2-v2] panel: %d rows × %d cols (primary window)",
@@ -103,7 +103,7 @@ m_hlo[["2b (+log GDP/cap)"]] <-
 m_hlo[["2c (+PTR)"]] <-
   feols(hlo_hlo_score ~ log_crs_disb_strict + log_gdp_pc + wdi_ptr_primary | iso3 + year,
         data = d, vcov = ~iso3)
-m_hlo[["2d (+ed exp; brief spec)"]] <-
+m_hlo[["2d (+ed exp; ed-exp spec)"]] <-
   feols(hlo_hlo_score ~ log_crs_disb_strict + log_gdp_pc + wdi_ptr_primary +
           wdi_edu_exp_pct_gdp | iso3 + year,
         data = d, vcov = ~iso3)
@@ -271,7 +271,7 @@ cat(sprintf("+GCDF strict (2f):          N=%d  β=%.3f  SE=%.3f  p=%.4f\n",
             m_chn$nobs, oda_coef(m_chn), oda_se(m_chn), oda_p(m_chn)))
 cat(sprintf("+conflict + COVID (2g):     N=%d  β=%.3f  SE=%.3f  p=%.4f\n",
             m_all$nobs, oda_coef(m_all), oda_se(m_all), oda_p(m_all)))
-cat(sprintf("\nReproducibility canary — must match Session-05 spec C exactly:\n"))
+cat(sprintf("\nReproducibility canary — must match the WGI spec C exactly:\n"))
 cat(sprintf("  Expected: β=11.142, SE=5.521, p=0.0481, N=143\n"))
 cat(sprintf("  Got 2e:   β=%.3f, SE=%.3f, p=%.4f, N=%d\n",
             oda_coef(m_full), oda_se(m_full), oda_p(m_full), m_full$nobs))
@@ -296,8 +296,8 @@ gm <- tibble::tribble(
 
 diag_note <- paste0(
   "Two-way (country + year) FE; country-clustered SE. ",
-  "Treatment: log(1 + CRS_disburse_defl_ma3_lag1) — Session-03 lock (PAP-0005). ",
-  "WGI: PC1 of six aggregates (76.4% variance) — Session-05 lock (PAP-0009). ",
+  "Treatment: log(1 + CRS_disburse_defl_ma3_lag1) — the locked encoding (PAP-0005). ",
+  "WGI: PC1 of six aggregates (76.4% variance) — the WGI PC1 lock (PAP-0009). ",
   "GCDF in 2f: strictly-past MA3 — methodological consistency with PAP-0005. ",
   if (!is.null(hausman_res)) sprintf("Hausman χ²=%.1f (p=%s). ",
                                      hausman_res$statistic, format.pval(hausman_res$p.value)) else "",
@@ -345,7 +345,7 @@ message(sprintf("[m2-v2] wrote %s and %s", OUT_LAYS_CSV, OUT_LAYS_MD))
 message("\n[m2-v2] building Model 1 vs Model 2 contrast (manuscript Table 4)")
 
 # Re-fit Model 1 full spec on country-level means + single GE (prior-lit
-# comparability). This should reproduce Phase-4 Session-13's β = -1.36, ns.
+# comparability). This should reproduce the prior baseline's β = -1.36, ns.
 m1_cm <- d |>
   group_by(iso3) |>
   summarise(across(c(hlo_hlo_score, hci_lays_overall, crs_disburse_usd_defl_sum,
@@ -447,7 +447,7 @@ p_coef <- ggplot(coef_all, aes(x = est, y = spec_label, color = model)) +
        subtitle = "log(1 + CRS disbursement) effect; 95% CIs (HC for OLS, country-clustered for FE)",
        x = "Coefficient (HLO score points per unit log CRS)", y = NULL,
        color = NULL,
-       caption = "Model 2 v2 uses Session-03 strictly-past 3-yr MA treatment + Session-05 WGI PC1 control. Dashed line: zero effect.") +
+       caption = "Model 2 v2 uses the strictly-past 3-yr MA treatment + the WGI sensitivity WGI PC1 control. Dashed line: zero effect.") +
   theme_minimal(base_size = 11) +
   theme(legend.position = "bottom")
 

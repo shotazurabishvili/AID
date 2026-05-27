@@ -58,7 +58,7 @@
 
 ## HLO — Harmonized Learning Outcomes, primary (`data/interim/hlo.parquet`)
 
-1 indicator; 2277 rows; 207 countries; years 2010–2020. Sparse by design (the HCI publishes in cycles: 2010, 2017, 2018, 2020). This is the **headline outcome variable** of the paper. Decision: [PAP-0004](decisions/0004-hlo-measure.md) (Accepted 2026-05-17). See `the manuscript methodology section § 3.4`.
+1 indicator; 2277 rows; 207 countries; years 2010–2020. Sparse by design (the HCI publishes in cycles: 2010, 2017, 2018, 2020). This is the **headline outcome variable** of the paper. Decision: [PAP-0004](decisions/0004-hlo-measure.md) (Accepted 2026-05-17). See manuscript §3.4.
 
 | Variable | Source code | Definition | Units | Transform | Missing % |
 |---|---|---|---|---|---|
@@ -82,7 +82,7 @@
 **Dropped sub-national rows** (logged to `output/logs/iso3_unresolved_hlo_aap2018.csv`): `Canada (British Colombia)`, `England`, `Scotland`, `United States (Indiana State)`, `Zanzibar` — sub-national entities AAP reports separately from the national rows for harmonization comparison; excluded from the country-year panel.
 
 **SSA-specific missingness** on the full-joined HLO panel (`output/tables/ssa_hlo_missingness.csv`):
-- `hlo_aap`: SSA 88.02% missing vs Rest 79.23% — gap **+8.75 pp** (SSA worse — empirical face of the Sandefur 2018 critique; see `the manuscript methodology section § 3.4`)
+- `hlo_aap`: SSA 88.02% missing vs Rest 79.23% — gap **+8.75 pp** (SSA worse — empirical face of the Sandefur 2018 critique; see manuscript §3.4)
 
 ---
 
@@ -90,7 +90,7 @@
 
 18 variables; 5112 rows; 213 countries; years 1996–2022. Biennial 1996–2002 (gaps in 1997, 1999, 2001), annual since 2002.
 
-Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engagement in `the manuscript methodology section § 3.6`). For each of six dimensions, three metrics are retained: estimate, standard error, number of underlying sources. Percentile-rank columns dropped (collinear with estimate).
+Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engagement in manuscript §3.6). For each of six dimensions, three metrics are retained: estimate, standard error, number of underlying sources. Percentile-rank columns dropped (collinear with estimate).
 
 | Variable | Source code | Definition | Units | Transform | Missing % |
 |---|---|---|---|---|---|
@@ -115,13 +115,13 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 | `cc_se` | CC StdErr | CC — standard error | numeric | none | 3.8% |
 | `cc_n_src` | CC NumSrc | CC — n sources | count | none | 3.8% |
 
-**Scope note:** WGI also publishes per-source detail (one file per source organization: EIU, BTI, V-Dem, Freedom House, etc.). the panel-build ingests only the aggregates. Per-source values are a the pipeline dependency tied to [PAP-0009](decisions/0009-wgi-operationalization.md): if the the pipeline decision selects a reconstructed-from-sources approach, that ingestion runs then.
+**Scope note:** WGI also publishes per-source detail (one file per source organization: EIU, BTI, V-Dem, Freedom House, etc.). The production panel-build ingests only the aggregates. Per-source values are a production-pipeline dependency tied to [PAP-0009](decisions/0009-wgi-operationalization.md): if that PAP selects a reconstructed-from-sources approach, that ingestion runs then.
 
 ---
 
 ## UIS — UNESCO Institute for Statistics (`data/interim/uis.parquet`)
 
-7 variables; 7059 rows; 220 countries; years 1970–2025. From UIS SDG bulk (Feb 2026 release). Scope is *minimal*: private expenditure share + out-of-school rates only, since WDI already covers enrollment / PTR / public expenditure / completion. Adding other UIS indicators requires an ADR.
+7 variables; 7059 rows; 220 countries; years 1970–2025. From UIS SDG bulk (Feb 2026 release). Scope is *minimal*: private expenditure share + out-of-school rates only, since WDI already covers enrollment / PTR / public expenditure / completion. Adding other UIS indicators requires an PAP.
 
 **Code-substitution notes (planned → actual):**
 - `XGDP.FSHH.FFNTP` → `XGDP.FSHH.FFNTR` (only "Initial" variant available)
@@ -153,7 +153,7 @@ Source: native WGI bundle (NOT via `WDI` R package — see Langbein-Knack engage
 
 **Sector filter at ingest:** `sector_code %in% c(110, 111, 112, 113, 114)` (education sector group). 5-digit `purpose_code` retained (originally for the pipeline typology granularity; see PAP-0007 note below). 10.6% of pre-filter rows were on regional/unspecified aggregates (logged in `output/logs/iso3_unresolved_oecd_crs.csv`) and dropped from the country panel.
 
-**PAP-0007 note (2026-05-23):** the four description-text columns marked *PAP-0007 typology source* below were ingested specifically to feed the pipeline typology coding. That coding was attempted on 2026-05-19, failed the pre-committed lock gate, and Model 4 was dropped on 2026-05-23 ([PAP-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected; see `the manuscript`). The columns are retained on disk for raw-data fidelity and reproducibility-package completeness but **no longer feed an active analysis path**. Two derived artifacts (`data/interim/oecd_crs_typology.parquet`, `data/interim/typology_country_year.parquet`) are kept as negative-evidence artifacts.
+**PAP-0007 note (2026-05-23):** the four description-text columns marked *PAP-0007 typology source* below were ingested specifically to feed the production typology coding. That coding was attempted on 2026-05-19, failed the pre-committed lock gate, and Model 4 was dropped on 2026-05-23 ([PAP-0007](decisions/0007-oecd-crs-intervention-typology.md) Rejected; see manuscript §4.4). The columns are retained on disk for raw-data fidelity and reproducibility-package completeness but **no longer feed an active analysis path**. Two derived artifacts (`data/interim/oecd_crs_typology.parquet`, `data/interim/typology_country_year.parquet`) are kept as negative-evidence artifacts.
 
 **Resolution note:** project-level rows. Aggregation to ISO3 × year (sum across donors per recipient; 3-year MA per PAP-0005) happens in `R/30_merge_panel.R` at . Do not aggregate in ingest.
 
@@ -304,9 +304,7 @@ Citation: Oxford Insights (2026). *Government AI Readiness Index 2025*. Report v
 | `ai_pillar_resilience` | Resilience pillar | numeric | — |
 | `ai_readiness_score_mean` | **DERIVED** equally-weighted mean of the 6 pillars | numeric (10.28–87.68 observed) | Use for §9 HCI×GARI composite; document the derivation when cited |
 
-**the pipeline preview**: joining with most-recent HCI cycle per country yields 189 country matches; `cor(ai_readiness_score_mean, hci_overall) = 0.777`. Strong positive correlation — the empirical hook for the brief's "HCI–GARI composite" §9 thesis.
-
-**the pipeline implementation (2026-05-23, ).** R/71_compounding_ai_penalty.R normalizes GARI to [0,1] via `gari_norm = ai_readiness_score_mean / 100` and constructs `compound_index = hci_hci_overall × gari_norm` on the 132-country GARI 2025 × HCI 2020 cross-section. No new column persisted in the panel — composite is computed at analysis time. Sample-median quadrant split + tercile + HCI-2018 robustness panel. See `the manuscript methodology section the pipeline implementation` and `the manuscript`.
+**Empirical note**: joining with the most-recent HCI cycle per country yields 189 country matches; `cor(ai_readiness_score_mean, hci_overall) = 0.777`. The strong positive correlation between AI readiness and human capital was scoped as an exploratory composite indicator but is not used in the deposited analysis.
 
 ---
 
@@ -329,7 +327,7 @@ The production panel is a balanced (iso3, year) frame derived from 10 interim pa
 | `crs_commit_usd_ma3` | 3-year trailing-inclusive MA: `mean(t-2, t-1, t)` | USD (current) | `slider::slide_dbl(.before=2, .after=0, .complete=TRUE)` within iso3 | ~9% (first 2 years per country) |
 | `crs_commit_usd_defl_ma3` | Same, constant-USD | USD (constant) | as above | ~9% |
 | `crs_disburse_usd_ma3` | Same, disbursement, current-USD | USD (current) | as above | ~9% |
-| `crs_disburse_usd_defl_ma3` | 3-yr trailing-inclusive MA of constant-USD disbursement. Pre-Session-03 production primary intent; Session-14 working spec. | USD (constant) | as above | ~9% |
+| `crs_disburse_usd_defl_ma3` | 3-yr trailing-inclusive MA of constant-USD disbursement. Pre-the production primary intent; the working headline spec. | USD (constant) | as above | ~9% |
 | `crs_commit_usd_lag1` | 1-year lag of `crs_commit_usd_sum` (added for PAP-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% (first year per country) |
 | `crs_commit_usd_defl_lag1` | 1-year lag of `crs_commit_usd_defl_sum` | USD (constant) | `dplyr::lag(n=1)` within iso3 | ~4% |
 | `crs_disburse_usd_lag1` | 1-year lag of `crs_disburse_usd_sum` (added for PAP-0005 grid symmetry) | USD (current) | `dplyr::lag(n=1)` within iso3 | ~4% |
@@ -346,7 +344,7 @@ The production panel is a balanced (iso3, year) frame derived from 10 interim pa
 | `gcdf_amount_const2021_sum` | Sum of `Amount (Constant USD 2021)` across GCDF projects | USD (constant 2021) | aggregate; coalesce NA→0 within universe | 0% |
 | `gcdf_n_projects` | Count of GCDF project rows in (iso3, year) | integer | aggregate; coalesce NA→0 | 0% |
 | `gcdf_amount_const2021_ma3` | 3-year trailing-inclusive MA: `mean(t-2, t-1, t)` | USD (constant 2021) | `slider::slide_dbl` within iso3 | ~9% |
-| `gcdf_amount_const2021_ma3_lag1` | 3-year strictly-past MA: `mean(t-3, t-2, t-1)`. Added for PAP-0008 grid symmetry with the Session-03 OECD lock. | USD (constant 2021) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
+| `gcdf_amount_const2021_ma3_lag1` | 3-year strictly-past MA: `mean(t-3, t-2, t-1)`. Added for PAP-0008 grid symmetry with the OECD-anchored lock. | USD (constant 2021) | `dplyr::lag(slider::slide_dbl(...), n=1)` within iso3 | ~13% (first 3 years per country) |
 | `gcdf_amount_const2021_lag1` | 1-year lag | USD (constant 2021) | `dplyr::lag` within iso3 | ~4% |
 
 ### Window + identification flags

@@ -1,14 +1,14 @@
 # R/57_model3_re_panel.R
 #
 # Model 3 — 2-level country random intercepts + time FE.
-# Per the manuscript methodology section after external-review reframe: NOT the project brief's
+# Per manuscript §3 after external-review reframe: NOT the originally-proposed
 # original 3-level student-school-country HLM (requires PISA/TIMSS/PIRLS micro-
 # data, deferred). Reframed as a 2-level country RE + year FE specification
 # whose purpose is to (a) formally justify Model 2's FE choice via Hausman test
 # and (b) report the RE counterpart for transparency + ICC at country level.
 #
-# Spec progression mirrors R/56 (Model 2 v2): same locked encoding (Session-03
-# treatment + Session-05 WGI PC1 + Session-04 strictly-past GCDF), same control
+# Spec progression mirrors R/56 (Model 2 v2): same locked encoding (the locked encoding
+# treatment + the WGI sensitivity WGI PC1 + the strictly-past GCDF GCDF), same control
 # stack, same primary window, HLO + LAYS dual outcomes.
 #
 # Specs:
@@ -62,7 +62,7 @@ WGI_DIMS <- c("wgi_va_est", "wgi_pv_est", "wgi_ge_est",
 message("[m3] loading production panel")
 d <- arrow::read_parquet(PANEL_PATH) |> filter(in_primary_window)
 
-# Compute PC1 with R/55 / R/56 convention (Session-05 lock).
+# Compute PC1 with R/55 / R/56 convention (the WGI PC1 lock).
 wgi_mat <- d |> select(all_of(WGI_DIMS)) |> as.matrix()
 complete_rows <- complete.cases(wgi_mat)
 pca <- prcomp(wgi_mat[complete_rows, ], scale. = TRUE, center = TRUE)

@@ -1,13 +1,13 @@
 # R/54_model2_china_robustness.R
 #
 # PAP-0008 lock — Chinese aid (AidData GCDF) inclusion
-# sensitivity. Tests whether the Session-03 locked treatment spec
+# sensitivity. Tests whether the locked treatment spec
 # (`crs_disburse_usd_defl_ma3_lag1`) is robust to including Chinese
 # development finance.
 #
 # Four specs × two outcomes × two samples (all / SSA-only) = 16 feols fits.
 #
-# Spec A — OECD-only baseline (Session-03 lock):
+# Spec A — OECD-only baseline (the locked encoding):
 #   HLO ~ log(1 + CRS_disburse_strict)
 # Spec B — OECD + GCDF as separate covariate (lock criterion test):
 #   HLO ~ log(1 + CRS_disburse_strict) + log(1 + GCDF_strict)
@@ -16,7 +16,7 @@
 # Spec D — GCDF-only treatment:
 #   HLO ~ log(1 + GCDF_strict)
 #
-# All on full Session-14 2e control stack (log GDP/cap + PTR primary +
+# All on full headline 2e control stack (log GDP/cap + PTR primary +
 # ed_exp_%GDP + WGI gov effectiveness), two-way FE (iso3 + year),
 # country-clustered SE, primary window 2010-2020.
 #
@@ -40,8 +40,8 @@ OUT_MD        <- "output/tables/model2_china_robustness.md"
 OUT_PLOT_PDF  <- "output/figures/eda/model2_china_robustness_plot.pdf"
 OUT_PLOT_PNG  <- "output/figures/eda/model2_china_robustness_plot.png"
 
-CRS_TREAT  <- "crs_disburse_usd_defl_ma3_lag1"        # Session-03 lock
-GCDF_TREAT <- "gcdf_amount_const2021_ma3_lag1"        # NEW Session-04 column
+CRS_TREAT  <- "crs_disburse_usd_defl_ma3_lag1"        # the locked encoding
+GCDF_TREAT <- "gcdf_amount_const2021_ma3_lag1"        # NEW the GCDF column
 
 # === 1. Setup ================================================================
 message("[m2-china] loading production panel")
@@ -73,7 +73,7 @@ controls_rhs <- "log_gdp_pc + wdi_ptr_primary + wdi_edu_exp_pct_gdp + wgi_ge_est
 
 spec_defs <- tribble(
   ~spec_id, ~spec_label,                       ~treatment_rhs,
-  "A",      "OECD-only (Session-03 lock)",     "log_crs",
+  "A",      "OECD-only (the locked encoding)",     "log_crs",
   "B",      "OECD + GCDF (lock criterion test)", "log_crs + log_gcdf",
   "C",      "Combined OECD+GCDF treatment",    "log_combined",
   "D",      "GCDF-only treatment",             "log_gcdf"
@@ -144,11 +144,11 @@ results <- pmap_dfr(
   select(spec_id, spec_label, outcome_label, sample, coef_label,
          N, beta, se, p_value, signif)
 
-# === 5. Validation: spec A reproduces Session-03 lock ========================
+# === 5. Validation: spec A reproduces the locked encoding ========================
 baseline_cell <- results |>
   filter(spec_id == "A", outcome_label == "HLO", sample == "ALL")
 cat("\n=== Validation: spec A (OECD-only, all-sample, HLO) ===\n")
-cat(sprintf("Session-03 lock:   β=8.170,  SE=4.912, p=0.1015, N=143\n"))
+cat(sprintf("the locked encoding:   β=8.170,  SE=4.912, p=0.1015, N=143\n"))
 cat(sprintf("New spec A:        β=%.3f, SE=%.3f, p=%.4f, N=%d\n",
             baseline_cell$beta, baseline_cell$se, baseline_cell$p_value, baseline_cell$N))
 
@@ -168,7 +168,7 @@ message(sprintf("[m2-china] wrote %s", OUT_CSV))
 md_lines <- c(
   "# Model 2 FE — Chinese aid robustness (PAP-0008 lock)",
   "",
-  "Within-country two-way FE (iso3 + year). Country-clustered SE. Controls: log(GDP/cap), PTR primary, ed_exp_%GDP, WGI gov effectiveness. Primary window 2010-2020. Treatment columns enter as `log(1 + x)`; all use Session-03 lock encoding (strictly-past 3-yr MA, constant USD).",
+  "Within-country two-way FE (iso3 + year). Country-clustered SE. Controls: log(GDP/cap), PTR primary, ed_exp_%GDP, WGI gov effectiveness. Primary window 2010-2020. Treatment columns enter as `log(1 + x)`; all use the locked encoding encoding (strictly-past 3-yr MA, constant USD).",
   "",
   "Stars: ***p<0.01, **p<0.05, *p<0.1.",
   ""
@@ -221,7 +221,7 @@ p_coef <- ggplot(plot_df,
   scale_shape_manual(values = c("ALL" = 16, "SSA" = 17)) +
   labs(
     title    = "PAP-0008 lock: Chinese aid inclusion sensitivity (Model 2 FE)",
-    subtitle = "All vs SSA-only samples; 95% CIs (country-clustered SE). Specs A/B/C/D on Session-03 treatment encoding.",
+    subtitle = "All vs SSA-only samples; 95% CIs (country-clustered SE). Specs A/B/C/D on the locked treatment encoding.",
     x        = "Coefficient (HLO points or LAYS years per unit log treatment)",
     y        = "Coefficient | Spec",
     color    = "Sample",

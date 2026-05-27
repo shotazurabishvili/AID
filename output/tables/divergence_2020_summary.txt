@@ -18,7 +18,7 @@ OLS regression: HLO ~ Enrollment
 
 Substantive interpretation:
   R^2 = 0.02: enrollment explains ~2% of cross-country HLO variance. Most learning
-  variation is NOT captured by enrollment, supporting the brief's divergence thesis.
+  variation is NOT captured by enrollment, supporting the manuscript's divergence thesis.
   Slope: -0.65 HLO points per 1pp enrollment gain implies a country moving from 80% to
   100% gross enrollment would, ON AVERAGE, gain only -13.0 HLO points (~-4.7% of the 305-581
   observed range). Enrollment expansion is not a learning-gains lever at panel scale.

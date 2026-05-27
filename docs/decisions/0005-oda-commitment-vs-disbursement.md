@@ -58,7 +58,7 @@ Constant-USD (DAC deflator-adjusted) removes secular inflation drift over the 20
 ## Consequences
 
 - Coefficient interpretation: the locked spec is a within-country effect of a 3-yr-prior moving average of education ODA disbursement on HLO. β=8.17 means a 100% increase in 3-yr lagged disbursement is associated with an 8.2-point increase in HLO, at p=0.10.
-- **The "ODA does not predict learning" framing in pre-Session-03 notes is incorrect** under this lock: all 16 cells show β ≥ 0, half significant at conventional thresholds. The corrected manuscript framing is: *"ODA → learning has a positive within-country association that varies in significance with treatment encoding, from p=0.10 (theoretically cleanest spec) to p<0.01 (working-preference trailing-inclusive spec)."* This reframing is a + task.
+- **The "ODA does not predict learning" framing in pre-lock notes is incorrect** under this lock: all 16 cells show β ≥ 0, half significant at conventional thresholds. The corrected manuscript framing is: *"ODA → learning has a positive within-country association that varies in significance with treatment encoding, from p=0.10 (theoretically cleanest spec) to p<0.01 (working-preference trailing-inclusive spec)."* This reframing is a + task.
 - The 1-yr-lag specs are universally weak (p>0.10), supporting the choice of 3-yr window over single-year lag in pre-specified menu. Obligation `docs/the deposited diagnostic register:48` (1-yr vs 3-yr MA) closed in favor of 3-yr.
 
 ## How a referee might attack this

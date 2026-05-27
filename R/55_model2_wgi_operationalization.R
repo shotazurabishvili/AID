@@ -2,11 +2,11 @@
 #
 # PAP-0009 lock — WGI operationalization sensitivity.
 #
-# Four specs × two outcomes = 8 feols fits. All on the Session-03 locked
+# Four specs × two outcomes = 8 feols fits. All on the locked encoding
 # treatment: log(1 + crs_disburse_usd_defl_ma3_lag1). Base controls:
 # log(GDP/cap) + PTR primary + ed_exp_%GDP. WGI representation varies:
 #
-#   A — Single composite:  wgi_ge_est  (Session-03 baseline; current default)
+#   A — Single composite:  wgi_ge_est  (the locked baseline; current default)
 #   B — All six aggregates: VA + PV + GE + RQ + RL + CC
 #   C — PCA-collapsed:      wgi_pc1 (first PC of the six, scaled, sign-flipped
 #                                     so wgi_ge_est loading is positive)
@@ -38,7 +38,7 @@ OUT_LOADINGS_CSV <- "output/tables/model2_wgi_pca_loadings.csv"
 OUT_PLOT_PDF     <- "output/figures/eda/model2_wgi_plot.pdf"
 OUT_PLOT_PNG     <- "output/figures/eda/model2_wgi_plot.png"
 
-CRS_TREAT <- "crs_disburse_usd_defl_ma3_lag1"   # Session-03 lock
+CRS_TREAT <- "crs_disburse_usd_defl_ma3_lag1"   # the locked encoding
 WGI_DIMS  <- c("wgi_va_est", "wgi_pv_est", "wgi_ge_est",
                "wgi_rq_est", "wgi_rl_est", "wgi_cc_est")
 
@@ -56,7 +56,7 @@ message(sprintf("[m2-wgi] panel: %d rows × %d cols (primary window)",
 
 # === 2. Compute PC1 of the six WGI dimensions ================================
 # Use rows where all 6 dimensions are non-NA. The joint-population pre-check
-# (Session-05 plan verification) found 1462/1463 primary-window rows have all 6.
+# (the WGI plan verification) found 1462/1463 primary-window rows have all 6.
 wgi_mat <- d |> select(all_of(WGI_DIMS)) |> as.matrix()
 complete_rows <- complete.cases(wgi_mat)
 cat(sprintf("\n[m2-wgi] WGI joint-availability: %d / %d primary-window rows\n",
@@ -111,7 +111,7 @@ controls_base <- "log_gdp_pc + wdi_ptr_primary + wdi_edu_exp_pct_gdp"
 
 spec_defs <- tribble(
   ~spec_id, ~spec_label,                                    ~wgi_rhs,
-  "A",      "Single composite (Session-03 baseline)",       "wgi_ge_est",
+  "A",      "Single composite (the locked baseline)",       "wgi_ge_est",
   "B",      "All six WGI aggregates",                       paste(WGI_DIMS, collapse = " + "),
   "C",      "PCA-collapsed (PC1, scale=TRUE)",              "wgi_pc1",
   "D",      "No WGI control",                               NA_character_
@@ -167,12 +167,12 @@ results <- pmap_dfr(
 # === 6. Spec A reproducibility check =========================================
 spec_a_hlo <- results |> filter(spec_id == "A", outcome_label == "HLO")
 cat("\n=== Validation: spec A (single GE, HLO) ===\n")
-cat(sprintf("Session-03 lock:   β=8.170, SE=4.912, p=0.1015, N=143\n"))
+cat(sprintf("the locked encoding:   β=8.170, SE=4.912, p=0.1015, N=143\n"))
 cat(sprintf("New spec A:        β=%.3f, SE=%.3f, p=%.4f, N=%d\n",
             spec_a_hlo$beta_oda, spec_a_hlo$se_oda, spec_a_hlo$p_oda, spec_a_hlo$N))
 
 # === 7. VIF audit on spec B (all six WGI dimensions) =========================
-# Mirror Session-14 pattern: demean by country + year, then lm + car::vif on
+# Mirror the headline pattern: demean by country + year, then lm + car::vif on
 # demeaned regressors.
 demean <- function(df, group_cols, value_cols) {
   for (col in value_cols) {
@@ -252,7 +252,7 @@ message(sprintf("\n[m2-wgi] wrote %s", OUT_SPECS_CSV))
 md_lines <- c(
   "# Model 2 FE — WGI operationalization sensitivity (PAP-0009 lock)",
   "",
-  "Within-country two-way FE (iso3 + year). Country-clustered SE. Treatment: `log(1 + crs_disburse_usd_defl_ma3_lag1)` (Session-03 lock). Base controls: log(GDP/cap) + PTR primary + ed_exp_%GDP. WGI varies across specs A-D. Primary window 2010-2020.",
+  "Within-country two-way FE (iso3 + year). Country-clustered SE. Treatment: `log(1 + crs_disburse_usd_defl_ma3_lag1)` (the locked encoding). Base controls: log(GDP/cap) + PTR primary + ed_exp_%GDP. WGI varies across specs A-D. Primary window 2010-2020.",
   "",
   sprintf("PC1 variance share: %.3f. All six PC1 loadings positive after sign-flip: %s.",
           var_share[1], all_positive),
@@ -312,7 +312,7 @@ p_coef <- ggplot(plot_df,
     x        = "ODA coefficient",
     y        = "WGI representation",
     color    = "Outcome",
-    caption  = sprintf("Specs: A single GE, B all six, C PC1 (var=%.0f%%), D no WGI. Session-03 lock treatment.",
+    caption  = sprintf("Specs: A single GE, B all six, C PC1 (var=%.0f%%), D no WGI. the locked encoding treatment.",
                        var_share[1] * 100)
   ) +
   theme_minimal(base_size = 11) +

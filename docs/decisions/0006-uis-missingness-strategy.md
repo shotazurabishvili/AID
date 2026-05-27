@@ -6,7 +6,7 @@
 
 ## Context
 
-UNESCO UIS data on private education expenditure share and detailed out-of-school rates is severely missing for sub-Saharan Africa, especially pre-2015 — coverage rates can fall to 30–50% in this subset. The brief flags this explicitly:
+UNESCO UIS data on private education expenditure share and detailed out-of-school rates is severely missing for sub-Saharan Africa, especially pre-2015 — coverage rates can fall to 30–50% in this subset. The original project spec flags this explicitly:
 
 > *"Private expenditure: document missing data rate, especially SSA"*
 > *"Missingness strategy: test MCAR, choose MI or listwise deletion, run sensitivity analysis both ways"*
@@ -58,7 +58,7 @@ The 6-col vs 7-col contrast is the decisive piece of evidence: **including UIS a
 
 CRS and GCDF aid-flow columns show 0% NA within universe by construction — the production merge applies an NA → 0 coalesce within the 133-country PAP-0002 universe (rationale: ODA-eligible recipients with no recorded CRS project in year t had $0 aid that year, not "data missing"). This decision interacts with the missingness story and is documented in `R/30_merge_panel.R` header + data dictionary.
 
-Note divergence from the Session-09 audit-panel MCAR run (`output/tables/mcar_test_result.txt`): that run was on the unfiltered 250-country audit panel using `crs_commit_usd_sum` (current-USD commitment); the production run is on the 133-universe within 2010-2020 using `crs_disburse_usd_defl_sum` (production primary intent per [methodology §3.5](../the manuscript methodology section)) after NA → 0 coalesce. The two answer different questions; this one is the analytical-pipeline missingness that locks the ADR.
+Note divergence from the audit-panel MCAR run (`output/tables/mcar_test_result.txt`): that run was on the unfiltered 250-country audit panel using `crs_commit_usd_sum` (current-USD commitment); the production run is on the 133-universe within 2010-2020 using `crs_disburse_usd_defl_sum` (production primary intent per manuscript §3.5) after NA → 0 coalesce. The two answer different questions; this one is the analytical-pipeline missingness that locks the PAP.
 
 ## Consequences
 

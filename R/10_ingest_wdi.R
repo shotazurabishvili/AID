@@ -4,7 +4,7 @@
 # Reference: Data Stack, line 65 (folds in former EdStats — see plan landmine 5)
 # Methodology: World Bank annual WDI release; queried via the WDI R package
 #
-# === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================
+# === Pinned indicator list (PHASE 1 LOCK — modify only via PAP) =====================
 #
 # Controls (macro):
 #   NY.GDP.PCAP.CD     GDP per capita (current US$)
@@ -40,7 +40,7 @@ INDICATORS <- c(
   "SE.PRM.UNER"       = "oos_primary_count"
 )
 
-YEAR_RANGE <- 1995:2024   # Buffer beyond brief's 2000-2022 for sensitivity
+YEAR_RANGE <- 1995:2024   # Buffer beyond the 2000-2022 window for sensitivity
 SRC <- "wdi"
 
 suppressPackageStartupMessages({

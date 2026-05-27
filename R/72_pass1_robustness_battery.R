@@ -251,11 +251,11 @@ writeLines(c(
   "",
   knitr::kable(hlo_tbl, format = "pipe"),
   "",
-  sprintf("**Sign agreement (primary vs AAP full):** %s", ifelse(sign_agree, "✓ same sign", "✗ DIFFERENT SIGN")),
-  sprintf("**Within-CI agreement (full):** %s", ifelse(within_ci, "✓ within-CI", "✗ outside-CI")),
+  sprintf("**Sign agreement (primary vs AAP full):** %s", ifelse(sign_agree, "PASS: same sign", "FAIL: different sign")),
+  sprintf("**Within-CI agreement (full):** %s", ifelse(within_ci, "PASS: within-CI", "FAIL: outside-CI")),
   sprintf("**Sign agreement (primary vs AAP overlap-window):** %s",
           if(is.na(ov_sign_agree)) "not estimable (insufficient overlap)"
-          else if(ov_sign_agree) "✓ same sign" else "✗ DIFFERENT SIGN"),
+          else if(ov_sign_agree) "PASS: same sign" else "FAIL: different sign"),
   "",
   "**Reading per methodology §3.4:** \"the within-country coefficient must be the same sign and within-CI magnitude across the primary and AAP-2018 specifications for the headline claim to stand.\"  The two AAP variants test whether any sign disagreement is driven by *measure choice* (AAP harmonization vs WB HCI) or by *sample-window composition* (AAP's pre-2010 epoch vs primary's 2010-2020). If full-AAP and overlap-AAP agree → measure-effect. If they disagree → window-effect."
 ), OUT_HLO_MD)
@@ -321,8 +321,8 @@ writeLines(c(
   "",
   knitr::kable(uis_tbl, format = "pipe"),
   "",
-  sprintf("**ODA-coefficient sign agreement:** %s", ifelse(uis_sign_agree, "✓ same sign", "✗ DIFFERENT SIGN — investigate")),
-  sprintf("**ODA-coefficient within-CI agreement:** %s", ifelse(uis_within_ci, "✓ within-CI", "✗ outside-CI — investigate")),
+  sprintf("**ODA-coefficient sign agreement:** %s", ifelse(uis_sign_agree, "PASS: same sign", "FAIL: different sign (investigate)")),
+  sprintf("**ODA-coefficient within-CI agreement:** %s", ifelse(uis_within_ci, "PASS: within-CI", "FAIL: outside-CI (investigate)")),
   "",
   "**Reading per PAP-0006:** if primary, listwise-UIS, and (former) MI-UIS all give the same sign and within-CI magnitude, the result is robust to the UIS-inclusion choice. With MI retired by PAP-0012, the listwise vs primary comparison carries the full robustness burden in that direction."
 ), OUT_UIS_MD)

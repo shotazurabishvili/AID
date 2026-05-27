@@ -47,12 +47,12 @@ This amendment does **not** affect PAP-0006's primary lock (drop UIS from primar
 
 *"You retired the MI robustness check after seeing the listwise result was unfavorable — that's specification-search by omission."*
 
-The timeline rebuts this. PAP-0006 (Accepted 2026-05-18) explicitly hedged MI's status: "where used at all". The MCAR test result (, before any Model 2 run) was already on disk and already rejected MCAR at p ≪ 10⁻⁶. The grounds for retiring MI were established *before* any result was generated; the retirement decision is documented in this ADR with the rationale on the record. The listwise result is reported transparently in §5.8 with the same hedging the primary headline gets.
+The timeline rebuts this. PAP-0006 (Accepted 2026-05-18) explicitly hedged MI's status: "where used at all". The MCAR test result (, before any Model 2 run) was already on disk and already rejected MCAR at p ≪ 10⁻⁶. The grounds for retiring MI were established *before* any result was generated; the retirement decision is documented in this PAP with the rationale on the record. The listwise result is reported transparently in §5.8 with the same hedging the primary headline gets.
 
 *"MI under MNAR is the standard tool; you're using the failed MCAR test as an excuse to avoid the harder test."*
 
-MNAR sensitivity analyses (e.g., pattern-mixture models, Heckman selection corrections) would be the correct response to MNAR data — and those are explicitly out of scope for this paper's data shape (small-T, ~T_eff ≤ 4) and identification design (static FE, not GMM). The honest response to MCAR rejection + MNAR-tool out-of-scope is to retire the MI commitment, document the reasoning, and acknowledge the resulting limit. That's what this ADR does. Robustness 1 (listwise) remains the operative UIS-inclusion robustness check.
+MNAR sensitivity analyses (e.g., pattern-mixture models, Heckman selection corrections) would be the correct response to MNAR data — and those are explicitly out of scope for this paper's data shape (small-T, ~T_eff ≤ 4) and identification design (static FE, not GMM). The honest response to MCAR rejection + MNAR-tool out-of-scope is to retire the MI commitment, document the reasoning, and acknowledge the resulting limit. That's what this PAP does. Robustness 1 (listwise) remains the operative UIS-inclusion robustness check.
 
-*"Why is this ADR needed if you're just dropping a sub-commitment?"*
+*"Why is this PAP needed if you're just dropping a sub-commitment?"*
 
-Because PAP-0006 made an explicit commitment in writing. Silently dropping it would be exactly the methodological-convenience move the project's discipline pattern (PAP-0007 Rejected, etc.) has avoided throughout. Writing this ADR amendment is the housekeeping cost of honoring the original ADR's status as a load-bearing document.
+Because PAP-0006 made an explicit commitment in writing. Silently dropping it would be exactly the methodological-convenience move the project's discipline pattern (PAP-0007 Rejected, etc.) has avoided throughout. Writing this PAP amendment is the housekeeping cost of honoring the original PAP's status as a load-bearing document.

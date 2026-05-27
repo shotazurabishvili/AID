@@ -1,6 +1,6 @@
 # R/30_merge_panel.R
 #
-# production merge. Replaces the Session-09 audit-grade
+# Production merge. Replaces the audit-grade
 # minimal merge (which is preserved in git history for reference). This script
 # produces the canonical analytical panel: data/interim/panel.parquet (committed).
 #

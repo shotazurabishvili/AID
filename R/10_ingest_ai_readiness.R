@@ -1,8 +1,8 @@
 # R/10_ingest_ai_readiness.R
 #
 # Source: Oxford Insights Government AI Readiness Index 2025 (GARI).
-# Reference: Data Stack; the manuscript methodology section (supplementary measures);
-#                   feeds the the HCI–GARI composite supplementary analysis.
+# Reference: Data Stack; manuscript §3 (supplementary measures);
+#                   feeds the HCI–GARI composite supplementary analysis.
 # Methodology cite: Oxford Insights (2026). Government AI Readiness Index 2025.
 #                   Report version dated 2026-01-29.
 #
@@ -19,7 +19,7 @@
 # scripts/extract_pdf_table.py (pdfplumber). One-time setup:
 #   bash scripts/setup_tools_venv.sh
 
-# === Pinned column list (PHASE 1 LOCK — modify only via ADR) ========================
+# === Pinned column list (PHASE 1 LOCK — modify only via PAP) ========================
 # Source table columns (8): Country, Rank, Policy Capacity, AI Infrastructure,
 # Governance, Public Sector Adoption, Development & Diffusion, Resilience
 EXPECTED_HEADER_PATTERN <- c("country", "rank", "policy", "infrastructure",

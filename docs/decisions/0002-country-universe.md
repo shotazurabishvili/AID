@@ -6,7 +6,7 @@
 
 ## Context
 
-The brief targets ~120 countries × 23 years for ~2,760 country-year observations. But "120 countries" is a working estimate — the actual universe is determined by data coverage. Every downstream model rests on this set, so the definition has to be defensible against a referee who could argue we cherry-picked the sample.
+The original project spec targeted ~120 countries × 23 years for ~2,760 country-year observations. But "120 countries" is a working estimate — the actual universe is determined by data coverage. Every downstream model rests on this set, so the definition has to be defensible against a referee who could argue we cherry-picked the sample.
 
 The natural restriction is **ODA recipients**: high-income countries don't receive aid, so OECD CRS doesn't observe them on the treatment variable. Including non-recipients would force model 1/2 to drop them anyway. Restricting up-front is honest.
 
@@ -34,7 +34,7 @@ Empirical enumeration from `data/interim/_panel_audit.parquet` (audit-grade merg
 
 **Final country universe locked: 133 countries** for descriptive use and Model-1 (cross-sectional OLS). The Model-2 FE panel will use the 127-country subset where within-country variation is identifiable (a slope can't be estimated with only one observation). The 6-country difference (countries with exactly 1 HLO observation) is reported in the Methodology footnote.
 
-ODA-eligibility is derived empirically from OECD CRS (any recipient with a positive `usd_commitment` in 1995–2024) rather than from a separate OECD DAC list ingest. This is reproducible from sources already on disk; matches the spirit of "ODA-eligible per WB classification" in the original ADR Context.
+ODA-eligibility is derived empirically from OECD CRS (any recipient with a positive `usd_commitment` in 1995–2024) rather than from a separate OECD DAC list ingest. This is reproducible from sources already on disk; matches the spirit of "ODA-eligible per WB classification" in the original PAP Context.
 
 ## Consequences
 

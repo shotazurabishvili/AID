@@ -1,4 +1,4 @@
-part,term,statistic,1a (bivariate),1b (+log GDP/cap),1c (+PTR),1d (+ed exp; brief spec),1e (+gov effect; full),1f (+log GCDF; China-robust)
+part,term,statistic,1a (bivariate),1b (+log GDP/cap),1c (+PTR),1d (+ed exp; ed-exp spec),1e (+gov effect; full),1f (+log GCDF; China-robust)
 estimates,"log(1 + CRS disbursement, USD M)",estimate,-11.537***,-1.204,-1.141,-1.787,-1.361,-1.150
 estimates,"log(1 + CRS disbursement, USD M)",std.error,(2.715),(2.280),(2.439),(2.595),(2.477),(2.413)
 estimates,"log(GDP per capita, USD)",estimate,,26.251***,23.037***,21.952***,9.301,9.047

@@ -29,13 +29,13 @@ Reasoning:
 
 ### Empirical evidence 
 
-Four-spec × two-outcome × two-sample sensitivity (`output/tables/model2_china_robustness.csv`). All specs use the Session-03 locked encoding (strictly-past 3-yr MA, constant USD) with the full Session-14 2e control stack (log GDP/cap + PTR primary + ed_exp_%GDP + WGI gov effectiveness), two-way FE, country-clustered SE, primary window 2010-2020. SSA classification via `countrycode::codelist`.
+Four-spec × two-outcome × two-sample sensitivity (`output/tables/model2_china_robustness.csv`). All specs use the locked encoding (strictly-past 3-yr MA, constant USD) with the full headline 2e control stack (log GDP/cap + PTR primary + ed_exp_%GDP + WGI gov effectiveness), two-way FE, country-clustered SE, primary window 2010-2020. SSA classification via `countrycode::codelist`.
 
 **HLO outcome, all-sample (N=143) — the lock criterion test:**
 
 | Spec | Coefficient | β | SE | p |
 |---|---|---|---|---|
-| A — OECD-only (Session-03 lock) | log(1+CRS_strict) | **8.17** | 4.91 | 0.10 |
+| A — OECD-only (the locked encoding) | log(1+CRS_strict) | **8.17** | 4.91 | 0.10 |
 | B — OECD + GCDF (lock criterion) | log(1+CRS_strict) | **8.06*** | 4.75 | 0.095 |
 | B — OECD + GCDF (lock criterion) | log(1+GCDF_strict) | −0.26 | 0.77 | 0.74 |
 | C — Combined treatment | log(1+CRS+GCDF strict) | −0.35 | 1.12 | 0.76 |
@@ -43,9 +43,9 @@ Four-spec × two-outcome × two-sample sensitivity (`output/tables/model2_china_
 
 **Lock criterion verification (pre-specified):**
 
-1. **Sign preservation:** OECD CRS β = +8.17 (spec A) → +8.06 (spec B). Same sign, both positive. ✓
-2. **Magnitude band:** |8.17 − 8.06| = 0.11, which is 0.02 SD on the spec-A SE. Well within the ±1 SD criterion. The OECD coefficient is **essentially unchanged** when Chinese aid is conditioned on. ✓
-3. **GCDF own coefficient:** β = −0.26 (spec B) and β = −0.27 (spec D). Not statistically significant (p > 0.7), near-zero magnitude. **Chinese aid does not have a detectable within-country effect on HLO in this panel.** ✓ (Lock criterion satisfied; Option 2 confirmed unambiguously.)
+1. **Sign preservation:** OECD CRS β = +8.17 (spec A) → +8.06 (spec B). Same sign, both positive. (PASS)
+2. **Magnitude band:** |8.17 − 8.06| = 0.11, which is 0.02 SD on the spec-A SE. Well within the ±1 SD criterion. The OECD coefficient is **essentially unchanged** when Chinese aid is conditioned on. (PASS)
+3. **GCDF own coefficient:** β = −0.26 (spec B) and β = −0.27 (spec D). Not statistically significant (p > 0.7), near-zero magnitude. **Chinese aid does not have a detectable within-country effect on HLO in this panel.** (PASS) (Lock criterion satisfied; Option 2 confirmed unambiguously.)
 4. **SSA stratification (N=52):** SSA-only sample yields CRS β = −5.95 with SE = 14.1 (p=0.68); GCDF β = −0.10 with SE = 0.99 (p=0.92). The wide CIs reflect small-sample noise (≤4 HCI cycles × 13 SSA countries clearing all controls), not contradiction of the pooled finding. SSA-stratified is uninformative on this panel; pooled is the operative test.
 
 **Notable methodological side-result (spec C).** The combined-treatment encoding `log(1 + CRS + GCDF)` returns β = −0.35 — sharply different from the spec-B separate-log encoding. This is a known artifact: log of a sum compresses signal when the two flows are at very different magnitudes ($96M CRS mean vs $3.3M GCDF mean in-panel). Spec B (separate log covariates) is the right specification for assessing GCDF's contribution; spec C is recorded but should not be the headline.

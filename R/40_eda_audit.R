@@ -184,7 +184,7 @@ if (is_audit_mode) {
 # Section 5: Little MCAR — pinned 6-col subset ----------------------
 # In production mode, panel is already filtered to PAP-0002 universe; use
 # in_primary_window flag. In audit mode, re-derive option1_iso3 to match
-# Session-09 behavior.
+# the audit behavior.
 run_mcar <- function(panel_data, cols, label) {
   sub <- panel_data |> select(all_of(cols))
   res <- tryCatch({

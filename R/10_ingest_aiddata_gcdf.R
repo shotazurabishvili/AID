@@ -1,7 +1,7 @@
 # R/10_ingest_aiddata_gcdf.R
 #
 # Source: AidData GCDF v3.0 — Chinese development finance (TUFF methodology).
-# Reference: Data Stack; the manuscript methodology section.
+# Reference: Data Stack; manuscript §3.
 # Methodology cite: Custer, Strange, Dreher, Tierney et al. (AidData TUFF 3.0).
 #
 # Bulk file: 28 MB zip from AidData's CloudFront. Contains:
@@ -12,11 +12,11 @@
 #
 # Standard Deflate zip (no Deflate64). Base unzip() works.
 #
-# Pending ADRs this ingest preserves (no locks):
+# Pending PAPs this ingest preserves (no locks):
 #   - PAP-0008 (China inclusion): the analysis lock. Working preference Option 2 —
 #     OECD CRS only as primary; GCDF as headline robustness.
 #
-# === Pinned column list (PHASE 1 LOCK — modify only via ADR) ========================
+# === Pinned column list (PHASE 1 LOCK — modify only via PAP) ========================
 # Column names verified against the actual GCDF_3.0 sheet (20,985 rows total).
 # Sector Name values are UPPERCASE strings (e.g., "EDUCATION", "HEALTH").
 # Recommended For Aggregates filter applies "Yes" rows only (avoids umbrella double-count).
@@ -130,7 +130,7 @@ if (length(missing_cols) > 0) {
   stop("[aiddata_gcdf] pinned columns missing from GCDF schema: ",
        paste(missing_cols, collapse = ", "),
        "\nAvailable columns: ", paste(names(raw), collapse = " | "),
-       "\nUpdate KEEP_COLS via an ADR if upstream schema changed.")
+       "\nUpdate KEEP_COLS via an PAP if upstream schema changed.")
 }
 
 # Diagnostic: unique sector values
@@ -202,7 +202,7 @@ cov <- coverage_summary(avail_num, SRC)
 print(cov)
 coverage_heatmap(avail_num, SRC)
 
-# SSA universe — same construction as Sessions 03 / 05
+# SSA universe — same construction as prior ingest scripts
 ssa_iso3 <- countrycode::codelist |>
   filter(region == "Sub-Saharan Africa") |>
   pull(iso3c) |>
@@ -287,7 +287,7 @@ update_catalog(
     sprintf("SSA headline: %d projects across %d countries; $%.2f B constant-USD. ",
             nrow(ssa_d), n_distinct(ssa_d$iso3), total_usd_ssa / 1e9),
     "SSA-coverage contrast at output/tables/ssa_aiddata_gcdf_coverage.csv (coverage, NOT missingness). ",
-    "Feeds PAP-0008 (the analysis lock). AidData Core v3.1 deferred per Session-06 author decision."
+    "Feeds PAP-0008 (the analysis lock). AidData Core v3.1 deferred per an author decision."
   )
 )
 

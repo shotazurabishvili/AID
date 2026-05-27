@@ -13,8 +13,8 @@ Refit of Model 2 spec 2e (locked encoding: log_crs_strict + log_gdp_pc + wdi_ptr
 |AAP-2018 full coverage (1995-2015)     |aap_hlo_aap   |  69| -16.673| 5.965|  0.0094|
 |AAP-2018 overlap window (year >= 2010) |aap_hlo_aap   |  36|  -3.941| 8.682|  0.6556|
 
-**Sign agreement (primary vs AAP full):** ✗ DIFFERENT SIGN
-**Within-CI agreement (full):** ✗ outside-CI
-**Sign agreement (primary vs AAP overlap-window):** ✗ DIFFERENT SIGN
+**Sign agreement (primary vs AAP full):** FAIL: different sign
+**Within-CI agreement (full):** FAIL: outside-CI
+**Sign agreement (primary vs AAP overlap-window):** FAIL: different sign
 
 **Reading per methodology §3.4:** "the within-country coefficient must be the same sign and within-CI magnitude across the primary and AAP-2018 specifications for the headline claim to stand."  The two AAP variants test whether any sign disagreement is driven by *measure choice* (AAP harmonization vs WB HCI) or by *sample-window composition* (AAP's pre-2010 epoch vs primary's 2010-2020). If full-AAP and overlap-AAP agree → measure-effect. If they disagree → window-effect.

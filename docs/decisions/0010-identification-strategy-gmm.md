@@ -14,11 +14,11 @@ The headline regression in Model 2 is the within-country effect of education ODA
 
 The directly comparable *World Development* paper ([Asongu, Tchamyou & Acha-Anyi 2019](../lit/)) and the dynamic-panel literature (Yogo 2017; the broader Arellano-Bond / Blundell-Bond aid-effectiveness thread) all use IV or GMM. A static-FE-only specification will draw the predictable referee critique: *"How do you address the fact that ODA responds to learning shortfalls?"*
 
- external review flagged this as the "defensible weak flank". Author decision (this ADR): close it by adding System GMM as headline robustness — not bolt-on, full Roodman apparatus.
+External review flagged this as the "defensible weak flank". Decision: close it by adding System GMM as headline robustness — not bolt-on, full Roodman apparatus.
 
 ## Options considered
 
-1. **System GMM as headline robustness, locked via this ADR** — `plm::pgmm` or `pdynmc` in R. Two-step robust SE, instrument-count management (collapse vs full matrix), full Roodman diagnostics: Hansen overid, Difference-in-Hansen, AR(1) and AR(2) on residuals. Builds on the production panel's PAP-0005 column matrix (lagged ODA columns are pre-built).
+1. **System GMM as headline robustness, locked via this PAP** — `plm::pgmm` or `pdynmc` in R. Two-step robust SE, instrument-count management (collapse vs full matrix), full Roodman diagnostics: Hansen overid, Difference-in-Hansen, AR(1) and AR(2) on residuals. Builds on the production panel's PAP-0005 column matrix (lagged ODA columns are pre-built).
 2. **Difference GMM (Arellano-Bond)** instead of system — simpler but less efficient when the dependent variable is persistent (learning scores are highly persistent).
 3. **External IV** (e.g., Galiani-style IDA-graduation thresholds; Dreher-style donor characteristics) — cleaner exclusion restriction in principle, but defending it for *education* aid is harder than for *total* aid.
 4. **Descriptive-FE with measurement-failure lean** — own the identification limit in §3; lean on the measurement-architecture thesis as the headline claim. Lower cost; probably aims at IJED rather than *World Development*.
@@ -56,15 +56,15 @@ Empirical evidence from `R/52_model2_gmm.R` on the cycle-indexed HCI panel (T = 
 
 4. **Difference GMM and System GMM FULL specs both fail to estimate** (matrix singularity errors) when the full control set is added. Listwise-complete sample on the full controls is N=143 × T=3 cycles — too small for the GMM machinery.
 
-5. **The brief's identification-via-GMM requirement is not feasible on this panel.** Asongu (2019) and Yogo (2017) GMM-aid-effectiveness applications use 20+ year annual panels (T ≥ 15-20); our HCI-cycle-only outcome provides T ≤ 4. This is the small-T panel problem Bond (2002) explicitly warns about. The data simply does not support the GMM machinery cleanly.
+5. **The originally-proposed identification-via-GMM strategy is not feasible on this panel.** Asongu (2019) and Yogo (2017) GMM-aid-effectiveness applications use 20+ year annual panels (T ≥ 15-20); our HCI-cycle-only outcome provides T ≤ 4. This is the small-T panel problem Bond (2002) explicitly warns about. The data simply does not support the GMM machinery cleanly.
 
 **Locked decision:** Option 1 with caveats. We attempted System GMM per requirement and the . The results are reported transparently in `the manuscript § 5.3` and `output/tables/model2_identification_triangulation.{csv,md}`. The static-FE result (β = +10.95***) remains the headline empirical claim. The manuscript § 3 (Methodology) acknowledges the small-T limitation honestly: GMM machinery is the field's identification gold standard but does not apply at our outcome's measurement frequency. The substantive identification defense rests on:
 
 - Country + year two-way FE 
 - Country-clustered SE 
 - HC-robust Breusch-Pagan-adjusted inference 
-- Transparent reporting of attempted dynamic-panel methods + their failure modes (this session)
-- robustness chain across Sessions 03 (commit vs disburse + lag), 04 (China-aid), 05 (WGI operationalization) — sign-and-magnitude consistency across all robustness specs is the identification claim
+- Transparent reporting of attempted dynamic-panel methods + their failure modes
+- Robustness chain across PAP-0005 (commit vs disburse + lag), PAP-0008 (China-aid), PAP-0009 (WGI operationalization) — sign-and-magnitude consistency across all robustness specs is the identification claim
 
 If a *World Development* referee asks "how do you address reverse causality?", the answer is: (a) within-country FE absorbs time-invariant donor preferences; (b) we attempted GMM honestly per Bond/Roodman; (c) the small-T HCI panel makes GMM diagnostics fail; (d) the falsification thesis from  is satisfied at static FE with the explicit thin-data caveat; (e) robustness chain provides the alternative defense.
 

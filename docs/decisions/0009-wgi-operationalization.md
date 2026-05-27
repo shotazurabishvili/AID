@@ -8,7 +8,7 @@
 
 Worldwide Governance Indicators ship six aggregate dimensions (VA, PV, GE, RQ, RL, CC) plus underlying per-source detail. Langbein & Knack (2010) argue the six aggregates collapse to essentially one underlying factor, so including all six as separate controls is statistically redundant and may inflate VIF.
 
- ingests the aggregate dataset (with `n_sources` per country-year as a quality indicator). Source-level data is available from the WGI website but not ingested in — that ingestion is a dependency on this ADR.
+ ingests the aggregate dataset (with `n_sources` per country-year as a quality indicator). Source-level data is available from the WGI website but not ingested in — that ingestion is a dependency on this PAP.
 
 ## Options considered
 
@@ -25,21 +25,21 @@ Worldwide Governance Indicators ship six aggregate dimensions (VA, PV, GE, RQ, R
 
 ### Empirical evidence 
 
-Four-spec × two-outcome sensitivity on the Session-03 locked treatment `crs_disburse_usd_defl_ma3_lag1`, full controls (log GDP/cap + PTR primary + ed_exp_%GDP), two-way FE, country-clustered SE, primary window 2010-2020.
+Four-spec × two-outcome sensitivity on the locked treatment `crs_disburse_usd_defl_ma3_lag1`, full controls (log GDP/cap + PTR primary + ed_exp_%GDP), two-way FE, country-clustered SE, primary window 2010-2020.
 
 **HLO outcome (all N=143):**
 
 | Spec | WGI representation | β_ODA | SE | p | sig |
 |---|---|---|---|---|---|
-| A | Single GE (Session-03 baseline) | 8.17 | 4.91 | 0.102 |   |
+| A | Single GE (the locked baseline) | 8.17 | 4.91 | 0.102 |   |
 | B | All six WGI aggregates | 10.3 | 5.21 | 0.052 | * |
 | **C** | **PC1 (Option 1, PAP-0009 lock)** | **11.1** | **5.52** | **0.048** | ** |
 | D | No WGI control | 8.75 | 5.32 | 0.105 |   |
 
 **Lock criterion verification:**
 
-1. **VIF on spec B (all six, demeaned):** max = **4.711** (wgi_ge_est), all WGI dims ≤ 3.21. Within ≤5 viability threshold. Option 3 is *viable* on VIF criterion, not ruled out. ✓
-2. **β_ODA stability across A/B/C:** A=8.17, B=10.3, C=11.1. Sign preserved (all positive). Magnitude shifts +2.13 / +2.93 (0.43 SD / 0.60 SD on spec-A SE) — within ±1 SD criterion. ✓
+1. **VIF on spec B (all six, demeaned):** max = **4.711** (wgi_ge_est), all WGI dims ≤ 3.21. Within ≤5 viability threshold. Option 3 is *viable* on VIF criterion, not ruled out. (PASS)
+2. **β_ODA stability across A/B/C:** A=8.17, B=10.3, C=11.1. Sign preserved (all positive). Magnitude shifts +2.13 / +2.93 (0.43 SD / 0.60 SD on spec-A SE) — within ±1 SD criterion. (PASS)
 3. **Spec A vs D:** β shifts from 8.17 → 8.75 (0.12 SD). Dropping WGI entirely barely moves β. WGI is doing minimal *direct* analytical work on β_ODA, but broader WGI representations (B/C) capture additional confounding variance — suggesting single-GE under-controls modestly.
 
 **Descriptive evidence (Langbein-Knack engagement):**
@@ -70,14 +70,14 @@ Four-spec × two-outcome sensitivity on the Session-03 locked treatment `crs_dis
 ### Override note
 
 This lock **overrides two prior expressed preferences:**
-1. The ADR's stated working preference (Option 3 primary with Option 1 as robustness)
-2. The Session-05 plan's pre-grid default (Option 2 primary)
+1. The PAP's stated working preference (Option 3 primary with Option 1 as robustness)
+2. The the WGI plan's pre-grid default (Option 2 primary)
 
-Both overrides are empirically motivated by Session-05 evidence. ADR's working preference was deferred explicitly until "VIF is observed"; Session-05 observation is in hand. Plan's default was based on parsimony + theoretical clarity arguments that the Langbein-Knack engagement requirement supersedes.
+Both overrides are empirically motivated by the WGI evidence. PAP's working preference was deferred explicitly until "VIF is observed"; the WGI observation is in hand. Plan's default was based on parsimony + theoretical clarity arguments that the Langbein-Knack engagement requirement supersedes.
 
 ## Consequences
 
-- Manuscript §3.6 (Methodology — Controls) replaces the Session-03 single-GE language with PC1 as primary; cites the 76% variance share and the all-six VIF table as Langbein-Knack engagement.
+- Manuscript §3.6 (Methodology — Controls) replaces the single-GE baseline language with PC1 as primary; cites the 76% variance share and the all-six VIF table as Langbein-Knack engagement.
 - Manuscript Table 2 (Model 2 specs progression) uses PC1 in the headline row; single-GE and all-six reported in robustness columns.
 - Option 4 (per-source reconstruction) formally deferred — not needed.
 - Updated lit note `docs/lit/langbein-knack-2010.md` with concrete PC1 + VIF numbers.

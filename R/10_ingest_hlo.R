@@ -8,7 +8,7 @@
 #
 # Reference: Data Stack, line 69 (HLO). Decision: PAP-0004.
 #
-# === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================
+# === Pinned indicator list (PHASE 1 LOCK — modify only via PAP) =====================
 # Primary (WDI):
 #   HD.HCI.HLOS    Harmonized Test Scores (HCI component, ~300–625 scale)
 #

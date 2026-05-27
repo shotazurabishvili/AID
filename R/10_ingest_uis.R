@@ -8,7 +8,7 @@
 #   SDG.zip contains SDG_DATA_NATIONAL.csv (long format: INDICATOR_ID, COUNTRY_ID,
 #   YEAR, VALUE, MAGNITUDE, QUALIFIER) + SDG_LABEL.csv (code → label map).
 #
-# === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================
+# === Pinned indicator list (PHASE 1 LOCK — modify only via PAP) =====================
 # Substitution notes from plan → actual UIS codes:
 #   Planned XGDP.FSHH.FFNTP  →  Actual XGDP.FSHH.FFNTR  (only FFNTR available)
 #   Planned XGDP.FSGOV.FFNTP →  Actual XGDP.FSGOV       (UIS simple total — cleanest WDI compare)

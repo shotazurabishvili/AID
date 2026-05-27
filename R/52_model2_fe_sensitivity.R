@@ -6,7 +6,7 @@
 #     commit  | disburse  ×  current USD | constant USD  ×  {raw, lag1, ma3, ma3_lag1}
 #
 # Where ma3 = trailing-inclusive (mean of t-2,t-1,t) and ma3_lag1 = strictly-past
-# (mean of t-3,t-2,t-1). All controls match Session-14 spec 2e (full controls,
+# (mean of t-3,t-2,t-1). All controls match headline spec 2e (full controls,
 # pre-conflict/COVID): log(GDP/cap) + PTR primary + ed_exp_%GDP + WGI gov_effect.
 # Two outcomes: hlo_hlo_score (primary, lock surface) + hci_lays_overall
 # (secondary robustness panel).
@@ -15,9 +15,9 @@
 #   output/tables/model2_fe_sensitivity.{csv,md}   (32 rows: 16 specs × 2 outcomes)
 #   output/figures/eda/model2_fe_sensitivity_plot.{pdf,png}
 #
-# Does NOT modify R/51_model2_fe.R. Session-14 baseline outputs remain intact;
+# Does NOT modify R/51_model2_fe.R. the headline baseline outputs remain intact;
 # this script's `disburse × constant USD × ma3 × HLO` cell must reproduce the
-# Session-14 2e coefficient to 3 decimals (validation check).
+# headline 2e coefficient to 3 decimals (validation check).
 
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -68,7 +68,7 @@ stopifnot(all(spec_grid$treatment_col %in% names(d)))
 message(sprintf("[model2-sens] 16-cell grid validated against panel columns"))
 
 # === 3. Fit one cell ==========================================================
-# Full controls = Session-14 spec 2e. No conflict/COVID — those are time-varying
+# Full controls = headline spec 2e. No conflict/COVID — those are time-varying
 # confounders relevant to 2g; for the encoding-sensitivity question we keep the
 # control stack fixed at 2e to isolate treatment-side variance.
 fit_cell <- function(treatment_col, outcome_col, data) {
@@ -115,7 +115,7 @@ results <- expand_grid(spec_grid, outcome = outcomes) |>
 message("[model2-sens] all 32 specs fitted")
 
 # === 5. Validation: baseline reproduces =======================================
-# Session-14 spec 2e uses disburse × constant USD × ma3 × HLO.
+# headline spec 2e uses disburse × constant USD × ma3 × HLO.
 baseline_cell <- results |>
   filter(outcome_label == "HLO",
          family == "disburse",
@@ -123,7 +123,7 @@ baseline_cell <- results |>
          transform == "ma3")
 
 cat("\n=== Baseline reproducibility check ===\n")
-cat(sprintf("Session-14 2e: β=10.953, SE=3.521, p=0.0030, N=143 (per output/tables/model2_fe_baseline.csv row 2e)\n"))
+cat(sprintf("headline 2e: β=10.953, SE=3.521, p=0.0030, N=143 (per output/tables/model2_fe_baseline.csv row 2e)\n"))
 cat(sprintf("New (52) cell: β=%.3f, SE=%.3f, p=%.4f, N=%d\n",
             baseline_cell$beta, baseline_cell$se, baseline_cell$p_value, baseline_cell$N))
 

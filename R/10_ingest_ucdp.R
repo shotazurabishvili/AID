@@ -2,7 +2,7 @@
 #
 # Source: UCDP/PRIO Armed Conflict Dataset v25.1 + UCDP Battle-Related Deaths v25.1
 #   (Uppsala Conflict Data Program / Peace Research Institute Oslo).
-# Reference: Data Stack; the manuscript methodology section (Confounders — conflict and COVID).
+# Reference: Data Stack; manuscript §3 (Confounders — conflict and COVID).
 # Methodology cite: Pettersson, Davies et al. (annual UCDP release).
 #
 # Two source files, both tiny CSVs in zip form (44 KB + 38 KB):
@@ -18,7 +18,7 @@
 # low-intensity violence is excluded. This is documented UCDP behavior; documented
 # in catalog notes.
 
-# === Pinned column lists (PHASE 1 LOCK — modify only via ADR) =======================
+# === Pinned column lists (PHASE 1 LOCK — modify only via PAP) =======================
 ACD_EXPECTED <- c("conflict_id", "year", "location", "gwno_loc",
                   "intensity_level", "type_of_conflict", "incompatibility")
 BRD_EXPECTED <- c("conflict_id", "year", "bd_best", "bd_low", "bd_high", "gwno_loc")

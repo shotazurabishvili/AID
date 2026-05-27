@@ -2,7 +2,7 @@
 #
 # Model 5 counterfactual simulation (redesigned).
 #
-# Per PAP-0011: brief's original "$1B redirect from input-based to outcome-based
+# Per PAP-0011: the original "$1B redirect from input-based to outcome-based
 # programs using Model-4 effect sizes" cannot be honored after Model 4 was
 # dropped (PAP-0007 Rejected). Two further constraints:
 #
@@ -13,7 +13,7 @@
 #       within-sample effect, not a 100x extrapolation coefficient.
 #
 #   (b) Without Model 4 there is no "input-based vs outcome-based" axis to
-#       redirect *between*. The brief's redirect framing has no quantitative
+#       redirect *between*. The redirect framing has no quantitative
 #       referent in this paper's identified models.
 #
 # Redesign: report Model 5 as a within-support marginal counterfactual on the
@@ -22,7 +22,7 @@
 # (lower 95% / point / upper 95% of Model 2 β) = 9 ΔHLO cells; each translated
 # to ΔLAYS at three implied-EYS percentiles via the WB LAYS identity.
 #
-# The brief's $1B is reported separately as a *bridging context note* — what
+# The $1B figure is reported separately as a *bridging context note* — what
 # fraction of the sample's total annual CRS it represents, and which within-
 # support scenario it most closely corresponds to. Bridge is in the output md,
 # not in the headline scenario table. This is the honest face of the Model-4
@@ -142,7 +142,7 @@ baseline_q3  <- quantile(baseline_ma, 0.75, na.rm = TRUE) |> unname()
 sample_total_M <- sum(baseline_ma, na.rm = TRUE)  # total annual aid in the sample, USD M
 
 # === 4. Implied EYS distribution from the LAYS identity ======================
-# LAYS = EYS * (HLO/625)  ⇒  EYS = LAYS * 625 / HLO   (per the manuscript methodology section)
+# LAYS = EYS * (HLO/625)  ⇒  EYS = LAYS * 625 / HLO   (per manuscript §3)
 eys_impl <- est_sample |>
   filter(!is.na(hci_lays_overall), hlo_hlo_score > 0) |>
   mutate(eys_impl = hci_lays_overall * HLO_SCALE_MAX / hlo_hlo_score) |>
@@ -197,7 +197,7 @@ main_out <- main_grid |>
 dir.create(dirname(OUT_MAIN_CSV), recursive = TRUE, showWarnings = FALSE)
 readr::write_csv(main_out, OUT_MAIN_CSV)
 
-# Brief-bridge context number: $1B distributed across the est sample = $X per
+# $1B-context context number: $1B distributed across the est sample = $X per
 # country avg = Y% on the median baseline → which within-support cell it lands in
 mean_per_country_if_1B <- 1000 / nrow(est_sample)   # $M per country
 pct_of_median_if_1B    <- 100 * mean_per_country_if_1B / baseline_med
@@ -212,14 +212,14 @@ main_md <- c(
   sprintf("**Baseline:** median annual CRS disbursement (MA3-lag1, constant USD millions) across the Model 2 estimation sample = **$%.1fM**. Q1 = $%.1fM; Q3 = $%.1fM.",
           baseline_med, baseline_q1, baseline_q3),
   "",
-  "**Shocks:** within-support percentage increases applied to the median country's annual disbursement. These stay near the support of the within-country log-CRS variation Model 2 was estimated on; a literal $1B injection to a single country (~20-50× baseline) would be a wild extrapolation beyond that support — see PAP-0011 and the project brief-bridge note below.",
+  "**Shocks:** within-support percentage increases applied to the median country's annual disbursement. These stay near the support of the within-country log-CRS variation Model 2 was estimated on; a literal $1B injection to a single country (~20-50× baseline) would be a wild extrapolation beyond that support — see PAP-0011 and the project $1B-context note below.",
   "",
   "**LAYS translation** via the WB identity ΔLAYS = EYS × ΔHLO / 625, holding EYS constant. Implied-EYS percentiles on the estimation sample: ",
   sprintf("p10 = %.2f yr; p50 = %.2f yr; p90 = %.2f yr.", eys_p10, eys_p50, eys_p90),
   "",
   knitr::kable(main_out, format = "pipe"),
   "",
-  "## Brief-bridge context: where does the $1B redirect land?",
+  "## $1B-context context: where does the $1B redirect land?",
   "",
   sprintf("A $1B annual increase distributed across the %d-country Model 2 estimation sample = **$%.2fM per country on average**, which is **%.1f%%** of the median baseline ($%.1fM) and **%.2f%%** of the sample's total annual education aid ($%.1fB). This lands in the low-shock band of the headline table; the $1B is *not* well-described by the highest-shock scenarios above. Applying the entire $1B to a single country would push that country %.0f× above its baseline — outside the data support Model 2 was identified on, and we do not project there.",
           nrow(est_sample), mean_per_country_if_1B, pct_of_median_if_1B,
@@ -229,11 +229,11 @@ main_md <- c(
   "## Limits acknowledged (per PAP-0011)",
   "",
   "- **Identification:** Model 2 is static FE on small-T (T_eff ≤ 4 HCI cycles per country); GMM unavailable (PAP-0010). β is identified within-country over time but does not preclude unmeasured time-varying confounding.",
-  "- **Composition:** counterfactual is on aggregate CRS disbursement only. The brief's input-vs-outcome typology question is unanswered (PAP-0007 Rejected; the manuscript).",
+  "- **Composition:** counterfactual is on aggregate CRS disbursement only. The input-vs-outcome typology question is unanswered (PAP-0007 Rejected; the manuscript).",
   "- **Single-cycle marginal projection** (one HCI cycle ≈ 5 yr); no inter-temporal discounting; not a steady-state forecast.",
   "- **Plug-in CI propagation** on β only (does not propagate joint regressor covariance) — chosen as the honest match for the static-FE inference base; a full Monte Carlo would overreach.",
   "- **LAYS identity holds EYS constant**, isolating the learning-quality channel; sensitivity to EYS across p10/p50/p90 is reported in-table.",
-  "- **Implementation quality / political economy / absorptive capacity** caveats per brief §2.",
+  "- **Implementation quality / political economy / absorptive capacity** caveats per manuscript §2.",
   ""
 )
 writeLines(main_md, OUT_MAIN_MD)
@@ -358,7 +358,7 @@ cat(sprintf("Implied EYS percentiles: p10=%.2f / p50=%.2f / p90=%.2f years\n",
             eys_p10, eys_p50, eys_p90))
 cat("\n--- Headline scenarios (ΔHLO at three β × three shocks; LAYS at median EYS) ---\n")
 print(main_out |> select(shock, scenario, delta_hlo_pts, delta_lays_p50))
-cat(sprintf("\nBrief-bridge: $1B distributed across N=%d countries = $%.2fM/country avg (%.1f%% of median baseline; %.2f%% of sample's total annual CRS of $%.2fB).\n",
+cat(sprintf("\n$1B-context: $1B distributed across N=%d countries = $%.2fM/country avg (%.1f%% of median baseline; %.2f%% of sample's total annual CRS of $%.2fB).\n",
             nrow(est_sample), mean_per_country_if_1B, pct_of_median_if_1B,
             total_pct_of_sample, sample_total_M / 1000))
 cat("\n--- Baseline-quartile sensitivity (expected β only at median EYS) ---\n")

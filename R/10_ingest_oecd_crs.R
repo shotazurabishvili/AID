@@ -2,7 +2,7 @@
 #
 # Source: OECD DAC Creditor Reporting System (CRS) — the **treatment variable**
 #   (ODA flows to education) anchoring the headline regression.
-# Reference: Data Stack; the manuscript methodology section
+# Reference: Data Stack; manuscript §3
 # Methodology cite: OECD DAC (annual CRS release)
 #
 # Bulk-download mechanism (discovered from ONEcampaign/oda_reader source):
@@ -14,12 +14,12 @@
 # IDFile=50f0355e-8f61-4230-85f3-90b4db45bfc9. The script rediscovers on each
 # stale-cache run so the next release is picked up automatically.
 #
-# Pending ADRs this ingest preserves (no locks this session):
+# Pending PAPs this ingest preserves (no locks this session):
 #   - PAP-0005 (commitment vs disbursement)  → both measures retained
 #   - PAP-0007 (intervention typology)       → project_title / short_description / long_description retained
 #   - PAP-0008 (Chinese aid inclusion)       → OECD CRS is DAC-only; GCDF  covers China
 #
-# === Pinned column list (PHASE 1 LOCK — modify only via ADR) ========================
+# === Pinned column list (PHASE 1 LOCK — modify only via PAP) ========================
 # Actual schema: legacy CRS dotStat format (NOT SDMX-dimensioned). Commitment and
 # disbursement are SEPARATE wide columns, not long-format rows. Deflated (constant-USD)
 # variants live alongside current-USD measures. PAP-0005 becomes a column-choice question;
@@ -173,7 +173,7 @@ if (length(missing_cols) > 0) {
   stop("[oecd_crs] pinned columns missing from CRS schema: ",
        paste(missing_cols, collapse = ", "),
        "\nAvailable columns: ", paste(all_cols, collapse = ", "),
-       "\nUpdate KEEP_COLS via an ADR if the upstream schema changed.")
+       "\nUpdate KEEP_COLS via an PAP if the upstream schema changed.")
 }
 
 # Probe sector_code to decide 3-digit vs 5-digit filter
@@ -287,7 +287,7 @@ p_ssa <- ggplot(ssa_long, aes(x = reorder(indicator, missing_pct),
   scale_fill_manual(values = c("Sub-Saharan Africa" = "#d95f02",
                                "Rest of world"      = "#7570b3")) +
   labs(title = "OECD CRS missingness: SSA vs rest of world",
-       subtitle = "the corresponding analytical step - feeds ADRs 0002 / 0005",
+       subtitle = "the corresponding analytical step - feeds PAPs 0002 / 0005",
        x = NULL, y = "Missing %", fill = NULL) +
   theme_minimal(base_size = 11) +
   theme(legend.position = "bottom")
@@ -332,7 +332,7 @@ update_catalog(
     "Schema: legacy CRS dotStat format (commitments + disbursements + grant-equivalent ",
     "are SEPARATE wide columns with paired _defl constant-USD variants). ",
     "Project-level resolution preserved; country-year aggregation in R/30_merge_panel.R. ",
-    "Pending ADRs preserved: 0005 (commitment vs disbursement = column choice), ",
+    "Pending PAPs preserved: 0005 (commitment vs disbursement = column choice), ",
     "0007 (intervention typology - project_title + short/long_description + keywords retained), ",
     "0008 (China inclusion - DAC-only here; GCDF the prior step complements). ",
     "Discovered IDFile=", sdmx_file_id, ". ",

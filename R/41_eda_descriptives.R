@@ -85,7 +85,7 @@ for (i in seq_len(nrow(VAR_SPEC))) {
 # Step 2: region-level mean + SD across countries
 fmt_cell <- function(values, fmt_kind) {
   v <- values[!is.na(values)]
-  if (length(v) == 0) return("—")
+  if (length(v) == 0) return(".")
   if (fmt_kind == "proportion") {
     sprintf("%.1f%%", mean(v))
   } else {

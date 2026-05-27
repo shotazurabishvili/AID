@@ -1,4 +1,4 @@
-part,term,statistic,2a (bivariate),2b (+log GDP/cap),2c (+PTR),2d (+ed exp; brief spec),2e (+gov effect; full),2f (+log GCDF; China-robust),2g (+conflict + COVID)
+part,term,statistic,2a (bivariate),2b (+log GDP/cap),2c (+PTR),2d (+ed exp; ed-exp spec),2e (+gov effect; full),2f (+log GCDF; China-robust),2g (+conflict + COVID)
 estimates,log(1 + CRS disburse MA3),estimate,2.087,1.905,13.334**,13.769***,10.947***,11.048**,10.833***
 estimates,log(1 + CRS disburse MA3),std.error,(2.208),(2.394),(5.588),(4.947),(3.595),(4.164),(4.034)
 estimates,log(GDP per capita),estimate,,5.485,2.247,-16.228,-25.029,-24.421,-29.654

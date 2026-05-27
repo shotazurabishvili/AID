@@ -30,4 +30,4 @@ Our defense in §3.4:
 ## Status
 - [x] Read primary source — : CGD WP 444 critique reviewed; the SSA-coverage concern (anchor sample thinness, item-level equating uncertainty) is documented; this is the most serious threat to the headline outcome variable
 - [x] Notes summarized above
-- [ ] Engaged in our manuscript (Methodology §3.4) — *engaged in `docs/the manuscript methodology section § 3.4` (proto-§3) with empirical SSA missingness numbers from making the critique concrete; flip this box once §3 lives in the Quarto draft ()*
+- [ ] Engaged in our manuscript (Methodology §3.4) — *engaged in manuscript §3.4 with empirical SSA missingness numbers from making the critique concrete; flip this box once §3 lives in the Quarto draft*

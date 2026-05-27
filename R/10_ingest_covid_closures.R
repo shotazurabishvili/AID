@@ -1,7 +1,7 @@
 # R/10_ingest_covid_closures.R
 #
 # Source: UNESCO Global Monitoring of COVID-19 School Closures.
-# Reference: Data Stack; the manuscript methodology section (Confounders — conflict and COVID).
+# Reference: Data Stack; manuscript §3 (Confounders — conflict and COVID).
 # Methodology cite: UNESCO Institute for Statistics — Global Monitoring of School Closures.
 #
 # Two source files from HDX mirror (cleaner direct download than UNESCO's dashboard portal):
@@ -16,7 +16,7 @@
 # We DERIVE country-year totals from the daily CSV (transparent operationalization)
 # and cross-check against UNESCO's published duration table.
 
-# === Pinned column lists (PHASE 1 LOCK — modify only via ADR) =======================
+# === Pinned column lists (PHASE 1 LOCK — modify only via PAP) =======================
 DAILY_EXPECTED <- c("Date", "ISO", "Country", "Status")
 EXPECTED_STATUS_VALUES <- c("Closed due to COVID-19", "Partially open",
                             "Fully open", "Academic break")

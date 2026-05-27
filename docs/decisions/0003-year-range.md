@@ -6,11 +6,11 @@
 
 ## Context
 
-The brief specifies **2000–2022 (23 years)**, anchored to the MDG/EFA window through the SDG era. But year selection has methodological consequences: pre-2002 HLO coverage is thin, OECD CRS detailed sector codes only stabilized around 2002–2004, and post-2020 data is partially affected by COVID disruptions.
+The original project spec specifies **2000–2022 (23 years)**, anchored to the MDG/EFA window through the SDG era. But year selection has methodological consequences: pre-2002 HLO coverage is thin, OECD CRS detailed sector codes only stabilized around 2002–2004, and post-2020 data is partially affected by COVID disruptions.
 
 ## Options considered
 
-1. **2000–2022** — brief default. Maximum panel length; captures full MDG + early SDG era.
+1. **2000–2022** — original-spec default. Maximum panel length; captures full MDG + early SDG era.
 2. **2005–2020** — restricted. Drops both ends to avoid thin pre-2005 coverage and COVID years (2020–2022) where school closures distort enrollment/learning measures.
 3. **2000–2019, with 2020–2022 as a COVID-controlled sub-sample** — keeps the long window but treats COVID years explicitly with closure-day controls (UNESCO COVID data).
 4. **2010–2020 (HCI-cycle-anchored)** — added after the HLO sparsity finding. All HLO observations are in 2010, 2017, 2018, 2020 (HCI cycles); pre-2010 cells contribute zero useful Model-2 observations. Maximizes useful-cell density.

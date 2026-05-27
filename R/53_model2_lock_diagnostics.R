@@ -5,7 +5,7 @@
 #   HLO ~ log(1 + crs_disburse_usd_defl_ma3_lag1) + log(GDP/cap) + PTR primary +
 #         ed_exp_%GDP + WGI gov effectiveness  |  iso3 + year
 #
-# Tests (parallel to Session-14 spec-2e diagnostics, applied to locked treatment):
+# Tests (parallel to headline spec-2e diagnostics, applied to locked treatment):
 #   - Hausman (FE vs RE) via plm::phtest
 #   - Wooldridge AR(1) on FE residuals via plm::pwartest
 #   - Breusch-Pagan heteroskedasticity via lmtest::bptest on parallel lm

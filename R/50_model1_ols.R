@@ -11,7 +11,7 @@
 #   1a: HLO ~ log(1+CRS_disburse)                                       (bivariate)
 #   1b: + log(GDP/cap)
 #   1c: + PTR primary
-#   1d: + ed_exp_%GDP                                                   (brief's spec)
+#   1d: + ed_exp_%GDP                                                   (per spec)
 #   1e: + Gov_effect (WGI)                                              (full Model 1)
 #   1f: + log(1+GCDF)                                                   (China robust)
 #
@@ -27,7 +27,7 @@
 #          output/tables/model1_vif.csv                     (VIF per spec)
 #          output/figures/eda/model1_coefficient_plot.{pdf,png}
 #
-# ADR linkage: PAP-0002 universe, PAP-0003 primary window, PAP-0005 (Pending,
+# PAP linkage: PAP-0002 universe, PAP-0003 primary window, PAP-0005 (Pending,
 # disburse_defl primary intent), PAP-0006 (UIS controls dropped — Option 3).
 
 suppressPackageStartupMessages({
@@ -86,7 +86,7 @@ m_hlo[["1b (+log GDP/cap)"]] <- feols(hlo ~ log_crs_disb + log_gdp_pc,
                                        data = cm, vcov = "hetero")
 m_hlo[["1c (+PTR)"]]   <- feols(hlo ~ log_crs_disb + log_gdp_pc + ptr_primary,
                                  data = cm, vcov = "hetero")
-m_hlo[["1d (+ed exp; brief spec)"]] <-
+m_hlo[["1d (+ed exp; ed-exp spec)"]] <-
   feols(hlo ~ log_crs_disb + log_gdp_pc + ptr_primary + edu_exp_pct_gdp,
         data = cm, vcov = "hetero")
 m_hlo[["1e (+gov effect; full)"]] <-

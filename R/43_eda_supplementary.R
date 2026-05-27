@@ -9,7 +9,7 @@
 #        uses geom_point only (no line; HLO observed at 4 HCI cycles only,
 #        connecting them would imply false interpolation). Other panels use
 #        line + point + SE ribbon. Combined via cowplot::plot_grid.
-#   §3 — Income-group stratification of Session-11 Table 1. Uses
+#   §3 — Income-group stratification of the descriptive Table 1. Uses
 #        WDI::WDI_data$country$income for classification (no new ingest).
 #
 # Inputs:  data/interim/panel.parquet
@@ -274,7 +274,7 @@ for (i in seq_len(nrow(VAR_SPEC))) {
 
 fmt_cell <- function(values, fmt_kind) {
   v <- values[!is.na(values)]
-  if (length(v) == 0) return("—")
+  if (length(v) == 0) return(".")
   if (fmt_kind == "proportion") {
     sprintf("%.1f%%", mean(v))
   } else {

@@ -9,7 +9,7 @@ Refit of Model 2 spec 2e with `uis_priv_exp_pct_gdp` added to the regressor stac
 |Primary (UIS dropped, PAP-0006 Option 3) | 143|   11.136|  5.518|    0.3207|    21.951|     NA|       NA|     NA|     NA|
 |Robustness 1 (UIS-augmented listwise)    |  41|   -1.967|  4.395|  -10.5812|     6.648| 0.6602|    24.15|  17.37| 0.1825|
 
-**ODA-coefficient sign agreement:** ✗ DIFFERENT SIGN — investigate
-**ODA-coefficient within-CI agreement:** ✗ outside-CI — investigate
+**ODA-coefficient sign agreement:** FAIL: different sign (investigate)
+**ODA-coefficient within-CI agreement:** FAIL: outside-CI (investigate)
 
 **Reading per PAP-0006:** if primary, listwise-UIS, and (former) MI-UIS all give the same sign and within-CI magnitude, the result is robust to the UIS-inclusion choice. With multiple imputation retired by PAP-0012, the listwise vs primary comparison carries the full robustness burden in that direction.

@@ -12,7 +12,7 @@
 # BTI, V-Dem) are NOT ingested here; that's deferred to the analysis if PAP-0009
 # selects an option requiring source-level reconstruction.
 #
-# === Pinned indicator list (PHASE 1 LOCK — modify only via ADR) =====================
+# === Pinned indicator list (PHASE 1 LOCK — modify only via PAP) =====================
 # For each of the six WGI dimensions, retain three metrics:
 #   <dim>_est    Estimate of governance (range ~-2.5 to 2.5)
 #   <dim>_se     Standard error (model-based, smaller = more sources / agreement)

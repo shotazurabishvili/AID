@@ -8,7 +8,7 @@
 #   2a: HLO ~ log(1+CRS_disburse_defl_MA3)                              | iso3 + year
 #   2b: + log(GDP/cap)
 #   2c: + PTR primary
-#   2d: + ed_exp_%GDP                                                   (brief's spec)
+#   2d: + ed_exp_%GDP                                                   (per spec)
 #   2e: + Gov_effect (WGI)                                              (full Model 2)
 #   2f: + log(1+GCDF_MA3)                                               (China-robust preview)
 #   2g: + in_conflict + COVID_days_closed_recode                        (time-varying confounders)
@@ -18,7 +18,7 @@
 # COVID NA→0 recode: covid_days_closed is non-NA only in 2020-2022 (UNESCO).
 # For pre-2020 years (2010-2019) we code 0 — pre-pandemic = no closure exposure.
 # This is a substantive modeling choice extending the production panel's NA→0
-# convention from aid flows to COVID exposure. See the manuscript notes.
+# convention from aid flows to COVID exposure. See manuscript §3.
 #
 # SE: country-clustered. FE: two-way (country + year). feols auto-drops
 # singleton-FE countries (6 countries with 1 HLO obs each).
@@ -93,7 +93,7 @@ m_hlo[["2b (+log GDP/cap)"]] <-
 m_hlo[["2c (+PTR)"]] <-
   feols(hlo_hlo_score ~ log_crs_disb_ma3 + log_gdp_pc + wdi_ptr_primary | iso3 + year,
         data = d, vcov = ~iso3)
-m_hlo[["2d (+ed exp; brief spec)"]] <-
+m_hlo[["2d (+ed exp; ed-exp spec)"]] <-
   feols(hlo_hlo_score ~ log_crs_disb_ma3 + log_gdp_pc + wdi_ptr_primary +
           wdi_edu_exp_pct_gdp | iso3 + year,
         data = d, vcov = ~iso3)
@@ -271,10 +271,10 @@ cat("\n=== Model 2 headline (HLO outcome, two-way FE) ===\n")
 cat(sprintf("Bivariate (2a):  N=%d  β=%.3f  SE=%.3f  p=%.4f\n",
             m_biv$nobs, oda_coef(m_biv), oda_se(m_biv), oda_p(m_biv)))
 cat(sprintf("Brief spec (2d): N=%d  β=%.3f  SE=%.3f  p=%.4f\n",
-            m_hlo[["2d (+ed exp; brief spec)"]]$nobs,
-            oda_coef(m_hlo[["2d (+ed exp; brief spec)"]]),
-            oda_se(m_hlo[["2d (+ed exp; brief spec)"]]),
-            oda_p(m_hlo[["2d (+ed exp; brief spec)"]])))
+            m_hlo[["2d (+ed exp; ed-exp spec)"]]$nobs,
+            oda_coef(m_hlo[["2d (+ed exp; ed-exp spec)"]]),
+            oda_se(m_hlo[["2d (+ed exp; ed-exp spec)"]]),
+            oda_p(m_hlo[["2d (+ed exp; ed-exp spec)"]])))
 cat(sprintf("Full (2e):       N=%d  β=%.3f  SE=%.3f  p=%.4f\n",
             m_full$nobs, oda_coef(m_full), oda_se(m_full), oda_p(m_full)))
 cat(sprintf("Full+conf+COVID (2g):  N=%d  β=%.3f  SE=%.3f  p=%.4f\n",

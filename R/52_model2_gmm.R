@@ -306,7 +306,7 @@ p <- ggplot(plot_data, aes(x = beta, y = estimator)) +
   labs(title = "Model 2 identification triangulation",
        subtitle = "Coefficient on log(1 + CRS_disburse_defl_MA3) across estimators; 95% CIs",
        x = "Coefficient (HLO score points per unit log CRS)", y = NULL,
-       caption = "Static FE = Session-14 baseline; Bond bounds = OLS-LDV (upper) + LSDV (lower); GMM = Difference + System (cycle-indexed).") +
+       caption = "Static FE = the headline baseline; Bond bounds = OLS-LDV (upper) + LSDV (lower); GMM = Difference + System (cycle-indexed).") +
   theme_minimal(base_size = 10) +
   theme(plot.subtitle = element_text(color = "grey30", size = 9),
         plot.caption = element_text(color = "grey40", size = 8, hjust = 0))

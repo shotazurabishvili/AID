@@ -71,7 +71,7 @@ Response: Agreed — and that is exactly why Model 2 (within-country fixed effec
 
 ## Data observed (, 2026-05-23) — Sensitivity check did not confirm sign agreement
 
-The principal robustness check committed in this ADR was executed at : refit Model 2 spec 2e using `aap_hlo_aap` as outcome instead of `hlo_hlo_score`. Two specifications, to disentangle measure-choice from sample-window:
+The principal robustness check committed in this PAP was executed at : refit Model 2 spec 2e using `aap_hlo_aap` as outcome instead of `hlo_hlo_score`. Two specifications, to disentangle measure-choice from sample-window:
 
 | Spec | Outcome | Sample window | N (post-singleton) | β_ODA | SE | p |
 |---|---|---|---|---|---|---|
@@ -83,7 +83,7 @@ Source: `output/tables/pass1_hlo_sensitivity.{csv,md}`. Evidence and full detail
 
 **The methodology §3.4 commitment "the within-country coefficient must be the same sign and within-CI magnitude across the primary and AAP-2018 specifications for the headline claim to stand" is not met.** Sign agreement fails on both the full AAP coverage (1995–2015) and the overlap-window restriction (year ≥ 2010). The overlap-window null result rules out *sample-window composition* as the sole driver of the failure: the HLO measure choice itself materially affects the headline.
 
-**Researcher adaptation (chosen 2026-05-23 by author):** hedge the headline claim throughout the manuscript rather than withdraw it. The §6 Discussion frames the measure-sensitivity as itself a methodological contribution about the cross-country aid-learning literature — *the within-country positive coefficient is real in the WB HCI HLOS specification on the 2010–2020 panel; the AAP-2018 alternative does not corroborate it*. Manuscript should consistently use phrasing like "in the WB HCI HLOS specification" rather than naked "ODA positively predicts learning". Methodology §3.4.1 documents this; findings §5.8 reports the numbers transparently. This ADR is **not superseded** — the lock decision (Option 1 primary, Option 2 robustness) stands; what is updated is the empirical observation that the robustness comparison reveals fragility rather than confirmation.
+**Researcher adaptation (chosen 2026-05-23 by author):** hedge the headline claim throughout the manuscript rather than withdraw it. The §6 Discussion frames the measure-sensitivity as itself a methodological contribution about the cross-country aid-learning literature — *the within-country positive coefficient is real in the WB HCI HLOS specification on the 2010–2020 panel; the AAP-2018 alternative does not corroborate it*. Manuscript should consistently use phrasing like "in the WB HCI HLOS specification" rather than naked "ODA positively predicts learning". Methodology §3.4.1 documents this; findings §5.8 reports the numbers transparently. This PAP is **not superseded** — the lock decision (Option 1 primary, Option 2 robustness) stands; what is updated is the empirical observation that the robustness comparison reveals fragility rather than confirmation.
 
 The alternative responses considered and rejected at the same decision point:
 - *Defend WB HCI HLOS as preferred via Sandefur (2018) critique of AAP* — would require relegating the failed robustness check to a footnote rather than honoring methodology §3.4's prior commitment.

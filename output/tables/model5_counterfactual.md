@@ -22,16 +22,16 @@ p10 = 7.25 yr; p50 = 11.57 yr; p90 = 13.18 yr.
 |+50% (mid-shock)   |Expected case (β point estimate) |          59.69|       29.84|        0.4000|    11.1360|         4.454|         0.0517|         0.0824|         0.0940|
 |+50% (mid-shock)   |Best case (β upper 95% CI)       |          59.69|       29.84|        0.4000|    21.9513|         8.780|         0.1019|         0.1625|         0.1852|
 
-## Counterfactual at the brief.s high-shock end
+## Counterfactual at the $1B high-shock end
 
-A $1B annual increase distributed across the 173-country Model 2 estimation sample = **$5.78M per country on average**, which is **9.7%** of the median baseline ($59.7M) and **5.49%** of the sample's total annual education aid ($18.2B). This lands in the low-shock band of the headline table; the brief's $1B is *not* well-described by the highest-shock scenarios above. Applying the entire $1B to a single country would push that country 18× above its baseline — outside the data support Model 2 was identified on, and we do not project there.
+A $1B annual increase distributed across the 173-country Model 2 estimation sample = **$5.78M per country on average**, which is **9.7%** of the median baseline ($59.7M) and **5.49%** of the sample's total annual education aid ($18.2B). This lands in the low-shock band of the headline table; the $1B figure is *not* well-described by the highest-shock scenarios above. Applying the entire $1B to a single country would push that country 18× above its baseline — outside the data support Model 2 was identified on, and we do not project there.
 
 ## Limits acknowledged (per the corresponding pre-analysis plan)
 
 - **Identification:** Model 2 is static FE on small-T (T_eff ≤ 4 HCI cycles per country); GMM unavailable (PAP-0010). β is identified within-country over time but does not preclude unmeasured time-varying confounding.
-- **Composition:** counterfactual is on aggregate CRS disbursement only. The brief's input-vs-outcome typology question is unanswered.
+- **Composition:** counterfactual is on aggregate CRS disbursement only. The input-vs-outcome typology question is unanswered.
 - **Single-cycle marginal projection** (one HCI cycle ≈ 5 yr); no inter-temporal discounting; not a steady-state forecast.
 - **Plug-in CI propagation** on β only (does not propagate joint regressor covariance) — chosen as the honest match for the static-FE inference base; a full Monte Carlo would overreach.
 - **LAYS identity holds EYS constant**, isolating the learning-quality channel; sensitivity to EYS across p10/p50/p90 is reported in-table.
-- **Implementation quality / political economy / absorptive capacity** caveats per brief §2.
+- **Implementation quality / political economy / absorptive capacity** caveats per manuscript §2.
 

@@ -6,28 +6,28 @@
 
 ## Context
 
-This is the project's session-zero ADR. The user (practitioner-researcher) wants a durable multi-session scaffold for a quantitative paper targeting *World Development*. Several foundational forks needed to be locked before any analysis begins: statistical environment, version control, workspace location, engagement model, and the session-continuity mechanism.
+This is the project's foundational PAP. The author (practitioner-researcher) needed a durable scaffold for a quantitative paper targeting *World Development*. Several foundational forks had to be locked before any analysis begins: statistical environment, version control, workspace location, engagement model, and the decision-record mechanism.
 
 ## Options considered
 
-1. **R + renv on WSL, hybrid workspace, ADR + per-session-log continuity model** (chosen)
+1. **R + renv on WSL, hybrid workspace, PAP + per-session-log continuity model** (chosen)
 2. **Python with pyfixest / statsmodels** — no system install needed, faster start, but slightly weaker HLM ecosystem and less idiomatic for World Development reviewers
 3. **R on Windows + RStudio, called from WSL via Rscript.exe** — heavier, gives the author a GUI, but adds cross-filesystem complexity
 
 ## Decision
 
-**R + renv installed on WSL.** Primary workspace at `~/AID` (fast Linux I/O); selected artifacts mirrored to `C:\Users\szura\Desktop\AID\mirror\` via rsync so the author sees current outputs on Windows. Git initialized locally; private GitHub remote (`shotazurabishvili/AID`) from day one because *World Development* expects a reproducibility deposit at submission. Continuity model: a one pre-analysis plan per consequential analytical choice, deposited at `docs/decisions/`.
+**R + renv installed on Linux.** Primary workspace on a Linux filesystem (fast I/O); selected artifacts mirrored to a local Windows directory via rsync so the author sees current outputs on Windows. Git initialized locally; private GitHub remote (`shotazurabishvili/AID`) from day one because *World Development* expects a reproducibility deposit at submission. Continuity model: a one pre-analysis plan per consequential analytical choice, deposited at `docs/decisions/`.
 
 **Why this combination:**
 
 - *R over Python*:  explicitly prefers R; `fixest` and `lme4` are the gold standard for the panel-FE and HLM models that anchor the paper; World Development referees are R-fluent.
 - *WSL over Windows*: R package install times and data wrangling are markedly faster on the Linux filesystem; the hybrid mirror gives up almost nothing.
 - *Git + GitHub from day one*: the cost is one `gh repo create`; the payoff is the journal's reproducibility deposit being trivial when submission time comes.
-- *ADR + per-session log over a single rolling log*: this is a 30–45 session project. A single log becomes unscannable. ADRs surface decision points that  warns will be challenged by referees (variable operationalization, missingness strategy, group coding).
+- *Per-decision PAPs over a single rolling log*: a single rolling log becomes unscannable over a long project. PAPs surface decision points expected to be challenged by referees (variable operationalization, missingness strategy, group coding).
 
 ## Consequences
 
-- Every analytical decision a referee could plausibly attack gets its own ADR with an "imagined critique + response" section. This pre-funds the adversarial Pass 3 review.
+- Every analytical decision a referee could plausibly attack gets its own PAP with an "imagined critique + response" section. This pre-funds adversarial review.
 - 
 - 
 - Raw data is gitignored; reproducibility relies on `data/catalog.md` source URLs + access dates, not bundled data.

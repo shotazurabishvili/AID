@@ -115,8 +115,8 @@ for (i in seq_len(nrow(bucket_regex))) {
 }
 crs$bucket_rule[is.na(crs$bucket_rule)] <- "unclassified"
 
-# === 3. LLM-via-purpose-code classifier =====================================
-message("\n[typology] applying LLM-via-purpose-code classifier")
+# === 3. model-assisted purpose-code classifier =====================================
+message("\n[typology] applying model-assisted purpose-code classifier")
 
 # code_map has purpose_code (integer in CRS; CSV may store as int)
 code_map <- code_map |> mutate(purpose_code = as.integer(purpose_code))
@@ -135,7 +135,7 @@ rule_dist <- crs |> count(bucket_rule) |> mutate(pct = round(100 * n / sum(n), 2
   arrange(desc(n))
 print(rule_dist)
 
-cat("\n=== LLM-via-purpose-code bucket distribution ===\n")
+cat("\n=== model-assisted purpose-code bucket distribution ===\n")
 llm_dist <- crs |> count(bucket_llm) |> mutate(pct = round(100 * n / sum(n), 2)) |>
   arrange(desc(n))
 print(llm_dist)
@@ -167,7 +167,7 @@ kappa <- (p_o - p_e) / (1 - p_e)
 cat(sprintf("[typology] Cohen's κ: %.4f (Landis-Koch ≥0.70 = substantial; ≥0.81 = almost perfect)\n",
             kappa))
 
-cat("\n=== Confusion matrix (rule vs LLM, joint-classified) ===\n")
+cat("\n=== Confusion matrix (rule vs model-assisted, joint-classified) ===\n")
 print(ct)
 
 # Lock criterion check (binding: ≥85% AND κ≥0.70)
@@ -230,7 +230,7 @@ md_lines <- c(
           ifelse(both_pass && unclassified_pass, "LOCK PAP-0007 → Accepted",
                  "ESCALATE to Option 3 (hand-coding)")),
   "",
-  "## Confusion matrix (rows: rule-based, cols: LLM-via-purpose-code)",
+  "## Confusion matrix (rows: rule-based, cols: model-assisted purpose-code)",
   "",
   knitr::kable(as.data.frame.matrix(ct), format = "pipe"),
   "",
@@ -239,7 +239,7 @@ md_lines <- c(
   "### Rule-based",
   knitr::kable(rule_dist, format = "pipe"),
   "",
-  "### LLM-via-purpose-code",
+  "### model-assisted purpose-code",
   knitr::kable(llm_dist, format = "pipe")
 )
 writeLines(md_lines, OUT_AGREE_MD)
@@ -257,7 +257,7 @@ message(sprintf("[typology] wrote %s (%d rows × %d cols)",
 
 # === 7. Country-year × bucket panel =========================================
 message("\n[typology] aggregating to country-year × bucket")
-# Use rule-based as primary; LLM-derived bucket as secondary panel for robustness
+# Use rule-based as primary; model-assisted bucket as secondary panel for robustness
 cy_rule <- crs_out |>
   filter(!is.na(iso3)) |>
   group_by(iso3, year, bucket = bucket_rule) |>

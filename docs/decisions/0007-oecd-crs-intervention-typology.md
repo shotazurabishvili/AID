@@ -1,12 +1,12 @@
 # PAP-0007: OECD CRS intervention typology coding
 
-**Status:** Rejected —  (2026-05-23)
+**Status:** Rejected (2026-05-23)
 **Date:** 2026-05-23
 **Phase:** 7 — Model 4 (closed without estimation)
 
 ## Context
 
-The brief's Model 4 specification:
+The original Model 4 specification:
 
 > *"One-Way ANOVA: Intervention Typology — Groups (mutually exclusive — coding decision must be defended): Infrastructure aid / Teacher training aid / Curriculum / materials aid / Budget support"*
 
@@ -14,7 +14,7 @@ OECD CRS purpose codes (5-digit) like 11110, 11220, 11230, 11240, 11320, 11420 t
 
 - The mapping is a methodological choice
 - A mistaken or biased coding could drive a spurious ANOVA result
-- The brief explicitly warns: *"Groups (mutually exclusive — coding decision must be defended)"*
+- The original project spec explicitly warns: *"Groups (mutually exclusive — coding decision must be defended)"*
 
 ## Options considered
 
@@ -66,7 +66,7 @@ Concretely: Model 4 is removed from the paper. The empirical headline is Models 
 
 *"Your typology is post-hoc — you decided which projects count as 'teacher training' after seeing the data."*
 
-This attack does not land. The 4 categories were pre-specified in ; the lock criteria were pre-specified in this ADR before R/61 ran. The data showed the gate could not be cleared. We did not re-tune to cross the gate; we honored the pre-commitment and dropped the model.
+This attack does not land. The 4 categories were pre-specified in ; the lock criteria were pre-specified in this PAP before R/61 ran. The data showed the gate could not be cleared. We did not re-tune to cross the gate; we honored the pre-commitment and dropped the model.
 
 *"LLM classification is a black box, not science."*
 
@@ -74,7 +74,7 @@ Moot — the LLM-via-purpose-code comparator was retained for transparency, but 
 
 *"You dropped Model 4 to hide a finding you didn't like."*
 
-The opposite. We dropped Model 4 because we could not produce a finding we could defend. The failure numbers are reported transparently in `the manuscript` and in this ADR; the artifacts are on disk in the reproducibility package. A pre-committed protocol catching an unfeasible design is the gate working as designed — that's the methodological strength, not a weakness. Failure to surface this in the paper would be the bias-by-selection move; surfacing it explicitly is the honest one.
+The opposite. We dropped Model 4 because we could not produce a finding we could defend. The failure numbers are reported transparently in `the manuscript` and in this PAP; the artifacts are on disk in the reproducibility package. A pre-committed protocol catching an unfeasible design is the gate working as designed — that's the methodological strength, not a weakness. Failure to surface this in the paper would be the bias-by-selection move; surfacing it explicitly is the honest one.
 
 *"Why did you ingest the project text and write the classifier at all if you were going to drop the model?"*
 
